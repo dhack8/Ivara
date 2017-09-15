@@ -41,4 +41,35 @@ public class ClassMap {
 
         return instances;
     }
+
+    /**
+     * Checks to see whether an object is contained within the ClassMap
+     * @param obj The object to check
+     * @return A boolean regarding whether the object exists
+     */
+    public boolean contains(Object obj){
+        return map.containsKey(obj.getClass()) && map.get(obj.getClass()).contains(obj);
+    }
+
+    /**
+     * Gets the number of instances of classes within the ClassMap
+     * @return The count of class instances
+     */
+    public int size(){
+        int size = 0;
+        for(Collection<Object> entry: map.values()){
+            size += entry.size();
+        }
+        return size;
+    }
+
+    /**
+     * Gets the number of instances of a given class within the ClassMap
+     * @param clazz The class to check
+     * @param <T> The type of class
+     * @return The number of items
+     */
+    public <T> int size(Class<T> clazz){
+        return map.get(clazz)==null? 0 : map.get(clazz).size();
+    }
 }

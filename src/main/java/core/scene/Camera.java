@@ -1,4 +1,4 @@
-package core.renderer;
+package core.scene;
 
 import maths.Vector;
 
@@ -10,16 +10,15 @@ import maths.Vector;
 public class Camera {
     private Vector location;
     private Vector dimension;
-    private double scale;
+    private float scale;
 
     /**
-     * Creates a new camera with just the dimension of the screen, default location 0,0 and scale 1.0.
-     * @param dimension dimensions of current screen.
+     * Creates a new camera, default location 0,0 and scale 1.0.
      */
-    public Camera(Vector dimension){
+    public Camera(){
         this.location = new Vector(0,0);
-        this.dimension = dimension;
-        scale = 1.0;
+        this.dimension = new Vector(999, 999);
+        scale = 100.0f;
     }
 
     /**
@@ -44,7 +43,7 @@ public class Camera {
      * Sets the camera scale.
      * @param s scale
      */
-    public void setScale(double s){
+    public void setScale(float s){
         scale = s;
     }
 
@@ -68,7 +67,7 @@ public class Camera {
      * Getter for the camera scale.
      * @return scale of camera
      */
-    public double getScale(){
+    public float getScale(){
         return scale;
     }
 }

@@ -5,6 +5,7 @@ import core.components.SpriteComponent;
 import util.ClassMap;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -13,13 +14,14 @@ import java.util.*;
 public abstract class Scene {
 
     // Need a Map of Class -> Set, since we need to access the set of components from a given class type
+    private Camera camera;
     ClassMap classMap = new ClassMap();
-
 
     /**
      * Empty scene construction
      */
     public Scene(){
+        camera = new Camera();
         //components = new HashMap<>();
         throw new UnsupportedOperationException();
     }
@@ -51,5 +53,9 @@ public abstract class Scene {
 
     public <T> Collection<T> getComponents(Class<T> type) { // Want to be able to access the components in the map by a type
         return classMap.get(type);
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 }
