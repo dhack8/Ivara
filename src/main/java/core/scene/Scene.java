@@ -50,7 +50,7 @@ public abstract class Scene {
 
     }
 
-    private <T extends Component> Collection<T> getComponents(Class<T> type) { // Want to be able to access the components in the map by a type
+    public  <T extends Component> Collection<T> getComponents(Class<T> type) { // Want to be able to access the components in the map by a type
         // Do .get() on this new collection
         //if(){
 
