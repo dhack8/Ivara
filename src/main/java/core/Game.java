@@ -1,5 +1,6 @@
 package core;
 
+import core.input.InputBroadcaster;
 import core.input.InputHandler;
 import core.renderer.PRenderer;
 import core.renderer.Renderer;
@@ -18,6 +19,7 @@ public abstract class Game {
     private long tickTime = 17;
 
     private Renderer renderer;
+    private InputBroadcaster inputBroadcaster;
 
 
     public void draw() {
@@ -32,12 +34,17 @@ public abstract class Game {
     }
 
     //----------------------Input Handler---------------------
-    /**
-    @Override
+
+    public void a() {
+        inputBroadcaster.addKeyListener(this);
+        inputBroadcaster.addMouseListener(this);
+    }
+
     public void mousePressed() {
         InputHandler.setMousePressed(true, mouseButton);
     }
 
+    /**
     @Override
     public void mouseReleased() {
         InputHandler.setMousePressed(false, mouseButton);
