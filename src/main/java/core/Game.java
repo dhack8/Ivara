@@ -1,9 +1,6 @@
 package core;
 
-import core.input.InputHandler;
-import core.renderer.PRenderer;
 import core.renderer.Renderer;
-import processing.core.PApplet;
 
 /**
  * Created by Callum Li on 9/14/17.
