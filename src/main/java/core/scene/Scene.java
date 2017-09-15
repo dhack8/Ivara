@@ -47,7 +47,7 @@ public abstract class Scene {
     public void addEntity(Entity entity, String name) {
         namedEntities.put(name, entity);
         entities.add(entity);
-        for(Component comp : Entity.getComponents()){
+        for(Component comp : entity.getComponents()){
             classMap.put(comp);
         }
     }
@@ -58,7 +58,7 @@ public abstract class Scene {
      */
     public void addEntity(Entity entity) {
         entities.add(entity);
-        for(Component comp : Entity.getComponents()){
+        for(Component comp : entity.getComponents()){
             classMap.put(comp);
         }
     }

@@ -6,6 +6,7 @@ import core.scene.Camera;
 import core.scene.Entity;
 import core.scene.Scene;
 import maths.Vector;
+import processing.core.PApplet;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,30 +17,32 @@ import java.util.List;
  *
  * @author David Hack
  */
-public class PRenderer {
+public class PWindow extends PApplet implements Renderer{
 
     private Game game;
 
-    private void render(Game game) {
-        this.game = game;
+    @Override
+    public void settings(){
+        size(1800, 900);
+        noLoop();
     }
 
-    public void draw(Scene scene){
+    public void render(Scene scene){
         Collection<Entity> entities = new ArrayList<>();
 
         Camera camera = scene.getCamera();
         Vector cameraLoc = camera.getLocation();
 
-        game.scale(camera.getScale());
-        game.translate(-cameraLoc.x, -cameraLoc.y);
+        scale(camera.getScale());
+        translate(-cameraLoc.x, -cameraLoc.y);
 
         for(Entity e : entities){
             //Collection<SpriteComponent> sprite = e.getComponents(SpriteComponent.class);
 
             Vector position = e.getPosition();
 
-            game.color(0,0,0);
-            game.rect(position.x, position.y, 1, 1);
+            color(0,0,0);
+            rect(position.x, position.y, 1, 1);
         }
     }
 }
