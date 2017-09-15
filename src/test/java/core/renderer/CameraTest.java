@@ -73,7 +73,7 @@ public class CameraTest {
      */
     @Test
     public void setScale() throws Exception {
-        confirmScale(1.0f);
+        confirmScale(100.0f);
 
         testCam.setScale(999);
         confirmScale(999);
