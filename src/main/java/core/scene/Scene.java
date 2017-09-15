@@ -5,6 +5,7 @@ import core.components.SpriteComponent;
 import util.ClassMap;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
