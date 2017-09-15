@@ -25,8 +25,8 @@ public class CollisionUtilTest {
      */
     @Test
     public void intersectTest1() throws Exception {
-        AABBCollidier a = new AABBCollidier(new Vector(0,0), new Vector(10, 10));
-        AABBCollidier b = new AABBCollidier(new Vector(0,0), new Vector(10, 10));
+        AABBCollider a = new AABBCollider(new Vector(0,0), new Vector(10, 10));
+        AABBCollider b = new AABBCollider(new Vector(0,0), new Vector(10, 10));
 
         assertTrue(CollisionUtil.intersect(a,b));
     }
@@ -37,8 +37,8 @@ public class CollisionUtilTest {
      */
     @Test
     public void intersectTest2() throws Exception {
-        AABBCollidier a = new AABBCollidier(new Vector(-5,-5), new Vector(6, 6));
-        AABBCollidier b = new AABBCollidier(new Vector(5,5), new Vector(5, 5));
+        AABBCollider a = new AABBCollider(new Vector(-5,-5), new Vector(6, 6));
+        AABBCollider b = new AABBCollider(new Vector(5,5), new Vector(5, 5));
 
         assertTrue(CollisionUtil.intersect(a,b));
     }
@@ -49,8 +49,8 @@ public class CollisionUtilTest {
      */
     @Test
     public void intersectTest3() throws Exception {
-        AABBCollidier a = new AABBCollidier(new Vector(-5,-5), new Vector(4, 4));
-        AABBCollidier b = new AABBCollidier(new Vector(5,5), new Vector(5, 5));
+        AABBCollider a = new AABBCollider(new Vector(-5,-5), new Vector(4, 4));
+        AABBCollider b = new AABBCollider(new Vector(5,5), new Vector(5, 5));
 
         assertFalse(CollisionUtil.intersect(a,b));
     }

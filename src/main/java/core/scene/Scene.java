@@ -1,8 +1,8 @@
 package core.scene;
 
-import core.components.CollidierComponent;
 import core.components.Component;
 import core.components.SpriteComponent;
+import util.ClassMap;
 
 import java.io.File;
 import java.util.*;
@@ -13,16 +13,13 @@ import java.util.*;
 public abstract class Scene {
 
     // Need a Map of Class -> Set, since we need to access the set of components from a given class type
-    ClassMap test;
     private Camera camera;
-
-
+    ClassMap classMap = new ClassMap();
 
     /**
      * Empty scene construction
      */
     public Scene(){
-        test = new ClassMap(); // TODO play around with this idea
         camera = new Camera();
         //components = new HashMap<>();
         throw new UnsupportedOperationException();
@@ -52,20 +49,9 @@ public abstract class Scene {
 
     }
 
-    public  <T extends Component> Collection<? extends T> getComponents(Class<T> type) { // Want to be able to access the components in the map by a type
-        // Do .get() on this new collection
-        //if(){
 
-        //}
-        //return components.get(type);
-
-
-        throw new UnsupportedOperationException();
-
-    }
-
-    public Collection<SpriteComponent> getSpriteComponents() {
-        return getComponents(SpriteComponent.class);
+    public <T> Collection<T> getComponents(Class<T> type) { // Want to be able to access the components in the map by a type
+        return classMap.get(type);
     }
 
     public Camera getCamera() {

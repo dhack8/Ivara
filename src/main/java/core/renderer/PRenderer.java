@@ -2,6 +2,7 @@ package core.renderer;
 
 import core.Game;
 import core.components.SpriteComponent;
+import core.scene.Camera;
 import core.scene.Entity;
 import core.scene.Scene;
 import maths.Vector;
@@ -18,15 +19,19 @@ import java.util.List;
 public class PRenderer {
 
     private Game game;
-    private Scene scene;
 
-    private void render(Scene scene, Game game) {
+    private void render(Game game) {
         this.game = game;
-        this.scene = scene;
     }
 
-    public void draw(){
+    public void draw(Scene scene){
         Collection<Entity> entities = new ArrayList<>();
+
+        Camera camera = scene.getCamera();
+        Vector cameraLoc = camera.getLocation();
+
+        game.scale(camera.getScale());
+        game.translate(-cameraLoc.x, -cameraLoc.y);
 
         for(Entity e : entities){
             Vector position = e.getPosition();

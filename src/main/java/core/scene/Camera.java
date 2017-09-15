@@ -10,7 +10,7 @@ import maths.Vector;
 public class Camera {
     private Vector location;
     private Vector dimension;
-    private double scale;
+    private float scale;
 
     /**
      * Creates a new camera, default location 0,0 and scale 1.0.
@@ -18,7 +18,7 @@ public class Camera {
     public Camera(){
         this.location = new Vector(0,0);
         this.dimension = new Vector(999, 999);
-        scale = 1.0;
+        scale = 100.0f;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Camera {
      * Sets the camera scale.
      * @param s scale
      */
-    public void setScale(double s){
+    public void setScale(float s){
         scale = s;
     }
 
@@ -67,7 +67,7 @@ public class Camera {
      * Getter for the camera scale.
      * @return scale of camera
      */
-    public double getScale(){
+    public float getScale(){
         return scale;
     }
 }

@@ -22,8 +22,7 @@ public class CameraTest {
      */
     @Before
     public void setUp() throws Exception {
-        Vector dimen = new Vector(600, 600);
-        testCam = new Camera(dimen);
+        testCam = new Camera();
     }
 
     /**
@@ -59,7 +58,7 @@ public class CameraTest {
      */
     @Test
     public void setDimension() throws Exception {
-        confirmDimension(600, 600);
+        confirmDimension(999, 999);
 
         testCam.setDimension(0, 0);
         confirmDimension(0, 0);
@@ -79,7 +78,7 @@ public class CameraTest {
         testCam.setScale(999);
         confirmScale(999);
 
-        testCam.setScale(0.001);
+        testCam.setScale(0.001f);
         confirmScale(0.001f);
     }
 
@@ -128,7 +127,7 @@ public class CameraTest {
         scale = testCam.getScale();
         confirmScale(scale);
 
-        testCam.setScale(1.5);
+        testCam.setScale(1.5f);
 
         scale = testCam.getScale();
         confirmScale(scale);
