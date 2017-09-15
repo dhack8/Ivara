@@ -9,11 +9,11 @@ public class CollisionUtil {
 
     /**
      * Returns whether two given AABBCollidiers are intersecting.
-     * @param a The first AABBCollidier.
-     * @param b The second AABBCollidier.
+     * @param a The first AABBCollider.
+     * @param b The second AABBCollider.
      * @return True if they are intersecting, false otherwise.
      */
-    static boolean intersect(AABBCollidier a, AABBCollidier b) {
+    static boolean intersect(AABBCollider a, AABBCollider b) {
 
         if (Math.abs(a.center.x - b.center.x) > (a.radius.x + b.radius.x)) {
             return false;
