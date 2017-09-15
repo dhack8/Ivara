@@ -26,4 +26,5 @@ public abstract class Entity {
     public void setPosition(Vector position) {
         this.position = position;
     }
+
 }
