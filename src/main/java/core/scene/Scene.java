@@ -22,7 +22,6 @@ public abstract class Scene {
      * Empty scene construction
      */
     public Scene(){
-        test = new ClassMap(); // TODO play around with this idea
         //components = new HashMap<>();
         throw new UnsupportedOperationException();
     }
@@ -51,8 +50,8 @@ public abstract class Scene {
 
     }
 
+
     public  <T> Collection<T> getComponents(Class<T> type) { // Want to be able to access the components in the map by a type
         return classMap.get(type);
     }
-
 }
