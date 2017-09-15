@@ -1,12 +1,22 @@
 package core;
 
 import core.input.InputHandler;
+import core.renderer.PRenderer;
 import processing.core.PApplet;
 
 /**
  * Created by Callum Li on 9/14/17.
  */
 public abstract class Game extends PApplet {
+
+    // Time Keepers in milliseconds.
+    private long past = System.currentTimeMillis();
+    private long accumulator = 0;
+
+    // Update Ticks Time in milliseconds.
+    private long tickTime = 17;
+
+    private PRenderer renderer;
 
     @Override
     public void setup() {
@@ -20,8 +30,13 @@ public abstract class Game extends PApplet {
 
     @Override
     public void draw() {
-        super.draw();
-        rect(20, 20, 100, 100);
+        accumulator += System.currentTimeMillis() - past;
+        if (accumulator >= tickTime) {
+            // do Tick
+            accumulator -= tickTime;
+        }
+        // do rendering
+        past = System.currentTimeMillis();
     }
 
     //----------------------Input Handler---------------------
