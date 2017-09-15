@@ -2,6 +2,7 @@ package core.scene;
 
 import core.components.CollidierComponent;
 import core.components.Component;
+import core.components.SpriteComponent;
 
 import java.io.File;
 import java.util.*;
@@ -60,5 +61,9 @@ public abstract class Scene {
 
         throw new UnsupportedOperationException();
 
+    }
+
+    public Collection<SpriteComponent> getSpriteComponents() {
+        return getComponents(SpriteComponent.class);
     }
 }
