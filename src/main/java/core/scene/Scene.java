@@ -14,7 +14,7 @@ public abstract class Scene {
 
     // Need a Map of Class -> Set, since we need to access the set of components from a given class type
     ClassMap test;
-
+    private Camera camera;
 
 
 
@@ -23,6 +23,7 @@ public abstract class Scene {
      */
     public Scene(){
         test = new ClassMap(); // TODO play around with this idea
+        camera = new Camera();
         //components = new HashMap<>();
         throw new UnsupportedOperationException();
     }
@@ -65,5 +66,9 @@ public abstract class Scene {
 
     public Collection<SpriteComponent> getSpriteComponents() {
         return getComponents(SpriteComponent.class);
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 }

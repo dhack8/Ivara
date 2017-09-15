@@ -1,7 +1,7 @@
 package core.renderer;
 
+import core.scene.Camera;
 import maths.Vector;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
