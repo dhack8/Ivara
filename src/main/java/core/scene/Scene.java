@@ -22,7 +22,7 @@ public abstract class Scene {
      */
     public Scene(){
         test = new ClassMap(); // TODO play around with this idea
-        components = new HashMap<>();
+        //components = new HashMap<>();
         throw new UnsupportedOperationException();
     }
 
@@ -52,13 +52,13 @@ public abstract class Scene {
 
     private <T extends Component> Collection<T> getComponents(Class<T> type) { // Want to be able to access the components in the map by a type
         // Do .get() on this new collection
-        if(){
+        //if(){
 
-        }
-        return components.get(type);
+        //}
+        //return components.get(type);
 
 
-        //throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
 
     }
 }
