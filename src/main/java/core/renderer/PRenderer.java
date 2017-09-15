@@ -34,9 +34,12 @@ public class PRenderer {
         game.translate(-cameraLoc.x, -cameraLoc.y);
 
         for(Entity e : entities){
+            //Collection<SpriteComponent> sprite = e.getComponents(SpriteComponent.class);
+
             Vector position = e.getPosition();
+
             game.color(0,0,0);
-            game.rect(position.x*100, position.y*100, 100, 100);
+            game.rect(position.x, position.y, 1, 1);
         }
     }
 }
