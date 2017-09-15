@@ -16,8 +16,6 @@ public abstract class Scene {
     ClassMap classMap = new ClassMap();
 
 
-
-
     /**
      * Empty scene construction
      */

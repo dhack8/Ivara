@@ -34,7 +34,7 @@ public class InputHandler {
      * @param code keyCode
      * @return true if the key is pressed.
      */
-    static boolean keyPressed(int code) {
+    public static boolean keyPressed(int code) {
         return keyPressed[code];
     }
 
@@ -43,7 +43,7 @@ public class InputHandler {
      * @param button mouseButton
      * @return true if the button is pressed
      */
-    static boolean mousePressed(int button) {
+    public static boolean mousePressed(int button) {
         return mousePressed[button];
     }
 
