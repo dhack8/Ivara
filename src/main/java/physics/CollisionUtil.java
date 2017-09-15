@@ -3,7 +3,9 @@ package physics;
 /**
  * Created by Callum Li on 9/15/17.
  */
-public class Collision {
+public class CollisionUtil {
+
+
 
     /**
      * Returns whether two given AABBCollidiers are intersecting.
@@ -11,7 +13,7 @@ public class Collision {
      * @param b The second AABBCollidier.
      * @return True if they are intersecting, false otherwise.
      */
-    public static boolean intersect(AABBCollidier a, AABBCollidier b) {
+    static boolean intersect(AABBCollidier a, AABBCollidier b) {
 
         if (Math.abs(a.center.x - b.center.x) > (a.radius.x + b.radius.x)) {
             return false;
