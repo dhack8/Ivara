@@ -1,4 +1,4 @@
-package pxljam;
+package pxljam.entities;
 
 import core.components.CollidierComponent;
 import core.components.ScriptComponent;
@@ -6,13 +6,14 @@ import core.components.SpriteComponent;
 import core.scene.Entity;
 
 /**
- * Created by Alex Mitchell on 15/09/2017.
+ * This class handles the entity of the player within the game
  */
 public class PlayerEntity extends Entity{
 
-    SpriteComponent sprite;
-    ScriptComponent script;
-    CollidierComponent collider;
+    private SpriteComponent sprite;
+    private ScriptComponent script;
+    private CollidierComponent collider;
+
 
 }
 
