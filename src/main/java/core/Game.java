@@ -5,5 +5,5 @@ import processing.core.PApplet;
 /**
  * Created by Callum Li on 9/14/17.
  */
-public class Game extends PApplet {
+public abstract class Game extends PApplet {
 }
