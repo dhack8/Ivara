@@ -8,8 +8,8 @@ package core.input;
  */
 public class InputHandler {
 
-    private static boolean[] keyPressed = new boolean[222];
-    private static boolean[] mousePressed = new boolean[10];
+    private static boolean[] keyPressed = new boolean[525];
+    private static boolean[] mousePressed = new boolean[38];
 
     /**
      * Sets the key to whether it is pressed or not.
