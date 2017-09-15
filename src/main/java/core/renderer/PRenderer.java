@@ -1,7 +1,11 @@
 package core.renderer;
 
 import core.Game;
+import core.components.SpriteComponent;
 import core.scene.Scene;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Class that will render the given scene when asked to.
@@ -19,6 +23,7 @@ public class PRenderer {
     }
 
     public void draw(){
+        Collection<SpriteComponent> sprites = (Collection<SpriteComponent>) scene.getComponents(SpriteComponent.class);
 
     }
 }
