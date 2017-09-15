@@ -16,8 +16,6 @@ public abstract class Scene {
     ClassMap test;
 
 
-
-
     /**
      * Empty scene construction
      */
