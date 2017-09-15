@@ -2,8 +2,11 @@ package core.renderer;
 
 import core.Game;
 import core.components.SpriteComponent;
+import core.scene.Entity;
 import core.scene.Scene;
+import maths.Vector;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,7 +26,12 @@ public class PRenderer {
     }
 
     public void draw(){
-        Collection<SpriteComponent> sprites = (Collection<SpriteComponent>) scene.getComponents(SpriteComponent.class);
+        Collection<Entity> entities = new ArrayList<>();
 
+        for(Entity e : entities){
+            Vector position = e.getPosition();
+            game.color(0,0,0);
+            game.rect(position.x*100, position.y*100, 100, 100);
+        }
     }
 }
