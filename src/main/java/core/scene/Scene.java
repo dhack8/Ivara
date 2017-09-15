@@ -9,21 +9,26 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 /**
- * Created by Callum Li on 9/15/17.
+ * This class represents a Scene within the game
+ * @author Alex Mitchell
+ * @author Callum Li
  */
 public abstract class Scene {
 
     // Need a Map of Class -> Set, since we need to access the set of components from a given class type
     private Camera camera;
-    ClassMap classMap = new ClassMap();
+    private ClassMap classMap;
+    private Map<String, Entity> namedEntities;
+    private Set<Entity> entities;
 
     /**
      * Empty scene construction
      */
     public Scene(){
         camera = new Camera();
-        //components = new HashMap<>();
-        throw new UnsupportedOperationException();
+        classMap = new ClassMap();
+        namedEntities = new HashMap<>();
+        entities = new HashSet<>();
     }
 
     /**
@@ -33,23 +38,47 @@ public abstract class Scene {
         throw new UnsupportedOperationException();
     }
 
-    private void addEntity(Entity entity, String name) {
-        // Add the entity to the entity collection
-        // Add the relevant components to the Set of those specific components
-        throw new UnsupportedOperationException();
-
+    /**
+     * Adds an entity to the collection of entities within the Scene
+     * The entity is also added to the collection of named entities in the scene
+     * @param entity The entity to add
+     * @param name The name of the entity
+     */
+    public void addEntity(Entity entity, String name) {
+        namedEntities.put(name, entity);
+        entities.add(entity);
+        for(Component comp : Entity.getComponents()){
+            classMap.put(comp);
+        }
     }
 
-    private void addEntity(Entity entity) {
-        throw new UnsupportedOperationException();
-
+    /**
+     * Adds an entity to the collection of the entities within the Scene
+     * @param entity The entity to add
+     */
+    public void addEntity(Entity entity) {
+        entities.add(entity);
+        for(Component comp : Entity.getComponents()){
+            classMap.put(comp);
+        }
     }
 
-    private Entity getEntity(String name) {
-        throw new UnsupportedOperationException();
-
+    /**
+     * Gets a named Entity via a given name
+     * @param name The name of the entity
+     * @return The entity, if it exists
+     */
+    public Entity getEntity(String name){
+        return namedEntities.get(name);
     }
 
+    /**
+     * Gets all the entities in the Scene
+     * @return The entities
+     */
+    public Set<Entity> getEntities(){
+        return entities;
+    }
 
     public <T> Collection<T> getComponents(Class<T> type) { // Want to be able to access the components in the map by a type
         return classMap.get(type);
