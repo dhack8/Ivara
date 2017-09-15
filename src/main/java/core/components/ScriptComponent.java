@@ -16,7 +16,7 @@ public abstract class ScriptComponent extends Component {
     public static final int SPACE = 32;
 
     // Fields
-    private Entity entity;
+    protected Entity entity;
 
     public ScriptComponent(Entity e) {
         entity = e;
@@ -24,6 +24,7 @@ public abstract class ScriptComponent extends Component {
 
     /**
      * Updates the entity.
+     * @param dmt elapsed milliseconds since last update
      */
-    public abstract void update();
+    public abstract void update(long dmt);
 }
