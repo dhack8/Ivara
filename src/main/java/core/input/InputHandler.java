@@ -1,20 +1,65 @@
 package core.input;
 
 /**
- * Created by Callum Li on 9/15/17.
+ * Stores the input passed in by Game for use by the other libraries.
+ *
+ * @author Will Pearson
+ * @version 1.0
  */
 public class InputHandler {
 
+    private static boolean[] keyPressed = new boolean[222];
+    private static boolean[] mousePressed = new boolean[10];
 
-    private static boolean keyPressed(int keyCode) {
-        throw new UnsupportedOperationException();
+    /**
+     * Sets the key to whether it is pressed or not.
+     * @param pressed key pressed.
+     * @param code key code
+     */
+    public static void setKeyPressed(boolean pressed, int code) {
+        keyPressed[code] = pressed;
     }
 
-    private static boolean mousedPressed(int mouseButton) {
-        throw new UnsupportedOperationException();
+    /**
+     * Sets the mouse button to being pressed or not.
+     * @param pressed mouse pressed
+     * @param button button number
+     */
+    public static void setMousePressed(boolean pressed, int button) {
+        mousePressed[button] = pressed;
     }
 
+    /**
+     * Checks if the given key is pressed
+     * @param code keyCode
+     * @return true if the key is pressed.
+     */
+    static boolean keyPressed(int code) {
+        return keyPressed[code];
+    }
+
+    /**
+     * Checks if the given mouse button is pressed.
+     * @param button mouseButton
+     * @return true if the button is pressed
+     */
+    static boolean mousePressed(int button) {
+        return mousePressed[button];
+    }
+
+    /**
+     * May not be required
+     * @param listener listener
+     */
     private static void addMouseListener(MouseListener listener) {
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Clears all input.
+     */
+    static void clear() {
+        mousePressed = new boolean[10];
+        keyPressed = new boolean[222];
     }
 }
