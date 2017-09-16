@@ -1,9 +1,6 @@
 package core;
 
-import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.core.PImage;
-
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -17,8 +14,7 @@ import java.util.HashMap;
  * Created by james on 16/09/2017.
  */
 public class AssetHandler {
-
-    //TODO: static fields? or better workaround available?
+    
     private static Map<String, PImage> images;
 
     public AssetHandler(Game game){
