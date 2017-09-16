@@ -90,6 +90,6 @@ public class SceneFromFile {
     }
 
     private static ColliderComponent readCollider(){
-
+        return null;
     }
 }
