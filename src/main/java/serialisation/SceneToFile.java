@@ -50,16 +50,18 @@ public class SceneToFile {
             bw.write(Float.toString(camera.getScale()));
             bw.newLine();
 
-
+            int count = 1;
             for(Entity e : entities){
-                System.out.println(e.getClass());
-                //bw.write();
+                //bw.write(e.getClass().getSimpleName());
+                bw.write(e.getClass().getName());
+                bw.newLine();
+                bw.write(Integer.toString(count));
+                count++;
             }
 
             //iterate through all entities
             //get class (as name)
             //check constructor
-            entities.getClass().getDeclaredFields();
 
 
         } catch (IOException e) {
