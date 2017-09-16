@@ -30,6 +30,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
 
+    private Camera camera;
+
     /**
      * TODO
      * @param mask
@@ -89,16 +91,13 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     @Override
     public void draw(){
         background(220, 220, 220);
+        camera = currentScene.getCamera();
 
-        Camera camera = currentScene.getCamera();
         Vector cameraLoc = camera.getLocation();
-
-        scale(camera.getScale());
         translate(-cameraLoc.x, -cameraLoc.y);
 
         for (Entity e : currentScene.getEntities()) {
             for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
-
                 // TODO: render sprite based on scene camera
                 drawSprite(e.getPosition().x, e.getPosition().y, 1, 1, spriteComponent);
             }
@@ -114,7 +113,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, float width, float height, PSpriteComponent sprite){
-        image(AssetHandler.getImage(sprite.getResourceID()), x, y, width, height);
+        float scale = camera.getScale();
+        image(AssetHandler.getImage(sprite.getResourceID()), x*scale, y*scale, width*scale, height*scale);
     }
 
     //---------------------- Input Broadcaster ------------------------
