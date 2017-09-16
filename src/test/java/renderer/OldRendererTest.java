@@ -21,12 +21,12 @@ public class OldRendererTest {
 
         Scene scene = new Scene() {};
         Entity testEntity = new Entity(new Vector(1, 1)) {};
-        scene.addEntity(testEntity);
+        //scene.addEntity(testEntity);
 
-        Game game = new TheLegend27();
-        game.setCurrentScene(scene);
+        //Game game = new TheLegend27();
+        //game.setCurrentScene(scene);
 
-        testOldRenderer = new OldRenderer(game);
+        //testOldRenderer = new OldRenderer(game);
 
         while(true){
 
