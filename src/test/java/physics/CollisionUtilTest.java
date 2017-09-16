@@ -8,16 +8,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by Callum Li on 9/15/17.
+ * CollisionUtil unit tests.
+ * Assumes y axis is top down and x axis is left right.
+ *
+ * @author Will Pearson
  */
 public class CollisionUtilTest {
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
 
     /**
      * Tests whether two identical AABBCollidiers intersect.
@@ -108,29 +104,29 @@ public class CollisionUtilTest {
     }
 
     /**
-     * Tests for correct minimal horizontal vector when A intersects B.
-     * A is on the left of B.
+     * Tests for correct minimal vertical vector when A intersects B.
+     * A is above B.
      */
     @Test
     public void minimalVerticalVector1() {
         AABBCollider a = generateAABBCollider(0,0,5,5);
-        AABBCollider b = generateAABBCollider(10,0,7,7);
-        Vector expectedResult = new Vector(2,0);
+        AABBCollider b = generateAABBCollider(0,10,7,7);
+        Vector expectedResult = new Vector(0,2);
 
-        assertEquals(CollisionUtil.minimumHorizontalVector(a,b),expectedResult);
+        assertEquals(CollisionUtil.minimumVerticalVector(a,b),expectedResult);
     }
 
     /**
-     * Tests for correct minimal horizontal vector when A intersects B.
-     * A is on the right of B.
+     * Tests for correct minimal vertical vector when A intersects B.
+     * A is below B.
      */
     @Test
     public void minimalVerticalVector2() {
         AABBCollider b = generateAABBCollider(0,0,5,5);
-        AABBCollider a = generateAABBCollider(10,0,7,7);
-        Vector expectedResult = new Vector(-2,0);
+        AABBCollider a = generateAABBCollider(0,10,7,7);
+        Vector expectedResult = new Vector(0,-2);
 
-        assertEquals(CollisionUtil.minimumHorizontalVector(a,b),expectedResult);
+        assertEquals(CollisionUtil.minimumVerticalVector(a,b),expectedResult);
     }
 
     /**
@@ -140,8 +136,8 @@ public class CollisionUtilTest {
     @Test
     public void minimalVerticalVector3() {
         AABBCollider a = generateAABBCollider(0,0,5,5);
-        AABBCollider b = generateAABBCollider(10,0,3,3);
-        Vector expectedResult = new Vector(0,2);
+        AABBCollider b = generateAABBCollider(0,10,3,3);
+        Vector expectedResult = new Vector(0,-2);
 
         assertEquals(CollisionUtil.minimumVerticalVector(a,b),expectedResult);
     }
@@ -154,9 +150,35 @@ public class CollisionUtilTest {
     public void minimalVerticalVector4() {
         AABBCollider b = generateAABBCollider(0,0,5,5);
         AABBCollider a = generateAABBCollider(0,10,3,3);
-        Vector expectedResult = new Vector(0,-2);
+        Vector expectedResult = new Vector(0,2);
 
         assertEquals(CollisionUtil.minimumVerticalVector(a,b),expectedResult);
+    }
+
+    /**
+     * Tests for the correct minimal distance vector when a change in
+     * x is smaller than a change in y.
+     */
+    @Test
+    public void minimalDistanceVector1() {
+        AABBCollider a = generateAABBCollider(0,0,5,5);
+        AABBCollider b = generateAABBCollider(9,7,5,5);
+        Vector expectedResult = new Vector(1,0);
+
+        assertEquals(CollisionUtil.minimumDistanceVector(a,b),expectedResult);
+    }
+
+    /**
+     * Tests for the correct minimal distance vector when a change in
+     * x is larger than a change in y.
+     */
+    @Test
+    public void minimalDistanceVector2() {
+        AABBCollider a = generateAABBCollider(0,0,5,5);
+        AABBCollider b = generateAABBCollider(7,9,5,5);
+        Vector expectedResult = new Vector(0,1);
+
+        assertEquals(CollisionUtil.minimumDistanceVector(a,b),expectedResult);
     }
 
     //------------- Helper methods ------------------------------
