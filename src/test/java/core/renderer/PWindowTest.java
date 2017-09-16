@@ -6,6 +6,7 @@ import maths.Vector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import processing.core.PApplet;
 
 import static org.junit.Assert.*;
 
@@ -23,6 +24,8 @@ public class PWindowTest {
     public void setUp() throws Exception {
         window = new PWindow(1800, 900);
         scene = new Scene() {};
+
+        PApplet.runSketch(new String[0], window);
     }
 
     @Test
