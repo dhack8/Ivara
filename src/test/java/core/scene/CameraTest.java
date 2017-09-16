@@ -1,4 +1,4 @@
-package core.renderer;
+package core.scene;
 
 import core.scene.Camera;
 import maths.Vector;
