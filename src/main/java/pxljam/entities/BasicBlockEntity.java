@@ -19,7 +19,7 @@ public class BasicBlockEntity extends Entity{
     public BasicBlockEntity(float x, float y, String recourseID){
         super(new Vector(x,y));
         Vector v = new Vector(x,y);
-        addComponent(new PSpriteComponent(this, recourseID));
-        //addComponent(new ColliderComponent(this, null)); // Todo change the Collider
+        addComponent(new PSpriteComponent(this, recourseID, 1, 1));
+       // addComponent(new ColliderComponent(this, null)); // Todo change the Collider
     }
 }

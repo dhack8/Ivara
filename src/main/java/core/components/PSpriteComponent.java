@@ -2,19 +2,23 @@ package core.components;
 
 import core.scene.Entity;
 import maths.Vector;
-import processing.core.PImage;
 
 /**
  * Created by Callum Li on 9/15/17.
  */
 public class PSpriteComponent extends Component {
 
-    private Vector transform = new Vector(0, 0);
+    private Vector transform;
     private final String resourceID;
 
-    public PSpriteComponent(Entity entity, String resourceID) {
+    private Vector dimensions;
+
+    public PSpriteComponent(Entity entity, String resourceID, float width, float height) {
         super(entity);
+        transform = new Vector(0,0);
         this.resourceID = resourceID;
+
+        this.dimensions = new Vector(width, height);
     }
 
     /**
@@ -31,5 +35,15 @@ public class PSpriteComponent extends Component {
      */
     public Vector getTransform() {
         return transform;
+    }
+
+
+    public Vector getLocation(){
+        Vector superLocation = super.getPosition();
+        return new Vector(transform.x + superLocation.x, transform.y + superLocation.y);
+    }
+
+    public Vector getDimensions() {
+        return dimensions;
     }
 }

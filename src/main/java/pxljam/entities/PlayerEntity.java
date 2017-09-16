@@ -2,7 +2,6 @@ package pxljam.entities;
 
 import core.components.ColliderComponent;
 import core.components.PSpriteComponent;
-import core.components.ScriptComponent;
 import core.scene.Entity;
 import maths.Vector;
 import pxljam.scripts.PlayerController;
@@ -13,6 +12,8 @@ import pxljam.scripts.PlayerController;
  */
 public class PlayerEntity extends Entity{
 
+    Vector previous = new Vector(0,0);
+
     /**
      * Creates a PlayerEntity at a given position
      * @param x The x position
@@ -21,9 +22,9 @@ public class PlayerEntity extends Entity{
     public PlayerEntity(float x, float y){
         super(new Vector(x,y));
 
-        addComponent(new PSpriteComponent(this, "player")); //Todo change the PSprite component
+        addComponent(new PSpriteComponent(this, "player", 1,1.5f)); //Todo change the PSprite component
         addComponent(new PlayerController(this));
-        addComponent(new ColliderComponent(this, null)); //Todo Change the Collider component
+       // addComponent(new ColliderComponent(this, null)); //Todo Change the Collider component
     }
 }
 

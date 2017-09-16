@@ -4,8 +4,6 @@ import core.components.ColliderComponent;
 import core.entity.EntityContainer;
 import maths.Vector;
 
-import java.util.Collection;
-
 /**
  * Created by Callum Li on 9/16/17.
  */

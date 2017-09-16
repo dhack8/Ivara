@@ -16,7 +16,7 @@ public abstract class Game {
     /**
      * The number of milliseconds per update tick.
      */
-    private long tickTime = 17;
+    private long tickTime = 10;
 
     /**
      * The current scene of the game.
@@ -32,6 +32,7 @@ public abstract class Game {
         this.currentScene = initialScene;
         this.renderer = renderer;
 
+        assert inputBroadcaster != null;
         // Update InputHandler based on input event's broadcasted by
         // the input broadcaster.
         inputBroadcaster.addKeyListener(new InputUpdater());
