@@ -1,5 +1,6 @@
 package pxljam;
 
+import core.components.PSpriteComponent;
 import core.scene.Entity;
 import maths.Vector;
 
@@ -12,6 +13,7 @@ public class TestEntity extends Entity {
         super(position);
 
         addComponent(new TestScript(this));
+        addComponent(new PSpriteComponent(this, "player"));
     }
 
 }

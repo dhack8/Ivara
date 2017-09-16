@@ -61,17 +61,17 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
     @Override
     public void draw(){
+
+
         for (Entity e : currentScene.getEntities()) {
             for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
 
                 // todo: render sprite based on scene camera
-                rect(e.getPosition().x, e.getPosition().y, 10, 10);
+                drawSprite(e.getPosition().x, e.getPosition().y, 100, 100, spriteComponent);
             }
-
-            rect(e.getPosition().x, e.getPosition().y, 10, 10);
         }
     }
-    
+
     /**
      * Draws a sprite in the given location.
      * @param x x location
@@ -80,7 +80,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param height height
      * @param sprite the sprite to draw
      */
-    private void drawSprite(int x, int y, int width, int height, PSpriteComponent sprite){
+    private void drawSprite(float x, float y, float width, float height, PSpriteComponent sprite){
         image(AssetHandler.getImage(sprite.getResourceID()), x, y, width, height);
     }
 

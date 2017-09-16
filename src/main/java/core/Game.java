@@ -57,10 +57,11 @@ public abstract class Game {
 
         while (true) {
             accumulator += System.currentTimeMillis() - past;
+            past = System.currentTimeMillis();
 
             // Update the game while more than a tick's worth
             // of time needs to be processed.
-            if (accumulator >= tickTime) {
+            while (accumulator >= tickTime) {
                 // do Tick
                 currentScene.update(tickTime);
 
@@ -69,7 +70,6 @@ public abstract class Game {
 
             // Display the current scene.
             renderer.render(currentScene);
-            past = System.currentTimeMillis();
         }
     }
 
