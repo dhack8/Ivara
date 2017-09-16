@@ -12,9 +12,6 @@ import pxljam.scripts.PlayerController;
  * @author Alex Mitchell
  */
 public class PlayerEntity extends Entity{
-    private PSpriteComponent sprite;
-    private ScriptComponent script;
-    private ColliderComponent collider;
 
     /**
      * Creates a PlayerEntity at a given position
@@ -23,9 +20,10 @@ public class PlayerEntity extends Entity{
      */
     public PlayerEntity(float x, float y){
         super(new Vector(x,y));
-        this.sprite = new PSpriteComponent(this, "player"); //Todo change the PSprite component
-        this.script = new PlayerController(this);
-        this.collider = new ColliderComponent(this, null); //Todo Change the Collider component
+
+        addComponent(new PSpriteComponent(this, "player")); //Todo change the PSprite component
+        addComponent(new PlayerController(this));
+        addComponent(new ColliderComponent(this, null)); //Todo Change the Collider component
     }
 }
 
