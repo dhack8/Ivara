@@ -1,17 +1,16 @@
 package pxljam.entities;
 
 import core.components.ColliderComponent;
-import core.components.SpriteComponent;
 import core.scene.Entity;
+import core.components.PSpriteComponent;
 import maths.Vector;
-import physics.Collider;
 
 /**
  * This class handles the basic platform entity
  * @author Alex Mitchell
  */
 public class BasicPlatformEntity extends Entity{
-    private SpriteComponent sprite;
+    private PSpriteComponent sprite;
     private ColliderComponent collider;
 
     /**
@@ -22,7 +21,7 @@ public class BasicPlatformEntity extends Entity{
     public BasicPlatformEntity(float x, float y){
         super(new Vector(x,y));
         Vector v = new Vector(x,y);
-        sprite = new SpriteComponent();
+        sprite = new PSpriteComponent();
         collider = new ColliderComponent();
     }
 }

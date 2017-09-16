@@ -11,4 +11,8 @@ public abstract class Component {
     public Component(Entity entity) {
         this.entity = entity;
     }
+
+    public final Entity getEntity() {
+        return entity;
+    }
 }
