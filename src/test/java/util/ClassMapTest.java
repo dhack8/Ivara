@@ -36,17 +36,19 @@ public class ClassMapTest {
 
     @Test
     public void testBasicGet1(){
-        Double t1 = 1.0;
-        Double t2 = 2.0;
-        Double t3 = 3.0;
-        Double t4 = 4.0;
-        map.put(t1);
-        map.put(t2);
-        map.put(t3);
-        map.put(t4);
+        int testSize = 4;
 
-        //Collection<Double> check = map.get();
-        // Currently difficult to create an collection with what is returned from get
+        List<Integer> testValues = new ArrayList<>();
+        for(int i = 0; i < testSize; i++){
+            Integer test = i;
+            testValues.add(test);
+            map.put(test);
+        }
 
+        Collection<Integer> temp = map.get(Integer.class);
+        for(Integer i : testValues){
+            assert temp.contains(i);
+        }
+        assert temp.size() == testSize;
     }
 }

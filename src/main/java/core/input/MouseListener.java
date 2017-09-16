@@ -1,9 +1,9 @@
 package core.input;
 
 /**
- * Created by Callum Li on 9/15/17.
+ * Listens for mouse input
  */
 public interface MouseListener {
 
-    // Fill in with mouse events
+    void setMousePressed(boolean b, int mouseButton);
 }

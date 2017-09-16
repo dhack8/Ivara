@@ -15,11 +15,8 @@ public abstract class ScriptComponent extends Component {
     public static final int D = 68;
     public static final int SPACE = 32;
 
-    // Fields
-    protected Entity entity;
-
-    public ScriptComponent(Entity e) {
-        entity = e;
+    public ScriptComponent(Entity entity) {
+        super(entity);
     }
 
     /**
