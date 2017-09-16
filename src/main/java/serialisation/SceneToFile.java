@@ -1,7 +1,7 @@
 package serialisation;
 
 import core.scene.Camera;
-import core.scene.Entity;
+import core.entity.Entity;
 import core.scene.Scene;
 
 import java.io.BufferedWriter;

@@ -1,6 +1,7 @@
 package core.scene;
 
 import core.components.Component;
+import core.entity.Entity;
 import core.entity.EntityContainer;
 import physics.BasicCollisionResolver;
 import util.ClassMap;

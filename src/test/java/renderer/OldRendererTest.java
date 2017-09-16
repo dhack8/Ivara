@@ -1,12 +1,10 @@
 package renderer;
 
-import core.Game;
-import core.scene.Entity;
+import core.entity.Entity;
 import core.scene.Scene;
 import maths.Vector;
 import org.junit.Test;
 import processing.core.PApplet;
-import pxljam.TheLegend27;
 
 /**
  * Created by dhack on 16-Sep-17.

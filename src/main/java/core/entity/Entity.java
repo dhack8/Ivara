@@ -1,4 +1,4 @@
-package core.scene;
+package core.entity;
 
 import core.components.Component;
 import maths.Vector;

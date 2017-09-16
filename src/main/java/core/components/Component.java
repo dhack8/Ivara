@@ -1,6 +1,6 @@
 package core.components;
 
-import core.scene.Entity;
+import core.entity.Entity;
 
 /**
  * Created by Callum Li on 9/15/17.

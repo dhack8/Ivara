@@ -1,6 +1,6 @@
 package core.components;
 
-import core.scene.Entity;
+import core.entity.Entity;
 
 /**
  * Script component belongs to an entity. Gets overridden with
