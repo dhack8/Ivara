@@ -39,8 +39,8 @@ public class PlayerControllerTest {
     public void test_update_1() throws Exception {
         script.update(50);
         assertEquals(player.getPosition().toString(), "[ 0.0, 0.0, 0.0 ]");
-        InputHandler.setKeyPressed(true, ScriptComponent.W);
-        InputHandler.setKeyPressed(true, ScriptComponent.A);
+        InputHandler.setKeyPressed(true, InputHandler.W);
+        InputHandler.setKeyPressed(true, InputHandler.A);
         script.update(50);
         assertEquals(player.getPosition().toString(), "[ -0.15, 0.15, 0.0 ]");
     }

@@ -8,8 +8,14 @@ package core.input;
  */
 public class InputHandler {
 
+    // Constants
     private static int MAX_KEY_CODES = 525;
     private static int MAX_MOUSE_CODES = 38;
+    public static final int W = 87;
+    public static final int A = 65;
+    public static final int S = 83;
+    public static final int D = 68;
+    public static final int SPACE = 32;
 
     private static boolean[] keyPressed = new boolean[MAX_KEY_CODES];
     private static boolean[] mousePressed = new boolean[MAX_MOUSE_CODES];
