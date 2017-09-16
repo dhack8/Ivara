@@ -25,8 +25,13 @@ public class AssetHandler {
         this.images = new HashMap<>();
     }
 
-
-    public static void loadImage(String file, String resourceID) {
+    /**
+     * Links a specified image to a resource identifier (ID) and puts into the map of images.
+     * @param file file path where image is located
+     * @param resourceID name linked to the image, for retrieval purposes
+     * @throws RuntimeException if no file is found/loaded, or unable to be assigned and added into map.
+     */
+    public static void loadImage(String file, String resourceID) throws RuntimeException{
 //        PImage imageToLoad = game.loadImage("/assets/player.png");
         PImage imageToLoad;
         BufferedImage img = null;
@@ -39,6 +44,12 @@ public class AssetHandler {
         }
     }
 
+    /**
+     * Retrieves the image linked to a resource identifier (ID) from the map of all images.
+     * @param resourceID identifier linked to image
+     * @return desired PImage linked to identifier
+     * @throws FileNotFoundException if no image is retrieved.
+     */
     public static PImage getImage(String resourceID) throws FileNotFoundException{
         try{
             return images.get(resourceID);
@@ -47,6 +58,10 @@ public class AssetHandler {
         }
     }
 
+    /**
+     * Gets map of images
+     * @return map of all images
+     */
     public Map<String, PImage> getImageMap(){
         return images;
     }
