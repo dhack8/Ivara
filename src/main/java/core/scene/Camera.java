@@ -8,6 +8,8 @@ import maths.Vector;
  * @author David Hack
  */
 public class Camera {
+
+
     private Vector location;
     private Vector dimension;
     private float scale;
@@ -19,6 +21,12 @@ public class Camera {
         this.location = new Vector(0,0);
         this.dimension = new Vector(999, 999);
         scale = 100.0f;
+    }
+
+    public Camera(Vector location, Vector dimension, float scale) {
+        this.location = location;
+        this.dimension = dimension;
+        this.scale = scale;
     }
 
     /**
