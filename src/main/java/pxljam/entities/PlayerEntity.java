@@ -4,6 +4,7 @@ import core.components.ColliderComponent;
 import core.components.PSpriteComponent;
 import core.scene.Entity;
 import maths.Vector;
+import pxljam.scripts.Gravity;
 import pxljam.scripts.PlayerController;
 
 /**
@@ -24,6 +25,7 @@ public class PlayerEntity extends Entity{
 
         addComponent(new PSpriteComponent(this, "player", 1,1.5f)); //Todo change the PSprite component
         addComponent(new PlayerController(this));
+        addComponent(new Gravity(this));
        // addComponent(new ColliderComponent(this, null)); //Todo Change the Collider component
     }
 }
