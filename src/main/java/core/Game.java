@@ -3,6 +3,8 @@ package core;
 
 import core.input.InputBroadcaster;
 import core.input.InputHandler;
+import core.input.KeyListener;
+import core.input.MouseListener;
 import core.renderer.Renderer;
 
 /**
@@ -19,6 +21,13 @@ public abstract class Game {
 
     private Renderer renderer;
     private InputBroadcaster inputBroadcaster;
+    private InputUpdater inputUpdater;
+
+    public Game() {
+        inputUpdater = new InputUpdater();
+        inputBroadcaster.addKeyListener(inputUpdater);
+        inputBroadcaster.addMouseListener(inputUpdater);
+    }
 
 
     public void draw() {
@@ -32,27 +41,19 @@ public abstract class Game {
         past = System.currentTimeMillis();
     }
 
-    //----------------------Input Handler---------------------
-
     /**
-    public void mousePressed() {
-        InputHandler.setMousePressed(true, mouseButton);
-    }
+     * Handles all input and passes it to the InputHandler.
+     */
+    private class InputUpdater implements KeyListener, MouseListener {
 
+        @Override
+        public void setKeyPressed(boolean b, int keyCode) {
+            InputHandler.setKeyPressed(b, keyCode);
+        }
 
-    @Override
-    public void mouseReleased() {
-        InputHandler.setMousePressed(false, mouseButton);
+        @Override
+        public void setMousePressed(boolean b, int mouseButton) {
+            InputHandler.setMousePressed(b, mouseButton);
+        }
     }
-
-    @Override
-    public void keyPressed() {
-        InputHandler.setKeyPressed(true, keyCode);
-    }
-
-    @Override
-    public void keyReleased() {
-        InputHandler.setKeyPressed(false, keyCode);
-    }
-    **/
 }

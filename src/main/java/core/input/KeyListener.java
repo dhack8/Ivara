@@ -1,7 +1,9 @@
 package core.input;
 
 /**
- * Created by Callum Li on 9/16/17.
+ * Listens for key input.
  */
 public interface KeyListener {
+
+    void setKeyPressed(boolean b, int keyCode);
 }
