@@ -9,6 +9,7 @@ import pxljam.scripts.PlayerController;
 
 /**
  * This class handles the entity of the player within the game
+ * @author Alex Mitchell
  */
 public class PlayerEntity extends Entity{
     private PSpriteComponent sprite;
@@ -23,7 +24,7 @@ public class PlayerEntity extends Entity{
      * @param script The controller of the player
      * @param collider The collision aspect of the player
      */
-    public PlayerEntity(Vector vector, PSpriteComponent sprite, ScriptComponent script, ColliderComponent collider) {
+    public PlayerEntity(Vector vector, PSpriteComponent sprite, ScriptComponent script, ColliderComponent collider) { // Todo check to see whether this is a necessary constructor
         super(vector);
         this.sprite = sprite;
         this.script = script;
