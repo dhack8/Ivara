@@ -10,8 +10,6 @@ import maths.Vector;
  * @author Alex Mitchell
  */
 public class BasicBlockEntity extends Entity{
-    private PSpriteComponent sprite;
-    private ColliderComponent collider;
 
     /**
      * Creates a Basic Platform Entity at a specified position
@@ -22,7 +20,7 @@ public class BasicBlockEntity extends Entity{
     public BasicBlockEntity(float x, float y, String recourseID){
         super(new Vector(x,y));
         Vector v = new Vector(x,y);
-        sprite = new PSpriteComponent(this, recourseID);
-        collider = new ColliderComponent(this, null); // Todo change the Collider
+        addComponent(new PSpriteComponent(this, recourseID));
+        addComponent(new ColliderComponent(this, null)); // Todo change the Collider
     }
 }

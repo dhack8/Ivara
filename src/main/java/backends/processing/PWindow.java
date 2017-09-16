@@ -61,7 +61,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
     @Override
     public void draw(){
-
+        background(220, 220, 220);
 
         for (Entity e : currentScene.getEntities()) {
             for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {

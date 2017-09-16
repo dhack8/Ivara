@@ -5,7 +5,9 @@ import pxljam.entities.BasicBlockEntity;
 import pxljam.entities.PlayerEntity;
 
 /**
- * Created by Callum Li on 9/16/17.
+ * Our very first scene.
+ *
+ * @author David Hack
  */
 public class FirstScene extends Scene {
 
