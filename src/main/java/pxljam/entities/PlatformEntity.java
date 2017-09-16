@@ -1,7 +1,7 @@
 package pxljam.entities;
 
 import core.components.ColliderComponent;
-import core.components.SpriteComponent;
+import core.components.PSpriteComponent;
 import core.scene.Entity;
 import maths.Vector;
 
@@ -10,10 +10,10 @@ import maths.Vector;
  * @author Alex Mitchell
  */
 public abstract class PlatformEntity extends Entity{
-    private SpriteComponent sprite;
+    private PSpriteComponent sprite;
     private ColliderComponent collider;
 
-    public PlatformEntity(Vector v, SpriteComponent sprite, ColliderComponent collider){
+    public PlatformEntity(Vector v, PSpriteComponent sprite, ColliderComponent collider){
         super(v);
         this.sprite = sprite;
         this.collider = collider;

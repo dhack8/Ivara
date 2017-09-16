@@ -1,9 +1,8 @@
 package pxljam.entities;
 
 import core.components.ColliderComponent;
-import core.components.SpriteComponent;
+import core.components.PSpriteComponent;
 import maths.Vector;
-import physics.Collider;
 
 /**
  * This class handles the basic platform entity
@@ -11,7 +10,7 @@ import physics.Collider;
  */
 public class BasicPlatformEntity extends PlatformEntity{
 
-    public BasicPlatformEntity(Vector v, SpriteComponent s, ColliderComponent c){
+    public BasicPlatformEntity(Vector v, PSpriteComponent s, ColliderComponent c){
         super(v,s,c);
     }
 }

@@ -2,23 +2,23 @@ package core.components;
 
 import core.scene.Entity;
 import maths.Vector;
-import physics.Collider;
+import processing.core.PImage;
 
 /**
  * Created by Callum Li on 9/15/17.
  */
-public class ColliderComponent extends Component {
+public class PSpriteComponent extends Component {
 
     private Vector transform = new Vector(0, 0);
-    private final Collider collider;
+    private final PImage sprite;
 
-    public ColliderComponent(Entity entity, Collider collider) {
+    public PSpriteComponent(Entity entity, PImage sprite) {
         super(entity);
-        this.collider = collider;
+        this.sprite = sprite;
     }
 
-    public Collider getCollider() {
-        return collider;
+    public PImage getSprite() {
+        return sprite;
     }
 
     public Vector getTransform() {

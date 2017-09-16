@@ -1,7 +1,6 @@
 package core.renderer;
 
 import core.Game;
-import core.components.SpriteComponent;
 import core.scene.Camera;
 import core.scene.Entity;
 import core.scene.Scene;
@@ -10,7 +9,6 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Class that will render the given scene when asked to.
@@ -37,7 +35,7 @@ public class PWindow extends PApplet implements Renderer{
         translate(-cameraLoc.x, -cameraLoc.y);
 
         for(Entity e : entities){
-            //Collection<SpriteComponent> sprite = e.getComponents(SpriteComponent.class);
+            //Collection<PSpriteComponent> sprite = e.getComponents(PSpriteComponent.class);
 
             Vector position = e.getPosition();
 

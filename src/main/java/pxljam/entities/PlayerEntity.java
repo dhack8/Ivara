@@ -1,8 +1,8 @@
 package pxljam.entities;
 
 import core.components.ColliderComponent;
+import core.components.PSpriteComponent;
 import core.components.ScriptComponent;
-import core.components.SpriteComponent;
 import core.scene.Entity;
 import maths.Vector;
 
@@ -10,7 +10,7 @@ import maths.Vector;
  * This class handles the entity of the player within the game
  */
 public class PlayerEntity extends Entity{
-    private SpriteComponent sprite;
+    private PSpriteComponent sprite;
     private ScriptComponent script;
     private ColliderComponent collider;
 
@@ -22,7 +22,7 @@ public class PlayerEntity extends Entity{
      * @param script The controller of the player
      * @param collider The collision aspect of the player
      */
-    public PlayerEntity(Vector vector, SpriteComponent sprite, ScriptComponent script, ColliderComponent collider) {
+    public PlayerEntity(Vector vector, PSpriteComponent sprite, ScriptComponent script, ColliderComponent collider) {
         super(vector);
         this.sprite = sprite;
         this.script = script;
