@@ -15,7 +15,6 @@ import java.util.Collection;
  *
  * @author David Hack
  */
-<<<<<<< HEAD
 public class PWindow extends PApplet implements Renderer {
 
     private Game game;
