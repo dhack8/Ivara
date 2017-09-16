@@ -3,10 +3,9 @@ package core;
 
 import core.input.InputBroadcaster;
 import core.input.InputHandler;
-import core.renderer.PWindow;
+import core.scene.Scene;
 import core.input.KeyListener;
 import core.input.MouseListener;
-import core.renderer.Renderer;
 import processing.core.PApplet;
 
 /**
@@ -21,23 +20,18 @@ public abstract class Game {
     // Update Ticks Time in milliseconds.
     private long tickTime = 17;
 
-    private Renderer renderer;
+    private Scene scene;
     private InputBroadcaster inputBroadcaster;
     private InputUpdater inputUpdater = new InputUpdater();
 
     public Game() {
         inputUpdater = new InputUpdater();
-
     }
 
     public void setInputBroadcaster(InputBroadcaster inputBroadcaster) {
         this.inputBroadcaster = inputBroadcaster;
         inputBroadcaster.addKeyListener(inputUpdater);
         inputBroadcaster.addMouseListener(inputUpdater);
-    }
-
-    public void setRenderer(Renderer renderer) {
-        this.renderer = renderer;
     }
 
     public void mainLoop() {
@@ -53,20 +47,22 @@ public abstract class Game {
     }
 
     public void start() {
-        PWindow window = new PWindow(600, 600);
-
-        setInputBroadcaster(window);
-        setRenderer(window);
-
-        PApplet.runSketch( new String[] { "--display=1",
-                        "--location=50,50",
-                        "--sketch-path=" + window.sketchPath(""),
-                        "" },
-                window);
+        //setInputBroadcaster(window);
 
         while (true) {
             mainLoop();
         }
+    }
+
+    public Scene getScene() {
+        System.out.println("Getting scene");
+        return scene;
+    }
+
+    public void setScene(Scene scene) {
+        System.out.println("Setting scene");
+        System.out.println("Scene null: " + (scene ==null));
+        this.scene = scene;
     }
 
     //----------------------Input Handler---------------------

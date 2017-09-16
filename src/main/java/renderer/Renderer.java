@@ -1,4 +1,4 @@
-package core.renderer;
+package renderer;
 
 import core.Game;
 import core.input.InputBroadcaster;
@@ -9,45 +9,72 @@ import core.scene.Entity;
 import core.scene.Scene;
 import maths.Vector;
 import processing.core.PApplet;
+import processing.core.PFont;
+import pxljam.TheLegend27;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 /**
- * Class that will render the given scene when asked to.
- * Also processes input and passes it to it's listeners.
+ * A class for drawing the game.
  *
  * @author David Hack
  */
-public class PWindow extends PApplet implements Renderer, InputBroadcaster{
+public class Renderer extends PApplet implements InputBroadcaster {
 
-    private Game game;
+    public static final int intWidth = 1800;
+    public static final int intHeight = 900;
+
+    Game game;
+
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
 
-    private int x;
-    private int y;
-
-    public PWindow(int x, int y){
-        PApplet.main("App");
-        this.x = x;
-        this.y = y;
+    /**
+     * Constructs a new renderer this is called first and sets up the game.
+     */
+    public Renderer(Game game){
+        this.game = game;
     }
 
+    /**
+     * A method to set some PApplet settings before drawing.
+     */
+    @Override
+    public void settings() {
+        size(intWidth, intHeight);
+    }
+
+    /**
+     * A method to setup some settings for the PApplet before drawing.
+     */
     @Override
     public void setup() {
         super.setup();
-        noLoop();
+        frameRate(60);
     }
 
+    /**
+     * The main draw loop this should NOT be connected to the games tick in anyway.
+     */
     @Override
-    public void settings() {
-        size(x, y);
+    public void draw() {
+        renderScene(game.getScene());
     }
 
-    public void render(Scene scene){
-        super.draw();
+    /**
+     * Takes a scene from the game and draws it with the camera scaling.
+     * @param scene
+     */
+    private void renderScene(Scene scene){
+        if(scene == null){
+            textSize(40);
+            fill(255,0,0);
+            text("The scene provided to the renderer is NULL!", 10, 40);
+            return;
+        }
 
         Collection<Entity> entities = new ArrayList<>();
 
