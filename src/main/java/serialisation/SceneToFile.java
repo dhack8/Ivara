@@ -38,16 +38,22 @@ public class SceneToFile {
             //get camera location, dimension, scale values
             Field[] cameraFields = camera.getClass().getDeclaredFields();
 
-            for(int i = 0; i < cameraFields.length; i++){
-                System.out.printf("%d: %s\n", i+1, cameraFields[i].getName());
-                bw.write(cameraFields[i].getName() + " "); //TODO REMOVE AS LOADING DOESNT USE FIELD NAMES
-                //bw.write(cameraFields[i].get) TODO get camera field values
-                bw.newLine();
-            }
+            bw.write(cameraFields[0].getName() + " ");
+            bw.write(Float.toString(camera.getLocation().x) + " ");
+            bw.write(Float.toString(camera.getLocation().x) + " ");
+            bw.newLine();
+            bw.write(cameraFields[1].getName() + " ");
+            bw.write(Float.toString(camera.getDimension().x) + " ");
+            bw.write(Float.toString(camera.getDimension().x) + " ");
+            bw.newLine();
+            bw.write(cameraFields[2].getName() + " ");
+            bw.write(Float.toString(camera.getScale()));
+            bw.newLine();
 
 
             for(Entity e : entities){
                 System.out.println(e.getClass());
+                //bw.write();
             }
 
             //iterate through all entities
