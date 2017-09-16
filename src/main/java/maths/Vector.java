@@ -14,8 +14,8 @@ public class Vector extends PVector{
      * @param x x location
      * @param y y location
      */
-    public Vector(float x, float y){
-        super(x,y);
+    public Vector(float x, float y, float z){
+        super(x,y,z);
     }
 
     /**
@@ -23,6 +23,6 @@ public class Vector extends PVector{
      * @param other another vector
      */
     public Vector(Vector other){
-        super(other.x, other.y);
+        super(other.x, other.y, other.z);
     }
 }
