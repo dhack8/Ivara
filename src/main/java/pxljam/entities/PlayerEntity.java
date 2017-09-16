@@ -22,9 +22,9 @@ public class PlayerEntity extends Entity{
     public PlayerEntity(float x, float y){
         super(new Vector(x,y));
 
-        addComponent(new PSpriteComponent(this, "player")); //Todo change the PSprite component
+        addComponent(new PSpriteComponent(this, "player", 1,1)); //Todo change the PSprite component
         addComponent(new PlayerController(this));
-        addComponent(new ColliderComponent(this, null)); //Todo Change the Collider component
+       // addComponent(new ColliderComponent(this, null)); //Todo Change the Collider component
     }
 
     @Override

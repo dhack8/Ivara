@@ -1,6 +1,7 @@
 package core.components;
 
 import core.scene.Entity;
+import maths.Vector;
 
 /**
  * Created by Callum Li on 9/15/17.
@@ -17,4 +18,6 @@ public abstract class Component {
     }
 
     public void update(long delta) {}
+
+    protected Vector getPosition(){return entity.getPosition();}
 }

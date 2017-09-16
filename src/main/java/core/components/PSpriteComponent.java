@@ -8,12 +8,18 @@ import maths.Vector;
  */
 public class PSpriteComponent extends Component {
 
-    private Vector transform = new Vector(0, 0);
+    private Vector transform;
     private final String resourceID;
+    private final float width;
+    private final float height;
 
-    public PSpriteComponent(Entity entity, String resourceID) {
+    public PSpriteComponent(Entity entity, String resourceID, float width, float height) {
         super(entity);
+        transform = new Vector(0,0);
         this.resourceID = resourceID;
+
+        this.width = width;
+        this.height = height;
     }
 
     /**
@@ -30,5 +36,11 @@ public class PSpriteComponent extends Component {
      */
     public Vector getTransform() {
         return transform;
+    }
+
+
+    public Vector getLocation(){
+        Vector superLocation = super.getPosition();
+        return new Vector(transform.x + superLocation.x, transform.y + superLocation.y);
     }
 }
