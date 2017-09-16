@@ -6,17 +6,23 @@ import core.AssetHandler;
 import core.components.PSpriteComponent;
 import core.input.KeyListener;
 import core.input.MouseListener;
+import core.scene.Camera;
 import core.scene.Entity;
 import core.scene.Scene;
+import maths.Vector;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Window that the game runs in. Extends the Processing window PApplet.
  * Created by Callum Li on 9/16/17.
  */
 public class PWindow extends PApplet implements InputBroadcaster, Renderer{
+
+    public static final int intWidth = 1800;
+    public static final int intHeight = 900;
 
     private Scene currentScene;
     private AssetHandler handler;
@@ -24,20 +30,38 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
 
+    /**
+     * TODO
+     * @param mask
+     */
     @Override
     public void setMask(int mask) {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Draws the scene that is passed in.
+     * @param scene current scene
+     */
     @Override
     public void render(Scene scene) {
+        if(scene == null){
+            textSize(40);
+            fill(255,0,0);
+            text("The scene provided to the renderer is NULL!", 10, 40);
+            return;
+        }
+
         currentScene = scene;
         redraw();
     }
 
+    /**
+     * Configures the width and height of the window.
+     */
     @Override
     public void settings(){
-        size(500, 500);
+        size(intWidth, intHeight);
         noLoop();
     }
 
@@ -59,15 +83,24 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/player.png", "player");
     }
 
+    /**
+     * Draws all the entities, along with their assigned sprites within the scene.
+     */
     @Override
     public void draw(){
+        background(220, 220, 220);
 
+        Camera camera = currentScene.getCamera();
+        Vector cameraLoc = camera.getLocation();
+
+        scale(camera.getScale());
+        translate(-cameraLoc.x, -cameraLoc.y);
 
         for (Entity e : currentScene.getEntities()) {
             for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
 
-                // todo: render sprite based on scene camera
-                drawSprite(e.getPosition().x, e.getPosition().y, 100, 100, spriteComponent);
+                // TODO: render sprite based on scene camera
+                drawSprite(e.getPosition().x, e.getPosition().y, 1, 1, spriteComponent);
             }
         }
     }

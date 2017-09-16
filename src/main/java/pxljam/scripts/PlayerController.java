@@ -4,9 +4,12 @@ import core.components.ScriptComponent;
 import core.input.InputHandler;
 import core.scene.Entity;
 
+import static core.input.InputHandler.*;
+
 /**
  * Script to control the player entity. Relies on the current input
  * stored in InputHandler to determine control.
+ * Assumes y axis goes top down and x axis goes left right.
  *
  * @author Will Pearson
  */
@@ -18,32 +21,35 @@ public class PlayerController extends ScriptComponent{
         super(e);
     }
 
+    /**
+     * Updates the player entity.
+     * @param dmt elapsed milliseconds since last update
+     */
     @Override
     public void update(long dmt) {
         float speed = metresPerTick(dmt);
 
-        /**
         if (InputHandler.keyPressed(W)) {
             // TODO Jumping
-            entity.translate(0f, speed);
+            getEntity().translate(0, -speed);
         }
         if (InputHandler.keyPressed(A)) {
             // TODO running
-            entity.translate(-speed, 0f);
+            getEntity().translate(-speed, 0);
         }
         if (InputHandler.keyPressed(S)) {
             // TODO ducking
-            entity.translate(speed, 0f);
+            getEntity().translate(0, speed);
         }
         if (InputHandler.keyPressed(D)) {
             // TODO running
-            entity.translate(0f, -speed);
+            getEntity().translate(speed, 0);
         }
         if (InputHandler.keyPressed(SPACE)) {
             // TODO extra function?
-            entity.translate(0f, speed);
+            getEntity().translate(0, -speed);
         }
-         **/
+
     }
 
     /**
