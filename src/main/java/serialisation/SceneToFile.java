@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 import java.util.Set;
 
 /**
+ * Class to save the current scene state to an external file SaveGame.txt
  * Created by james on 16/09/2017.
  */
 public class SceneToFile {
@@ -26,7 +27,13 @@ public class SceneToFile {
         entities = scene.getEntities();
     }
 
-    public void write() {
+    /**
+     * The method that does all the writing to the external file.
+     * Collects the camera fields (location, direction vectors and camera scale) and the entities' class along with
+     * their values. Uses BufferedWriter to output to file.
+     * @throws IOException
+     */
+    public void write() throws IOException {
         BufferedWriter bw = null;
         FileWriter fw = null;
 
@@ -53,10 +60,11 @@ public class SceneToFile {
             int count = 1;
             for(Entity e : entities){
                 //bw.write(e.getClass().getSimpleName());
+                bw.write(Integer.toString(count) + " ");
                 bw.write(e.getClass().getName());
                 bw.newLine();
-                bw.write(Integer.toString(count));
                 count++;
+                //format: name | value
             }
 
             //iterate through all entities
@@ -68,9 +76,6 @@ public class SceneToFile {
             e.printStackTrace();
         }
 
-
-
-
         //closing writers
         try {
             //if (bw != null)
@@ -79,13 +84,10 @@ public class SceneToFile {
             bw.close();
 
            // if (fw != null)
-            //fw.flush();
-
             fw.close();
 
         } catch (IOException e2) {
             e2.printStackTrace();
         }
     }
-
 }
