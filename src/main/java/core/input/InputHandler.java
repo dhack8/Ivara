@@ -8,8 +8,11 @@ package core.input;
  */
 public class InputHandler {
 
-    private static boolean[] keyPressed = new boolean[525];
-    private static boolean[] mousePressed = new boolean[38];
+    private static int MAX_KEY_CODES = 525;
+    private static int MAX_MOUSE_CODES = 38;
+
+    private static boolean[] keyPressed = new boolean[MAX_KEY_CODES];
+    private static boolean[] mousePressed = new boolean[MAX_MOUSE_CODES];
 
     /**
      * Sets the key to whether it is pressed or not.
@@ -59,7 +62,7 @@ public class InputHandler {
      * Clears all input.
      */
     static void clear() {
-        mousePressed = new boolean[10];
-        keyPressed = new boolean[222];
+        mousePressed = new boolean[MAX_MOUSE_CODES];
+        keyPressed = new boolean[MAX_KEY_CODES];
     }
 }
