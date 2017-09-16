@@ -11,6 +11,6 @@ public class TestScene extends Scene {
 
     public TestScene() {
         addEntity(new TestEntity(new Vector(10, 10)));
-        addEntity(new Entity(new Vector(20, 20)) {});
+        addEntity(new TestEntity(new Vector(20, 20)));
     }
 }

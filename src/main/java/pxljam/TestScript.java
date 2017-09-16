@@ -1,6 +1,7 @@
 package pxljam;
 
 import core.components.ScriptComponent;
+import core.input.InputHandler;
 import core.scene.Entity;
 
 /**
@@ -14,6 +15,18 @@ public class TestScript extends ScriptComponent {
 
     @Override
     public void update(long delta) {
-        getEntity().translate(1, 1);
+
+        if (InputHandler.keyPressed(InputHandler.W)) {
+            getEntity().translate(0, -1);
+        }
+        if (InputHandler.keyPressed(InputHandler.S)) {
+            getEntity().translate(0, 1);
+        }
+        if (InputHandler.keyPressed(InputHandler.A)) {
+            getEntity().translate(-1, 0);
+        }
+        if (InputHandler.keyPressed(InputHandler.D)) {
+            getEntity().translate(1, 0);
+        }
     }
 }
