@@ -1,8 +1,7 @@
 package pxljam.scenes;
 
 import core.scene.Scene;
-import maths.Vector;
-import pxljam.entities.BasicPlatformEntity;
+import pxljam.entities.BasicBlockEntity;
 import pxljam.entities.PlayerEntity;
 
 /**
@@ -12,6 +11,6 @@ public class FirstScene extends Scene {
 
     public FirstScene() {
         addEntity(new PlayerEntity(10, 10));
-        addEntity(new BasicPlatformEntity(50,50));
+        addEntity(new BasicBlockEntity(50,50, "grass-top"));
     }
 }

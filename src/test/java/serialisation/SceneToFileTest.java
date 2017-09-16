@@ -1,14 +1,10 @@
 package serialisation;
 
-import core.scene.Entity;
 import core.scene.Scene;
-import maths.Vector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pxljam.TestScene;
-
-import static org.junit.Assert.*;
+import pxljam.scenes.FirstScene;
 
 /**
  * Created by james on 16/09/2017.
@@ -20,7 +16,7 @@ public class SceneToFileTest {
 
     @Before
     public void setUp() throws Exception {
-        scene = new TestScene();
+        scene = new FirstScene();
         stf = new SceneToFile(scene);
     }
 

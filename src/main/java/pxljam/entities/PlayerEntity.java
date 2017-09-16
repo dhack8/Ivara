@@ -16,21 +16,6 @@ public class PlayerEntity extends Entity{
     private ScriptComponent script;
     private ColliderComponent collider;
 
-
-    /**
-     * Creates a PlayerEntity object
-     * @param vector The position of the entity
-     * @param sprite The relative display of the player
-     * @param script The controller of the player
-     * @param collider The collision aspect of the player
-     */
-    public PlayerEntity(Vector vector, PSpriteComponent sprite, ScriptComponent script, ColliderComponent collider) { // Todo check to see whether this is a necessary constructor
-        super(vector);
-        this.sprite = sprite;
-        this.script = script;
-        this.collider = collider;
-    }
-
     /**
      * Creates a PlayerEntity at a given position
      * @param x The x position
@@ -38,7 +23,7 @@ public class PlayerEntity extends Entity{
      */
     public PlayerEntity(float x, float y){
         super(new Vector(x,y));
-        this.sprite = new PSpriteComponent(this, null); //Todo change the PSprite component
+        this.sprite = new PSpriteComponent(this, "player"); //Todo change the PSprite component
         this.script = new PlayerController(this);
         this.collider = new ColliderComponent(this, null); //Todo Change the Collider component
     }
