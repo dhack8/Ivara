@@ -4,20 +4,16 @@ import core.Game;
 import core.scene.Entity;
 import core.scene.Scene;
 import maths.Vector;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import processing.core.PApplet;
 import pxljam.TheLegend27;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by dhack on 16-Sep-17.
  */
-public class RendererTest {
+public class OldRendererTest {
 
-    Renderer testRenderer;
+    OldRenderer testOldRenderer;
 
     @Test
     public void draw() throws Exception {
@@ -28,9 +24,9 @@ public class RendererTest {
         scene.addEntity(testEntity);
 
         Game game = new TheLegend27();
-        game.setScene(scene);
+        game.setCurrentScene(scene);
 
-        testRenderer = new Renderer(game);
+        testOldRenderer = new OldRenderer(game);
 
         while(true){
 

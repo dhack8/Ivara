@@ -1,7 +1,7 @@
 package renderer;
 
 import core.Game;
-import core.input.InputBroadcaster;
+import backends.InputBroadcaster;
 import core.input.KeyListener;
 import core.input.MouseListener;
 import core.scene.Camera;
@@ -9,10 +9,7 @@ import core.scene.Entity;
 import core.scene.Scene;
 import maths.Vector;
 import processing.core.PApplet;
-import processing.core.PFont;
-import pxljam.TheLegend27;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -22,7 +19,7 @@ import java.util.List;
  *
  * @author David Hack
  */
-public class Renderer extends PApplet implements InputBroadcaster {
+public class OldRenderer extends PApplet implements InputBroadcaster {
 
     public static final int intWidth = 1800;
     public static final int intHeight = 900;
@@ -35,7 +32,7 @@ public class Renderer extends PApplet implements InputBroadcaster {
     /**
      * Constructs a new renderer this is called first and sets up the game.
      */
-    public Renderer(Game game){
+    public OldRenderer(Game game){
         this.game = game;
     }
 
@@ -61,7 +58,7 @@ public class Renderer extends PApplet implements InputBroadcaster {
      */
     @Override
     public void draw() {
-        renderScene(game.getScene());
+        renderScene(game.getCurrentScene());
     }
 
     /**

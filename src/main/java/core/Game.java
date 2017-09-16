@@ -1,71 +1,79 @@
 package core;
 
 
-import core.input.InputBroadcaster;
+import backends.InputBroadcaster;
+import backends.Renderer;
 import core.input.InputHandler;
 import core.scene.Scene;
 import core.input.KeyListener;
 import core.input.MouseListener;
-import processing.core.PApplet;
 
 /**
  * Created by Callum Li on 9/14/17.
  */
 public abstract class Game {
 
-    // Time Keepers in milliseconds.
-    private long past = System.currentTimeMillis();
-    private long accumulator = 0;
-
-    // Update Ticks Time in milliseconds.
+    /**
+     * The number of milliseconds per update tick.
+     */
     private long tickTime = 17;
 
-    private Scene scene;
-    private InputBroadcaster inputBroadcaster;
-    private InputUpdater inputUpdater = new InputUpdater();
+    /**
+     * The current scene of the game.
+     */
+    private Scene currentScene;
 
-    public Game() {
-        inputUpdater = new InputUpdater();
+    /**
+     * Backend Dependent Renderer
+     */
+    private final Renderer renderer;
+
+    public Game(Scene initialScene, Renderer renderer, final InputBroadcaster inputBroadcaster) {
+        this.currentScene = initialScene;
+        this.renderer = renderer;
+
+        // Update InputHandler based on input event's broadcasted by
+        // the input broadcaster.
+        inputBroadcaster.addKeyListener(new InputUpdater());
+        inputBroadcaster.addMouseListener(new InputUpdater());
     }
 
-    public void setInputBroadcaster(InputBroadcaster inputBroadcaster) {
-        this.inputBroadcaster = inputBroadcaster;
-        inputBroadcaster.addKeyListener(inputUpdater);
-        inputBroadcaster.addMouseListener(inputUpdater);
+    public Scene getCurrentScene() {
+        return currentScene;
     }
 
-    public void mainLoop() {
-        accumulator += System.currentTimeMillis() - past;
-        if (accumulator >= tickTime) {
-            // do Tick
-            accumulator -= tickTime;
-        }
-        // do rendering
-
-        // insert rendering code here.
-        past = System.currentTimeMillis();
+    public void setCurrentScene(Scene currentScene) {
+        this.currentScene = currentScene;
     }
 
-    public void start() {
-        //setInputBroadcaster(window);
+    /**
+     * Starts the game.
+     */
+    final public void start() {
+
+        // Time Keepers in milliseconds.
+        long past = System.currentTimeMillis();
+        long accumulator = 0;
 
         while (true) {
-            mainLoop();
+            accumulator += System.currentTimeMillis() - past;
+
+            // Update the game while more than a tick's worth
+            // of time needs to be processed.
+            if (accumulator >= tickTime) {
+                // do Tick
+                currentScene.update(tickTime);
+
+                accumulator -= tickTime;
+            }
+
+            // Display the current scene.
+            renderer.render(currentScene);
+            past = System.currentTimeMillis();
         }
     }
 
-    public Scene getScene() {
-        System.out.println("Getting scene");
-        return scene;
-    }
 
-    public void setScene(Scene scene) {
-        System.out.println("Setting scene");
-        System.out.println("Scene null: " + (scene ==null));
-        this.scene = scene;
-    }
-
-    //----------------------Input Handler---------------------
 
     /**
      * Handles all input and passes it to the InputHandler.
