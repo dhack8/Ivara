@@ -26,14 +26,6 @@ public class PlayerEntity extends Entity{
         addComponent(new PlayerController(this));
        // addComponent(new ColliderComponent(this, null)); //Todo Change the Collider component
     }
-
-    @Override
-    public Vector getPosition(){
-        Vector p = super.getPosition();
-        System.err.println("Location: " + p.x + " " + p.y + " Difference: " + (p.x - previous.x) + " " + (p.y - previous.y));
-        previous = new Vector(p);
-        return super.getPosition();
-    }
 }
 
 
