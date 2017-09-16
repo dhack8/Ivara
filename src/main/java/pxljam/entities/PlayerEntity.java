@@ -14,20 +14,20 @@ import pxljam.scripts.PlayerController;
  */
 public class PlayerEntity extends Entity{
 
-    Vector previous = new Vector(0,0);
+    //Vector previous = new Vector(0,0);
 
     /**
      * Creates a PlayerEntity at a given position
      * @param x The x position
      * @param y The y position
      */
-    public PlayerEntity(float x, float y){
-        super(new Vector(x,y));
+    public PlayerEntity(float x, float y, float z){
+        super(new Vector(x,y,z));
 
         addComponent(new PSpriteComponent(this, "player", 1,1.5f)); //Todo change the PSprite component
         addComponent(new PlayerController(this));
         addComponent(new Gravity(this));
-        addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.75f), new Vector(0.5f, 0.75f)))); //Todo Change the Collider component
+        addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.75f, z), new Vector(0.5f, 0.75f, z)))); //Todo Change the Collider component
     }
 }
 
