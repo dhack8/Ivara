@@ -2,8 +2,8 @@ package core.entity;
 
 import core.components.Component;
 import util.ClassMap;
-import java.util.Collection;
-import java.util.HashSet;
+
+import java.util.*;
 
 /**
  * Used to contain multiple entities.
@@ -13,7 +13,7 @@ import java.util.HashSet;
  */
 public class EntityContainer {
 
-    Collection<Entity> entities = new HashSet<>();
+    Set<Entity> entities = new TreeSet<>();
     ClassMap classMap = new ClassMap();
 
     public void addEntity(Entity entity) {
