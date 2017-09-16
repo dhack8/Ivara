@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -18,7 +19,7 @@ public class SceneToFile {
 
     private Scene scene;
     private Camera camera;
-    private Set<Entity> entities;
+    private Collection<Entity> entities;
 
     public SceneToFile(Scene sc){
         this.scene = sc;
@@ -50,16 +51,18 @@ public class SceneToFile {
             bw.write(Float.toString(camera.getScale()));
             bw.newLine();
 
-
+            int count = 1;
             for(Entity e : entities){
-                System.out.println(e.getClass());
-                //bw.write();
+                //bw.write(e.getClass().getSimpleName());
+                bw.write(e.getClass().getName());
+                bw.newLine();
+                bw.write(Integer.toString(count));
+                count++;
             }
 
             //iterate through all entities
             //get class (as name)
             //check constructor
-            entities.getClass().getDeclaredFields();
 
 
         } catch (IOException e) {

@@ -1,6 +1,8 @@
 package core.scene;
 
 import core.components.Component;
+import core.entity.EntityContainer;
+import physics.BasicCollisionResolver;
 import util.ClassMap;
 
 import java.util.*;
@@ -16,7 +18,7 @@ public abstract class Scene {
     private Camera camera = new Camera();
     private ClassMap classMap = new ClassMap();
     private Map<String, Entity> nameEntityMap = new HashMap<>();
-    private Set<Entity> entities = new HashSet<>();
+    private EntityContainer entities = new EntityContainer();
 
     public Camera getCamera() {
         return camera;
@@ -26,8 +28,8 @@ public abstract class Scene {
      * Gets all the entities in the Scene
      * @return The entities
      */
-    public Set<Entity> getEntities(){
-        return entities;
+    public Collection<Entity> getEntities(){
+        return entities.getEntities();
     }
 
     /**
@@ -42,7 +44,7 @@ public abstract class Scene {
             nameEntityMap.put(name, entity);
         }
 
-        entities.add(entity);
+        entities.addEntity(entity);
         for (Component comp : entity.getComponents()) {
             classMap.put(comp);
         }
@@ -77,5 +79,9 @@ public abstract class Scene {
                 c.update(delta);
             }
         }
+
+        BasicCollisionResolver r = new BasicCollisionResolver(entities);
+        r.resolveCollisions();
+
     }
 }

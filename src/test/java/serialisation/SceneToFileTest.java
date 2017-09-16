@@ -6,6 +6,7 @@ import maths.Vector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import pxljam.TestScene;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +20,7 @@ public class SceneToFileTest {
 
     @Before
     public void setUp() throws Exception {
-        scene = new Scene(){};
+        scene = new TestScene();
         stf = new SceneToFile(scene);
     }
 
@@ -30,6 +31,7 @@ public class SceneToFileTest {
 
     @Test
     public void write() throws Exception {
+
         stf.write();
     }
 

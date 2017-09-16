@@ -29,7 +29,7 @@ public class AssetHandlerTest {
     @Before
     public void setUp() throws Exception {
         game = new TheLegend27(null, null);
-        testHandler = new AssetHandler(game);
+        testHandler = new AssetHandler();
         filePath = "./assets/player.png";
     }
 

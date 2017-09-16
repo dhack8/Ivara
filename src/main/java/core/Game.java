@@ -56,8 +56,9 @@ public abstract class Game {
         long accumulator = 0;
 
         while (true) {
-
+            accumulator += System.currentTimeMillis() - past;
             past = System.currentTimeMillis();
+
             // Update the game while more than a tick's worth
             // of time needs to be processed.
             while (accumulator >= tickTime) {
@@ -69,8 +70,6 @@ public abstract class Game {
 
             // Display the current scene.
             renderer.render(currentScene);
-
-            accumulator += System.currentTimeMillis() - past;
         }
     }
 

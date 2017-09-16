@@ -20,6 +20,10 @@ public class AABBCollider extends Collider {
     public AABBCollider(Vector center, Vector radius) {
         this.center = center;
         this.radius = radius;
+    }
 
+    @Override
+    public Collider translate(Vector vector) {
+        return new AABBCollider(new Vector(center.x + vector.x, center.y + vector.y), radius);
     }
 }

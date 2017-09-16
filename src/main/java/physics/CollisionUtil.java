@@ -7,6 +7,15 @@ import maths.Vector;
  */
 public class CollisionUtil {
 
+    static boolean intersect(Collider c1, Collider c2) {
+        if (c1 instanceof AABBCollider &&
+                c2 instanceof AABBCollider) {
+
+            return intersect((AABBCollider) c1, (AABBCollider) c2);
+        }
+
+        return false;
+    }
 
     /**
      * Returns whether two given AABBCollidiers are intersecting.

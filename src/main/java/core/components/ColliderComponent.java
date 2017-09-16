@@ -18,7 +18,7 @@ public class ColliderComponent extends Component {
     }
 
     public Collider getCollider() {
-        return collider;
+        return collider.translate(getEntity().getPosition());
     }
 
     public Vector getTransform() {
