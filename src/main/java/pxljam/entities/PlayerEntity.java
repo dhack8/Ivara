@@ -37,9 +37,9 @@ public class PlayerEntity extends Entity{
      */
     public PlayerEntity(float x, float y){
         super(new Vector(x,y));
-        this.sprite = new PSpriteComponent();
+        this.sprite = new PSpriteComponent(this, null); //Todo change the PSprite component
         this.script = new PlayerController(this);
-        this.collider = new ColliderComponent();
+        this.collider = new ColliderComponent(this, null); //Todo Change the Collider component
     }
 }
 
