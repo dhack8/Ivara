@@ -2,6 +2,7 @@ package core.renderer;
 
 import core.scene.Entity;
 import core.scene.Scene;
+import maths.Vector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,10 @@ public class PWindowTest {
 
     @Test
     public void render() throws Exception {
-        Entity test
+        Entity testEntity = new Entity(new Vector(1, 1)) {};
+        scene.addEntity(testEntity);
+
+        window.render(scene);
     }
 
 }
