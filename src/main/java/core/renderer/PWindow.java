@@ -15,12 +15,10 @@ import java.util.Collection;
  *
  * @author David Hack
  */
-public class PWindow extends PApplet implements Renderer{
-
-    private Game game;
+public class PWindow extends PApplet implements Renderer {
 
     @Override
-    public void settings(){
+    public void settings() {
         size(1800, 900);
         noLoop();
     }
