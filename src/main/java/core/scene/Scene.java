@@ -7,6 +7,7 @@ import java.util.*;
 
 /**
  * This class represents a Scene within the game
+ *
  * @author Alex Mitchell
  * @author Callum Li
  */
@@ -32,8 +33,9 @@ public abstract class Scene {
     /**
      * Adds an entity to the collection of entities within the Scene
      * The entity is also added to the collection of named entities in the scene
+     *
      * @param entity The entity to add
-     * @param name The name of the entity
+     * @param name   The name of the entity
      */
     protected void addEntity(Entity entity, String name) {
         if (name != null) {
@@ -41,13 +43,14 @@ public abstract class Scene {
         }
 
         entities.add(entity);
-        for(Component comp : entity.getComponents()){
+        for (Component comp : entity.getComponents()) {
             classMap.put(comp);
         }
     }
 
     /**
      * Adds an entity to the collection of the entities within the Scene
+     *
      * @param entity The entity to add
      */
     protected void addEntity(Entity entity) {
@@ -56,6 +59,7 @@ public abstract class Scene {
 
     /**
      * Gets a named Entity via a given name
+     *
      * @param name The name of the entity
      * @return The entity, if it exists
      */
