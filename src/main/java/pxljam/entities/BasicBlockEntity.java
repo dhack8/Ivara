@@ -1,8 +1,10 @@
 package pxljam.entities;
 
+import core.components.ColliderComponent;
 import core.entity.Entity;
 import core.components.PSpriteComponent;
 import maths.Vector;
+import physics.AABBCollider;
 
 /**
  * This class handles the basic platform entity
@@ -20,6 +22,6 @@ public class BasicBlockEntity extends Entity{
         super(new Vector(x,y));
         Vector v = new Vector(x,y);
         addComponent(new PSpriteComponent(this, recourseID, 1, 1));
-       // addComponent(new ColliderComponent(this, null)); // Todo change the Collider
+        addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
     }
 }
