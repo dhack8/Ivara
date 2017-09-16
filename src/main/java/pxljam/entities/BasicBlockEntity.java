@@ -20,7 +20,6 @@ public class BasicBlockEntity extends Entity{
      */
     public BasicBlockEntity(float x, float y, String recourseID){
         super(new Vector(x,y));
-        Vector v = new Vector(x,y);
         addComponent(new PSpriteComponent(this, recourseID, 1, 1));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
     }
