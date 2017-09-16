@@ -1,9 +1,7 @@
 package core.renderer;
 
 import core.Game;
-import core.components.SpriteComponent;
 import core.input.InputBroadcaster;
-import core.input.InputHandler;
 import core.input.KeyListener;
 import core.input.MouseListener;
 import core.scene.Camera;
@@ -12,7 +10,6 @@ import core.scene.Scene;
 import maths.Vector;
 import processing.core.PApplet;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,13 +26,17 @@ public class PWindow extends PApplet implements Renderer, InputBroadcaster{
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
 
-    public PWindow(Game g) {
-        game = g;
+    private int x;
+    private int y;
+
+    public PWindow(int x, int y){
+        this.x = x;
+        this.y = y;
     }
 
     @Override
     public void settings(){
-        size(1800, 900);
+        size(x, y);
         noLoop();
     }
 
@@ -49,7 +50,7 @@ public class PWindow extends PApplet implements Renderer, InputBroadcaster{
         translate(-cameraLoc.x, -cameraLoc.y);
 
         for(Entity e : entities){
-            //Collection<SpriteComponent> sprite = e.getComponents(SpriteComponent.class);
+            //Collection<PSpriteComponent> sprite = e.getComponents(PSpriteComponent.class);
 
             Vector position = e.getPosition();
 

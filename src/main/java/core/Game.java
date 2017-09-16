@@ -37,6 +37,7 @@ public abstract class Game {
             accumulator -= tickTime;
         }
         // do rendering
+
         // insert rendering code here.
         past = System.currentTimeMillis();
     }
