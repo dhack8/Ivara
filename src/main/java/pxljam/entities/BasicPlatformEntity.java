@@ -21,7 +21,7 @@ public class BasicPlatformEntity extends Entity{
     public BasicPlatformEntity(float x, float y){
         super(new Vector(x,y));
         Vector v = new Vector(x,y);
-        sprite = new PSpriteComponent(this, null); // Todo change the PImage
+        sprite = new PSpriteComponent(this, "grass-top"); // Todo change the PImage
         collider = new ColliderComponent(this, null); // Todo change the Collider
     }
 }
