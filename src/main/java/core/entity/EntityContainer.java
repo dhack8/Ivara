@@ -3,7 +3,6 @@ package core.entity;
 import core.components.Component;
 import core.scene.Entity;
 import util.ClassMap;
-
 import java.util.Collection;
 import java.util.HashSet;
 

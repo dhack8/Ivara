@@ -1,6 +1,5 @@
 package pxljam;
 
-import core.scene.Entity;
 import core.scene.Scene;
 import maths.Vector;
 

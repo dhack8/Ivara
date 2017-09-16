@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Collection;
-import java.util.Set;
 
 /**
  * Class to save the current scene state to an external file SaveGame.txt

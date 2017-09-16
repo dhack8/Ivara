@@ -2,11 +2,8 @@ package core.scene;
 
 import core.components.Component;
 import maths.Vector;
-
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**

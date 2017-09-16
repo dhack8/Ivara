@@ -2,7 +2,6 @@ package core.components;
 
 import core.scene.Entity;
 import maths.Vector;
-import processing.core.PImage;
 
 /**
  * Created by Callum Li on 9/15/17.
