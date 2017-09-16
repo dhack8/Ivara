@@ -4,6 +4,8 @@ package core;
 import core.input.InputBroadcaster;
 import core.input.InputHandler;
 import core.renderer.PWindow;
+import core.input.KeyListener;
+import core.input.MouseListener;
 import core.renderer.Renderer;
 import processing.core.PApplet;
 
@@ -21,6 +23,13 @@ public abstract class Game {
 
     private Renderer renderer;
     private InputBroadcaster inputBroadcaster;
+    private InputUpdater inputUpdater;
+
+    public Game() {
+        inputUpdater = new InputUpdater();
+        inputBroadcaster.addKeyListener(inputUpdater);
+        inputBroadcaster.addMouseListener(inputUpdater);
+    }
 
     public void mainLoop() {
         accumulator += System.currentTimeMillis() - past;
@@ -34,6 +43,7 @@ public abstract class Game {
         past = System.currentTimeMillis();
     }
 
+<<<<<<< HEAD
     public void start() {
         PWindow window = new PWindow(600, 600);
         renderer = window;
@@ -50,25 +60,21 @@ public abstract class Game {
 
     //----------------------Input Handler---------------------
 
+=======
+>>>>>>> 27a6ec96a92efbc639a946253cca85717a0243c3
     /**
-    public void mousePressed() {
-        InputHandler.setMousePressed(true, mouseButton);
-    }
+     * Handles all input and passes it to the InputHandler.
+     */
+    private class InputUpdater implements KeyListener, MouseListener {
 
+        @Override
+        public void setKeyPressed(boolean b, int keyCode) {
+            InputHandler.setKeyPressed(b, keyCode);
+        }
 
-    @Override
-    public void mouseReleased() {
-        InputHandler.setMousePressed(false, mouseButton);
+        @Override
+        public void setMousePressed(boolean b, int mouseButton) {
+            InputHandler.setMousePressed(b, mouseButton);
+        }
     }
-
-    @Override
-    public void keyPressed() {
-        InputHandler.setKeyPressed(true, keyCode);
-    }
-
-    @Override
-    public void keyReleased() {
-        InputHandler.setKeyPressed(false, keyCode);
-    }
-    **/
 }
