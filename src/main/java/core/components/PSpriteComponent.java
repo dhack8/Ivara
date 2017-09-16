@@ -17,10 +17,18 @@ public class PSpriteComponent extends Component {
         this.resourceID = resourceID;
     }
 
+    /**
+     * Method to get the resource identifier.
+     * @return the resourceID
+     */
     public String getResourceID() {
         return resourceID;
     }
 
+    /**
+     * Method to get the transform vector.
+     * @return the transform vector
+     */
     public Vector getTransform() {
         return transform;
     }
