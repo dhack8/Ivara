@@ -13,7 +13,6 @@ import java.util.*;
  */
 public abstract class Scene {
 
-    // Need a Map of Class -> Set, since we need to access the set of components from a given class type
     private Camera camera;
     private ClassMap classMap;
     private Map<String, Entity> namedEntities;
