@@ -1,6 +1,6 @@
 location 0.0 0.0 
 dimension 999.0 999.0 
 scale 100.0
-pxljam.TestScene$1
+pxljam.scenes.FirstScene$1
 1pxljam.TestEntity
 2
