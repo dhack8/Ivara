@@ -1,6 +1,5 @@
 package core.scene;
 
-import core.components.Component;
 import maths.Vector;
 
 import java.lang.reflect.Field;
@@ -38,22 +37,6 @@ public abstract class Entity {
         this.position = position;
     }
 
-
-    public final Collection<Component> getComponents() {
-        Collection<Component> components = new HashSet<>();
-
-        for (Field field : this.getClass().getDeclaredFields()) {
-            if (Component.class.isAssignableFrom(field.getType())) {
-                try {
-                    components.add(Component.class.cast(field.get(this)));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return components;
-    }
-
     /**
      * Returns
      * // todo: Do javadoc
@@ -61,12 +44,21 @@ public abstract class Entity {
      * @param <T>
      * @return
      */
-    public <T extends Component> Collection<T> getComponents(Class<T> type) {
+    public <T> Collection<T> getComponents(Class<T> type) {
         Collection<T> components = new HashSet<>();
 
-        for (Component component : getComponents()) {
-            if (type.equals(component.getClass())) {
-                components.add(type.cast(component));
+        // For each field, add the value of the field if the type
+        // of the field matches the given type.
+        for (Field field : this.getClass().getDeclaredFields()) {
+
+            if (type.equals(field.getType())) {
+
+                try {
+                    components.add(type.cast(field.get(this)));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
 
