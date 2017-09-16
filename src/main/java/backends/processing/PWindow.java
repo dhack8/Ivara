@@ -45,11 +45,13 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
     @Override
     public void draw(){
-        System.out.println("Loop");
         for (Entity e : currentScene.getEntities()) {
             for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
+
+                // todo: render sprite based on scene camera
                 rect(e.getPosition().x, e.getPosition().y, 10, 10);
             }
+
             rect(e.getPosition().x, e.getPosition().y, 10, 10);
         }
     }

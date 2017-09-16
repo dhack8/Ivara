@@ -7,12 +7,15 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This class represents the entities within the game
  * @author Alex Mitchell
  */
 public abstract class Entity {
+
+    private Set<Component> components = new HashSet<>();
 
     private Vector position;
 
@@ -38,22 +41,16 @@ public abstract class Entity {
         this.position = position;
     }
 
+
+    final public void addComponent(Component component) {
+        components.add(component);
+    }
+
     /**
      * Gathers a collection of the components stored within this Entity
      * @return The collection of components
      */
     public final Collection<Component> getComponents() {
-        Collection<Component> components = new HashSet<>();
-
-        for (Field field : this.getClass().getDeclaredFields()) {
-            if (Component.class.isAssignableFrom(field.getType())) {
-                try {
-                    components.add(Component.class.cast(field.get(this)));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
         return components;
     }
 

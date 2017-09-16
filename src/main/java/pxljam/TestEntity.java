@@ -8,10 +8,10 @@ import maths.Vector;
  */
 public class TestEntity extends Entity {
 
-    private TestScript testScript = new TestScript(this);
-
     public TestEntity(Vector position) {
         super(position);
+
+        addComponent(new TestScript(this));
     }
 
 }
