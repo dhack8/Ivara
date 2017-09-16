@@ -10,16 +10,15 @@ public class PSpriteComponent extends Component {
 
     private Vector transform;
     private final String resourceID;
-    private final float width;
-    private final float height;
+
+    private Vector dimensions;
 
     public PSpriteComponent(Entity entity, String resourceID, float width, float height) {
         super(entity);
         transform = new Vector(0,0);
         this.resourceID = resourceID;
 
-        this.width = width;
-        this.height = height;
+        this.dimensions = new Vector(width, height);
     }
 
     /**
@@ -42,5 +41,9 @@ public class PSpriteComponent extends Component {
     public Vector getLocation(){
         Vector superLocation = super.getPosition();
         return new Vector(transform.x + superLocation.x, transform.y + superLocation.y);
+    }
+
+    public Vector getDimensions() {
+        return dimensions;
     }
 }
