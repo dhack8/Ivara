@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Window that the game runs in. Extends the Processing window PApplet.
  * Created by Callum Li on 9/16/17.
  */
 public class PWindow extends PApplet implements InputBroadcaster, Renderer{
@@ -24,17 +25,28 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
 
+    /**
+     * TODO
+     * @param mask
+     */
     @Override
     public void setMask(int mask) {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Draws the scene that is passed in.
+     * @param scene current scene
+     */
     @Override
     public void render(Scene scene) {
         currentScene = scene;
         redraw();
     }
 
+    /**
+     * Configures the width and height of the window.
+     */
     @Override
     public void settings(){
         size(500, 500);
@@ -59,10 +71,11 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/player.png", "player");
     }
 
+    /**
+     * Draws all the entities, along with their assigned sprites within the scene.
+     */
     @Override
     public void draw(){
-
-
         for (Entity e : currentScene.getEntities()) {
             for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
 
