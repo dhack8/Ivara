@@ -1,4 +1,5 @@
 import core.Game;
+import core.renderer.PWindow;
 import processing.core.PApplet;
 
 /*
@@ -6,7 +7,8 @@ import processing.core.PApplet;
  */
 public class App extends Game {
     public static void main(String[] args) {
-        PApplet.main("App");
+        PApplet.main(PWindow.class);
+
     }
 
 }
