@@ -1,6 +1,8 @@
 location 0.0 0.0 
 dimension 999.0 999.0 
 scale 100.0
-pxljam.scenes.FirstScene$1
-1pxljam.TestEntity
-2
+1 pxljam.entities.PlayerEntity
+2 pxljam.entities.BasicBlockEntity
+3 pxljam.entities.BasicBlockEntity
+4 pxljam.entities.BasicBlockEntity
+5 pxljam.entities.BasicBlockEntity
