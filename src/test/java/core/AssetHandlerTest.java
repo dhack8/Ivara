@@ -1,19 +1,13 @@
 package core;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.core.PImage;
-import pxljam.TheLegend27;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -22,13 +16,11 @@ import static org.junit.Assert.*;
  */
 public class AssetHandlerTest {
 
-    Game game;
     String filePath;
     AssetHandler testHandler;
 
     @Before
     public void setUp() throws Exception {
-        game = new TheLegend27(null, null);
         testHandler = new AssetHandler();
         filePath = "./assets/player.png";
     }
@@ -68,12 +60,12 @@ public class AssetHandlerTest {
     }
 
     /**
-     * Test that attempts to get a non-existant image. Succeeds if exception is caught in try/catch, and image retrieved
+     * Test that attempts to get a non-existent image. Succeeds if exception is caught in try/catch, and image retrieved
      * with the identifier (resourceID), in this case "Player", is null.
      * @throws Exception
      */
     @Test
-    public void getNonExistantImage() throws Exception{
+    public void getNonExistentImage() throws Exception{
         try{
             testHandler.getImage("Player");
         }catch(Exception e){
