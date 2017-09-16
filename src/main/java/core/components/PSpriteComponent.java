@@ -10,15 +10,15 @@ import processing.core.PImage;
 public class PSpriteComponent extends Component {
 
     private Vector transform = new Vector(0, 0);
-    private final PImage sprite;
+    private final String resourceID;
 
-    public PSpriteComponent(Entity entity, PImage sprite) {
+    public PSpriteComponent(Entity entity, String resourceID) {
         super(entity);
-        this.sprite = sprite;
+        this.resourceID = resourceID;
     }
 
-    public PImage getSprite() {
-        return sprite;
+    public String getResourceID() {
+        return resourceID;
     }
 
     public Vector getTransform() {

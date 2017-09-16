@@ -15,11 +15,7 @@ import java.util.HashMap;
  */
 public class AssetHandler {
     
-    private static Map<String, PImage> images;
-
-    public AssetHandler(Game game){
-        this.images = new HashMap<>();
-    }
+    private static Map<String, PImage> images = new HashMap<>();
 
     /**
      * Links a specified image to a resource identifier (ID) and puts into the map of images.
@@ -44,13 +40,13 @@ public class AssetHandler {
      * Retrieves the image linked to a resource identifier (ID) from the map of all images.
      * @param resourceID identifier linked to image
      * @return desired PImage linked to identifier
-     * @throws FileNotFoundException if no image is retrieved.
+     * @throws RuntimeException if no image is retrieved.
      */
-    public static PImage getImage(String resourceID) throws FileNotFoundException{
+    public static PImage getImage(String resourceID){
         try{
             return images.get(resourceID);
         }catch(Exception e){
-            throw new FileNotFoundException();
+            throw new RuntimeException("File(" + resourceID + ") not found in the AssetHandler! MESSAGE: " + e.getMessage() + " CAUSE: " + e.getCause());
         }
     }
 
