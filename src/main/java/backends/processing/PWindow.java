@@ -6,8 +6,10 @@ import core.AssetHandler;
 import core.components.PSpriteComponent;
 import core.input.KeyListener;
 import core.input.MouseListener;
+import core.scene.Camera;
 import core.scene.Entity;
 import core.scene.Scene;
+import maths.Vector;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -18,6 +20,9 @@ import java.util.List;
  * Created by Callum Li on 9/16/17.
  */
 public class PWindow extends PApplet implements InputBroadcaster, Renderer{
+
+    public static final int intWidth = 1800;
+    public static final int intHeight = 900;
 
     private Scene currentScene;
     private AssetHandler handler;
@@ -40,6 +45,13 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void render(Scene scene) {
+        if(scene == null){
+            textSize(40);
+            fill(255,0,0);
+            text("The scene provided to the renderer is NULL!", 10, 40);
+            return;
+        }
+
         currentScene = scene;
         redraw();
     }
@@ -49,7 +61,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        size(1800, 900);
+        size(width, height);
         noLoop();
     }
 
@@ -77,7 +89,13 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     @Override
     public void draw(){
         background(220, 220, 220);
-        
+
+        Camera camera = currentScene.getCamera();
+        Vector cameraLoc = camera.getLocation();
+
+        scale(camera.getScale());
+        translate(-cameraLoc.x, -cameraLoc.y);
+
         for (Entity e : currentScene.getEntities()) {
             for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
 
