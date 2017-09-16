@@ -55,10 +55,13 @@ public abstract class Game {
     }
 
     public Scene getScene() {
+        System.out.println("Getting scene");
         return scene;
     }
 
     public void setScene(Scene scene) {
+        System.out.println("Setting scene");
+        System.out.println("Scene null: " + (scene ==null));
         this.scene = scene;
     }
 
