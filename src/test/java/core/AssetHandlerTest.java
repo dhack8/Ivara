@@ -33,6 +33,11 @@ public class AssetHandlerTest {
         filePath = "./assets/player.png";
     }
 
+    /**
+     * Adds an image file, along with a String identifier, into the map within the AssetHandler class to test the
+     * loadImage method. Asserts that the image retrieved from the map is not null.
+     * @throws Exception
+     */
     @Test
     public void loadImage() throws Exception {
         testHandler.loadImage(filePath, "Player");
@@ -40,8 +45,14 @@ public class AssetHandlerTest {
         assertNotNull(test);
     }
 
+    /**
+     * Test for the getImage method. Tests the retrieval of the getImage method in AssetHandler by adding "player.png"
+     * file into the map, and retrieving using the key. Asserts that the image loaded is not null, and that the image
+     * created within the try/catch is equal to the same image but retrieved from the map.
+     * @throws RuntimeException if image is unable to be loaded
+     */
     @Test
-    public void getImage() throws Exception {
+    public void getImage() throws RuntimeException {
         PImage imageToLoad;
         BufferedImage img = null;
         try {
@@ -56,6 +67,11 @@ public class AssetHandlerTest {
         assertEquals(imageToLoad, testHandler.getImageMap().get("Player"));
     }
 
+    /**
+     * Test that attempts to get a non-existant image. Succeeds if exception is caught in try/catch, and image retrieved
+     * with the identifier (resourceID), in this case "Player", is null.
+     * @throws Exception
+     */
     @Test
     public void getNonExistantImage() throws Exception{
         try{
