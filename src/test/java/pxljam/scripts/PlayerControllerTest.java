@@ -42,7 +42,7 @@ public class PlayerControllerTest {
         InputHandler.setKeyPressed(true, InputHandler.W);
         InputHandler.setKeyPressed(true, InputHandler.A);
         script.update(50);
-        assertEquals(player.getPosition().toString(), "[ -0.15, 0.15, 0.0 ]");
+        assertEquals(player.getPosition().toString(), "[ -0.15, -0.15, 0.0 ]");
     }
 
 }
