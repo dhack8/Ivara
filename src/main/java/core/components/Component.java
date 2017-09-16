@@ -15,4 +15,6 @@ public abstract class Component {
     public final Entity getEntity() {
         return entity;
     }
+
+    public void update(long delta) {}
 }

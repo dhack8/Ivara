@@ -30,8 +30,6 @@ public class SceneToFileTest {
 
     @Test
     public void write() throws Exception {
-        scene.addEntity(new Entity(new Vector(10, 12)){});
-        scene.addEntity(new Entity(new Vector(11, 12)){});
         stf.write();
     }
 

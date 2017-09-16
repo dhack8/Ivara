@@ -3,11 +3,6 @@ package core.scene;
 import core.components.Component;
 import util.ClassMap;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -18,26 +13,21 @@ import java.util.*;
  */
 public abstract class Scene {
 
-    private Camera camera;
-    private ClassMap classMap;
-    private Map<String, Entity> namedEntities;
-    private Set<Entity> entities;
+    private Camera camera = new Camera();
+    private ClassMap classMap = new ClassMap();
+    private Map<String, Entity> nameEntityMap = new HashMap<>();
+    private Set<Entity> entities = new HashSet<>();
 
-    /**
-     * Empty scene construction
-     */
-    public Scene() {
-        camera = new Camera();
-        classMap = new ClassMap();
-        namedEntities = new HashMap<>();
-        entities = new HashSet<>();
+    public Camera getCamera() {
+        return camera;
     }
 
     /**
-     * Scene construction from a file
+     * Gets all the entities in the Scene
+     * @return The entities
      */
-    public Scene(File file) {
-        throw new UnsupportedOperationException();
+    public Set<Entity> getEntities(){
+        return entities;
     }
 
     /**
@@ -47,8 +37,11 @@ public abstract class Scene {
      * @param entity The entity to add
      * @param name   The name of the entity
      */
-    public void addEntity(Entity entity, String name) {
-        namedEntities.put(name, entity);
+    protected void addEntity(Entity entity, String name) {
+        if (name != null) {
+            nameEntityMap.put(name, entity);
+        }
+
         entities.add(entity);
         for (Component comp : entity.getComponents()) {
             classMap.put(comp);
@@ -60,11 +53,8 @@ public abstract class Scene {
      *
      * @param entity The entity to add
      */
-    public void addEntity(Entity entity) {
-        entities.add(entity);
-        for (Component comp : entity.getComponents()) {
-            classMap.put(comp);
-        }
+    protected void addEntity(Entity entity) {
+        addEntity(entity, null);
     }
 
     /**
@@ -73,24 +63,19 @@ public abstract class Scene {
      * @param name The name of the entity
      * @return The entity, if it exists
      */
-    public Entity getEntity(String name) {
-        return namedEntities.get(name);
+    protected Entity getEntity(String name){
+        return nameEntityMap.get(name);
     }
 
-    /**
-     * Gets all the entities in the Scene
-     *
-     * @return The entities
-     */
-    public Set<Entity> getEntities() {
-        return entities;
-    }
-
-    public <T> Collection<T> getComponents(Class<T> type) { // Want to be able to access the components in the map by a type
+    private <T> Collection<T> getComponents(Class<T> type) {
         return classMap.get(type);
     }
 
-    public Camera getCamera() {
-        return camera;
+    public void update(long delta) {
+        for (Entity e : getEntities()) {
+            for (Component c :e.getComponents()) {
+                c.update(delta);
+            }
+        }
     }
 }
