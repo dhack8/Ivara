@@ -3,11 +3,16 @@ package core.scene;
 import core.components.Component;
 import util.ClassMap;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
  * This class represents a Scene within the game
+ *
  * @author Alex Mitchell
  * @author Callum Li
  */
@@ -21,7 +26,7 @@ public abstract class Scene {
     /**
      * Empty scene construction
      */
-    public Scene(){
+    public Scene() {
         camera = new Camera();
         classMap = new ClassMap();
         namedEntities = new HashMap<>();
@@ -31,49 +36,53 @@ public abstract class Scene {
     /**
      * Scene construction from a file
      */
-    public Scene(File file){
+    public Scene(File file) {
         throw new UnsupportedOperationException();
     }
 
     /**
      * Adds an entity to the collection of entities within the Scene
      * The entity is also added to the collection of named entities in the scene
+     *
      * @param entity The entity to add
-     * @param name The name of the entity
+     * @param name   The name of the entity
      */
     public void addEntity(Entity entity, String name) {
         namedEntities.put(name, entity);
         entities.add(entity);
-        for(Component comp : entity.getComponents()){
+        for (Component comp : entity.getComponents()) {
             classMap.put(comp);
         }
     }
 
     /**
      * Adds an entity to the collection of the entities within the Scene
+     *
      * @param entity The entity to add
      */
     public void addEntity(Entity entity) {
         entities.add(entity);
-        for(Component comp : entity.getComponents()){
+        for (Component comp : entity.getComponents()) {
             classMap.put(comp);
         }
     }
 
     /**
      * Gets a named Entity via a given name
+     *
      * @param name The name of the entity
      * @return The entity, if it exists
      */
-    public Entity getEntity(String name){
+    public Entity getEntity(String name) {
         return namedEntities.get(name);
     }
 
     /**
      * Gets all the entities in the Scene
+     *
      * @return The entities
      */
-    public Set<Entity> getEntities(){
+    public Set<Entity> getEntities() {
         return entities;
     }
 
