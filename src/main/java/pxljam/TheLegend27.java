@@ -9,5 +9,6 @@ public class TheLegend27 extends Game {
 
     public static void main(String[] args) {
         Game g = new TheLegend27();
+        g.start();
     }
 }
