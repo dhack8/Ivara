@@ -23,12 +23,21 @@ public abstract class Game {
 
     private Renderer renderer;
     private InputBroadcaster inputBroadcaster;
-    private InputUpdater inputUpdater;
+    private InputUpdater inputUpdater = new InputUpdater();
 
     public Game() {
         inputUpdater = new InputUpdater();
+
+    }
+
+    public void setInputBroadcaster(InputBroadcaster inputBroadcaster) {
+        this.inputBroadcaster = inputBroadcaster;
         inputBroadcaster.addKeyListener(inputUpdater);
         inputBroadcaster.addMouseListener(inputUpdater);
+    }
+
+    public void setRenderer(Renderer renderer) {
+        this.renderer = renderer;
     }
 
     public void mainLoop() {
@@ -43,12 +52,14 @@ public abstract class Game {
         past = System.currentTimeMillis();
     }
 
-<<<<<<< HEAD
     public void start() {
         PWindow window = new PWindow(600, 600);
-        renderer = window;
+
+        setInputBroadcaster(window);
+        setRenderer(window);
+
         PApplet.runSketch( new String[] { "--display=1",
-                        "--location=0,0",
+                        "--location=50,50",
                         "--sketch-path=" + window.sketchPath(""),
                         "" },
                 window);
@@ -60,8 +71,6 @@ public abstract class Game {
 
     //----------------------Input Handler---------------------
 
-=======
->>>>>>> 27a6ec96a92efbc639a946253cca85717a0243c3
     /**
      * Handles all input and passes it to the InputHandler.
      */
