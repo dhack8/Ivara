@@ -2,6 +2,7 @@ package pxljam.scenes;
 
 import core.scene.Scene;
 import pxljam.entities.BasicBlockEntity;
+import pxljam.entities.MovingBlockEntity;
 import pxljam.entities.PlayerEntity;
 
 /**
@@ -19,7 +20,7 @@ public class FirstScene extends Scene {
             addEntity(new BasicBlockEntity(i,3, "grass-top"));
         }
 
-        addEntity(new BasicBlockEntity(5, 4, "grass-top"));
+        addEntity(new MovingBlockEntity(5, 4, "grass-top", 3f));
 
         for(int i = 6; i < 11; i++){
             addEntity(new BasicBlockEntity(i,5, "grass-top"));
