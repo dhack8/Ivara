@@ -2,7 +2,7 @@ package pxljam;
 
 import core.components.ColliderComponent;
 import core.components.PSpriteComponent;
-import core.scene.Entity;
+import core.entity.Entity;
 import maths.Vector;
 import physics.AABBCollider;
 import pxljam.scripts.PlayerController;

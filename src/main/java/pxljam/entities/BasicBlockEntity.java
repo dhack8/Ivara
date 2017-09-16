@@ -1,6 +1,6 @@
 package pxljam.entities;
 
-import core.scene.Entity;
+import core.entity.Entity;
 import core.components.PSpriteComponent;
 import maths.Vector;
 

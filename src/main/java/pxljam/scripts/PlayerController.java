@@ -2,7 +2,7 @@ package pxljam.scripts;
 
 import core.components.ScriptComponent;
 import core.input.InputHandler;
-import core.scene.Entity;
+import core.entity.Entity;
 
 import static core.input.InputHandler.*;
 

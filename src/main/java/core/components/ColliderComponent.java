@@ -1,6 +1,6 @@
 package core.components;
 
-import core.scene.Entity;
+import core.entity.Entity;
 import maths.Vector;
 import physics.Collider;
 

@@ -5,7 +5,7 @@ import backends.InputBroadcaster;
 import core.input.KeyListener;
 import core.input.MouseListener;
 import core.scene.Camera;
-import core.scene.Entity;
+import core.entity.Entity;
 import core.scene.Scene;
 import maths.Vector;
 import processing.core.PApplet;
