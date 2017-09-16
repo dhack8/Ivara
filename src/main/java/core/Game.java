@@ -32,6 +32,7 @@ public abstract class Game {
         this.currentScene = initialScene;
         this.renderer = renderer;
 
+        assert inputBroadcaster != null;
         // Update InputHandler based on input event's broadcasted by
         // the input broadcaster.
         inputBroadcaster.addKeyListener(new InputUpdater());
