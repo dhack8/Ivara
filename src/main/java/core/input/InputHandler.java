@@ -8,11 +8,8 @@ package core.input;
  */
 public class InputHandler {
 
-    private static int MAX_KEY_CODES = 525;
-    private static int MAX_MOUSE_CODES = 38;
-
-    private static boolean[] keyPressed = new boolean[MAX_KEY_CODES];
-    private static boolean[] mousePressed = new boolean[MAX_MOUSE_CODES];
+    private static boolean[] keyPressed = new boolean[222];
+    private static boolean[] mousePressed = new boolean[10];
 
     /**
      * Sets the key to whether it is pressed or not.
@@ -20,11 +17,7 @@ public class InputHandler {
      * @param code key code
      */
     public static void setKeyPressed(boolean pressed, int code) {
-        try {
-            keyPressed[code] = pressed;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Key code out of range: " + code);
-        }
+        keyPressed[code] = pressed;
     }
 
     /**
@@ -33,11 +26,7 @@ public class InputHandler {
      * @param button button number
      */
     public static void setMousePressed(boolean pressed, int button) {
-        try {
-            mousePressed[button] = pressed;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Mouse button out of range: " + button);
-        }
+        mousePressed[button] = pressed;
     }
 
     /**
@@ -46,12 +35,7 @@ public class InputHandler {
      * @return true if the key is pressed.
      */
     public static boolean keyPressed(int code) {
-        try {
-            return keyPressed[code];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Key code out of range: " + code);
-            return false;
-        }
+        return keyPressed[code];
     }
 
     /**
@@ -60,12 +44,7 @@ public class InputHandler {
      * @return true if the button is pressed
      */
     public static boolean mousePressed(int button) {
-        try {
-            return mousePressed[button];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Mouse button out of range: " + button);
-            return false;
-        }
+        return mousePressed[button];
     }
 
     /**
@@ -80,7 +59,7 @@ public class InputHandler {
      * Clears all input.
      */
     static void clear() {
-        mousePressed = new boolean[MAX_MOUSE_CODES];
-        keyPressed = new boolean[MAX_KEY_CODES];
+        mousePressed = new boolean[10];
+        keyPressed = new boolean[222];
     }
 }

@@ -1,27 +1,17 @@
 package pxljam.entities;
 
 import core.components.ColliderComponent;
-import core.scene.Entity;
-import core.components.PSpriteComponent;
+import core.components.SpriteComponent;
 import maths.Vector;
+import physics.Collider;
 
 /**
  * This class handles the basic platform entity
  * @author Alex Mitchell
  */
-public class BasicPlatformEntity extends Entity{
-    private PSpriteComponent sprite;
-    private ColliderComponent collider;
+public class BasicPlatformEntity extends PlatformEntity{
 
-    /**
-     * Creates a Basic Platform Entity at a specified position
-     * @param x The x position of the top-left corner of the platform
-     * @param y The y position of top-left corner of the platform
-     */
-    public BasicPlatformEntity(float x, float y){
-        super(new Vector(x,y));
-        Vector v = new Vector(x,y);
-        sprite = new PSpriteComponent(this, null); // Todo change the PImage
-        collider = new ColliderComponent(this, null); // Todo change the Collider
+    public BasicPlatformEntity(Vector v, SpriteComponent s, ColliderComponent c){
+        super(v,s,c);
     }
 }

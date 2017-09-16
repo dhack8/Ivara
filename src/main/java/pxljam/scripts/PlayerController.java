@@ -22,7 +22,6 @@ public class PlayerController extends ScriptComponent{
     public void update(long dmt) {
         float speed = metresPerTick(dmt);
 
-        /**
         if (InputHandler.keyPressed(W)) {
             // TODO Jumping
             entity.translate(0f, speed);
@@ -43,7 +42,6 @@ public class PlayerController extends ScriptComponent{
             // TODO extra function?
             entity.translate(0f, speed);
         }
-         **/
     }
 
     /**

@@ -1,18 +1,17 @@
 package core;
 
-
-import core.input.InputBroadcaster;
 import core.input.InputHandler;
 import core.renderer.PWindow;
 import core.input.KeyListener;
 import core.input.MouseListener;
 import core.renderer.Renderer;
+import core.renderer.PRenderer;
 import processing.core.PApplet;
 
 /**
  * Created by Callum Li on 9/14/17.
  */
-public abstract class Game {
+public abstract class Game extends PApplet {
 
     // Time Keepers in milliseconds.
     private long past = System.currentTimeMillis();
@@ -21,29 +20,32 @@ public abstract class Game {
     // Update Ticks Time in milliseconds.
     private long tickTime = 17;
 
-    private Renderer renderer;
-    private InputBroadcaster inputBroadcaster;
-    private InputUpdater inputUpdater;
+    private PRenderer renderer;
 
-    public Game() {
-        inputUpdater = new InputUpdater();
-        inputBroadcaster.addKeyListener(inputUpdater);
-        inputBroadcaster.addMouseListener(inputUpdater);
+    @Override
+    public void setup() {
+        super.setup();
     }
 
     public void mainLoop() {
+
+    }
+    @Override
+    public void settings() {
+        size(600, 660);
+    }
+
+    @Override
+    public void draw() {
         accumulator += System.currentTimeMillis() - past;
         if (accumulator >= tickTime) {
             // do Tick
             accumulator -= tickTime;
         }
         // do rendering
-
-        // insert rendering code here.
         past = System.currentTimeMillis();
     }
 
-<<<<<<< HEAD
     public void start() {
         PWindow window = new PWindow(600, 600);
         renderer = window;
@@ -59,22 +61,30 @@ public abstract class Game {
     }
 
     //----------------------Input Handler---------------------
-
-=======
->>>>>>> 27a6ec96a92efbc639a946253cca85717a0243c3
     /**
      * Handles all input and passes it to the InputHandler.
      */
     private class InputUpdater implements KeyListener, MouseListener {
+        //----------------------Input Handler---------------------
 
         @Override
-        public void setKeyPressed(boolean b, int keyCode) {
-            InputHandler.setKeyPressed(b, keyCode);
+        public void mousePressed() {
+            InputHandler.setMousePressed(true, mouseButton);
         }
 
         @Override
-        public void setMousePressed(boolean b, int mouseButton) {
-            InputHandler.setMousePressed(b, mouseButton);
+        public void mouseReleased() {
+            InputHandler.setMousePressed(false, mouseButton);
+        }
+
+        @Override
+        public void keyPressed() {
+            InputHandler.setKeyPressed(true, keyCode);
+        }
+
+        @Override
+        public void keyReleased() {
+            InputHandler.setKeyPressed(false, keyCode);
         }
     }
-}
+
