@@ -38,7 +38,10 @@ public abstract class Entity {
         this.position = position;
     }
 
-
+    /**
+     * Gathers a collection of the components stored within this Entity
+     * @return The collection of components
+     */
     public final Collection<Component> getComponents() {
         Collection<Component> components = new HashSet<>();
 
@@ -55,11 +58,10 @@ public abstract class Entity {
     }
 
     /**
-     * Returns
-     * // todo: Do javadoc
-     * @param type
-     * @param <T>
-     * @return
+     * Returns a collection of components of a specified type type
+     * @param type The class
+     * @param <T> The type of class
+     * @return The collection of Components
      */
     public <T extends Component> Collection<T> getComponents(Class<T> type) {
         Collection<T> components = new HashSet<>();
@@ -69,7 +71,6 @@ public abstract class Entity {
                 components.add(type.cast(component));
             }
         }
-
         return components;
     }
 }

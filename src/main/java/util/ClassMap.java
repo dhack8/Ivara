@@ -5,6 +5,8 @@ import java.util.*;
 
 /**
  * A simple map that maps classes to instance of those classes.
+ * @author Callum Li
+ * @author Alex Mitchell
  */
 public class ClassMap {
 
