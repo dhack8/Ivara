@@ -30,17 +30,25 @@ public class PWindow extends PApplet implements Renderer, InputBroadcaster{
     private int y;
 
     public PWindow(int x, int y){
+        PApplet.main("App");
         this.x = x;
         this.y = y;
     }
 
     @Override
-    public void settings(){
-        size(x, y);
+    public void setup() {
+        super.setup();
         noLoop();
     }
 
+    @Override
+    public void settings() {
+        size(x, y);
+    }
+
     public void render(Scene scene){
+        super.draw();
+
         Collection<Entity> entities = new ArrayList<>();
 
         Camera camera = scene.getCamera();

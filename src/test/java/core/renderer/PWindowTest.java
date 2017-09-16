@@ -6,6 +6,7 @@ import maths.Vector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import processing.core.PApplet;
 
 import static org.junit.Assert.*;
 
