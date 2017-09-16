@@ -15,7 +15,7 @@ public class TestEntity2 extends Entity {
         super(position);
 
         //addComponent(new TestScript(this));
-        addComponent(new PSpriteComponent(this, "player"));
+        addComponent(new PSpriteComponent(this, "player", 1,1));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0, 0), new Vector(15, 15))));
     }
 

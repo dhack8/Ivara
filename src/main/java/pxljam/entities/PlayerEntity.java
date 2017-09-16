@@ -22,17 +22,9 @@ public class PlayerEntity extends Entity{
     public PlayerEntity(float x, float y){
         super(new Vector(x,y));
 
-        addComponent(new PSpriteComponent(this, "player")); //Todo change the PSprite component
+        addComponent(new PSpriteComponent(this, "player", 1,1.5f)); //Todo change the PSprite component
         addComponent(new PlayerController(this));
-        addComponent(new ColliderComponent(this, null)); //Todo Change the Collider component
-    }
-
-    @Override
-    public Vector getPosition(){
-        Vector p = super.getPosition();
-        System.err.println("Location: " + p.x + " " + p.y + " Difference: " + (p.x - previous.x) + " " + (p.y - previous.y));
-        previous = new Vector(p);
-        return super.getPosition();
+       // addComponent(new ColliderComponent(this, null)); //Todo Change the Collider component
     }
 }
 

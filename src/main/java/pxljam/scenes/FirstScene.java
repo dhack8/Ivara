@@ -13,7 +13,7 @@ import pxljam.entities.PlayerEntity;
 public class FirstScene extends Scene {
 
     public FirstScene() {
-        addEntity(new PlayerEntity(2, 2));
+        addEntity(new PlayerEntity(2, 1.5f));
 
         for(int i = 0; i < 4; i++){
             addEntity(new BasicBlockEntity(i,3, "grass-top"));
