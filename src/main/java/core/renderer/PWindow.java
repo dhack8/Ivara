@@ -18,10 +18,17 @@ import java.util.Collection;
 public class PWindow extends PApplet implements Renderer{
 
     private Game game;
+    private int x;
+    private int y;
+
+    public PWindow(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
 
     @Override
     public void settings(){
-        size(1800, 900);
+        size(x, y);
         noLoop();
     }
 
