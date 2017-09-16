@@ -20,7 +20,11 @@ public class InputHandler {
      * @param code key code
      */
     public static void setKeyPressed(boolean pressed, int code) {
-        keyPressed[code] = pressed;
+        try {
+            keyPressed[code] = pressed;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Key code out of range: " + code);
+        }
     }
 
     /**
@@ -29,7 +33,11 @@ public class InputHandler {
      * @param button button number
      */
     public static void setMousePressed(boolean pressed, int button) {
-        mousePressed[button] = pressed;
+        try {
+            mousePressed[button] = pressed;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Mouse button out of range: " + button);
+        }
     }
 
     /**
@@ -38,7 +46,12 @@ public class InputHandler {
      * @return true if the key is pressed.
      */
     public static boolean keyPressed(int code) {
-        return keyPressed[code];
+        try {
+            return keyPressed[code];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Key code out of range: " + code);
+            return false;
+        }
     }
 
     /**
@@ -47,7 +60,12 @@ public class InputHandler {
      * @return true if the button is pressed
      */
     public static boolean mousePressed(int button) {
-        return mousePressed[button];
+        try {
+            return mousePressed[button];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Mouse button out of range: " + button);
+            return false;
+        }
     }
 
     /**
