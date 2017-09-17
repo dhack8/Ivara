@@ -12,7 +12,7 @@ public class LayerComponent extends Component{
     private int layer;
 
     /**
-     * Creates a layer component with a int values
+     * Creates a layer component with an int value
      * @param entity parent entity
      * @param layer layer of entity
      */
