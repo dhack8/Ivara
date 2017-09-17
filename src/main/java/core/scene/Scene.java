@@ -1,5 +1,6 @@
 package core.scene;
 
+import core.components.BasicCameraComponent;
 import core.components.Component;
 import core.entity.Entity;
 import core.entity.EntityContainer;
@@ -22,6 +23,7 @@ public abstract class Scene {
     private ClassMap classMap = new ClassMap();
     private Map<String, Entity> nameEntityMap = new HashMap<>();
     private EntityContainer entities = new EntityContainer();
+    private BasicCameraComponent camera = null;
 
     /**
      * Gets all the entities in the Scene
@@ -82,5 +84,12 @@ public abstract class Scene {
         CollisionResolver r = new MassCollisionResolver(entities);
         r.resolveCollisions();
 
+    }
+
+    public BasicCameraComponent getCamera(){
+        if(camera == null) {
+            camera = getComponents(BasicCameraComponent.class).stream().findAny().orElse(null);
+        }
+        return camera;
     }
 }

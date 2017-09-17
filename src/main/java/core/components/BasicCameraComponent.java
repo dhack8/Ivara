@@ -8,14 +8,22 @@ import maths.Vector;
  */
 public class BasicCameraComponent extends Component{
 
-    public BasicCameraComponent(Entity entity) {
+    private float width;
+
+    public BasicCameraComponent(Entity entity, float width) {
         super(entity);
+
+        this.width = width;
     }
 
-    public void getPos(){
+    public Vector getPointOfInterest(){
+        Vector spriteDimension = getEntity().getComponents(PSpriteComponent.class).stream().findAny().map((e) -> e.getDimensions()).orElse(new Vector(0, 0));
+        Vector entityLocation = getEntity().getPosition();
 
+        return new Vector(entityLocation.x + (spriteDimension.x/2), entityLocation.y + (spriteDimension.y/2));
+    }
 
-        //getEntity().getComponents(PSpriteComponent.class).stream().findAny().map((e) -> e.getDimensions()).orElse(new Vector(0, 0));
-
+    public float getWidth(){
+        return width;
     }
 }

@@ -24,7 +24,7 @@ public class BasicCollisionResolver extends CollisionResolver {
 
                 if (CollisionUtil.intersect(c1.getCollider(), c2.getCollider())) {
 
-                    System.out.println(c1.getEntity() + " is colliding with " + c2.getEntity());
+                    //System.out.println(c1.getEntity() + " is colliding with " + c2.getEntity());
 
                     Vector v = CollisionUtil.minimumDistanceVector((AABBCollider) c1.getCollider(), (AABBCollider) c2.getCollider());
                     c1.getEntity().translate(-v.x, -v.y);
