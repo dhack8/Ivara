@@ -3,6 +3,7 @@ package backends.processing;
 import backends.InputBroadcaster;
 import backends.Renderer;
 import core.AssetHandler;
+import core.components.LayerComponent;
 import core.components.PSpriteComponent;
 import core.input.KeyListener;
 import core.input.MouseListener;
@@ -95,6 +96,14 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
         Vector cameraLoc = camera.getLocation();
         translate(-cameraLoc.x, -cameraLoc.y);
+
+        currentScene.getEntities().stream()
+                .sorted((e1, e2) -> {
+                    int layer1 = e1.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1,0)).getLayer();
+                    int layer2 = e2.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1,0)).getLayer();
+
+                    return layer2 - layer1;
+                });
 
         for (Entity e : currentScene.getEntities()) {
             for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {

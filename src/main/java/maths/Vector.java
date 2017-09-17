@@ -18,6 +18,7 @@ public class Vector extends PVector{
         super(x,y);
     }
 
+
     /**
      * Creates a new Vector class from another.
      * @param other another vector
