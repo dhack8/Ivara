@@ -39,7 +39,7 @@ public class AutomatedMoveController extends ScriptComponent{
     }
 
     @Override
-    public void update(long dmt) {
+    public void update(long dmt) { //Todo fix this, problems in relation to changing the direction of the movement
         float speed = metresPerTick(dmt);
         float xChange = (float)(Math.cos(theta) * speed);
         float yChange = (float)(Math.sin(theta) * speed);
