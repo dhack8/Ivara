@@ -44,6 +44,9 @@ public class PSpriteComponent extends Component {
         return transform;
     }
 
+    public void setTransform(Vector transform) {
+        this.transform = transform;
+    }
 
     public Vector getLocation(){
         Vector superLocation = super.getPosition();
