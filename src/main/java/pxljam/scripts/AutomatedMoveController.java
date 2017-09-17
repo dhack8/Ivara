@@ -39,37 +39,33 @@ public class AutomatedMoveController extends ScriptComponent{
     }
 
     @Override
-    public void update(long dmt) { //Todo ensure the movements are exact -> weird rounding errors currently
+    public void update(long dmt) {
         float speed = metresPerTick(dmt);
         float xChange = (float)(Math.cos(theta) * speed);
         float yChange = (float)(Math.sin(theta) * speed);
 
         if(movingRight){
-            //x += xChange;
-            if(x + xChange > dX){
-
-            }
-
-            x = (x+ xChange > dX)? dX : x + xChange;
+            if(x + xChange > dX)  xChange = dX - x;
+            x = x + xChange;
             getEntity().translate(xChange, 0);
             if(x == dX) movingRight = false;
 
         }else{
-            //x -= xChange;
-            x = (x - xChange < 0)? 0 : x - xChange;
+            if(x - xChange < 0)  xChange =  x;
+            x = x - xChange;
             getEntity().translate(-xChange, 0);
             if(x == 0) movingRight = true;
         }
 
         if(movingDown){
-            //y += yChange;
-            y = (y+ yChange > dY)? dY : y + yChange;
+            if(y + yChange > dY)  yChange = dY - y;
+            y =y + yChange;
             getEntity().translate(0, yChange);
             if(y == dY) movingDown = false;
 
         }else{
-            //y -= yChange;
-            y = (y - yChange < 0)? 0 : y - yChange;
+            if(y - yChange < 0)  yChange =  y;
+            y = y - yChange;
             getEntity().translate(0, -yChange);
             if(y == 0) movingDown = true;
         }
