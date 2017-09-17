@@ -1,9 +1,6 @@
 package pxljam.entities;
 
-import core.components.ColliderComponent;
-import core.components.LayerComponent;
-import core.components.PSpriteComponent;
-import core.components.PhysicsComponent;
+import core.components.*;
 import core.entity.Entity;
 import maths.Vector;
 import physics.AABBCollider;
@@ -33,6 +30,7 @@ public class PlayerEntity extends Entity{
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.75f), new Vector(0.5f, 0.75f)))); //Todo Change the Collider component
         addComponent(new LayerComponent(this, 999));
         addComponent(new PhysicsComponent(this, 1, PhysicProperties.Type.DYNAMIC));
+        addComponent(new BasicCameraComponent(this, 19));
     }
 }
 
