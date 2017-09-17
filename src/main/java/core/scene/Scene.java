@@ -4,6 +4,7 @@ import core.components.Component;
 import core.entity.Entity;
 import core.entity.EntityContainer;
 import physics.BasicCollisionResolver;
+import physics.CollisionResolver;
 import physics.MassCollisionResolver;
 import util.ClassMap;
 
@@ -82,7 +83,7 @@ public abstract class Scene {
             }
         }
 
-        MassCollisionResolver r = new MassCollisionResolver(entities);
+        CollisionResolver r = new MassCollisionResolver(entities);
         r.resolveCollisions();
 
     }

@@ -45,25 +45,33 @@ public class AutomatedMoveController extends ScriptComponent{
         float yChange = (float)(Math.sin(theta) * speed);
 
         if(movingRight){
-            x += xChange;
+            //x += xChange;
+            if(x + xChange > dX){
+
+            }
+
+            x = (x+ xChange > dX)? dX : x + xChange;
             getEntity().translate(xChange, 0);
-            if(x >= dX) movingRight = false;
+            if(x == dX) movingRight = false;
 
         }else{
-            x -= xChange;
+            //x -= xChange;
+            x = (x - xChange < 0)? 0 : x - xChange;
             getEntity().translate(-xChange, 0);
-            if(x <= 0) movingRight = true;
+            if(x == 0) movingRight = true;
         }
 
         if(movingDown){
-            y += yChange;
+            //y += yChange;
+            y = (y+ yChange > dY)? dY : y + yChange;
             getEntity().translate(0, yChange);
-            if(y >= dY) movingDown = false;
+            if(y == dY) movingDown = false;
 
         }else{
-            y -= yChange;
+            //y -= yChange;
+            y = (y - yChange < 0)? 0 : y - yChange;
             getEntity().translate(0, -yChange);
-            if(y <= 0) movingDown = true;
+            if(y == 0) movingDown = true;
         }
     }
 

@@ -7,6 +7,7 @@ import core.components.PhysicsComponent;
 import core.entity.Entity;
 import maths.Vector;
 import physics.AABBCollider;
+import physics.PhysicProperties;
 import pxljam.scripts.Gravity;
 import pxljam.scripts.PlayerController;
 
@@ -31,7 +32,7 @@ public class PlayerEntity extends Entity{
         addComponent(new Gravity(this));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.75f), new Vector(0.5f, 0.75f)))); //Todo Change the Collider component
         addComponent(new LayerComponent(this, 999));
-        addComponent(new PhysicsComponent(this, 1));
+        addComponent(new PhysicsComponent(this, 1, PhysicProperties.Type.DYNAMIC));
     }
 }
 
