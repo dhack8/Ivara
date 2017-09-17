@@ -91,7 +91,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     }
 
     /**
-     * Draws all the entities, along with their assigned sprites within the scene.
+     * Draws all the entities, along with their assigned sprites within the scene. Calls the drawRect() method to
+     * visualise the bounding box of the colliding entities.
      */
     @Override
     public void draw(){
