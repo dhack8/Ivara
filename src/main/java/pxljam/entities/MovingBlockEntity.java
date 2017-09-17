@@ -17,14 +17,15 @@ public class MovingBlockEntity extends Entity {
     /**
      * Creates a Basic Platform Entity at a specified position
      *
-     * @param x          The x position of the top-left corner of the platform
-     * @param y          The y position of top-left corner of the platform
-     * @param recourseID the recourseID to be used for the platform
+     * @param x The x position of the top-left corner of the platform
+     * @param y The y position of top-left corner of the platform
+     * @param recourseID The recourseID to be used for the platform
+     * @param speed The speed of the moving block in m/s
      */
-    public MovingBlockEntity(float x, float y, String recourseID, float xDistance, float yDistace) {
+    public MovingBlockEntity(float x, float y, String recourseID, float xDistance, float yDistace, float speed) {
         super(new Vector(x, y));
         addComponent(new PSpriteComponent(this, recourseID, 1, 1));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
-        addComponent(new AutomatedMoveController(this, xDistance ,yDistace));
+        addComponent(new AutomatedMoveController(this, xDistance ,yDistace, speed));
     }
 }

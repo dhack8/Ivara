@@ -20,14 +20,14 @@ public class LevelOne extends Scene {
             addEntity(new BasicBlockEntity(i,3,  "grass-top"));
         }
 
-        addEntity(new MovingBlockEntity(5, 4, "grass-top", 3f, 0f));
+        addEntity(new MovingBlockEntity(5, 4, "grass-top", 3f, 0f, 1));
 
 
         for(int i = 6; i < 11; i++){
             addEntity(new BasicBlockEntity(i,5, "grass-top"));
         }
 
-        addEntity(new MovingBlockEntity(11, 4, "grass-top", 1f, 3f));
+        addEntity(new MovingBlockEntity(11, 5, "grass-top", 1f, 3f, 2));
 
     }
 }

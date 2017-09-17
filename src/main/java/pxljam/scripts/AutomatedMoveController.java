@@ -8,21 +8,29 @@ import core.entity.Entity;
  */
 public class AutomatedMoveController extends ScriptComponent{
 
-    float dX;
-    float dY;
-    float x;
-    float y;
-    boolean movingDown;
-    boolean movingRight;
+    private float dX;
+    private float dY;
+    private float x;
+    private float y;
+    private boolean movingDown;
+    private boolean movingRight;
 
-    double theta;
+    private double theta;
 
-    private float metresPerSecond = 1f;
+    private float metresPerSecond;
 
-    public AutomatedMoveController(Entity e, float dX, float dY){
+    /**
+     * Creates a script that moves an entity autonomously
+     * @param e The entity to move
+     * @param dX The distance that the entity moves in the x plane
+     * @param dY The distance that the entity moves in the y plane
+     * @param speed The speed of the block in m/s
+     */
+    public AutomatedMoveController(Entity e, float dX, float dY, float speed){
         super(e);
         this.dX = dX;
         this.dY = dY;
+        this.metresPerSecond = speed;
         x = 0;
         y = 0;
         movingDown = true;
@@ -31,7 +39,7 @@ public class AutomatedMoveController extends ScriptComponent{
     }
 
     @Override
-    public void update(long dmt) {
+    public void update(long dmt) { //Todo ensure the movements are exact -> weird rounding errors currently
         float speed = metresPerTick(dmt);
         float xChange = (float)(Math.cos(theta) * speed);
         float yChange = (float)(Math.sin(theta) * speed);
@@ -46,7 +54,6 @@ public class AutomatedMoveController extends ScriptComponent{
             getEntity().translate(-xChange, 0);
             if(x <= 0) movingRight = true;
         }
-
 
         if(movingDown){
             y += yChange;
