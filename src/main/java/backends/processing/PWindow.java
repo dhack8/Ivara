@@ -71,18 +71,18 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void setup(){
-        AssetHandler.loadImage("./assets/dirt.png", "dirt");
-        AssetHandler.loadImage("./assets/dirt-bottom.png", "dirt-bottom");
-        AssetHandler.loadImage("./assets/grass-bottom.png", "grass-bottom");
-        AssetHandler.loadImage("./assets/grass-bottom-left.png", "grass-bottom-left");
-        AssetHandler.loadImage("./assets/grass-bottom-right.png", "grass-bottom-right");
-        AssetHandler.loadImage("./assets/grass-left.png", "grass-left");
-        AssetHandler.loadImage("./assets/grass-right.png", "grass-right");
-        AssetHandler.loadImage("./assets/grass-top.png", "grass-top");
-        AssetHandler.loadImage("./assets/grass-top-left.png", "grass-top-left");
-        AssetHandler.loadImage("./assets/grass-top-right.png", "grass-top-right");
-        AssetHandler.loadImage("./assets/player.png", "player");
-        AssetHandler.loadImage("./assets/background.png", "background");
+        AssetHandler.loadImage("./assets/dirt.png", "dirt", this);
+        AssetHandler.loadImage("./assets/dirt-bottom.png", "dirt-bottom", this);
+        AssetHandler.loadImage("./assets/grass-bottom.png", "grass-bottom", this);
+        AssetHandler.loadImage("./assets/grass-bottom-left.png", "grass-bottom-left", this);
+        AssetHandler.loadImage("./assets/grass-bottom-right.png", "grass-bottom-right", this);
+        AssetHandler.loadImage("./assets/grass-left.png", "grass-left", this);
+        AssetHandler.loadImage("./assets/grass-right.png", "grass-right", this);
+        AssetHandler.loadImage("./assets/grass-top.png", "grass-top", this);
+        AssetHandler.loadImage("./assets/grass-top-left.png", "grass-top-left", this);
+        AssetHandler.loadImage("./assets/grass-top-right.png", "grass-top-right", this);
+        AssetHandler.loadImage("./assets/player.png", "player", this);
+        AssetHandler.loadImage("./assets/background.png", "background", this);
     }
 
     /**
