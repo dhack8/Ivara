@@ -27,7 +27,8 @@ public class PlayerEntity extends Entity {
     public PlayerEntity(float x, float y) {
         super(new Vector(x, y));
 
-        addComponent(new VelocityComponent(this));
+        VelocityComponent v = new VelocityComponent(this);
+        addComponent(v);
         addComponent(new PSpriteComponent(this, "player", 1, 1.5f)); //Todo change the PSprite component
         addComponent(new PlayerController(this));
         addComponent(new Gravity(this));
@@ -43,7 +44,15 @@ public class PlayerEntity extends Entity {
                                 new Vector(0, 1.4f),
                                 new Vector(1, 0.1f)
                         ),
-                        (entity) -> {System.out.println(entity); canJump = true;}
+                        (entity) -> {
+                            System.out.println(entity);
+                            canJump = true;
+                            v.getVelocity().set(0, 0);
+
+                            if (entity instanceof MovingBlockEntity) {
+                                v.getVelocity().set(entity.getComponents(VelocityComponent.class).stream().findAny().get().getVelocity());
+                            }
+                        }
                 )
         );
         addComponent(new BasicCameraComponent(this, 19));

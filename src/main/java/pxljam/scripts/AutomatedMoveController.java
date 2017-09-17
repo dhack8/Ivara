@@ -14,9 +14,9 @@ public class AutomatedMoveController extends ScriptComponent{
     private Vector end;
 
     @Override
-    public void update(long dmt) {
+    public void update(long dmt) { //Todo still problems with start and end positions, moving up or left will break
         Vector current = getEntity().getPosition();
-        if(current.x < start.x || current.x > end.x){
+        if((current.x < start.x || current.x > end.x || current.y < start.y || current.y > end.y)){
             VelocityComponent velocityComp = getEntity().getComponents(VelocityComponent.class).stream().findAny().get();
             Vector velocity = velocityComp.getVelocity();
             velocity.mult(-1);
