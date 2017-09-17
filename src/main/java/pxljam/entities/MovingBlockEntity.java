@@ -27,7 +27,7 @@ public class MovingBlockEntity extends Entity {
      */
     public MovingBlockEntity(float startX, float startY, float endX, float endY, String recourseID, float time) {
         super(new Vector(startX, startY));
-        addComponent(new PSpriteComponent(this, recourseID, 1, 1));
+        addComponent(new PSpriteComponent(this, recourseID, 1f, 1f));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
 
         VelocityComponent velocity = new VelocityComponent(this);

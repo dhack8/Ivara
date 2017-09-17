@@ -2,6 +2,7 @@ package pxljam.scenes;
 
 import core.scene.Scene;
 import pxljam.entities.BasicBlockEntity;
+import pxljam.entities.MovingBlockEntity;
 import pxljam.entities.PlayerEntity;
 
 /**
@@ -9,17 +10,22 @@ import pxljam.entities.PlayerEntity;
  */
 public class LevelFour extends Scene{
 
-    public LevelFour(){
+    public LevelFour(){ // Todo figure out where the timing issues are coming in
 
-        addEntity(new PlayerEntity(5f, 5f));
-        addEntity(new BasicBlockEntity(2f, 2f, "dirt"));
-        addEntity(new BasicBlockEntity(4f, 4f, "dirt"));
-        addEntity(new BasicBlockEntity(2f, 6f, "dirt"));
+        addEntity(new MovingBlockEntity(0,0,1,0, "dirt", 1f)); // left -> right
+        addEntity(new MovingBlockEntity(0,1, 0,2, "dirt", 1f)); // up -> down
 
-        for(int i = 0; i < 8; i++){
-            addEntity(new BasicBlockEntity(0f, i, "dirt"));
-        }
 
-        addEntity(new BasicBlockEntity(0f, 9, "grass-top"));
+        addEntity(new MovingBlockEntity(6,0, 5,0, "dirt", 1f)); // right -> left
+        addEntity(new MovingBlockEntity(6,2, 6,1, "dirt", 1f)); // down -> up
+
+
+        addEntity(new MovingBlockEntity(9,5, 7,1, "dirt", 1f)); // backward diag test
+
+
+
+        addEntity(new BasicBlockEntity(6,6,"dirt"));
+        addEntity(new PlayerEntity(6,5));
+
     }
 }
