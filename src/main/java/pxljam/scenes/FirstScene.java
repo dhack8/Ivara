@@ -20,7 +20,8 @@ public class FirstScene extends Scene {
             addEntity(new BasicBlockEntity(i,3,  "grass-top"));
         }
 
-        addEntity(new MovingBlockEntity(5, 4, "grass-top", 3f));
+        addEntity(new MovingBlockEntity(5, 4, "grass-top", 3f, 1f));
+
 
         for(int i = 6; i < 11; i++){
             addEntity(new BasicBlockEntity(i,5, "grass-top"));

@@ -5,6 +5,7 @@ import core.components.PSpriteComponent;
 import core.entity.Entity;
 import maths.Vector;
 import physics.AABBCollider;
+import pxljam.scripts.AutomatedMoveController;
 import pxljam.scripts.LeftRightController;
 
 /**
@@ -20,10 +21,11 @@ public class MovingBlockEntity extends Entity {
      * @param y          The y position of top-left corner of the platform
      * @param recourseID the recourseID to be used for the platform
      */
-    public MovingBlockEntity(float x, float y, String recourseID, float distance) {
+    public MovingBlockEntity(float x, float y, String recourseID, float xDistance, float yDistace) {
         super(new Vector(x, y));
         addComponent(new PSpriteComponent(this, recourseID, 1, 1));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
-        addComponent(new LeftRightController(this, distance));
+        //addComponent(new AutomatedMoveController(this, xDistance ,yDistace));
+        addComponent(new LeftRightController(this, xDistance));
     }
 }

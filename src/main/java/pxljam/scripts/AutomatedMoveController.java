@@ -17,7 +17,7 @@ public class AutomatedMoveController extends ScriptComponent{
 
     private float metresPerSecond = 1f;
 
-    private AutomatedMoveController(Entity e, float dX, float dY){
+    public AutomatedMoveController(Entity e, float dX, float dY){
         super(e);
         this.dX = dX;
         this.dY = dY;
