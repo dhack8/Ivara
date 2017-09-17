@@ -20,6 +20,8 @@ public class EntityContainer {
         entities.add(entity);
         for (Component component : entity.getComponents())
             classMap.put(component);
+
+
     }
 
     /**

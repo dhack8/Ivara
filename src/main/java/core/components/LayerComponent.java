@@ -20,4 +20,8 @@ public class LayerComponent extends Component{
         super(entity);
         this.layer = layer;
     }
+
+    public int getLayer() {
+        return layer;
+    }
 }
