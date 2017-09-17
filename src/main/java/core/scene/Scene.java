@@ -1,8 +1,10 @@
 package core.scene;
 
+import core.components.BasicCameraComponent;
 import core.components.Component;
 import core.entity.Entity;
 import core.entity.EntityContainer;
+import core.systems.SensorSystem;
 import physics.EntitySystem;
 import physics.MassCollisionResolver;
 import physics.VelocitySystem;
@@ -18,14 +20,10 @@ import java.util.*;
  */
 public abstract class Scene {
 
-    private Camera camera = new Camera();
     private ClassMap classMap = new ClassMap();
     private Map<String, Entity> nameEntityMap = new HashMap<>();
     private EntityContainer entities = new EntityContainer();
-
-    public Camera getCamera() {
-        return camera;
-    }
+    private BasicCameraComponent camera = null;
 
     /**
      * Gets all the entities in the Scene
@@ -87,5 +85,14 @@ public abstract class Scene {
         r.update(delta);
         VelocitySystem v = new VelocitySystem(entities);
         v.update(delta);
+        SensorSystem s = new SensorSystem(entities);
+        s.update(delta);
+    }
+
+    public BasicCameraComponent getCamera(){
+        if(camera == null) {
+            camera = getComponents(BasicCameraComponent.class).stream().findAny().orElse(null);
+        }
+        return camera;
     }
 }

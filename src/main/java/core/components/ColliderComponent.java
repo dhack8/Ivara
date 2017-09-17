@@ -9,7 +9,6 @@ import physics.Collider;
  */
 public class ColliderComponent extends Component {
 
-    private Vector transform = new Vector(0, 0);
     private final Collider collider;
 
     public ColliderComponent(Entity entity, Collider collider) {
@@ -25,11 +24,4 @@ public class ColliderComponent extends Component {
         return collider.translate(getEntity().getPosition());
     }
 
-    /**
-     * Method to get the transform vector.
-     * @return the transform vector.
-     */
-    public Vector getTransform() {
-        return transform;
-    }
 }

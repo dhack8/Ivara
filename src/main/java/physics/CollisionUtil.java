@@ -7,7 +7,7 @@ import maths.Vector;
  */
 public class CollisionUtil {
 
-    static boolean intersect(Collider c1, Collider c2) {
+    public static boolean intersect(Collider c1, Collider c2) {
         if (c1 instanceof AABBCollider &&
                 c2 instanceof AABBCollider) {
 
@@ -23,7 +23,7 @@ public class CollisionUtil {
      * @param b The second AABBCollider.
      * @return True if they are intersecting, false otherwise.
      */
-    static boolean intersect(AABBCollider a, AABBCollider b) {
+    public static boolean intersect(AABBCollider a, AABBCollider b) {
 
         if (Math.abs(a.center.x - b.center.x) > (a.radius.x + b.radius.x)) {
             return false;

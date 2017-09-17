@@ -3,12 +3,12 @@ package backends.processing;
 import backends.InputBroadcaster;
 import backends.Renderer;
 import core.AssetHandler;
+import core.components.BasicCameraComponent;
 import core.components.ColliderComponent;
 import core.components.LayerComponent;
 import core.components.PSpriteComponent;
 import core.input.KeyListener;
 import core.input.MouseListener;
-import core.scene.Camera;
 import core.entity.Entity;
 import core.scene.Scene;
 import maths.Vector;
@@ -25,17 +25,14 @@ import java.util.List;
  */
 public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
-    public static final int intWidth = 1800;
-    public static final int intHeight = 900;
-
     private Scene currentScene;
     private AssetHandler handler;
     private int mask = 2;
 
+    private float scale = 100;
+
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
-
-    private Camera camera;
 
     /**
      * TODO
@@ -68,7 +65,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        size(intWidth, intHeight);
+        fullScreen();
         noLoop();
     }
 
@@ -98,11 +95,21 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void draw(){
-        background(220, 220, 220);
-        camera = currentScene.getCamera();
+        BasicCameraComponent camera = currentScene.getCamera();
 
-        Vector cameraLoc = camera.getLocation();
-        translate(-cameraLoc.x, -cameraLoc.y);
+        scale = displayWidth/camera.getWidth();
+
+        Vector cameraPos = camera.getPointOfInterest();
+
+        System.out.println("scale: " + scale);
+        System.out.println("translate: " + (-cameraPos.x) + " " + (-cameraPos.y));
+
+        translate(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
+
+        background(220, 220, 220);
+
+        //Vector cameraLoc = camera.getLocation();
+        //translate(-cameraLoc.x*camera.getScale(), -cameraLoc.y*camera.getScale());
 
         currentScene.getEntities().stream()
                 .sorted((e1, e2) -> {
@@ -144,7 +151,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, float width, float height, PSpriteComponent sprite){
-        float scale = camera.getScale();
         image(AssetHandler.getImage(sprite.getResourceID()), x*scale, y*scale, width*scale, height*scale);
     }
 
@@ -155,7 +161,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, PSpriteComponent sprite){
-        float scale = camera.getScale();
         image(AssetHandler.getImage(sprite.getResourceID()), x*scale, y*scale);
     }
 
@@ -168,7 +173,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param height float value of rectangle height
      */
     private void drawRect(float x, float y, float width, float height){
-        float scale = camera.getScale();
         stroke(255,0,0);
         noFill();
         rect(x * scale, y * scale, width * scale, height * scale);

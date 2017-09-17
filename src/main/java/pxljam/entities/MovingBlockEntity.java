@@ -2,11 +2,11 @@ package pxljam.entities;
 
 import core.components.ColliderComponent;
 import core.components.PSpriteComponent;
+import core.components.VelocityComponent;
 import core.entity.Entity;
 import maths.Vector;
 import physics.AABBCollider;
 import pxljam.scripts.AutomatedMoveController;
-import pxljam.scripts.LeftRightController;
 
 /**
  * A block that can move based on a given script
@@ -15,17 +15,24 @@ import pxljam.scripts.LeftRightController;
 public class MovingBlockEntity extends Entity {
 
     /**
-     * Creates a Basic Platform Entity at a specified position
+     * Creates a MovingBlockEntity that moves from a to b over a period of time
      *
-     * @param x The x position of the top-left corner of the platform
-     * @param y The y position of top-left corner of the platform
+     * @param startX The x position of the top-left corner of the platform
+     * @param startY The y position of top-left corner of the platform     *
+     * @param endX The end x position
+     * @param endY The end y position
      * @param recourseID The recourseID to be used for the platform
-     * @param speed The speed of the moving block in m/s
+     * @param time The duration of a move from one side to another
+     *
      */
-    public MovingBlockEntity(float x, float y, String recourseID, float xDistance, float yDistace, float speed) {
-        super(new Vector(x, y));
+    public MovingBlockEntity(float startX, float startY, float endX, float endY, String recourseID, float time) {
+        super(new Vector(startX, startY));
         addComponent(new PSpriteComponent(this, recourseID, 1, 1));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
-        addComponent(new AutomatedMoveController(this, xDistance ,yDistace, speed));
+
+        VelocityComponent velocity = new VelocityComponent(this);
+        addComponent(new VelocityComponent(this));
+        addComponent(new AutomatedMoveController(this, new Vector(endX, endY), time));
+
     }
 }
