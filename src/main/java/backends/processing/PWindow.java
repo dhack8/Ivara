@@ -130,12 +130,14 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                             drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, dimen.x, dimen.y, spriteComponent);
                         }
                     }
+                    //TODO point of mask?
                     if(mask == 2) {
                         for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
                             AABBCollider ab = cc.getCollider().getAABBBoundingBox();
                             Vector location = ab.getMin();
                             Vector dimension = ab.getDimension();
                             drawRect(location.x, location.y, dimension.x, dimension.y);
+                            drawSensor(location.x, location.y, dimension.x, dimension.y);
                         }
                     }
                 }
@@ -174,6 +176,12 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     private void drawRect(float x, float y, float width, float height){
         stroke(255,0,0);
+        noFill();
+        rect(x * scale, y * scale, width * scale, height * scale);
+    }
+
+    private void drawSensor(float x, float y, float width, float height){
+        stroke(255, 255, 60);
         noFill();
         rect(x * scale, y * scale, width * scale, height * scale);
     }
