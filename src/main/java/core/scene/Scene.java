@@ -4,6 +4,7 @@ import core.components.Component;
 import core.entity.Entity;
 import core.entity.EntityContainer;
 import physics.BasicCollisionResolver;
+import physics.MassCollisionResolver;
 import util.ClassMap;
 
 import java.util.*;
@@ -81,7 +82,7 @@ public abstract class Scene {
             }
         }
 
-        BasicCollisionResolver r = new BasicCollisionResolver(entities);
+        MassCollisionResolver r = new MassCollisionResolver(entities);
         r.resolveCollisions();
 
     }

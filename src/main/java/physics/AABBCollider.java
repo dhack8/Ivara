@@ -6,6 +6,7 @@ import maths.Vector;
  * An AABBCollider .
  */
 public class AABBCollider extends Collider {
+    public static final int TOPLEFT = 2;
 
     Vector center;
     Vector radius;
@@ -22,8 +23,33 @@ public class AABBCollider extends Collider {
         this.radius = radius;
     }
 
+    public AABBCollider(int type, Vector v1, Vector v2) {
+        if (type == TOPLEFT) {
+            center = new Vector(v1.x + (v2.x/2), v1.y + (v2.y/2));
+            radius = new Vector(v2.x/2, v2.y/2);
+        }
+    }
+
     @Override
     public Collider translate(Vector vector) {
         return new AABBCollider(new Vector(center.x + vector.x, center.y + vector.y), radius);
     }
+
+    @Override
+    public AABBCollider getAABBBoundingBox() {
+        return this;
+    }
+
+    public Vector getMin() {
+        return new Vector(center.x - radius.x, center.y - radius.y);
+    }
+
+    public Vector getMax() {
+        return new Vector(center.x + radius.x, center.y + radius.y);
+    }
+
+    public Vector getDimension() {
+        return new Vector(radius.x*2, radius.y*2);
+    }
+
 }

@@ -29,5 +29,7 @@ public class PhysicsComponent extends Component {
         netForce.add(force);
     }
 
-
+    public float getInverseMass() {
+        return inverseMass;
+    }
 }

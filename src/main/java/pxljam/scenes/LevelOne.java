@@ -11,9 +11,9 @@ import pxljam.entities.PlayerEntity;
  * @author David Hack
  * @author Alex Mitchell
  */
-public class FirstScene extends Scene {
+public class LevelOne extends Scene {
 
-    public FirstScene() {
+    public LevelOne() {
         addEntity(new PlayerEntity(2, 1.5f));
 
         for(int i = 0; i < 4; i++){
