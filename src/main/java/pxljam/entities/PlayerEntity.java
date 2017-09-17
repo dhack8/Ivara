@@ -43,7 +43,8 @@ public class PlayerEntity extends Entity {
                         ),
                         (entity) -> System.out.println(entity)
                 )
-        );w
+        );
+        addComponent(new BasicCameraComponent(this, 19));
     }
 }
 
