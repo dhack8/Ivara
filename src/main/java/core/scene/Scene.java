@@ -3,6 +3,7 @@ package core.scene;
 import core.components.Component;
 import core.entity.Entity;
 import core.entity.EntityContainer;
+import core.systems.SensorSystem;
 import physics.EntitySystem;
 import physics.MassCollisionResolver;
 import physics.VelocitySystem;
@@ -87,5 +88,7 @@ public abstract class Scene {
         r.update(delta);
         VelocitySystem v = new VelocitySystem(entities);
         v.update(delta);
+        SensorSystem s = new SensorSystem(entities);
+        s.update(delta);
     }
 }
