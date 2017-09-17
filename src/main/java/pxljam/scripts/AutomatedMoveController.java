@@ -15,6 +15,8 @@ public class AutomatedMoveController extends ScriptComponent{
     boolean movingDown;
     boolean movingRight;
 
+    float ratio;
+
     private float metresPerSecond = 1f;
 
     public AutomatedMoveController(Entity e, float dX, float dY){
@@ -32,7 +34,7 @@ public class AutomatedMoveController extends ScriptComponent{
         float speed = metresPerTick(dmt);
 
         if(movingRight){
-            x += speed;
+            //x += speed;
             getEntity().translate(speed, 0);
             if(x >= dX) movingRight = false;
 
