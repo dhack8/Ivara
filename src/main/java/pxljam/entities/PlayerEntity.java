@@ -17,6 +17,7 @@ public class PlayerEntity extends Entity {
 
     //Vector previous = new Vector(0,0);
 
+    public boolean canJump = false;
     /**
      * Creates a PlayerEntity at a given position
      *
@@ -38,13 +39,14 @@ public class PlayerEntity extends Entity {
                         this,
                         new AABBCollider(
                                 AABBCollider.TOPLEFT,
-                                new Vector(0, 1.6f),
+                                new Vector(0, 1.4f),
                                 new Vector(1, 0.1f)
                         ),
-                        (entity) -> System.out.println(entity)
+                        (entity) -> {System.out.println(entity); canJump = true;}
                 )
         );
         addComponent(new BasicCameraComponent(this, 19));
+
     }
 }
 
