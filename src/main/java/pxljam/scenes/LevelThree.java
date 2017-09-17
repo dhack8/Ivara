@@ -18,8 +18,7 @@ public class LevelThree extends Scene{
             addEntity(new BasicBlockEntity(i,3,  "grass-top"));
         }
 
-        //addEntity(new MovingBlockEntity(5, 3, "grass-top", new Vector(0, 0), new Vector(3, 2), 2f));
-        addEntity(new MovingBlockEntity(5, 3, "grass-top", new Vector(7, 2), 2f));
+        addEntity(new MovingBlockEntity(5f, 3f, 6f, 2f, "grass-top", 2f));
 
 
         for(int i = 6; i < 11; i++){
