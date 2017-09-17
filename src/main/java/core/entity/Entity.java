@@ -10,7 +10,7 @@ import java.util.Set;
  * This class represents the entities within the game
  * @author Alex Mitchell
  */
-public abstract class Entity {
+public abstract class Entity{
 
     private Set<Component> components = new HashSet<>();
 

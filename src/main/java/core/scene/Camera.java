@@ -1,7 +1,6 @@
 package core.scene;
 
 import backends.processing.PWindow;
-import maths.Dimension;
 import maths.Vector;
 
 /**
@@ -13,7 +12,7 @@ public class Camera {
 
 
     private Vector location;
-    private Dimension dimension;
+    private Vector dimension;
     private float scale;
 
     /**
@@ -21,12 +20,12 @@ public class Camera {
      */
     public Camera(){
         //Z value doesn't matter for camera
-        this.location = new Vector(0,0,999);
-        this.dimension = new Dimension(PWindow.intWidth, PWindow.intHeight);
+        this.location = new Vector(0,0);
+        this.dimension = new Vector(PWindow.intWidth, PWindow.intHeight);
         scale = 100.0f;
     }
 
-    public Camera(Vector location, Dimension dimension, float scale) {
+    public Camera(Vector location, Vector dimension, float scale) {
         this.location = location;
         this.dimension = dimension;
         this.scale = scale;
@@ -47,7 +46,7 @@ public class Camera {
      * @param y y dimension
      */
     public void setDimension(float x, float y){
-        dimension = new Dimension(x, y);
+        dimension = new Vector(x, y);
     }
 
     /**
@@ -70,8 +69,8 @@ public class Camera {
      * Getter for the camera dimension.
      * @return dimension of camera
      */
-    public Dimension getDimension(){
-        return new Dimension(dimension);
+    public Vector getDimension(){
+        return new Vector(dimension);
     }
 
     /**
