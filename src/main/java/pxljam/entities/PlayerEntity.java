@@ -17,6 +17,7 @@ public class PlayerEntity extends Entity {
 
     //Vector previous = new Vector(0,0);
 
+    public boolean canJump = false;
     /**
      * Creates a PlayerEntity at a given position
      *
@@ -26,10 +27,11 @@ public class PlayerEntity extends Entity {
     public PlayerEntity(float x, float y) {
         super(new Vector(x, y));
 
+        addComponent(new VelocityComponent(this));
         addComponent(new PSpriteComponent(this, "player", 1, 1.5f)); //Todo change the PSprite component
         addComponent(new PlayerController(this));
         addComponent(new Gravity(this));
-        addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.75f), new Vector(0.5f, 0.75f)))); //Todo Change the Collider component
+        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.TOPLEFT, new Vector(0.2f, 0.3f), new Vector(0.6f, 1.2f)))); //Todo Change the Collider component
         addComponent(new LayerComponent(this, 999));
         addComponent(new PhysicsComponent(this, 1, PhysicProperties.Type.DYNAMIC));
 
@@ -38,13 +40,14 @@ public class PlayerEntity extends Entity {
                         this,
                         new AABBCollider(
                                 AABBCollider.TOPLEFT,
-                                new Vector(0, 1.6f),
+                                new Vector(0, 1.4f),
                                 new Vector(1, 0.1f)
                         ),
-                        (entity) -> System.out.println(entity)
+                        (entity) -> {System.out.println(entity); canJump = true;}
                 )
         );
         addComponent(new BasicCameraComponent(this, 19));
+
     }
 }
 

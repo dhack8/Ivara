@@ -1,6 +1,7 @@
 package pxljam.scripts;
 
 import core.components.ScriptComponent;
+import core.components.VelocityComponent;
 import core.entity.Entity;
 
 /**
@@ -16,6 +17,7 @@ public class Gravity extends ScriptComponent {
 
     @Override
     public void update(long dmt) {
-        getEntity().translate(0, gravity*dmt);
+        VelocityComponent v = getEntity().getComponents(VelocityComponent.class).stream().findAny().get();
+        v.add(0, 0.5f/1000f * dmt);
     }
 }

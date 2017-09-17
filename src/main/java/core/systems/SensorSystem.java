@@ -24,6 +24,9 @@ public class SensorSystem extends EntitySystem {
 
         for (SensorComponent s : sensorComponents) {
             for (ColliderComponent c: colliderComponents) {
+                if (c.getEntity().equals(s.getEntity())) {
+                    continue;
+                }
 
                 if (CollisionUtil.intersect(s.getCollider(), c.getCollider())) {
                     s.onInersect(c.getEntity());

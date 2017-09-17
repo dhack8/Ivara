@@ -3,6 +3,7 @@ package pxljam.scripts;
 import core.components.ScriptComponent;
 import core.input.InputHandler;
 import core.entity.Entity;
+import pxljam.entities.PlayerEntity;
 
 import static core.input.InputHandler.*;
 
@@ -31,7 +32,15 @@ public class PlayerController extends ScriptComponent{
 
         if (InputHandler.keyPressed(W)) {
             // TODO Jumping
-            getEntity().translate(0, -speed);
+            PlayerEntity entity = (PlayerEntity)getEntity();
+            if(entity.canJump){
+                entity.canJump = false;
+                //entity.translate(0, -speed);
+            }
+
+
+
+
         }
         if (InputHandler.keyPressed(A)) {
             // TODO running

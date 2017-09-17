@@ -91,7 +91,7 @@ public abstract class Scene {
 
     public BasicCameraComponent getCamera(){
         if(camera == null) {
-            camera = getComponents(BasicCameraComponent.class).stream().findAny().orElse(null);
+            camera = getComponents(BasicCameraComponent.class).stream().findAny().get();
         }
         return camera;
     }

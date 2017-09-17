@@ -98,8 +98,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
         Vector cameraPos = camera.getPointOfInterest();
 
-        System.out.println("scale: " + scale);
-        System.out.println("translate: " + (-cameraPos.x) + " " + (-cameraPos.y));
 
         translate(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
 
