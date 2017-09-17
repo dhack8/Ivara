@@ -48,4 +48,8 @@ public class AABBCollider extends Collider {
         return new Vector(center.x + radius.x, center.y + radius.y);
     }
 
+    public Vector getDimension() {
+        return new Vector(radius.x*2, radius.y*2);
+    }
+
 }
