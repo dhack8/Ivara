@@ -1,5 +1,6 @@
 package core;
 
+import processing.core.PApplet;
 import processing.core.PImage;
 
 import javax.imageio.ImageIO;
@@ -23,17 +24,9 @@ public class AssetHandler {
      * @param resourceID name linked to the image, for retrieval purposes
      * @throws RuntimeException if no file is found/loaded, or unable to be assigned and added into map.
      */
-    public static void loadImage(String file, String resourceID) throws RuntimeException{
-//        PImage imageToLoad = game.loadImage("/assets/player.png");
-        PImage imageToLoad;
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File(file));
-            imageToLoad = new PImage(img);
-            images.put(resourceID, imageToLoad);
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage() + e.getCause());
-        }
+    public static void loadImage(String file, String resourceID, PApplet renderer) throws RuntimeException{
+        PImage image = renderer.loadImage(file);
+        images.put(resourceID, image);
     }
 
     /**

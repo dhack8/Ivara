@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author Will Pearson
  */
-public class EntityContainer {
+public class EntityContainer implements Iterable<Entity> {
 
     Set<Entity> entities = new HashSet<>();
     ClassMap classMap = new ClassMap();
@@ -39,5 +39,10 @@ public class EntityContainer {
      */
     public <T extends Component> Collection<T> getAllComponents(Class<T> clazz) {
         return classMap.get(clazz);
+    }
+
+    @Override
+    public Iterator<Entity> iterator() {
+        return entities.iterator();
     }
 }
