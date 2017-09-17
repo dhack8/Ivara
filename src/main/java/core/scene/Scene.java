@@ -5,6 +5,7 @@ import core.components.Component;
 import core.entity.Entity;
 import core.entity.EntityContainer;
 import core.systems.SensorSystem;
+import physics.AnimationSystem;
 import physics.EntitySystem;
 import physics.MassCollisionResolver;
 import physics.VelocitySystem;
@@ -87,6 +88,8 @@ public abstract class Scene {
         v.update(delta);
         SensorSystem s = new SensorSystem(entities);
         s.update(delta);
+        EntitySystem a = new AnimationSystem(entities);
+        a.update(delta);
     }
 
     public BasicCameraComponent getCamera(){

@@ -14,7 +14,7 @@ public class AnimatedSpriteComponent extends Component{
     private List<String> resources;
     private int frame;
     private int frameTick;
-    private long time = 0;
+    private long time;
     private Map<String, List<String>> resourceMap = new HashMap<>();
 
     /**
@@ -38,6 +38,7 @@ public class AnimatedSpriteComponent extends Component{
         List<String> resources = resourceMap.containsKey(state) ? resourceMap.get(state) : new ArrayList<>();
         assert resources.contains(resource); // Can't add the
         resources.add(resource);
+        resourceMap.put(state, resources);
     }
 
     /**
