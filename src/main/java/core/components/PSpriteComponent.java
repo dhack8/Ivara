@@ -11,10 +11,13 @@ public class PSpriteComponent extends Component {
     private Vector transform;
     private final String resourceID;
 
+    private final boolean hasDimension;
+
     private Vector dimensions;
 
     /**
-     * Constructor for a sprite component that has a width and height along with a resource identifier
+     * Constructor for a sprite component that has a width and height along with a resource identifier.
+     * This sprite has a dimension.
      * @param entity parent entity
      * @param resourceID String identifier for the sprite component
      * @param width float value of width
@@ -26,6 +29,22 @@ public class PSpriteComponent extends Component {
         this.resourceID = resourceID;
 
         this.dimensions = new Vector(width, height);
+
+        this.hasDimension = true;
+    }
+
+    /**
+     * Creates a dimension-less sprite component, rendered at its' native resolution.
+     * @param entity parent entity
+     * @param resourceID String identifier for the sprite component
+     */
+    public PSpriteComponent(Entity entity, String resourceID){
+        super(entity);
+        transform = new Vector(0,0);
+        this.resourceID = resourceID;
+
+        dimensions = new Vector(0,0);
+        this.hasDimension = false;
     }
 
     /**
@@ -52,5 +71,9 @@ public class PSpriteComponent extends Component {
 
     public Vector getDimensions() {
         return dimensions;
+    }
+
+    public boolean isDimensionless() {
+        return !hasDimension;
     }
 }
