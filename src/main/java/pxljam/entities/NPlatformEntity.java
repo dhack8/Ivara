@@ -40,6 +40,7 @@ public class NPlatformEntity extends Entity {
             middleSectionID = "dirt";
             endSectionID = "dirt-bottom";
         } else {
+            if(n == 1){ startSectionID = "grass-top";}
             startSectionID = "grass-top-left";
             middleSectionID = "grass-top";
             endSectionID = "grass-top-right";
