@@ -9,7 +9,7 @@ import maths.Vector;
 public class PSpriteComponent extends Component {
 
     private Vector transform;
-    private final String resourceID;
+    private String resourceID;
 
     private final boolean hasDimension;
 
@@ -53,6 +53,14 @@ public class PSpriteComponent extends Component {
      */
     public String getResourceID() {
         return resourceID;
+    }
+
+    /**
+     * Sets the resourceID.
+     * @param resourceID resourceID
+     */
+    public void setResourceID(String resourceID) {
+        this.resourceID = resourceID;
     }
 
     /**
