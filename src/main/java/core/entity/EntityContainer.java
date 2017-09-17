@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class EntityContainer {
 
-    Set<Entity> entities = new TreeSet<>();
+    Set<Entity> entities = new HashSet<>();
     ClassMap classMap = new ClassMap();
 
     public void addEntity(Entity entity) {
