@@ -18,19 +18,20 @@ public class MassCollisionResolver extends CollisionResolver{
         ColliderComponent[] colliders = entities.getAllComponents(ColliderComponent.class).toArray(new ColliderComponent[0]);
 
         for (int i = 0; i < colliders.length; i++) {
-            ColliderComponent c1 = colliders[i];
-            PhysicsComponent pc1 = c1.getEntity().getComponents(PhysicsComponent.class).stream().findAny().orElse(new PhysicsComponent(c1.getEntity()));
-
-            if (pc1.getProperties().getType() == PhysicProperties.Type.STATIC) {
-                continue;
-            }
 
             for (int j = i+1; j < colliders.length; j++) {
+                ColliderComponent c1 = colliders[i];
                 ColliderComponent c2 = colliders[j];
+                PhysicsComponent pc1 = c1.getEntity().getComponents(PhysicsComponent.class).stream().findAny().orElse(new PhysicsComponent(c1.getEntity()));
+                PhysicsComponent pc2 = c2.getEntity().getComponents(PhysicsComponent.class).stream().findAny().orElse(new PhysicsComponent(c2.getEntity()));
+
+                if (pc1.getProperties().getType() == PhysicProperties.Type.STATIC &&
+                        pc2.getProperties().getType() == PhysicProperties.Type.STATIC) {
+                    continue;
+                }
 
                 if (CollisionUtil.intersect(c1.getCollider(), c2.getCollider())) {
 
-                    PhysicsComponent pc2 = c2.getEntity().getComponents(PhysicsComponent.class).stream().findAny().orElse(new PhysicsComponent(c2.getEntity()));
 
                     System.out.println(c1.getEntity() + " is colliding with " + c2.getEntity());
 
