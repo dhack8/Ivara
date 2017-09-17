@@ -9,7 +9,7 @@ import core.entity.Entity;
  */
 public class LayerComponent extends Component{
 
-    int layer;
+    private int layer;
 
     /**
      * Creates a layer component with a int values
