@@ -1,6 +1,7 @@
 package pxljam.scripts;
 
 import core.components.ScriptComponent;
+import core.components.VelocityComponent;
 import core.input.InputHandler;
 import core.entity.Entity;
 import pxljam.entities.PlayerEntity;
@@ -34,8 +35,9 @@ public class PlayerController extends ScriptComponent{
             // TODO Jumping
             PlayerEntity entity = (PlayerEntity)getEntity();
             if(entity.canJump){
+                VelocityComponent comp = entity.getComponents(VelocityComponent.class).stream().findAny().get();
+                comp.getVelocity().set(0, -5f);
                 entity.canJump = false;
-                //entity.translate(0, -speed);
             }
 
 

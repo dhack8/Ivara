@@ -18,6 +18,6 @@ public class Gravity extends ScriptComponent {
     @Override
     public void update(long dmt) {
         VelocityComponent v = getEntity().getComponents(VelocityComponent.class).stream().findAny().get();
-        v.add(0, 0.5f/1000f * dmt);
+        v.add(0, 10f/1000f * dmt);
     }
 }
