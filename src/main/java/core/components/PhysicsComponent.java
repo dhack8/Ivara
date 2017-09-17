@@ -15,6 +15,11 @@ public class PhysicsComponent extends Component {
         super(entity);
     }
 
+    /**
+     * Creates a physics component with a mass value
+     * @param entity parent entity
+     * @param mass float value of mass
+     */
     public PhysicsComponent(Entity entity, float mass) {
         super(entity);
         this.inverseMass = 1/mass;
