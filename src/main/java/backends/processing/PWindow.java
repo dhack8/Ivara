@@ -161,7 +161,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, PSpriteComponent sprite){
-        float scale = camera.getScale();
         image(AssetHandler.getImage(sprite.getResourceID()), x*scale, y*scale);
     }
 

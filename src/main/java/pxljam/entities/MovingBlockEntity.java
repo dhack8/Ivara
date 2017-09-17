@@ -7,7 +7,6 @@ import core.entity.Entity;
 import maths.Vector;
 import physics.AABBCollider;
 import pxljam.scripts.AutomatedMoveController;
-import pxljam.scripts.LeftRightController;
 
 /**
  * A block that can move based on a given script
