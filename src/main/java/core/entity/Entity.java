@@ -10,7 +10,7 @@ import java.util.Set;
  * This class represents the entities within the game
  * @author Alex Mitchell
  */
-public abstract class Entity implements Comparable<Entity>{
+public abstract class Entity{
 
     private Set<Component> components = new HashSet<>();
 
@@ -67,16 +67,4 @@ public abstract class Entity implements Comparable<Entity>{
         }
         return components;
     }
-
-    /**
-     * Comparator to compare 2 entities' z values.
-     * @param e1 entity that is passed in
-     * @return 0 if z values are equal, < 0 if passed entity is closer to screen, > 0 if passed entity is further from
-     * screen</>
-     */
-    @Override
-    public int compareTo(Entity e1){
-        return (int)(this.position.z - e1.position.z);
-    }
-
 }
