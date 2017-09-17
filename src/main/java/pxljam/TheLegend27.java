@@ -5,7 +5,7 @@ import backends.Renderer;
 import backends.processing.PWindow;
 import core.Game;
 import processing.core.PApplet;
-import pxljam.scenes.FirstScene;
+import pxljam.scenes.LevelOne;
 
 /**
  * Created by Callum Li on 9/15/17.
@@ -13,7 +13,7 @@ import pxljam.scenes.FirstScene;
 public class TheLegend27 extends Game {
 
     public TheLegend27(Renderer renderer, InputBroadcaster inputBroadcaster) {
-        super(new FirstScene(), renderer, inputBroadcaster);
+        super(new LevelOne(), renderer, inputBroadcaster);
     }
 
     public static void main(String[] args) {

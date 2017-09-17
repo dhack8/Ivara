@@ -4,7 +4,7 @@ import core.scene.Scene;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pxljam.scenes.FirstScene;
+import pxljam.scenes.LevelOne;
 
 /**
  * Created by james on 16/09/2017.
@@ -16,7 +16,7 @@ public class SceneToFileTest {
 
     @Before
     public void setUp() throws Exception {
-        scene = new FirstScene();
+        scene = new LevelOne();
         stf = new SceneToFile(scene);
     }
 
