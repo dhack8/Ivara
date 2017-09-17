@@ -23,11 +23,15 @@ public class NPlatformEntity extends Entity {
      * horizontally, whichever is specified in the constructor of the level the NPlatform is used in.
      * @param x x location
      * @param y y location
-     * @param n amount of tiles that makes up the platform
+     * @param n amount of tiles that makes up the platform, assuming n >= 2
      * @param isVertical boolean symbolising if the platform is vertical or horizontal
+     * @throws IllegalArgumentException if the user tries to call the creation of an NPlatform of size less than 2
      */
-    public NPlatformEntity(float x, float y, int n, boolean isVertical) {
+    public NPlatformEntity(float x, float y, int n, boolean isVertical) throws IllegalArgumentException{
         super(new Vector(x, y));
+        if(n < 2){
+            throw new IllegalArgumentException("Number of blocks too small for creation of NPlatform");
+        }
 
         if (isVertical) {
             direction = new Vector(0, 1);
@@ -46,8 +50,7 @@ public class NPlatformEntity extends Entity {
             middleSectionID = "grass-top";
             endSectionID = "grass-top-right";
         }
-
-
+        
         PSpriteComponent first = new PSpriteComponent(this, startSectionID, 1, 1);
         addComponent(first);
 
