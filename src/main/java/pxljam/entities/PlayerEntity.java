@@ -41,8 +41,8 @@ public class PlayerEntity extends Entity {
                         this,
                         new AABBCollider(
                                 AABBCollider.TOPLEFT,
-                                new Vector(0, 1.4f),
-                                new Vector(1, 0.1f)
+                                new Vector(0.199f, 1.4f),
+                                new Vector(0.611f, 0.1f)
                         ),
                         (entity) -> {
                             System.out.println(entity);

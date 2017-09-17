@@ -24,7 +24,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
     private Scene currentScene;
     private AssetHandler handler;
-    private int mask = 1;
+    private int mask = 2;
 
     private float scale = 100;
 
