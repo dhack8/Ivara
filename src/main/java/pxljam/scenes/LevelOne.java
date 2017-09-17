@@ -14,6 +14,6 @@ public class LevelOne extends Scene {
     public LevelOne() {
         addEntity(new BackgroundEntity(0,0));
         addEntity(new PlayerEntity(2, 6.5f));
-        addEntity(new NPlatformEntity(3,3, 20, "grass"));
+        addEntity(new NPlatformEntity(2,1, 8, true));
     }
 }

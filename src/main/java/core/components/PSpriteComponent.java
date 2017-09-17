@@ -34,7 +34,7 @@ public class PSpriteComponent extends Component {
     }
 
     /**
-     * Creates a dimension-less sprite component, rendered at its' native resolution.
+     * Creates a dimension-less sprite component, rendered at its native resolution.
      * @param entity parent entity
      * @param resourceID String identifier for the sprite component
      */
