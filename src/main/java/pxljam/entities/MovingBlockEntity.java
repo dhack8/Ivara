@@ -25,7 +25,6 @@ public class MovingBlockEntity extends Entity {
         super(new Vector(x, y));
         addComponent(new PSpriteComponent(this, recourseID, 1, 1));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
-        //addComponent(new AutomatedMoveController(this, xDistance ,yDistace));
-        addComponent(new LeftRightController(this, xDistance));
+        addComponent(new AutomatedMoveController(this, xDistance ,yDistace));
     }
 }

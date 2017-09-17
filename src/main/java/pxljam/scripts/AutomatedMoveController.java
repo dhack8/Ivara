@@ -15,7 +15,7 @@ public class AutomatedMoveController extends ScriptComponent{
     boolean movingDown;
     boolean movingRight;
 
-    float ratio;
+    double theta;
 
     private float metresPerSecond = 1f;
 
@@ -27,32 +27,35 @@ public class AutomatedMoveController extends ScriptComponent{
         y = 0;
         movingDown = true;
         movingRight = true;
+        theta = (Math.atan(dY/dX));
     }
 
     @Override
     public void update(long dmt) {
         float speed = metresPerTick(dmt);
+        float xChange = (float)(Math.cos(theta) * speed);
+        float yChange = (float)(Math.sin(theta) * speed);
 
         if(movingRight){
-            //x += speed;
-            getEntity().translate(speed, 0);
+            x += xChange;
+            getEntity().translate(xChange, 0);
             if(x >= dX) movingRight = false;
 
         }else{
-            x -= speed;
-            getEntity().translate(-speed, 0);
+            x -= xChange;
+            getEntity().translate(-xChange, 0);
             if(x <= 0) movingRight = true;
         }
 
 
         if(movingDown){
-            y += speed;
-            getEntity().translate(0, speed);
+            y += yChange;
+            getEntity().translate(0, yChange);
             if(y >= dY) movingDown = false;
 
         }else{
-            y -= speed;
-            getEntity().translate(0, -speed);
+            y -= yChange;
+            getEntity().translate(0, -yChange);
             if(y <= 0) movingDown = true;
         }
     }
