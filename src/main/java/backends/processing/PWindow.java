@@ -131,14 +131,14 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                             AABBCollider ab = cc.getCollider().getAABBBoundingBox();
                             Vector location = ab.getMin();
                             Vector dimension = ab.getDimension();
-                            drawRect(location.x, location.y, dimension.x, dimension.y);
+                            //drawRect(location.x, location.y, dimension.x, dimension.y);
                         }
 
                         for (SensorComponent sc : e.getComponents(SensorComponent.class)){
                             AABBCollider ab = sc.getCollider().getAABBBoundingBox();
                             Vector location = ab.getMin();
                             Vector dimension = ab.getDimension();
-                            drawSensor(location.x, location.y, dimension.x, dimension.y);
+                            //drawSensor(location.x, location.y, dimension.x, dimension.y);
                         }
                     }
                 }
