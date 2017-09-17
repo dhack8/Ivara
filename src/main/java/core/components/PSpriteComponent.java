@@ -13,6 +13,13 @@ public class PSpriteComponent extends Component {
 
     private Vector dimensions;
 
+    /**
+     * Constructor for a sprite component that has a width and height along with a resource identifier
+     * @param entity parent entity
+     * @param resourceID String identifier for the sprite component
+     * @param width float value of width
+     * @param height float value of height
+     */
     public PSpriteComponent(Entity entity, String resourceID, float width, float height) {
         super(entity);
         transform = new Vector(0,0);
