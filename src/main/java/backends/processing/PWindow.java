@@ -3,10 +3,7 @@ package backends.processing;
 import backends.InputBroadcaster;
 import backends.Renderer;
 import core.AssetHandler;
-import core.components.BasicCameraComponent;
-import core.components.ColliderComponent;
-import core.components.LayerComponent;
-import core.components.PSpriteComponent;
+import core.components.*;
 import core.input.KeyListener;
 import core.input.MouseListener;
 import core.entity.Entity;
@@ -135,6 +132,12 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                             Vector location = ab.getMin();
                             Vector dimension = ab.getDimension();
                             drawRect(location.x, location.y, dimension.x, dimension.y);
+                        }
+
+                        for (SensorComponent sc : e.getComponents(SensorComponent.class)){
+                            AABBCollider ab = sc.getCollider().getAABBBoundingBox();
+                            Vector location = ab.getMin();
+                            Vector dimension = ab.getDimension();
                             drawSensor(location.x, location.y, dimension.x, dimension.y);
                         }
                     }
@@ -167,8 +170,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     /**
      * Draws a rectangle of the specified values passed in. This is called in the draw() method to visualise the
      * bounding box of the entities for collision.
-     * @param x float value of rectangle x
-     * @param y float value of rectangle y
+     * @param x float value of x position
+     * @param y float value of y position
      * @param width float value of rectangle width
      * @param height float value of rectangle height
      */
@@ -178,10 +181,20 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         rect(x * scale, y * scale, width * scale, height * scale);
     }
 
+    /**
+     * Draws a rectangle of the specified values passed in. This is called in the draw() method to visualise the
+     * box of the sensors.
+     * @param x value of x position
+     * @param y value of y position
+     * @param width rectangle width
+     * @param height rectangle height
+     */
     private void drawSensor(float x, float y, float width, float height){
-        stroke(255, 255, 60);
+        strokeWeight(2); //thicker line to make sensor box more visible
+        stroke(0,255,0);
         noFill();
         rect(x * scale, y * scale, width * scale, height * scale);
+        strokeWeight(1); //set back to thin line for bounding boxes
     }
 
     //---------------------- Input Broadcaster ------------------------
