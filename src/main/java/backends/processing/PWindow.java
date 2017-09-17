@@ -8,7 +8,6 @@ import core.components.LayerComponent;
 import core.components.PSpriteComponent;
 import core.input.KeyListener;
 import core.input.MouseListener;
-import core.scene.Camera;
 import core.entity.Entity;
 import core.scene.Scene;
 import maths.Vector;
@@ -34,8 +33,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
-
-    private Camera camera;
 
     /**
      * TODO
@@ -96,14 +93,12 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void draw(){
-        currentScene.getEntities().getAllComponents(CameraCompoent)
 
 
         background(220, 220, 220);
-        camera = currentScene.getCamera();
 
-        Vector cameraLoc = camera.getLocation();
-        translate(-cameraLoc.x*camera.getScale(), -cameraLoc.y*camera.getScale());
+        //Vector cameraLoc = camera.getLocation();
+        //translate(-cameraLoc.x*camera.getScale(), -cameraLoc.y*camera.getScale());
 
         currentScene.getEntities().stream()
                 .sorted((e1, e2) -> {
@@ -138,7 +133,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, float width, float height, PSpriteComponent sprite){
-        float scale = camera.getScale();
+        float scale = 100;//camera.getScale();
         image(AssetHandler.getImage(sprite.getResourceID()), x*scale, y*scale, width*scale, height*scale);
     }
 
@@ -151,7 +146,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param height float value of rectangle height
      */
     private void drawRect(float x, float y, float width, float height){
-        float scale = camera.getScale();
+        float scale = 100;//camera.getScale();
         stroke(255,0,0);
         noFill();
         rect(x * scale, y * scale, width * scale, height * scale);
