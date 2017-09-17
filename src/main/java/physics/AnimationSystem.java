@@ -17,9 +17,10 @@ public class AnimationSystem extends EntitySystem {
 
     @Override
     public void update(long delta) {
+        //getEntities().getAllComponents(AnimatedSpriteComponent.class)
         for (Entity entity : getEntities()) {
-            String resourceID = entity.getComponents(AnimatedSpriteComponent.class).stream().findAny().get().getCurrentResource(delta);
-            entity.getComponents(PSpriteComponent.class).stream().findAny().get().setResourceID(resourceID);
+            //String resourceID = entity.getComponents(AnimatedSpriteComponent.class).stream().findAny().get().getCurrentResource(delta);
+            //entity.getComponents(PSpriteComponent.class).stream().findAny().get().setResourceID(resourceID);
         }
     }
 }
