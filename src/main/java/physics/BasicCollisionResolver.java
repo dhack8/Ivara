@@ -30,9 +30,6 @@ public class BasicCollisionResolver {
 
                 if (CollisionUtil.intersect(c1.getCollider(), c2.getCollider())) {
 
-                    PhysicsComponent pc1 = c1.getEntity().getComponents(PhysicsComponent.class).stream().findAny().orElse(new PhysicsComponent(c1.getEntity()));
-                    PhysicsComponent pc2 = c2.getEntity().getComponents(PhysicsComponent.class).stream().findAny().orElse(new PhysicsComponent(c2.getEntity()));
-
                     System.out.println(c1.getEntity() + " is colliding with " + c2.getEntity());
 
                     Vector v = CollisionUtil.minimumDistanceVector((AABBCollider) c1.getCollider(), (AABBCollider) c2.getCollider());

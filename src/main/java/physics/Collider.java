@@ -8,4 +8,6 @@ import maths.Vector;
 public abstract class Collider {
 
     public abstract Collider translate(Vector vector);
+
+    public abstract AABBCollider getAABBBoundingBox();
 }
