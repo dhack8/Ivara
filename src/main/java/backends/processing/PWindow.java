@@ -114,11 +114,13 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                     for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
                         // TODO: render sprite based on scene camera
 
+                        Vector transform = spriteComponent.getTransform();
+
                         if(spriteComponent.isDimensionless()){
-                            drawSprite(e.getPosition().x, e.getPosition().y, spriteComponent);
+                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, spriteComponent);
                         }else {
                             Vector dimen = spriteComponent.getDimensions();
-                            drawSprite(e.getPosition().x, e.getPosition().y, dimen.x, dimen.y, spriteComponent);
+                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, dimen.x, dimen.y, spriteComponent);
                         }
                     }
                     if(mask == 2) {
