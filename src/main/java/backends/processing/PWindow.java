@@ -99,12 +99,10 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         Vector cameraPos = camera.getPointOfInterest();
 
 
-        translate(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
+
+        //translate(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
 
         background(220, 220, 220);
-
-        //Vector cameraLoc = camera.getLocation();
-        //translate(-cameraLoc.x*camera.getScale(), -cameraLoc.y*camera.getScale());
 
         currentScene.getEntities().stream()
                 .sorted((e1, e2) -> {

@@ -45,7 +45,7 @@ public class PlayerEntity extends Entity {
                                 new Vector(0.611f, 0.1f)
                         ),
                         (entity) -> {
-                            System.out.println(entity);
+                            //System.out.println(entity);
                             canJump = true;
                             v.getVelocity().set(0, 0);
 
