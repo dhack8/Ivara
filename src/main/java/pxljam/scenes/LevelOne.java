@@ -32,6 +32,6 @@ public class LevelOne extends Scene {
 
         addEntity(new NPlatformEntity(10,-8  , 2, false));
         addEntity(new NPlatformEntity(3,-9  , 3, false));
-        addEntity(new MovingBlockEntity(0,-9, 2,-9, "dirt_bottom", 2));
+        //addEntity(new MovingBlockEntity(0,-9, 2,-9, "dirt_bottom", 2));
     }
 }
