@@ -96,11 +96,14 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void draw(){
+        currentScene.getEntities().getAllComponents(CameraCompoent)
+
+
         background(220, 220, 220);
         camera = currentScene.getCamera();
 
         Vector cameraLoc = camera.getLocation();
-        translate(-cameraLoc.x, -cameraLoc.y);
+        translate(-cameraLoc.x*camera.getScale(), -cameraLoc.y*camera.getScale());
 
         currentScene.getEntities().stream()
                 .sorted((e1, e2) -> {

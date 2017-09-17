@@ -3,6 +3,7 @@ package core.scene;
 import core.components.Component;
 import core.entity.Entity;
 import core.entity.EntityContainer;
+import javafx.scene.Camera;
 import physics.BasicCollisionResolver;
 import physics.CollisionResolver;
 import physics.MassCollisionResolver;
@@ -31,8 +32,8 @@ public abstract class Scene {
      * Gets all the entities in the Scene
      * @return The entities
      */
-    public Collection<Entity> getEntities(){
-        return entities.getEntities();
+    public EntityContainer getEntities(){
+        return entities;
     }
 
     /**
