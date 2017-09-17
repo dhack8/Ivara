@@ -85,11 +85,13 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/grass-top-left.png", "grass-top-left");
         AssetHandler.loadImage("./assets/grass-top-right.png", "grass-top-right");
         AssetHandler.loadImage("./assets/player.png", "player");
+        AssetHandler.loadImage("./assets/background.png", "background");
     }
 
     /**
      * Draws all the entities, along with their assigned sprites within the scene. Calls the drawRect() method to
-     * visualise the bounding box of the colliding entities.
+     * visualise the bounding box of the colliding entities. Checks if the sprite is dimensionless or not, to call the
+     * correct draw function.
      */
     @Override
     public void draw(){
@@ -118,8 +120,15 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                 }).forEach((e) -> {
                     for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
                         // TODO: render sprite based on scene camera
-                        Vector dimen = spriteComponent.getDimensions();
-                        drawSprite(e.getPosition().x, e.getPosition().y, dimen.x, dimen.y, spriteComponent);
+
+                        Vector transform = spriteComponent.getTransform();
+
+                        if(spriteComponent.isDimensionless()){
+                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, spriteComponent);
+                        }else {
+                            Vector dimen = spriteComponent.getDimensions();
+                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, dimen.x, dimen.y, spriteComponent);
+                        }
                     }
                     if(mask == 2) {
                         for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
@@ -143,6 +152,17 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     private void drawSprite(float x, float y, float width, float height, PSpriteComponent sprite){
         image(AssetHandler.getImage(sprite.getResourceID()), x*scale, y*scale, width*scale, height*scale);
+    }
+
+    /**
+     * Draws a sprite in the given location at its native resolution, without specifying a width and height.
+     * @param x x location
+     * @param y y location
+     * @param sprite the sprite to draw
+     */
+    private void drawSprite(float x, float y, PSpriteComponent sprite){
+        float scale = camera.getScale();
+        image(AssetHandler.getImage(sprite.getResourceID()), x*scale, y*scale);
     }
 
     /**

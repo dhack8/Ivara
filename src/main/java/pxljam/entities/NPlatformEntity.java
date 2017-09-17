@@ -33,6 +33,15 @@ public class NPlatformEntity extends Entity{
         PSpriteComponent last = new PSpriteComponent(this, recourseID + "-top-right", 1, 1);
         last.setTransform(new Vector(n-1, 0));
 
-        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.TOPLEFT, new Vector(x,y), new Vector(1*n, 1))));
+        addComponent(
+                new ColliderComponent(this,
+                    new AABBCollider(
+                            AABBCollider.TOPLEFT,
+                            new Vector(0,0),
+                            new Vector(1*n, 1
+                            )
+                    )
+                )
+        );
     }
 }

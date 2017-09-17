@@ -4,10 +4,9 @@ import core.components.BasicCameraComponent;
 import core.components.Component;
 import core.entity.Entity;
 import core.entity.EntityContainer;
-import javafx.scene.Camera;
-import physics.BasicCollisionResolver;
-import physics.CollisionResolver;
+import physics.EntitySystem;
 import physics.MassCollisionResolver;
+import physics.VelocitySystem;
 import util.ClassMap;
 
 import java.util.*;
@@ -81,9 +80,10 @@ public abstract class Scene {
             }
         }
 
-        CollisionResolver r = new MassCollisionResolver(entities);
-        r.resolveCollisions();
-
+        EntitySystem r = new MassCollisionResolver(entities);
+        r.update(delta);
+        VelocitySystem v = new VelocitySystem(entities);
+        v.update(delta);
     }
 
     public BasicCameraComponent getCamera(){

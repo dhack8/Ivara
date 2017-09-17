@@ -21,7 +21,7 @@ public class VelocityComponent extends Component {
      * @param dx deltax
      * @param dy deltay
      */
-    public void transform(float dx, float dy) {
+    public void add(float dx, float dy) {
         velocity.add(dx, dy);
     }
 
