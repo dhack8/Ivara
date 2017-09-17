@@ -3,6 +3,7 @@ package backends.processing;
 import backends.InputBroadcaster;
 import backends.Renderer;
 import core.AssetHandler;
+import core.components.ColliderComponent;
 import core.components.LayerComponent;
 import core.components.PSpriteComponent;
 import core.input.KeyListener;
@@ -11,6 +12,8 @@ import core.scene.Camera;
 import core.entity.Entity;
 import core.scene.Scene;
 import maths.Vector;
+import physics.AABBCollider;
+import physics.Collider;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
     private Scene currentScene;
     private AssetHandler handler;
+    private int mask = 2;
 
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
@@ -39,7 +43,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void setMask(int mask) {
-        throw new UnsupportedOperationException();
+        this.mask = mask;
     }
 
     /**
@@ -109,6 +113,14 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                         Vector dimen = spriteComponent.getDimensions();
                         drawSprite(e.getPosition().x, e.getPosition().y, dimen.x, dimen.y, spriteComponent);
                     }
+                    if(mask == 2) {
+                        for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
+                            AABBCollider ab = cc.getCollider().getAABBBoundingBox();
+                            Vector location = ab.getMin();
+                            Vector dimension = ab.getDimension();
+                            drawRect(location.x, location.y, dimension.x, dimension.y);
+                        }
+                    }
                 }
         );
     }
@@ -124,6 +136,21 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private void drawSprite(float x, float y, float width, float height, PSpriteComponent sprite){
         float scale = camera.getScale();
         image(AssetHandler.getImage(sprite.getResourceID()), x*scale, y*scale, width*scale, height*scale);
+    }
+
+    /**
+     * Draws a rectangle of the specified values passed in. This is called in the draw() method to visualise the
+     * bounding box of the entities for collision.
+     * @param x float value of rectangle x
+     * @param y float value of rectangle y
+     * @param width float value of rectangle width
+     * @param height float value of rectangle height
+     */
+    private void drawRect(float x, float y, float width, float height){
+        float scale = camera.getScale();
+        stroke(255,0,0);
+        noFill();
+        rect(x * scale, y * scale, width * scale, height * scale);
     }
 
     //---------------------- Input Broadcaster ------------------------
