@@ -1,21 +1,20 @@
 package physics;
 
 import core.components.ColliderComponent;
-import core.components.PhysicsComponent;
 import core.entity.EntityContainer;
 import maths.Vector;
 
 /**
  * Created by Callum Li on 9/16/17.
  */
-public class BasicCollisionResolver extends CollisionResolver {
+public class BasicCollisionResolver extends EntitySystem {
 
     public BasicCollisionResolver(EntityContainer entities) {
         super(entities);
     }
 
-    public void resolveCollisions() {
-        ColliderComponent[] colliders = entities.getAllComponents(ColliderComponent.class).toArray(new ColliderComponent[0]);
+    public void update(long delta) {
+        ColliderComponent[] colliders = getEntities().getAllComponents(ColliderComponent.class).toArray(new ColliderComponent[0]);
 
         for (int i = 0; i < colliders.length; i++) {
             for (int j = i+1; j < colliders.length; j++) {

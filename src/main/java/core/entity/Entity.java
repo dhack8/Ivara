@@ -2,6 +2,8 @@ package core.entity;
 
 import core.components.Component;
 import maths.Vector;
+import processing.core.PVector;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +30,16 @@ public abstract class Entity{
      */
     public void translate(float dx, float dy) {
         position.add(dx, dy);
+    }
+
+    /**
+     * Translate the entity
+     * todo: update docs
+     * @param dx Position change in the X plane
+     * @param dy Position change in the Y plane
+     */
+    public void translate(PVector vector) {
+        position.add(vector);
     }
 
     public Vector getPosition() {

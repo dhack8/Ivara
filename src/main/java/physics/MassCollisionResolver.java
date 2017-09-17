@@ -8,14 +8,14 @@ import maths.Vector;
 /**
  * Created by Callum Li on 9/17/17.
  */
-public class MassCollisionResolver extends CollisionResolver{
+public class MassCollisionResolver extends EntitySystem {
 
     public MassCollisionResolver(EntityContainer entities) {
         super(entities);
     }
 
-    public void resolveCollisions() {
-        ColliderComponent[] colliders = entities.getAllComponents(ColliderComponent.class).toArray(new ColliderComponent[0]);
+    public void update(long delta) {
+        ColliderComponent[] colliders = getEntities().getAllComponents(ColliderComponent.class).toArray(new ColliderComponent[0]);
 
         for (int i = 0; i < colliders.length; i++) {
 
