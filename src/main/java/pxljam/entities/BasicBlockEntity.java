@@ -18,9 +18,9 @@ public class BasicBlockEntity extends Entity{
      * @param y The y position of top-left corner of the platform
      * @param recourseID the recourseID to be used for the platform
      */
-    public BasicBlockEntity(float x, float y, float z, String recourseID){
-        super(new Vector(x,y,z));
+    public BasicBlockEntity(float x, float y, String recourseID){
+        super(new Vector(x,y));
         addComponent(new PSpriteComponent(this, recourseID, 1, 1));
-        addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f, z), new Vector(0.5f, 0.5f, z))));
+        addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
     }
 }
