@@ -7,8 +7,8 @@ import maths.Vector;
  */
 public class AABBCollider extends Collider {
 
-    Vector center;
-    Vector radius;
+    private Vector center;
+    private Vector radius;
 
     /**
      * Creates an AABB from two given Vectors. The first is the
@@ -26,4 +26,6 @@ public class AABBCollider extends Collider {
     public Collider translate(Vector vector) {
         return new AABBCollider(new Vector(center.x + vector.x, center.y + vector.y), radius);
     }
+
+    
 }
