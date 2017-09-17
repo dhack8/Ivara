@@ -8,14 +8,11 @@ import maths.Vector;
 /**
  * Created by Callum Li on 9/17/17.
  */
-public class MassCollisionResolver {
-
-    private EntityContainer entities;
+public class MassCollisionResolver extends CollisionResolver{
 
     public MassCollisionResolver(EntityContainer entities) {
-        this.entities = entities;
+        super(entities);
     }
-
 
     public void resolveCollisions() {
         ColliderComponent[] colliders = entities.getAllComponents(ColliderComponent.class).toArray(new ColliderComponent[0]);

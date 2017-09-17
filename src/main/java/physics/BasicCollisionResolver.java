@@ -8,16 +8,10 @@ import maths.Vector;
 /**
  * Created by Callum Li on 9/16/17.
  */
-public class BasicCollisionResolver {
-
-    private EntityContainer entities;
+public class BasicCollisionResolver extends CollisionResolver {
 
     public BasicCollisionResolver(EntityContainer entities) {
-        this.entities = entities;
-    }
-
-    public void update(long delta) {
-        resolveCollisions();
+        super(entities);
     }
 
     public void resolveCollisions() {
