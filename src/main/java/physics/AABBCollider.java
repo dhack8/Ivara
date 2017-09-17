@@ -8,8 +8,8 @@ import maths.Vector;
 public class AABBCollider extends Collider {
     public static final int TOPLEFT = 2;
 
-    private Vector center;
-    private Vector radius;
+    Vector center;
+    Vector radius;
 
     /**
      * Creates an AABB from two given Vectors. The first is the
