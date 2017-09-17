@@ -16,7 +16,7 @@ public class LevelOne extends Scene {
         addEntity(new PlayerEntity(2, 1.5f));
 
         //addEntity(new MovingBlockEntity(5f, 3f, 5f, 5f, "grass-top", 0.4f));
-        addEntity(new MovingBlockEntity(5f, 3f, 7f, 3f, "grass-top", 1.5f));
+        addEntity(new MovingBlockEntity(5f, 3f, 10f, 3f, "grass-top", 1.5f));
 
         addEntity(new NPlatformEntity(1,2,3,false));
         addEntity(new NPlatformEntity(4,3, 3, true));
