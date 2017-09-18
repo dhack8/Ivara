@@ -166,15 +166,15 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, float width, float height, PSpriteComponent sprite){
-        boolean player = sprite.getResourceID().equals("player");
+        //boolean player = sprite.getResourceID().equals("player");
 
-        if(player) System.out.println("Entity render location: " + x + " " + y + "\n---------------");//System.out.println("drawing at THIS SHOULD BE CONSTANT: " + (y*scale + t.y)
+        //if(player) System.out.println("Entity render location: " + x + " " + y + "\n---------------");//System.out.println("drawing at THIS SHOULD BE CONSTANT: " + (y*scale + t.y)
                 //+ " entity y: " + y + " scale: " + scale +  " scale*y" + (scale*y) + " transform(-cameraPos.y*scale): " + t.y + " dif " + (scale*y + t.y));
         scale = displayWidth/camera.getWidth();
 
         Vector cameraPos = camera.getPointOfInterest();
         t = new Vector(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
-        
+
         image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y, width*scale, height*scale);
         //if(player) prevpos = y*scale;
     }
