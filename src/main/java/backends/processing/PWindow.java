@@ -64,7 +64,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        fullScreen();
+        fullScreen(P2D);
         noLoop();
     }
 
@@ -186,7 +186,13 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, PSpriteComponent sprite){
-        image(AssetHandler.getImage(sprite.getResourceID()), x*scale, y*scale);
+
+        scale = displayWidth/camera.getWidth();
+
+        Vector cameraPos = camera.getPointOfInterest();
+        t = new Vector(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
+
+        image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y);
     }
 
     /**
