@@ -20,6 +20,8 @@ public class BasicCameraComponent extends Component{
         Vector spriteDimension = getEntity().getComponents(PSpriteComponent.class).stream().findAny().map((e) -> e.getDimensions()).orElse(new Vector(0, 0));
         Vector entityLocation = getEntity().getPosition();
 
+        System.out.println("Entity camera location: " + entityLocation.x + " " + entityLocation.y);
+
         return new Vector(entityLocation.x + (spriteDimension.x/2), entityLocation.y + (spriteDimension.y/2));
     }
 
