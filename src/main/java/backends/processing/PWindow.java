@@ -64,7 +64,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        fullScreen(P2D);
+        fullScreen();
         noLoop();
     }
 
@@ -97,62 +97,64 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void draw(){
-        camera = currentScene.getCamera();
+        currentScene.setDrawing(true);
+            camera = currentScene.getCamera();
 
-        scale = displayWidth/camera.getWidth();
+            scale = displayWidth / camera.getWidth();
 
-        Vector cameraPos = camera.getPointOfInterest();
+            Vector cameraPos = camera.getPointOfInterest();
 
-        //System.out.println("Player xpos: " + cameraPos.y + " delta: " + (cameraPos.y - prev.y));
+            //System.out.println("Player xpos: " + cameraPos.y + " delta: " + (cameraPos.y - prev.y));
 
-        prev = new Vector(cameraPos);
+            prev = new Vector(cameraPos);
 
 
-        //translate(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
+            //translate(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
 
-        t = new Vector(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
+            t = new Vector(-cameraPos.x * scale + displayWidth / 3, -cameraPos.y * scale + displayHeight / 2);
 
-        //System.out.println("Camera y: " + cameraPos.y + " scale " + scale);
+            //System.out.println("Camera y: " + cameraPos.y + " scale " + scale);
 
-        background(220, 220, 220);
+            background(220, 220, 220);
 
-        currentScene.getEntities().stream()
-                .sorted((e1, e2) -> {
-                    int layer1 = e1.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1,0)).getLayer();
-                    int layer2 = e2.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1,0)).getLayer();
+            currentScene.getEntities().stream()
+                    .sorted((e1, e2) -> {
+                        int layer1 = e1.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
+                        int layer2 = e2.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
 
-                    return layer1 - layer2;
-                }).forEach((e) -> {
-                    for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
-                        // TODO: render sprite based on scene camera
+                        return layer1 - layer2;
+                    }).forEach((e) -> {
+                        for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
+                            // TODO: render sprite based on scene camera
 
-                        Vector transform = spriteComponent.getTransform();
+                            Vector transform = spriteComponent.getTransform();
 
-                        if(spriteComponent.isDimensionless()){
-                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, spriteComponent);
-                        }else {
-                            Vector dimen = spriteComponent.getDimensions();
-                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, dimen.x, dimen.y, spriteComponent);
+                            if (spriteComponent.isDimensionless()) {
+                                drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, spriteComponent);
+                            } else {
+                                Vector dimen = spriteComponent.getDimensions();
+                                drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, dimen.x, dimen.y, spriteComponent);
+                            }
+                        }
+                        //TODO point of mask?
+                        if (mask == 2) {
+                            for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
+                                AABBCollider ab = cc.getCollider().getAABBBoundingBox();
+                                Vector location = ab.getMin();
+                                Vector dimension = ab.getDimension();
+                                drawRect(location.x, location.y, dimension.x, dimension.y);
+                            }
+
+                            for (SensorComponent sc : e.getComponents(SensorComponent.class)) {
+                                AABBCollider ab = sc.getCollider().getAABBBoundingBox();
+                                Vector location = ab.getMin();
+                                Vector dimension = ab.getDimension();
+                                drawSensor(location.x, location.y, dimension.x, dimension.y);
+                            }
                         }
                     }
-                    //TODO point of mask?
-                    if(mask == 2) {
-                        for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
-                            AABBCollider ab = cc.getCollider().getAABBBoundingBox();
-                            Vector location = ab.getMin();
-                            Vector dimension = ab.getDimension();
-                            drawRect(location.x, location.y, dimension.x, dimension.y);
-                        }
-
-                        for (SensorComponent sc : e.getComponents(SensorComponent.class)){
-                            AABBCollider ab = sc.getCollider().getAABBBoundingBox();
-                            Vector location = ab.getMin();
-                            Vector dimension = ab.getDimension();
-                            drawSensor(location.x, location.y, dimension.x, dimension.y);
-                        }
-                    }
-                }
-        );
+            );
+            currentScene.setDrawing(false);
     }
 
     float prevpos = 0;
