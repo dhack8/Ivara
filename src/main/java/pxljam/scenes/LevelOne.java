@@ -12,7 +12,6 @@ import pxljam.entities.*;
 public class LevelOne extends Scene {
 
     public LevelOne() {
-        addEntity(new BackgroundEntity(0, 0));
 
         //addEntity(new BackgroundEntity(0,0));
         addEntity(new PlayerEntity(2, 1.5f));

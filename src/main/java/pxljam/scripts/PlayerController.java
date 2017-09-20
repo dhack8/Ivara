@@ -56,7 +56,7 @@ public class PlayerController extends ScriptComponent{
             // TODO running
             getEntity().translate(speed, 0);
         }
-        if (InputHandler.keyPressed(SPACE)) {
+        if (InputHandler.keyPressed(SPACE)) { // TODO: Remove once levels are designed properly
             // TODO extra function?
             getEntity().translate(0, -speed);
         }

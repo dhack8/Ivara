@@ -27,6 +27,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private int mask = 2;
 
     private float scale = 100;
+    private Vector t = new Vector(0,0); //translation
 
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
@@ -87,9 +88,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/background.png", "background", this);
     }
 
-    Vector prev = new Vector(0,0);
-    Vector t = new Vector(0,0);
-
     /**
      * Draws all the entities, along with their assigned sprites within the scene. Calls the drawRect() method to
      * visualise the bounding box of the colliding entities. Checks if the sprite is dimensionless or not, to call the
@@ -104,16 +102,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
             Vector cameraPos = camera.getPointOfInterest();
 
-            //System.out.println("Player xpos: " + cameraPos.y + " delta: " + (cameraPos.y - prev.y));
-
-            prev = new Vector(cameraPos);
-
-
-            //translate(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
-
             t = new Vector(-cameraPos.x * scale + displayWidth / 3, -cameraPos.y * scale + displayHeight / 2);
-
-            //System.out.println("Camera y: " + cameraPos.y + " scale " + scale);
 
             background(220, 220, 220);
 
@@ -157,8 +146,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
             currentScene.setDrawing(false);
     }
 
-    float prevpos = 0;
-
     /**
      * Draws a sprite in the given location.
      * @param x x location
@@ -168,17 +155,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, float width, float height, PSpriteComponent sprite){
-        //boolean player = sprite.getResourceID().equals("player");
-
-        //if(player) System.out.println("Entity render location: " + x + " " + y + "\n---------------");//System.out.println("drawing at THIS SHOULD BE CONSTANT: " + (y*scale + t.y)
-                //+ " entity y: " + y + " scale: " + scale +  " scale*y" + (scale*y) + " transform(-cameraPos.y*scale): " + t.y + " dif " + (scale*y + t.y));
-        scale = displayWidth/camera.getWidth();
-
-        Vector cameraPos = camera.getPointOfInterest();
-        t = new Vector(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
-
         image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y, width*scale, height*scale);
-        //if(player) prevpos = y*scale;
     }
 
     /**
@@ -188,12 +165,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, PSpriteComponent sprite){
-
-        scale = displayWidth/camera.getWidth();
-
-        Vector cameraPos = camera.getPointOfInterest();
-        t = new Vector(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
-
         image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y);
     }
 
@@ -208,7 +179,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private void drawRect(float x, float y, float width, float height){
         stroke(255,0,0);
         noFill();
-        rect(x * scale, y * scale, width * scale, height * scale);
+        rect(x*scale + t.x, y*scale + t.y, width * scale, height * scale);
     }
 
     /**
@@ -223,7 +194,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         strokeWeight(2); //thicker line to make sensor box more visible
         stroke(0,255,0);
         noFill();
-        rect(x * scale, y * scale, width * scale, height * scale);
+        rect(x*scale + t.x, y*scale + t.y, width * scale, height * scale);
         strokeWeight(1); //set back to thin line for bounding boxes
     }
 
