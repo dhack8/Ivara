@@ -25,6 +25,7 @@ public abstract class Scene {
     private Map<String, Entity> nameEntityMap = new HashMap<>();
     private EntityContainer entities = new EntityContainer();
     private BasicCameraComponent camera = null;
+    private boolean drawing;
 
     /**
      * Gets all the entities in the Scene
@@ -97,5 +98,13 @@ public abstract class Scene {
             camera = getComponents(BasicCameraComponent.class).stream().findAny().get();
         }
         return camera;
+    }
+
+    public boolean isDrawing() {
+        return drawing;
+    }
+
+    public void setDrawing(boolean drawing) {
+        this.drawing = drawing;
     }
 }

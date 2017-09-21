@@ -27,9 +27,12 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private int mask = 2;
 
     private float scale = 100;
+    private Vector t = new Vector(0,0); //translation
 
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
+
+    private BasicCameraComponent camera;
 
     /**
      * TODO
@@ -92,55 +95,55 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void draw(){
-        BasicCameraComponent camera = currentScene.getCamera();
+        currentScene.setDrawing(true);
+            camera = currentScene.getCamera();
 
-        scale = displayWidth/camera.getWidth();
+            scale = displayWidth / camera.getWidth();
 
-        Vector cameraPos = camera.getPointOfInterest();
+            Vector cameraPos = camera.getPointOfInterest();
 
+            t = new Vector(-cameraPos.x * scale + displayWidth / 3, -cameraPos.y * scale + displayHeight / 2);
 
+            background(220, 220, 220);
 
-        //translate(-cameraPos.x*scale + displayWidth/3, -cameraPos.y*scale + displayHeight/2);
+            currentScene.getEntities().stream()
+                    .sorted((e1, e2) -> {
+                        int layer1 = e1.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
+                        int layer2 = e2.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
 
-        background(220, 220, 220);
+                        return layer1 - layer2;
+                    }).forEach((e) -> {
+                        for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
+                            // TODO: render sprite based on scene camera
 
-        currentScene.getEntities().stream()
-                .sorted((e1, e2) -> {
-                    int layer1 = e1.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1,0)).getLayer();
-                    int layer2 = e2.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1,0)).getLayer();
+                            Vector transform = spriteComponent.getTransform();
 
-                    return layer1 - layer2;
-                }).forEach((e) -> {
-                    for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
-                        // TODO: render sprite based on scene camera
+                            if (spriteComponent.isDimensionless()) {
+                                drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, spriteComponent);
+                            } else {
+                                Vector dimen = spriteComponent.getDimensions();
+                                drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, dimen.x, dimen.y, spriteComponent);
+                            }
+                        }
+                        //TODO point of mask?
+                        if (mask == 2) {
+                            for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
+                                AABBCollider ab = cc.getCollider().getAABBBoundingBox();
+                                Vector location = ab.getMin();
+                                Vector dimension = ab.getDimension();
+                                drawRect(location.x, location.y, dimension.x, dimension.y);
+                            }
 
-                        Vector transform = spriteComponent.getTransform();
-
-                        if(spriteComponent.isDimensionless()){
-                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, spriteComponent);
-                        }else {
-                            Vector dimen = spriteComponent.getDimensions();
-                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, dimen.x, dimen.y, spriteComponent);
+                            for (SensorComponent sc : e.getComponents(SensorComponent.class)) {
+                                AABBCollider ab = sc.getCollider().getAABBBoundingBox();
+                                Vector location = ab.getMin();
+                                Vector dimension = ab.getDimension();
+                                drawSensor(location.x, location.y, dimension.x, dimension.y);
+                            }
                         }
                     }
-                    //TODO point of mask?
-                    if(mask == 2) {
-                        for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
-                            AABBCollider ab = cc.getCollider().getAABBBoundingBox();
-                            Vector location = ab.getMin();
-                            Vector dimension = ab.getDimension();
-                            drawRect(location.x, location.y, dimension.x, dimension.y);
-                        }
-
-                        for (SensorComponent sc : e.getComponents(SensorComponent.class)){
-                            AABBCollider ab = sc.getCollider().getAABBBoundingBox();
-                            Vector location = ab.getMin();
-                            Vector dimension = ab.getDimension();
-                            drawSensor(location.x, location.y, dimension.x, dimension.y);
-                        }
-                    }
-                }
-        );
+            );
+            currentScene.setDrawing(false);
     }
 
     /**
@@ -152,7 +155,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, float width, float height, PSpriteComponent sprite){
-        image(AssetHandler.getImage(sprite.getResourceID()), x*scale, y*scale, width*scale, height*scale);
+        image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y, width*scale, height*scale);
     }
 
     /**
@@ -162,7 +165,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, PSpriteComponent sprite){
-        image(AssetHandler.getImage(sprite.getResourceID()), x*scale, y*scale);
+        image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y);
     }
 
     /**
@@ -176,7 +179,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private void drawRect(float x, float y, float width, float height){
         stroke(255,0,0);
         noFill();
-        rect(x * scale, y * scale, width * scale, height * scale);
+        rect(x*scale + t.x, y*scale + t.y, width * scale, height * scale);
     }
 
     /**
@@ -191,7 +194,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         strokeWeight(2); //thicker line to make sensor box more visible
         stroke(0,255,0);
         noFill();
-        rect(x * scale, y * scale, width * scale, height * scale);
+        rect(x*scale + t.x, y*scale + t.y, width * scale, height * scale);
         strokeWeight(1); //set back to thin line for bounding boxes
     }
 

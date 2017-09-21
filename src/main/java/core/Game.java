@@ -62,7 +62,7 @@ public abstract class Game {
 
             // Update the game while more than a tick's worth
             // of time needs to be processed.
-            while (accumulator >= tickTime) {
+            while (accumulator >= tickTime && !currentScene.isDrawing()) {
                 // do Tick
                 currentScene.update(tickTime);
 
@@ -70,7 +70,9 @@ public abstract class Game {
             }
 
             // Display the current scene.
+
             renderer.render(currentScene);
+
         }
     }
 
