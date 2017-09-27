@@ -1,0 +1,11 @@
+Descriptive Name: Scene Library
+
+Informal Interface:
+This library consists of software relating to the construction and handling of the levels/stages within the game.
+This library is currently thought to consist of two classes, Scene and Entity.
+The Scene class essentially allows for the construction of a level or area within the game. Each Scene contains a collection of various entities of which are used to create the level.
+Entity is a class that handles the various "things" that each level may contain. Each Entity contains a SpriteComponent and may or may not contain Collider, Physics and Script Components (dependant on the type of Entity).
+        
+Primary Author: Alex Mitchell
+Code Reviewer: Callum Li
+External Tester: David Hack
