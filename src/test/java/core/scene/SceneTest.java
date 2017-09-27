@@ -2,12 +2,14 @@ package core.scene;
 
 import core.components.Component;
 import core.entity.Entity;
+import ivara.entities.PlayerEntity;
 import maths.Vector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -71,9 +73,44 @@ public class SceneTest {
 
 
     @Test
-    public void update() throws Exception { // Todo how should I test this
+    /**
+     * Testing the camera creation
+     */
+    public void testCamera() throws Exception{
+        try{
+            testScene.getCamera();
+            fail("Should not have been able to find a camera.");
+        }catch(RuntimeException e){
+
+        }
+    }
+
+
+    @Test
+    /**
+     * Testing the camera creation
+     */
+    public void testCamera1() throws Exception{
+        Entity e = new PlayerEntity(1,1);
+        testScene.addEntity(e);
+        try{
+            testScene.getCamera();
+        }catch(RuntimeException error){
+            fail("Should have been able to find a camera.");
+        }
+    }
+
+    @Test
+    /**
+     * Testing the update method
+     */
+    public void testUpdate() throws Exception { // Todo how should I test this
 
     }
+
+
+
+
 
 
 }
