@@ -1,0 +1,24 @@
+Control Library
+
+This library will be work with an Entity object. It will determine what to do with the Entity when passed input based on the Controller
+and/or any behaviour outlined by the ScriptComponent.
+
+Classes involved: ScriptComponent, Controller
+
+Class Descriptions:
+
+    ScriptComponent
+    
+        Decribes the behaviour of an Entity object. Different NPCs may have different behaviour which will be specified in their ScriptComponent.
+        
+        Primary Author: Will
+        Code Reviewer: David
+        External Tester: Alex
+
+    Controller
+    
+        Controller is specific to the Entity that uses it. The Controller determines what should happen with the Entity based on the input.
+        
+        Primary Author: Will
+        Code Reviewer: David
+        External Tester: Alex
