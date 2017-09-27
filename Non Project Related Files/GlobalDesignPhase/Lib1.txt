@@ -1,0 +1,13 @@
+Descriptive Name: Renderer/Animator Library
+
+Informal interface:
+These are the classes involved; ProcessingRenderer, SpriteComponent, AnimatedSpriteComponent
+They will be in charge of basically drawing a given scene using the sprites. When requested to draw and
+provided a scene object from the game the renderer will take the scenes state and draw it. It will 
+work with sprites and animated sprites and maybe the assetManager to draw all the needed images.
+
+Primary Author: David Hack
+
+Code Reviewer: James M
+
+External Tester: Callum L
