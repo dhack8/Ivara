@@ -51,8 +51,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     public void render(Scene scene) {
         if(scene == null){
             textSize(40);
-            fill(255,0,0);
-            text("The scene provided to the renderer is NULL!", 10, 40);
+            background(255,0,0);
+            //text("The scene provided to the renderer is NULL!", 10, 40);
             return;
         }
 
