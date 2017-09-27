@@ -24,6 +24,8 @@ import static org.junit.Assert.*;
  */
 public class PWindowTest {
 
+    int delay = 1000;
+
     @Test
     public void render() throws Exception {
 
@@ -37,7 +39,7 @@ public class PWindowTest {
         long start = System.currentTimeMillis();
         while(true) {
             testWindow.render(testScene);
-            if(System.currentTimeMillis() - start > 2000){
+            if(System.currentTimeMillis() - start > delay){
                 break;
             }
         }
@@ -57,7 +59,7 @@ public class PWindowTest {
         start = System.currentTimeMillis();
         while(true) {
             testWindow.render(testScene);
-            if(System.currentTimeMillis() - start > 2000){
+            if(System.currentTimeMillis() - start > delay){
                 break;
             }
         }
