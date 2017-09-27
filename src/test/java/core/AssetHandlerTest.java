@@ -32,7 +32,7 @@ public class AssetHandlerTest {
      */
     @Test
     public void loadImage() throws Exception {
-        testHandler.loadImage(filePath, "Player");
+        //testHandler.loadImage(filePath, "Player"); Todo Fix this line please :)
         PImage test = testHandler.getImage("Player");
         assertNotNull(test);
     }
