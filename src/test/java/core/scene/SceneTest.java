@@ -13,24 +13,15 @@ import static org.junit.Assert.*;
 
 /**
  * Testing class for the Scene
+ *
  * @author Alex Mitchell
  */
 public class SceneTest {
-    Scene testScene;
+    private Scene testScene;
 
     @Before
     public void setUp() throws Exception {
-        testScene = new Scene(){}; // Creating a general scene for testing purposes
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
-    @Test
-    public void testGetEntities() throws Exception {
-        // won't need to test
+        testScene = new Scene() {}; // Creating a general scene for testing purposes
     }
 
     @Test
@@ -38,7 +29,7 @@ public class SceneTest {
      * Will test a simple add of a new unnamed entity and whether the entity exists in the scene
      */
     public void testAddEntity() throws Exception {
-        Entity e = new Entity(new Vector(1,1)){};
+        Entity e = new Entity(new Vector(1, 1)) {};
         testScene.addEntity(e); // adding an unnamed entity
         assertTrue("Scene should contain the entity.", testScene.getEntities().contains(e));
         assertTrue("Scene should contain only one entity.", testScene.getEntities().size() == 1);
@@ -49,7 +40,7 @@ public class SceneTest {
      * Tests that a named entity is added to the scene correctly
      */
     public void testAddEntity1() throws Exception {
-        Entity e = new Entity(new Vector(1,1)){};
+        Entity e = new Entity(new Vector(1, 1)) {};
         String n = "Test";
         testScene.addEntity(e, n); //adding a named entity
         assertTrue("Scene should contain the entity.", testScene.getEntities().contains(e));
@@ -58,28 +49,31 @@ public class SceneTest {
     }
 
     @Test
-    public void getEntity() throws Exception {
+    /**
+     * Tests adding a variety of entities
+     */
+    public void testAddEntity2() throws Exception {
+        String name = "Test";
+        int numEntities = 10;
+        for (int i = 1; i <= numEntities; i++) {
+            // alternating between adding a named and unnamed entity
+            Entity e = new Entity(new Vector(1, 1)){}; // irrelevant position
+            if(i % 2 != 0) testScene.addEntity(e);
+            else testScene.addEntity(e, name + i);
+        }
 
+        assertTrue("Scene should contain " + numEntities + " entities, but found " + testScene.getEntities().size() + ".", testScene.getEntities().size() == numEntities);
+
+        for(int i = 2; i <= numEntities; i+=2){
+            assertTrue("Scene should contain the named entity " + name + i + ".", testScene.getEntity(name + i) != null);
+        }
     }
+
 
     @Test
-    public void update() throws Exception {
+    public void update() throws Exception { // Todo how should I test this
 
     }
 
-    @Test
-    public void getCamera() throws Exception {
-
-    }
-
-    @Test
-    public void isDrawing() throws Exception {
-
-    }
-
-    @Test
-    public void setDrawing() throws Exception {
-
-    }
 
 }
