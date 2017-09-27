@@ -34,7 +34,7 @@ public class EntityContainerTest {
         assertTrue("The EntityContainer should contain the added entity", ec.entities.contains(e));
         //assertTrue("The EntityContainer should contain a single TestComp1 component", ec.classMap.get(TestComp1.class)); // Todo re-structure the classMap class, is it useful?
         //assertTrue("The EntityContainer should contain a single TestComp2 component", ec.classMap.get(TestComp2.class));
-    }
+    }//
 
 
     // Test component class used to test the Scene functionality

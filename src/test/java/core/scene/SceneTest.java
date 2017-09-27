@@ -46,7 +46,7 @@ public class SceneTest {
         assertTrue("Scene should contain the entity.", testScene.getEntities().contains(e));
         assertTrue("Scene should contain only one entity.", testScene.getEntities().size() == 1);
         assertTrue("Scene should contain the entity in the named entities collection.", testScene.getEntity(n).equals(e));
-    }
+    }//
 
     @Test
     /**
