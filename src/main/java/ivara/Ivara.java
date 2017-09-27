@@ -4,6 +4,7 @@ import backends.InputBroadcaster;
 import backends.Renderer;
 import backends.processing.PWindow;
 import core.Game;
+import ivara.scenes.LevelThree;
 import processing.core.PApplet;
 import ivara.scenes.LevelOne;
 
@@ -13,8 +14,8 @@ import ivara.scenes.LevelOne;
 public class Ivara extends Game {
 
     public Ivara(Renderer renderer, InputBroadcaster inputBroadcaster) {
-        super(new LevelOne(), renderer, inputBroadcaster);
-        //super(new LevelThree(), renderer, inputBroadcaster);
+        //super(new LevelOne(), renderer, inputBroadcaster);
+        super(new LevelThree(), renderer, inputBroadcaster);
     }
 
     public static void main(String[] args) {
