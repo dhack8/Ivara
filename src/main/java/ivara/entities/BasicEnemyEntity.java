@@ -46,8 +46,8 @@ public class BasicEnemyEntity extends Entity{ // Todo make a super enemy entity
                         this,
                         new AABBCollider( // Todo set for the left block collision
                                 AABBCollider.TOPLEFT,
-                                new Vector(-0.1f, 0.75f),
-                                new Vector(0.1f, 0f)
+                                new Vector(-0.01f, 0f),
+                                new Vector(0.01f, 0.75f)
                         ),
                         (entity) -> {
                             v.getVelocity().mult(-1f);
@@ -60,8 +60,8 @@ public class BasicEnemyEntity extends Entity{ // Todo make a super enemy entity
                         this,
                         new AABBCollider( // Todo set for the right block collision
                                 AABBCollider.TOPLEFT,
-                                new Vector(0.75f, 0.75f),
-                                new Vector(0.1f, 0f)
+                                new Vector(0.75f, 0f),
+                                new Vector(0.01f, 0.75f)
                         ),
                         (entity) -> {
                             v.getVelocity().mult(-1f);
@@ -72,14 +72,8 @@ public class BasicEnemyEntity extends Entity{ // Todo make a super enemy entity
         addComponent( // for the bottom
                 new SensorComponent(
                         this,
-                        new AABBCollider( // Todo set for the right block collision
-                                AABBCollider.TOPLEFT,
-                                new Vector(0f, 0.7f),
-                                new Vector(0.75f, 0.05f)
-                        ),
-                        (entity) -> {
-                            v.getVelocity().y = 0;
-                        }
+                        new AABBCollider(AABBCollider.TOPLEFT, new Vector(0f, 0.7f), new Vector(0.75f, 0.05f)),
+                        (entity) -> {v.getVelocity().y = 0;}
                 )
         );
     }
