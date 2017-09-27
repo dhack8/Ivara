@@ -1,4 +1,4 @@
-package pxljam.scripts;
+package ivara.scripts;
 
 import core.components.ScriptComponent;
 import core.components.VelocityComponent;

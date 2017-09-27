@@ -1,11 +1,11 @@
-package pxljam;
+package ivara;
 
 import core.components.ColliderComponent;
 import core.components.PSpriteComponent;
 import core.entity.Entity;
 import maths.Vector;
 import physics.AABBCollider;
-import pxljam.scripts.PlayerController;
+import ivara.scripts.PlayerController;
 
 /**
  * Created by Callum Li on 9/16/17.

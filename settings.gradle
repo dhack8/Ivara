@@ -15,4 +15,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'pxljam-2017'
+rootProject.name = 'ivara-2017'

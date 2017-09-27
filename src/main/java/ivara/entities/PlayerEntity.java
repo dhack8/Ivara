@@ -1,12 +1,12 @@
-package pxljam.entities;
+package ivara.entities;
 
 import core.components.*;
 import core.entity.Entity;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
-import pxljam.scripts.Gravity;
-import pxljam.scripts.PlayerController;
+import ivara.scripts.Gravity;
+import ivara.scripts.PlayerController;
 
 /**
  * This class handles the entity of the player within the game

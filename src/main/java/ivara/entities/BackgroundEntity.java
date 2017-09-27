@@ -1,4 +1,4 @@
-package pxljam.entities;
+package ivara.entities;
 
 import core.components.LayerComponent;
 import core.components.PSpriteComponent;

@@ -1,9 +1,9 @@
-package pxljam.scenes;
+package ivara.scenes;
 
 import core.scene.Scene;
-import pxljam.entities.BasicBlockEntity;
-import pxljam.entities.MovingBlockEntity;
-import pxljam.entities.PlayerEntity;
+import ivara.entities.BasicBlockEntity;
+import ivara.entities.MovingBlockEntity;
+import ivara.entities.PlayerEntity;
 
 /**
  * Created by Alex Mitchell on 17/09/2017.
