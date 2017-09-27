@@ -1,7 +1,9 @@
 package core;
 
+import backends.processing.PWindow;
 import org.junit.Before;
 import org.junit.Test;
+import processing.core.PApplet;
 import processing.core.PImage;
 
 import javax.imageio.ImageIO;
@@ -18,11 +20,14 @@ public class AssetHandlerTest {
 
     String filePath;
     AssetHandler testHandler;
+    PApplet renderer;
+
 
     @Before
     public void setUp() throws Exception {
         testHandler = new AssetHandler();
         filePath = "./assets/player.png";
+        renderer = new PWindow();
     }
 
     /**
@@ -32,7 +37,7 @@ public class AssetHandlerTest {
      */
     @Test
     public void loadImage() throws Exception {
-        //testHandler.loadImage(filePath, "Player"); Todo Fix this line please :)
+        testHandler.loadImage(filePath, "Player", renderer);
         PImage test = testHandler.getImage("Player");
         assertNotNull(test);
     }

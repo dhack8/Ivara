@@ -1,5 +1,6 @@
 package backends.processing;
 
+import core.AssetHandler;
 import core.components.BasicCameraComponent;
 import core.components.PSpriteComponent;
 import core.components.ScriptComponent;
@@ -9,8 +10,10 @@ import core.scene.Scene;
 import ivara.entities.NPlatformEntity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
+import org.junit.Before;
 import org.junit.Test;
 import processing.core.PApplet;
+import processing.core.PImage;
 import sun.font.Script;
 
 import javax.swing.*;
