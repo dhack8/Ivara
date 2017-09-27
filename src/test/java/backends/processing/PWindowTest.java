@@ -27,19 +27,39 @@ import static org.junit.Assert.*;
  */
 public class PWindowTest {
 
-    int delay = 1000;
+    int delay = 800;
 
     @Test
     public void render() throws Exception {
 
         PWindow testWindow = new PWindow();
-        PApplet.runSketch(new String[]{"Sketch Demo"}, testWindow);
+        PApplet.runSketch(new String[]{"PWindow"}, testWindow);
 
-        TestScene testScene = new TestScene();
+        TestScene testScene = null;
 
         testWindow.setMask(1);
 
         long start = System.currentTimeMillis();
+        while(true) {
+            testWindow.render(testScene);
+            if(System.currentTimeMillis() - start > delay){
+                break;
+            }
+        }
+
+        int o = JOptionPane.showConfirmDialog(
+                new JFrame(),
+                "Did you see red error screen?",
+                "Render result",
+                JOptionPane.YES_NO_OPTION);
+
+        if(o == 1){
+            fail("Human tester detected a error with rendering");
+        }
+
+        testScene = new TestScene();
+
+        start = System.currentTimeMillis();
         while(true) {
             testWindow.render(testScene);
             if(System.currentTimeMillis() - start > delay){
@@ -76,6 +96,26 @@ public class PWindowTest {
         if(m == 1){
             fail("Human tester detected a error with rendering");
         }
+
+        testWindow.setMask(2);
+
+        start = System.currentTimeMillis();
+        while(true) {
+            testWindow.render(testScene);
+            if(System.currentTimeMillis() - start > delay){
+                break;
+            }
+        }
+
+        int z = JOptionPane.showConfirmDialog(
+                new JFrame(),
+                "Same thing with testing boxes?",
+                "Render result",
+                JOptionPane.YES_NO_OPTION);
+
+        if(z == 1){
+            fail("Human tester detected a error with rendering");
+        }
     }
 
     public class TestScene extends Scene{
@@ -93,12 +133,9 @@ public class PWindowTest {
         }
     }
 
-    public class TestEntity extends Entity {
+    public class TestEntity extends PlayerEntity {
         public TestEntity(float x, float y) {
-            super(new Vector(x, y));
-
-            addComponent(new PSpriteComponent(this, "player", 1, 1.5f));
-            addComponent(new BasicCameraComponent(this, 19));
+            super(x,y);
         }
 
         public void moveSprite(){

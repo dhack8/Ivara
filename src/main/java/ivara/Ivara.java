@@ -19,7 +19,7 @@ public class Ivara extends Game {
 
     public static void main(String[] args) {
         PWindow processingBackend = new PWindow();
-        PApplet.runSketch(new String[]{"Sketch Demo"}, processingBackend);
+        PApplet.runSketch(new String[]{"PWindow"}, processingBackend);
         Game g = new Ivara(processingBackend, processingBackend);
         g.start();
     }
