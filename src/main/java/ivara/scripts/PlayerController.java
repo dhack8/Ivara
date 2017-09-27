@@ -1,10 +1,10 @@
-package pxljam.scripts;
+package ivara.scripts;
 
 import core.components.ScriptComponent;
 import core.components.VelocityComponent;
 import core.input.InputHandler;
 import core.entity.Entity;
-import pxljam.entities.PlayerEntity;
+import ivara.entities.PlayerEntity;
 
 import static core.input.InputHandler.*;
 

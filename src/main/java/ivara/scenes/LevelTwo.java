@@ -1,4 +1,4 @@
-package pxljam.scenes;
+package ivara.scenes;
 
 /**
  * Created by Callum Li on 9/16/17.

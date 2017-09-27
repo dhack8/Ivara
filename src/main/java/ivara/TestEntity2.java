@@ -1,4 +1,4 @@
-package pxljam;
+package ivara;
 
 import core.components.ColliderComponent;
 import core.components.PSpriteComponent;

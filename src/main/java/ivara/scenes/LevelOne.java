@@ -1,7 +1,7 @@
-package pxljam.scenes;
+package ivara.scenes;
 
 import core.scene.Scene;
-import pxljam.entities.*;
+import ivara.entities.*;
 
 /**
  * Our very first scene.

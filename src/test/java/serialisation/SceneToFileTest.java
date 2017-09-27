@@ -4,7 +4,7 @@ import core.scene.Scene;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pxljam.scenes.LevelOne;
+import ivara.scenes.LevelOne;
 
 /**
  * Created by james on 16/09/2017.

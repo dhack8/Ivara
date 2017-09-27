@@ -21,7 +21,7 @@ public class OldRendererTest {
         Entity testEntity = new Entity(new Vector(1, 1)) {};
         //scene.addEntity(testEntity);
 
-        //Game game = new TheLegend27();
+        //Game game = new Ivara();
         //game.setCurrentScene(scene);
 
         //testOldRenderer = new OldRenderer(game);

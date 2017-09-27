@@ -1,4 +1,4 @@
-package pxljam;
+package ivara;
 
 import core.scene.Scene;
 import maths.Vector;

@@ -1,4 +1,4 @@
-package pxljam.entities;
+package ivara.entities;
 
 import core.components.ColliderComponent;
 import core.components.PSpriteComponent;
@@ -6,7 +6,7 @@ import core.components.VelocityComponent;
 import core.entity.Entity;
 import maths.Vector;
 import physics.AABBCollider;
-import pxljam.scripts.AutomatedMoveController;
+import ivara.scripts.AutomatedMoveController;
 
 /**
  * A block that can move based on a given script

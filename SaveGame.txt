@@ -1,8 +1,8 @@
 location 0.0 0.0 
 dimension 999.0 999.0 
 scale 100.0
-1 pxljam.entities.PlayerEntity
-2 pxljam.entities.BasicBlockEntity
-3 pxljam.entities.BasicBlockEntity
-4 pxljam.entities.BasicBlockEntity
-5 pxljam.entities.BasicBlockEntity
+1 ivara.entities.PlayerEntity
+2 ivara.entities.BasicBlockEntity
+3 ivara.entities.BasicBlockEntity
+4 ivara.entities.BasicBlockEntity
+5 ivara.entities.BasicBlockEntity
