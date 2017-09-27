@@ -6,6 +6,7 @@ import core.components.ScriptComponent;
 import core.entity.Entity;
 import core.input.InputHandler;
 import core.scene.Scene;
+import ivara.entities.NPlatformEntity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
 import org.junit.Test;
@@ -31,6 +32,7 @@ public class PWindowTest {
 
         Scene testScene = new TestScene();
 
+        testWindow.setMask(1);
 
         long start = System.currentTimeMillis();
         while(true) {
@@ -42,7 +44,7 @@ public class PWindowTest {
 
         int n = JOptionPane.showConfirmDialog(
                 new JFrame(),
-                "Did you see a little man center left?",
+                "Did you see a little man center left, standing on a nice platform with nice corners?",
                 "Render result",
                 JOptionPane.YES_NO_OPTION);
 
@@ -55,6 +57,7 @@ public class PWindowTest {
         public TestScene(){
             //addEntity(new BackgroundEntity(0,0));
             addEntity(new TestEntity(2, 1.5f));
+            addEntity(new NPlatformEntity(0,3, 10, false));
         }
     }
 
