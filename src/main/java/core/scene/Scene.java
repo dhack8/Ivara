@@ -95,7 +95,11 @@ public abstract class Scene {
 
     public BasicCameraComponent getCamera(){
         if(camera == null) {
-            camera = getComponents(BasicCameraComponent.class).stream().findAny().get();
+            try {
+                camera = getComponents(BasicCameraComponent.class).stream().findAny().get();
+            }catch (NoSuchElementException e){
+                throw new RuntimeException("There is now camera component in this scene at least one entity should have a camera");
+            }
         }
         return camera;
     }
