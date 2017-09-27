@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
  */
 public class PWindowTest {
 
-    int delay = 1000;
+    int delay = 800;
 
     @Test
     public void render() throws Exception {
