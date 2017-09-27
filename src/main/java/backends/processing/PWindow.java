@@ -95,6 +95,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void draw(){
+        if(currentScene == null) return;
         currentScene.setDrawing(true);
             camera = currentScene.getCamera();
 
