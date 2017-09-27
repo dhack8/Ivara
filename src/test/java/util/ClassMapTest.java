@@ -9,7 +9,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 /**
+ * This tests the basic functionality of the ClassMap class
  * @author Alex Mitchell
  */
 public class ClassMapTest {
@@ -29,13 +32,13 @@ public class ClassMapTest {
         String t1 = "test";
         Integer t2 = 1;
         map.put(t1);
-        assert map.contains(t1);
-        assert map.size() == 1;
-        assert map.size(t1.getClass()) == 1;
+        assertTrue("The map should contain: " + t1, map.contains(t1));
+        assertTrue("The map should have a single element", map.size() == 1);
+        assertTrue("The String hashset should contain a single element", map.size(t1.getClass()) == 1);
         map.put(t2);
-        assert map.contains(t2);
-        assert map.size() == 2;
-        assert map.size(t2.getClass()) == 1;
+        assertTrue("The map should contain: " + t2, map.contains(t2));
+        assertTrue("The map should have two elements", map.size() == 2);
+        assertTrue("The Integer hashset should contain a single element", map.size(t2.getClass()) == 1);
     }
 
     @Test
@@ -54,9 +57,9 @@ public class ClassMapTest {
 
         Collection<Integer> temp = map.get(Integer.class);
         for(Integer i : testValues){
-            assert temp.contains(i);
+            assertTrue("The map should contain: " + i, map.contains(i));
         }
-        assert temp.size() == testSize;
+        assertTrue("The number of Integer objects should be " + testSize + " but was " + temp.size(), temp.size() == testSize);
     }
 
     @Test
@@ -80,14 +83,15 @@ public class ClassMapTest {
 
         Collection<Integer> temp1 = map.get(Integer.class);
         for(Integer i : testValues1){
-            assert temp1.contains(i);
+            assertTrue("The map should contain: " + i, map.contains(i));
         }
-        assert temp1.size() == testSize;
+        assertTrue("The number of Integer objects should be " + testSize + " but was " + temp1.size(), temp1.size() == testSize);
 
         Collection<Character> temp2 = map.get(Character.class);
         for(Character i : testValues2){
-            assert temp2.contains(i);
+            assertTrue("The map should contain: " + i, map.contains(i));
         }
-        assert temp2.size() == testSize;
+        assertTrue("The number of Character objects should be " + testSize + " but was " + temp2.size(), temp2.size() == testSize);
+
     }
 }
