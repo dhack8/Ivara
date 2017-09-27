@@ -30,7 +30,7 @@ public class PWindowTest {
         PWindow testWindow = new PWindow();
         PApplet.runSketch(new String[]{"Sketch Demo"}, testWindow);
 
-        Scene testScene = new TestScene();
+        TestScene testScene = new TestScene();
 
         testWindow.setMask(1);
 
@@ -44,20 +44,47 @@ public class PWindowTest {
 
         int n = JOptionPane.showConfirmDialog(
                 new JFrame(),
-                "Did you see a little man center left, standing on a nice platform with nice corners?",
+                "Did you see a little man center left, standing at the start of a nice platform with nice corners?",
                 "Render result",
                 JOptionPane.YES_NO_OPTION);
 
         if(n == 1){
             fail("Human tester detected a error with rendering");
         }
+
+        testScene.moveSprite();
+
+        start = System.currentTimeMillis();
+        while(true) {
+            testWindow.render(testScene);
+            if(System.currentTimeMillis() - start > 2000){
+                break;
+            }
+        }
+
+        int m = JOptionPane.showConfirmDialog(
+                new JFrame(),
+                "Did you see a little man center left, standing at the end of the platform?",
+                "Render result",
+                JOptionPane.YES_NO_OPTION);
+
+        if(m == 1){
+            fail("Human tester detected a error with rendering");
+        }
     }
 
     public class TestScene extends Scene{
+        TestEntity tE;
+
         public TestScene(){
-            //addEntity(new BackgroundEntity(0,0));
-            addEntity(new TestEntity(2, 1.5f));
-            addEntity(new NPlatformEntity(0,3, 10, false));
+            tE = new TestEntity(2, 1.5f);
+
+            addEntity(tE);
+            addEntity(new NPlatformEntity(2,3, 10, false));
+        }
+
+        public void moveSprite(){
+            tE.moveSprite();
         }
     }
 
@@ -67,6 +94,10 @@ public class PWindowTest {
 
             addComponent(new PSpriteComponent(this, "player", 1, 1.5f));
             addComponent(new BasicCameraComponent(this, 19));
+        }
+
+        public void moveSprite(){
+            translate(9,0);
         }
     }
 }
