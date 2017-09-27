@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
  */
 public class PWindowTest {
 
-    int delay = 1000;
+    int delay = 800;
 
     @Test
     public void render() throws Exception {
@@ -32,11 +32,31 @@ public class PWindowTest {
         PWindow testWindow = new PWindow();
         PApplet.runSketch(new String[]{"Sketch Demo"}, testWindow);
 
-        TestScene testScene = new TestScene();
+        TestScene testScene = null;
 
         testWindow.setMask(1);
 
         long start = System.currentTimeMillis();
+        while(true) {
+            testWindow.render(testScene);
+            if(System.currentTimeMillis() - start > delay){
+                break;
+            }
+        }
+
+        int o = JOptionPane.showConfirmDialog(
+                new JFrame(),
+                "Did you see a error message rendered",
+                "Render result",
+                JOptionPane.YES_NO_OPTION);
+
+        if(o == 1){
+            fail("Human tester detected a error with rendering");
+        }
+
+        testScene = new TestScene();
+
+        start = System.currentTimeMillis();
         while(true) {
             testWindow.render(testScene);
             if(System.currentTimeMillis() - start > delay){
