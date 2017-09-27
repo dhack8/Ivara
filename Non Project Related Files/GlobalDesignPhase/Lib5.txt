@@ -1,0 +1,9 @@
+Descriptive Name: Asset Manager
+
+Informal Interface:
+This class manages all the assets on game launch. The correct assets are determined and assigned to each of the entities.
+Consists of the AssetHandler class (at this stage).
+
+Primary Author: James Magallanes
+Code Reviewer: Alex Mitchell
+External Tester: Will Pearson
