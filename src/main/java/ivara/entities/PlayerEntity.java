@@ -47,7 +47,7 @@ public class PlayerEntity extends Entity {
                         (entity) -> {
                             //System.out.println(entity);
                             canJump = true;
-                            v.getVelocity().set(0, 0);
+                            v.getVelocity().set(0, 0); // Todo this is dumb
 
                             if (entity instanceof MovingBlockEntity) {
                                 v.getVelocity().set(entity.getComponents(VelocityComponent.class).stream().findAny().get().getVelocity());

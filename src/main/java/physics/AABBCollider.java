@@ -26,8 +26,8 @@ public class AABBCollider extends Collider {
     /**
      * Creates and AABBCollider from an int and two given vectors. TODO finish
      * @param type
-     * @param v1
-     * @param v2
+     * @param v1 X and Y position of the top left corner
+     * @param v2 Width and Height
      */
     public AABBCollider(int type, Vector v1, Vector v2) {
         if (type == TOPLEFT) {
