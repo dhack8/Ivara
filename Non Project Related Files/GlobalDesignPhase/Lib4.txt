@@ -1,0 +1,19 @@
+Physics Library - Swen 222 Project
+
+The physics module has these key features:
+Colliders
+AABB
+Circle
+Collision Detection
+Spatial Collection
+Utility Physics Functions
+Ray casting
+Minimum Distance Between
+
+The core part of the module has no explicit interface, rather it is simply a collection of classes that provide a way to describe and model a physical world. The way to utilise this library is to encapsulate the desired features in project specific classes.
+
+For example, for the purpose of interfacing with Ivara, a PhysicsComponent class is also provided that connects an Entity and Collider.
+
+Primary Author: Callum Li
+Code Reviewer: Will
+External Tester: James
