@@ -27,7 +27,7 @@ public class SensorComponent extends Component {
         return collider.translate(getEntity().getPosition());
     }
 
-    public void onInersect(Entity entity) {
+    public void onIntersect(Entity entity) {
         onIntersect.accept(entity);
     }
 }

@@ -29,7 +29,7 @@ public class SensorSystem extends EntitySystem {
                 }
 
                 if (CollisionUtil.intersect(s.getCollider(), c.getCollider())) {
-                    s.onInersect(c.getEntity());
+                    s.onIntersect(c.getEntity());
                 }
             }
         }
