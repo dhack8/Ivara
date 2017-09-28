@@ -1,6 +1,6 @@
 package core.components;
 
-import core.entity.Entity;
+import core.entity.GameEntity;
 import physics.Collider;
 
 import java.util.function.Consumer;
@@ -11,9 +11,9 @@ import java.util.function.Consumer;
 public class SensorComponent extends Component {
 
     private final Collider collider;
-    private final Consumer<Entity> onIntersect;
+    private final Consumer<GameEntity> onIntersect;
 
-    public SensorComponent(Entity entity, Collider collider, Consumer<Entity> onIntersect) {
+    public SensorComponent(GameEntity entity, Collider collider, Consumer<GameEntity> onIntersect) {
         super(entity);
         this.collider = collider;
         this.onIntersect = onIntersect;
@@ -27,7 +27,7 @@ public class SensorComponent extends Component {
         return collider.translate(getEntity().getPosition());
     }
 
-    public void onInersect(Entity entity) {
+    public void onInersect(GameEntity entity) {
         onIntersect.accept(entity);
     }
 }

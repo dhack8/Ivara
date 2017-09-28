@@ -2,8 +2,8 @@ package ivara.scripts;
 
 import core.components.ScriptComponent;
 import core.components.VelocityComponent;
+import core.entity.GameEntity;
 import core.input.InputHandler;
-import core.entity.Entity;
 import ivara.entities.PlayerEntity;
 
 import static core.input.InputHandler.*;
@@ -19,7 +19,7 @@ public class PlayerController extends ScriptComponent{
 
     private float metresPerSecond = 3f;
 
-    public PlayerController(Entity e) {
+    public PlayerController(GameEntity e) {
         super(e);
     }
 

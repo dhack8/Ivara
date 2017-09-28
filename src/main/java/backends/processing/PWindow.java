@@ -6,11 +6,9 @@ import core.AssetHandler;
 import core.components.*;
 import core.input.KeyListener;
 import core.input.MouseListener;
-import core.entity.Entity;
 import core.scene.Scene;
 import maths.Vector;
 import physics.AABBCollider;
-import physics.Collider;
 import processing.core.PApplet;
 
 import java.util.ArrayList;

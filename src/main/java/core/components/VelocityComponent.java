@@ -1,10 +1,10 @@
 package core.components;
 
-import core.entity.Entity;
+import core.entity.GameEntity;
 import maths.Vector;
 
 /**
- * Holds the velocity of an Entity.
+ * Holds the velocity of an GameEntity.
  *
  * @author Will Pearson
  */
@@ -12,7 +12,7 @@ public class VelocityComponent extends Component {
 
     private Vector velocity = new Vector(0,0);
 
-    public VelocityComponent(Entity entity) {
+    public VelocityComponent(GameEntity entity) {
         super(entity);
     }
 

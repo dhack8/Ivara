@@ -11,12 +11,12 @@ import java.util.*;
  *
  * @author Will Pearson
  */
-public class EntityContainer implements Iterable<Entity> {
+public class EntityContainer implements Iterable<GameEntity> {
 
-    Set<Entity> entities = new HashSet<>();
+    Set<GameEntity> entities = new HashSet<>();
     ClassMap classMap = new ClassMap();
 
-    public void addEntity(Entity entity) {
+    public void addEntity(GameEntity entity) {
         entities.add(entity);
         for (Component component : entity.getComponents())
             classMap.put(component);
@@ -28,7 +28,7 @@ public class EntityContainer implements Iterable<Entity> {
      * Gets entities.
      * @return entites
      */
-    public Collection<Entity> getEntities() {
+    public Collection<GameEntity> getEntities() {
         return entities;
     }
 
@@ -42,7 +42,7 @@ public class EntityContainer implements Iterable<Entity> {
     }
 
     @Override
-    public Iterator<Entity> iterator() {
+    public Iterator<GameEntity> iterator() {
         return entities.iterator();
     }
 }

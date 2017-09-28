@@ -1,7 +1,7 @@
 package ivara.entities;
 
 import core.components.*;
-import core.entity.Entity;
+import core.entity.GameEntity;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
@@ -13,7 +13,7 @@ import ivara.scripts.PlayerController;
  *
  * @author Alex Mitchell
  */
-public class PlayerEntity extends Entity {
+public class PlayerEntity extends GameEntity {
 
     //Vector previous = new Vector(0,0);
 
@@ -45,7 +45,7 @@ public class PlayerEntity extends Entity {
                                 new Vector(0.611f, 0.1f)
                         ),
                         (entity) -> {
-                            //System.out.println(entity);
+                            //World.out.println(entity);
                             canJump = true;
                             v.getVelocity().set(0, 0);
 

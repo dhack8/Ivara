@@ -1,7 +1,6 @@
 package core.components;
 
-import core.entity.Entity;
-import maths.Vector;
+import core.entity.GameEntity;
 import physics.Collider;
 
 /**
@@ -11,7 +10,7 @@ public class ColliderComponent extends Component {
 
     private final Collider collider;
 
-    public ColliderComponent(Entity entity, Collider collider) {
+    public ColliderComponent(GameEntity entity, Collider collider) {
         super(entity);
         this.collider = collider;
     }

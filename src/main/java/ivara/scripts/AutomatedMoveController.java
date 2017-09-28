@@ -2,7 +2,7 @@ package ivara.scripts;
 
 import core.components.ScriptComponent;
 import core.components.VelocityComponent;
-import core.entity.Entity;
+import core.entity.GameEntity;
 import maths.Vector;
 
 /**
@@ -30,7 +30,7 @@ public class AutomatedMoveController extends ScriptComponent {
 
     }
 
-    public AutomatedMoveController(Entity e, Vector end, float time) {
+    public AutomatedMoveController(GameEntity e, Vector end, float time) {
         super(e);
         this.start = new Vector(getEntity().getPosition());
         this.end = end;

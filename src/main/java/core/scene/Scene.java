@@ -2,9 +2,10 @@ package core.scene;
 
 import core.components.BasicCameraComponent;
 import core.components.Component;
-import core.entity.Entity;
+import core.entity.GameEntity;
 import core.entity.EntityContainer;
 import core.systems.SensorSystem;
+import eem.World;
 import physics.AnimationSystem;
 import physics.EntitySystem;
 import physics.MassCollisionResolver;
@@ -21,8 +22,10 @@ import java.util.*;
  */
 public abstract class Scene {
 
+    private World world;
+
     private ClassMap classMap = new ClassMap();
-    private Map<String, Entity> nameEntityMap = new HashMap<>();
+    private Map<String, GameEntity> nameEntityMap = new HashMap<>();
     private EntityContainer entities = new EntityContainer();
     private BasicCameraComponent camera = null;
     private boolean drawing;
@@ -31,7 +34,7 @@ public abstract class Scene {
      * Gets all the entities in the Scene
      * @return The entities
      */
-    public Collection<Entity> getEntities(){
+    public Collection<GameEntity> getEntities(){
         return entities.getEntities();
     }
 
@@ -42,7 +45,7 @@ public abstract class Scene {
      * @param entity The entity to add
      * @param name   The name of the entity
      */
-    protected void addEntity(Entity entity, String name) {
+    protected void addEntity(GameEntity entity, String name) {
         if (name != null) {
             nameEntityMap.put(name, entity);
         }
@@ -58,17 +61,17 @@ public abstract class Scene {
      *
      * @param entity The entity to add
      */
-    protected void addEntity(Entity entity) {
+    protected void addEntity(GameEntity entity) {
         addEntity(entity, null);
     }
 
     /**
-     * Gets a named Entity via a given name
+     * Gets a named GameEntity via a given name
      *
      * @param name The name of the entity
      * @return The entity, if it exists
      */
-    protected Entity getEntity(String name){
+    protected GameEntity getEntity(String name){
         return nameEntityMap.get(name);
     }
 
@@ -77,7 +80,7 @@ public abstract class Scene {
     }
 
     public void update(long delta) {
-        for (Entity e : getEntities()) {
+        for (GameEntity e : getEntities()) {
             for (Component c :e.getComponents()) {
                 c.update(delta);
             }

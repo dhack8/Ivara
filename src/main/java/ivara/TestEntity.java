@@ -2,7 +2,7 @@ package ivara;
 
 import core.components.ColliderComponent;
 import core.components.PSpriteComponent;
-import core.entity.Entity;
+import core.entity.GameEntity;
 import maths.Vector;
 import physics.AABBCollider;
 import ivara.scripts.PlayerController;
@@ -10,7 +10,7 @@ import ivara.scripts.PlayerController;
 /**
  * Created by Callum Li on 9/16/17.
  */
-public class TestEntity extends Entity {
+public class TestEntity extends GameEntity {
 
     public TestEntity(Vector position) {
         super(position);

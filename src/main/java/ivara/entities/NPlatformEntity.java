@@ -2,7 +2,7 @@ package ivara.entities;
 
 import core.components.ColliderComponent;
 import core.components.PSpriteComponent;
-import core.entity.Entity;
+import core.entity.GameEntity;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -11,7 +11,7 @@ import physics.AABBCollider;
  * boolean passed in.
  * @author James Magallanes
  */
-public class NPlatformEntity extends Entity {
+public class NPlatformEntity extends GameEntity {
 
     private Vector direction;
     private String startSectionID;

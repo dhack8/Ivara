@@ -1,6 +1,6 @@
 package core.components;
 
-import core.entity.Entity;
+import core.entity.GameEntity;
 
 /**
  * Layer component gives a entity a layer for renderering.
@@ -16,7 +16,7 @@ public class LayerComponent extends Component{
      * @param entity parent entity
      * @param layer layer of entity
      */
-    public LayerComponent(Entity entity, int layer) {
+    public LayerComponent(GameEntity entity, int layer) {
         super(entity);
         this.layer = layer;
     }

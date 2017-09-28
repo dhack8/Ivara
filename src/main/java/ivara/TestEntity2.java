@@ -2,14 +2,14 @@ package ivara;
 
 import core.components.ColliderComponent;
 import core.components.PSpriteComponent;
-import core.entity.Entity;
+import core.entity.GameEntity;
 import maths.Vector;
 import physics.AABBCollider;
 
 /**
  * Created by Callum Li on 9/16/17.
  */
-public class TestEntity2 extends Entity {
+public class TestEntity2 extends GameEntity {
 
     public TestEntity2(Vector position) {
         super(position);

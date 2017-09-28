@@ -33,7 +33,7 @@ public class MassCollisionResolver extends EntitySystem {
                 if (CollisionUtil.intersect(c1.getCollider(), c2.getCollider())) {
 
 
-                    //System.out.println(c1.getEntity() + " is colliding with " + c2.getEntity());
+                    //World.out.println(c1.getEntity() + " is colliding with " + c2.getEntity());
 
                     Vector v = CollisionUtil.minimumDistanceVector((AABBCollider) c1.getCollider(), (AABBCollider) c2.getCollider());
 

@@ -1,7 +1,6 @@
 package physics;
 
 import core.components.VelocityComponent;
-import core.entity.Entity;
 import core.entity.EntityContainer;
 import processing.core.PVector;
 

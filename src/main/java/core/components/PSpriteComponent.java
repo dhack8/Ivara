@@ -1,6 +1,6 @@
 package core.components;
 
-import core.entity.Entity;
+import core.entity.GameEntity;
 import maths.Vector;
 
 /**
@@ -23,7 +23,7 @@ public class PSpriteComponent extends Component {
      * @param width float value of width
      * @param height float value of height
      */
-    public PSpriteComponent(Entity entity, String resourceID, float width, float height) {
+    public PSpriteComponent(GameEntity entity, String resourceID, float width, float height) {
         super(entity);
         transform = new Vector(0,0);
         this.resourceID = resourceID;
@@ -38,7 +38,7 @@ public class PSpriteComponent extends Component {
      * @param entity parent entity
      * @param resourceID String identifier for the sprite component
      */
-    public PSpriteComponent(Entity entity, String resourceID){
+    public PSpriteComponent(GameEntity entity, String resourceID){
         super(entity);
         transform = new Vector(0,0);
         this.resourceID = resourceID;

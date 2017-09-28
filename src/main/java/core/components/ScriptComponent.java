@@ -1,6 +1,6 @@
 package core.components;
 
-import core.entity.Entity;
+import core.entity.GameEntity;
 
 /**
  * Script component belongs to an entity. Gets overridden with
@@ -8,7 +8,7 @@ import core.entity.Entity;
  */
 public abstract class ScriptComponent extends Component {
 
-    public ScriptComponent(Entity entity) {
+    public ScriptComponent(GameEntity entity) {
         super(entity);
     }
 

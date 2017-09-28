@@ -12,13 +12,13 @@ import java.util.Set;
  * This class represents the entities within the game
  * @author Alex Mitchell
  */
-public abstract class Entity{
+public abstract class GameEntity {
 
     private Set<Component> components = new HashSet<>();
 
     private Vector position;
 
-    public Entity(Vector position) {
+    public GameEntity(Vector position) {
         this.position = position;
     }
 
@@ -56,7 +56,7 @@ public abstract class Entity{
     }
 
     /**
-     * Gathers a collection of the components stored within this Entity
+     * Gathers a collection of the components stored within this GameEntity
      * @return The collection of components
      */
     public final Collection<Component> getComponents() {

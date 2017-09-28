@@ -3,7 +3,7 @@ package ivara.entities;
 import core.components.ColliderComponent;
 import core.components.PSpriteComponent;
 import core.components.VelocityComponent;
-import core.entity.Entity;
+import core.entity.GameEntity;
 import maths.Vector;
 import physics.AABBCollider;
 import ivara.scripts.AutomatedMoveController;
@@ -12,7 +12,7 @@ import ivara.scripts.AutomatedMoveController;
  * A block that can move based on a given script
  * @author Alex Mitchell
  */
-public class MovingBlockEntity extends Entity {
+public class MovingBlockEntity extends GameEntity {
 
     /**
      * Creates a MovingBlockEntity that moves from a to b over a period of time

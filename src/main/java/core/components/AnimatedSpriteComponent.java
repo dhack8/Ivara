@@ -1,6 +1,6 @@
 package core.components;
 
-import core.entity.Entity;
+import core.entity.GameEntity;
 
 import java.util.*;
 
@@ -23,7 +23,7 @@ public class AnimatedSpriteComponent extends Component{
      * @param entity The entity
      * @param frameTick Time for frame change.
      */
-    public AnimatedSpriteComponent(Entity entity, int frameTick) {
+    public AnimatedSpriteComponent(GameEntity entity, int frameTick) {
         super(entity);
         this.frameTick = frameTick;
     }

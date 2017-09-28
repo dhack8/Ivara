@@ -1,8 +1,6 @@
 package physics;
 
-import core.components.AnimatedSpriteComponent;
-import core.components.PSpriteComponent;
-import core.entity.Entity;
+import core.entity.GameEntity;
 import core.entity.EntityContainer;
 
 /**
@@ -18,7 +16,7 @@ public class AnimationSystem extends EntitySystem {
     @Override
     public void update(long delta) {
         //getEntities().getAllComponents(AnimatedSpriteComponent.class)
-        for (Entity entity : getEntities()) {
+        for (GameEntity entity : getEntities()) {
             //String resourceID = entity.getComponents(AnimatedSpriteComponent.class).stream().findAny().get().getCurrentResource(delta);
             //entity.getComponents(PSpriteComponent.class).stream().findAny().get().setResourceID(resourceID);
         }
