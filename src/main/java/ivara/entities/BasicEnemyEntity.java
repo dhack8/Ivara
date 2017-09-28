@@ -35,9 +35,12 @@ public class BasicEnemyEntity extends Entity{ // Todo make a super enemy entity
         addComponent(new LayerComponent(this, 999));
         addComponent(new PhysicsComponent(this, 0, PhysicProperties.Type.DYNAMIC));
 
-        addBlockBumper(new Vector(-sensorWidth, 0f), new Vector(sensorWidth, height));
+        //Bumpers to bounce on blocks
+        addBlockBumper(new Vector(-sensorWidth, 0f), new Vector(sensorWidth, height - 0.01f));
+        addBlockBumper(new Vector(width, 0f), new Vector(sensorWidth, height - 0.01f));
 
-        addBlockBumper(new Vector(width, 0f), new Vector(sensorWidth, height));
+        //Bumpers for the edge
+
 
         addComponent( // for the bottom
                 new SensorComponent(
@@ -57,7 +60,31 @@ public class BasicEnemyEntity extends Entity{ // Todo make a super enemy entity
                                 new Vector(topLeft.x, topLeft.y),
                                 new Vector(dimensions.x, dimensions.y)
                         ),
-                        (entity) -> {v.getVelocity().mult(-1f);}
+                        (entity) -> {
+                            v.getVelocity().mult(-1f);
+
+                            float move = (v.getVelocity().x/v.getVelocity().x)*-1;
+                            translate(sensorWidth*move , 0);
+                        }
+                )
+        );
+    }
+
+    private void addEdgeBumper(Vector topLeft, Vector dimensions){
+        addComponent(
+                new SensorComponent(
+                        this,
+                        new AABBCollider(
+                                AABBCollider.TOPLEFT,
+                                new Vector(topLeft.x, topLeft.y),
+                                new Vector(dimensions.x, dimensions.y)
+                        ),
+                        (entity) -> {
+                            v.getVelocity().mult(-1f);
+
+                            float move = (v.getVelocity().x/v.getVelocity().x)*-1;
+                            translate(sensorWidth*move , 0);
+                        }
                 )
         );
     }
