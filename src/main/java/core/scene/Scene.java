@@ -1,18 +1,13 @@
 package core.scene;
 
-import core.components.BasicCameraComponent;
-import core.components.Component;
+import core.components.CameraComponent;
 import core.entity.GameEntity;
-import core.entity.EntityContainer;
-import core.systems.SensorSystem;
 import eem.World;
-import physics.AnimationSystem;
-import physics.EntitySystem;
-import physics.MassCollisionResolver;
-import physics.VelocitySystem;
-import util.ClassMap;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * This class represents a Scene within the game
@@ -22,47 +17,24 @@ import java.util.*;
  */
 public abstract class Scene {
 
-    private World world;
+    private World<GameEntity> world                 = new World<>();
+    private Map<String, GameEntity> nameEntityMap   = new HashMap<>();
+    private CameraComponent camera                  = null;
 
-    private ClassMap classMap = new ClassMap();
-    private Map<String, GameEntity> nameEntityMap = new HashMap<>();
-    private EntityContainer entities = new EntityContainer();
-    private BasicCameraComponent camera = null;
-    private boolean drawing;
+    /**
+     * Returns the camera for this scene.
+     * @return
+     */
+    public CameraComponent getCamera(){
+        return camera;
+    }
 
     /**
      * Gets all the entities in the Scene
      * @return The entities
      */
     public Collection<GameEntity> getEntities(){
-        return entities.getEntities();
-    }
-
-    /**
-     * Adds an entity to the collection of entities within the Scene
-     * The entity is also added to the collection of named entities in the scene
-     *
-     * @param entity The entity to add
-     * @param name   The name of the entity
-     */
-    protected void addEntity(GameEntity entity, String name) {
-        if (name != null) {
-            nameEntityMap.put(name, entity);
-        }
-
-        entities.addEntity(entity);
-        for (Component comp : entity.getComponents()) {
-            classMap.put(comp);
-        }
-    }
-
-    /**
-     * Adds an entity to the collection of the entities within the Scene
-     *
-     * @param entity The entity to add
-     */
-    protected void addEntity(GameEntity entity) {
-        addEntity(entity, null);
+        return world.getEntities();
     }
 
     /**
@@ -75,17 +47,34 @@ public abstract class Scene {
         return nameEntityMap.get(name);
     }
 
-    private <T> Collection<T> getComponents(Class<T> type) {
-        return classMap.get(type);
+    /**
+     * Adds an entity to the collection of entities within the Scene
+     * The entity is also added to the collection of named entities in the scene
+     *
+     * @param entity The entity to add
+     * @param name   The name of the entity
+     */
+    public void addEntity(GameEntity entity, Optional<String> name) {
+        name.ifPresent((n) -> {
+            nameEntityMap.put(n, entity);
+        });
+
+        world.addEntity(entity);
     }
 
-    public void update(long delta) {
-        for (GameEntity e : getEntities()) {
-            for (Component c :e.getComponents()) {
-                c.update(delta);
-            }
-        }
+    /**
+     * Adds an entity to the collection of the entities within the Scene
+     *
+     * @param entity The entity to add
+     */
+    public void addEntity(GameEntity entity) {
+        addEntity(entity, Optional.empty());
+    }
 
+    public void update(int delta) {
+        world.update(delta);
+
+        /*
         EntitySystem r = new MassCollisionResolver(entities);
         r.update(delta);
         VelocitySystem v = new VelocitySystem(entities);
@@ -94,24 +83,6 @@ public abstract class Scene {
         s.update(delta);
         EntitySystem a = new AnimationSystem(entities);
         a.update(delta);
-    }
-
-    public BasicCameraComponent getCamera(){
-        if(camera == null) {
-            try {
-                camera = getComponents(BasicCameraComponent.class).stream().findAny().get();
-            }catch (NoSuchElementException e){
-                throw new RuntimeException("There is no camera component in this scene at least one entity should have a camera");
-            }
-        }
-        return camera;
-    }
-
-    public boolean isDrawing() {
-        return drawing;
-    }
-
-    public void setDrawing(boolean drawing) {
-        this.drawing = drawing;
+         */
     }
 }

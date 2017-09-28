@@ -1,6 +1,7 @@
 package core.components;
 
 import core.entity.GameEntity;
+import eem.Component;
 import maths.Vector;
 
 /**

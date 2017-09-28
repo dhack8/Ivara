@@ -21,10 +21,14 @@ public abstract class Entity {
         components.add(component);
     }
 
-    final public <T extends Component> T getComponent(Class<T> type) {
+    final public <T extends Component> T get(Class<T> type) {
         return type.cast(components.stream()
                 .filter((component -> component.getClass().equals(type)))
                 .findAny()
                 .orElse(null));
+    }
+
+    final public Collection<Component> getComponents() {
+        return components;
     }
 }

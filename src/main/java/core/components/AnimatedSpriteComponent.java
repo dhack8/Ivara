@@ -1,6 +1,7 @@
 package core.components;
 
 import core.entity.GameEntity;
+import eem.Component;
 
 import java.util.*;
 
@@ -8,7 +9,7 @@ import java.util.*;
  * TODO: Write this
  * @author Will Pearson
  */
-public class AnimatedSpriteComponent extends Component{
+public class AnimatedSpriteComponent extends GameEntityComponent {
 
     private String state;
     private List<String> resources;
