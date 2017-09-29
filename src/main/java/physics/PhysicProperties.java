@@ -10,8 +10,8 @@ public class PhysicProperties {
         STATIC, DYNAMIC;
     }
 
-    private Type type = Type.STATIC;
-    private float inverseMass = 0;
+    public Type type = Type.STATIC;
+    public float inverseMass = 0;
     private Vector netForce = new Vector(0, 0);
 
     public PhysicProperties() {

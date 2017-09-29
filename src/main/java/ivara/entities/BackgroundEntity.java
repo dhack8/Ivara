@@ -1,7 +1,7 @@
 package ivara.entities;
 
 import core.components.LayerComponent;
-import core.components.PSpriteComponent;
+import core.components.SpriteComponent;
 import core.entity.GameEntity;
 import maths.Vector;
 
@@ -18,7 +18,7 @@ public class BackgroundEntity extends GameEntity {
      */
     public BackgroundEntity(float x, float y){
         super(new Vector(x,y));
-        addComponent(new PSpriteComponent(this, "background"));
+        addComponent(new SpriteComponent(this, "background"));
         addComponent(new LayerComponent(this, -1));
     }
 }

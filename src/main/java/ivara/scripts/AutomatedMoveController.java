@@ -1,5 +1,6 @@
 package ivara.scripts;
 
+import core.Script;
 import core.components.ScriptComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
@@ -8,7 +9,7 @@ import maths.Vector;
 /**
  * @author Alex Mitchell
  */
-public class AutomatedMoveController extends ScriptComponent {
+public class AutomatedMoveController implements Script {
 
     private Vector start;
     private Vector end;
@@ -16,7 +17,7 @@ public class AutomatedMoveController extends ScriptComponent {
     boolean nextSkip;
 
     @Override
-    public void update(long dmt) { //Todo ideally the velocity should inverse when the current position is equal to either start or end. However, either collision or game tics prevent this as there is jittering
+    public void update(int dt, GameEntity entity) {//Todo ideally the velocity should inverse when the current position is equal to either start or end. However, either collision or game tics prevent this as there is jittering
         Vector current = getEntity().getPosition();
         //if((current.x < start.x || current.x > end.x || current.y < start.y || current.y > end.y)){
         boolean outOfBoundsX = current.x < Math.min(start.x, end.x) || current.x > Math.max(start.x, end.x);
@@ -39,5 +40,6 @@ public class AutomatedMoveController extends ScriptComponent {
         Vector velocity = velocityComp.getVelocity();
         velocity.set((end.x - start.x) / time, (end.y - start.y) / time);
     }
+
 
 }

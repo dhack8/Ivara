@@ -1,20 +1,20 @@
 package core.components;
 
+import core.Script;
 import core.entity.GameEntity;
+import eem.Component;
 
 /**
  * Script component belongs to an entity. Gets overridden with
  * proper implementation of a script. E.g. NPC1, NPC2, Player...
  */
-public abstract class ScriptComponent extends Component {
+public class ScriptComponent extends Component<GameEntity> {
 
-    public ScriptComponent(GameEntity entity) {
+    public final Script script;
+
+    public ScriptComponent(GameEntity entity, Script script) {
         super(entity);
+        this.script = script;
     }
 
-    /**
-     * Updates the entity.
-     * @param dmt elapsed milliseconds since last update
-     */
-    public abstract void update(long dmt);
 }

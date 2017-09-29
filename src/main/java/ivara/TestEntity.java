@@ -1,7 +1,7 @@
 package ivara;
 
 import core.components.ColliderComponent;
-import core.components.PSpriteComponent;
+import core.components.SpriteComponent;
 import core.entity.GameEntity;
 import maths.Vector;
 import physics.AABBCollider;
@@ -16,7 +16,7 @@ public class TestEntity extends GameEntity {
         super(position);
 
         addComponent(new PlayerController(this));
-        addComponent(new PSpriteComponent(this, "player", 1, 1));
+        addComponent(new SpriteComponent(this, "player", 1, 1));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0, 0), new Vector(1, 1))));
     }
 

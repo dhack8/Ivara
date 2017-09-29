@@ -9,7 +9,7 @@ import java.util.*;
  * TODO: Write this
  * @author Will Pearson
  */
-public class AnimatedSpriteComponent extends GameEntityComponent {
+public class AnimatedSpriteComponent extends Component<GameEntity> {
 
     private String state;
     private List<String> resources;

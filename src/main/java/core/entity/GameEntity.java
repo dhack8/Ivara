@@ -1,6 +1,5 @@
 package core.entity;
 
-import core.components.TransformComponent;
 import eem.Entity;
 import maths.Vector;
 
@@ -10,11 +9,14 @@ import maths.Vector;
  */
 public abstract class GameEntity extends Entity {
 
-    public GameEntity(Vector transform) {
-        addComponent(new TransformComponent(this, transform));
+    private final Vector transform;
+
+    public Vector getTransform() {
+        return transform;
     }
 
-    public Vector getPosition() {
-        return get(TransformComponent.class).getTransform();
+    public GameEntity(Vector transform) {
+        this.transform = transform;
     }
+
 }

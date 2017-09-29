@@ -1,7 +1,7 @@
 package ivara.entities;
 
 import core.components.ColliderComponent;
-import core.components.PSpriteComponent;
+import core.components.SpriteComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
 import maths.Vector;
@@ -27,7 +27,7 @@ public class MovingBlockEntity extends GameEntity {
      */
     public MovingBlockEntity(float startX, float startY, float endX, float endY, String recourseID, float time) {
         super(new Vector(startX, startY));
-        addComponent(new PSpriteComponent(this, recourseID, 1f, 1f));
+        addComponent(new SpriteComponent(this, recourseID, 1f, 1f));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
 
         VelocityComponent velocity = new VelocityComponent(this);

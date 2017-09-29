@@ -112,7 +112,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
                         return layer1 - layer2;
                     }).forEach((e) -> {
-                        for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
+                        for (SpriteComponent spriteComponent : e.getComponents(SpriteComponent.class)) {
                             // TODO: render sprite based on scene camera
 
                             Vector transform = spriteComponent.getTransform();
@@ -153,7 +153,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param height height
      * @param sprite the sprite to draw
      */
-    private void drawSprite(float x, float y, float width, float height, PSpriteComponent sprite){
+    private void drawSprite(float x, float y, float width, float height, SpriteComponent sprite){
         image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y, width*scale, height*scale);
     }
 
@@ -163,7 +163,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param y y location
      * @param sprite the sprite to draw
      */
-    private void drawSprite(float x, float y, PSpriteComponent sprite){
+    private void drawSprite(float x, float y, SpriteComponent sprite){
         image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y);
     }
 

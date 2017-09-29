@@ -9,7 +9,7 @@ import maths.Vector;
  *
  * @author Will Pearson
  */
-public class VelocityComponent extends Component {
+public class VelocityComponent extends Component<GameEntity> {
 
     private Vector velocity = new Vector(0,0);
 

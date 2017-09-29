@@ -1,5 +1,6 @@
 package ivara.scripts;
 
+import core.Script;
 import core.components.ScriptComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
@@ -15,7 +16,7 @@ import static core.input.InputHandler.*;
  *
  * @author Will Pearson
  */
-public class PlayerController extends ScriptComponent{
+public class PlayerController implements Script {
 
     private float metresPerSecond = 3f;
 
@@ -28,7 +29,7 @@ public class PlayerController extends ScriptComponent{
      * @param dmt elapsed milliseconds since last update
      */
     @Override
-    public void update(long dmt) {
+    public void update(int dt, GameEntity entity) {
         float speed = metresPerTick(dmt);
 
         if (InputHandler.keyPressed(W)) {

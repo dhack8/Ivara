@@ -42,7 +42,7 @@ public class CollisionUtil {
      * @param b The second AABBCollider.
      * @return The minimum distance vector.
      */
-    static Vector minimumDistanceVector(AABBCollider a, AABBCollider b) {
+    public static Vector minimumDistanceVector(AABBCollider a, AABBCollider b) {
         Vector horiVec = minimumHorizontalVector(a, b);
         Vector vertVec = minimumVerticalVector(a, b);
         return (Math.abs(horiVec.x) > Math.abs(vertVec.y)) ? vertVec : horiVec;

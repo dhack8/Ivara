@@ -7,14 +7,11 @@ import maths.Vector;
 /**
  * Created by Callum Li on 9/15/17.
  */
-public class PSpriteComponent extends Component {
+public class SpriteComponent extends Component<GameEntity> {
 
-    private Vector transform;
+    private final Vector transform;
+    private final Vector dimensions;
     private String resourceID;
-
-    private final boolean hasDimension;
-
-    private Vector dimensions;
 
     /**
      * Constructor for a sprite component that has a width and height along with a resource identifier.
@@ -24,28 +21,24 @@ public class PSpriteComponent extends Component {
      * @param width float value of width
      * @param height float value of height
      */
-    public PSpriteComponent(GameEntity entity, String resourceID, float width, float height) {
+    public SpriteComponent(GameEntity entity, String resourceID, float width, float height) {
         super(entity);
         transform = new Vector(0,0);
-        this.resourceID = resourceID;
-
         this.dimensions = new Vector(width, height);
-
-        this.hasDimension = true;
+        this.resourceID = resourceID;
     }
+
 
     /**
      * Creates a dimension-less sprite component, rendered at its native resolution.
      * @param entity parent entity
      * @param resourceID String identifier for the sprite component
      */
-    public PSpriteComponent(GameEntity entity, String resourceID){
+    public SpriteComponent(GameEntity entity, String resourceID){
         super(entity);
-        transform = new Vector(0,0);
+        this.transform = new Vector(0,0);
+        this.dimensions = null;
         this.resourceID = resourceID;
-
-        dimensions = new Vector(0,0);
-        this.hasDimension = false;
     }
 
     /**
@@ -72,12 +65,8 @@ public class PSpriteComponent extends Component {
         return transform;
     }
 
-    public void setTransform(Vector transform) {
-        this.transform = transform;
-    }
-
     public Vector getLocation(){
-        Vector superLocation = super.getPosition();
+        Vector superLocation = getEntity().getTransform();
         return new Vector(transform.x + superLocation.x, transform.y + superLocation.y);
     }
 
@@ -86,6 +75,6 @@ public class PSpriteComponent extends Component {
     }
 
     public boolean isDimensionless() {
-        return !hasDimension;
+        return dimensions == null;
     }
 }

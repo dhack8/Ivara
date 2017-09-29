@@ -1,7 +1,7 @@
 package ivara.entities;
 
 import core.components.ColliderComponent;
-import core.components.PSpriteComponent;
+import core.components.SpriteComponent;
 import core.entity.GameEntity;
 import maths.Vector;
 import physics.AABBCollider;
@@ -51,16 +51,16 @@ public class NPlatformEntity extends GameEntity {
             endSectionID = "grass-top-right";
         }
         
-        PSpriteComponent first = new PSpriteComponent(this, startSectionID, 1, 1);
+        SpriteComponent first = new SpriteComponent(this, startSectionID, 1, 1);
         addComponent(first);
 
         for (int i = 1; i < n - 1; i++) {
-            PSpriteComponent sprite = new PSpriteComponent(this, middleSectionID, 1, 1);
+            SpriteComponent sprite = new SpriteComponent(this, middleSectionID, 1, 1);
             sprite.setTransform(new Vector(i * direction.x, i * direction.y));
             addComponent(sprite);
         }
 
-        PSpriteComponent last = new PSpriteComponent(this, endSectionID, 1, 1);
+        SpriteComponent last = new SpriteComponent(this, endSectionID, 1, 1);
         if (isVertical) {
             last.setTransform(new Vector(n - n * direction.y, n - 1));
         } else {

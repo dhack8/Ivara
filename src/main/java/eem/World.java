@@ -33,6 +33,7 @@ public class World<T extends Entity> {
     }
 
     final public <U extends Component<T>> Collection<U> get(Class<U> type) {
+
         // todo: optimise
         return entities.stream()
                 .flatMap((e) -> e.getComponents().stream())

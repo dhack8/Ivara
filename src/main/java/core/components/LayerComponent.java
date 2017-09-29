@@ -1,15 +1,20 @@
 package core.components;
 
 import core.entity.GameEntity;
+import eem.Component;
 
 /**
  * Layer component gives a entity a layer for renderering.
  *
  * @author David Hack
  */
-public class LayerComponent extends Component{
+public class LayerComponent extends Component<GameEntity> {
 
     private int layer;
+
+    public int getLayer() {
+        return layer;
+    }
 
     /**
      * Creates a layer component with an int value
@@ -19,9 +24,5 @@ public class LayerComponent extends Component{
     public LayerComponent(GameEntity entity, int layer) {
         super(entity);
         this.layer = layer;
-    }
-
-    public int getLayer() {
-        return layer;
     }
 }

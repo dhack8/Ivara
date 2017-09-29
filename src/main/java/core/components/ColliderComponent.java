@@ -21,7 +21,7 @@ public class ColliderComponent extends Component<GameEntity> {
      * @return the collider
      */
     public Collider getCollider() {
-        return collider.translate(getEntity().getPosition());
+        return collider;
     }
 
 }

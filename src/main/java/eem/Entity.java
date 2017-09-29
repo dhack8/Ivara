@@ -22,6 +22,7 @@ public abstract class Entity {
     }
 
     final public <T extends Component> T get(Class<T> type) {
+
         return type.cast(components.stream()
                 .filter((component -> component.getClass().equals(type)))
                 .findAny()

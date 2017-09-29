@@ -16,7 +16,7 @@ public abstract class Game {
     /**
      * The number of milliseconds per update tick.
      */
-    private long tickTime = 10;
+    private int tickTime = 10;
 
     /**
      * The current scene of the game.
@@ -62,7 +62,7 @@ public abstract class Game {
 
             // Update the game while more than a tick's worth
             // of time needs to be processed.
-            while (accumulator >= tickTime && !currentScene.isDrawing()) {
+            while (accumulator >= tickTime) {
                 // do Tick
                 currentScene.update(tickTime);
 

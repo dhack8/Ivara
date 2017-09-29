@@ -2,7 +2,7 @@ package ivara.entities;
 
 import core.components.ColliderComponent;
 import core.entity.GameEntity;
-import core.components.PSpriteComponent;
+import core.components.SpriteComponent;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -20,7 +20,7 @@ public class BasicBlockEntity extends GameEntity {
      */
     public BasicBlockEntity(float x, float y, String recourseID){
         super(new Vector(x,y));
-        addComponent(new PSpriteComponent(this, recourseID, 1, 1));
+        addComponent(new SpriteComponent(this, recourseID, 1, 1));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
     }
 }
