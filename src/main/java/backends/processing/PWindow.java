@@ -7,6 +7,7 @@ import core.components.*;
 import core.input.KeyListener;
 import core.input.MouseListener;
 import core.scene.Scene;
+import core.struct.Camera;
 import maths.Vector;
 import physics.AABBCollider;
 import processing.core.PApplet;
@@ -24,13 +25,11 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private AssetHandler handler;
     private int mask = 2;
 
-    private float scale = 100;
+    private float s = 100;
     private Vector t = new Vector(0,0); //translation
 
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
-
-    private CameraComponent camera;
 
     /**
      * TODO
@@ -56,8 +55,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
         currentScene = scene;
         redraw();
-
-
     }
 
     /**
@@ -96,14 +93,21 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     @Override
     public void draw(){
         if(currentScene == null) return;
-        camera = currentScene.getCamera();
 
-        scale = displayWidth / camera.getWidth();
+        Camera camera = currentScene.getCamera();
 
-        Vector cameraPos = camera.getPointOfInterest();
+        Vector gameDimensions = camera.dimensions;
+        Vector topLeft = camera.transform;
 
-        t = new Vector(-cameraPos.x * scale + displayWidth / 3, -cameraPos.y * scale + displayHeight / 2);
-        background(220, 220, 220);
+        Vector screenScale = new Vector(displayWidth/gameDimensions.x, displayHeight/gameDimensions.y);
+        //Scale
+        s = Math.min(screenScale.x, screenScale.y);
+        //Translate
+        Vector t = new Vector(topLeft.x * s, topLeft.y * s);
+        //Buffer (bars)
+        Vector b = new Vector(displayWidth/2 - (s*gameDimensions.x/2), displayHeight/2 - (s*gameDimensions.y/2));
+
+        background(0, 0, 0);
 
         currentScene.getEntities().stream()
                 .sorted((e1, e2) -> {
@@ -142,7 +146,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                     }
                 }
         );
-        currentScene.setDrawing(false);
     }
 
     /**
@@ -154,7 +157,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, float width, float height, SpriteComponent sprite){
-        image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y, width*scale, height*scale);
+        image(AssetHandler.getImage(sprite.getResourceID()), x*s + t.x, y*s + t.y, width*s, height*s);
     }
 
     /**
@@ -164,7 +167,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param sprite the sprite to draw
      */
     private void drawSprite(float x, float y, SpriteComponent sprite){
-        image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y);
+        image(AssetHandler.getImage(sprite.getResourceID()), x*s + t.x, y*s + t.y);
     }
 
     /**
@@ -178,7 +181,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private void drawRect(float x, float y, float width, float height){
         stroke(255,0,0);
         noFill();
-        rect(x*scale + t.x, y*scale + t.y, width * scale, height * scale);
+        rect(x*s + t.x, y*s + t.y, width * s, height * s);
     }
 
     /**
@@ -193,7 +196,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         strokeWeight(2); //thicker line to make sensor box more visible
         stroke(0,255,0);
         noFill();
-        rect(x*scale + t.x, y*scale + t.y, width * scale, height * scale);
+        rect(x*s + t.x, y*s + t.y, width * s, height * s);
         strokeWeight(1); //set back to thin line for bounding boxes
     }
 
