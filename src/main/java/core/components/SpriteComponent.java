@@ -9,7 +9,7 @@ import maths.Vector;
  */
 public class SpriteComponent extends Component<GameEntity> {
 
-    private final Vector transform;
+    public final Vector transform;
     private final Vector dimensions;
     private String resourceID;
 
@@ -24,6 +24,22 @@ public class SpriteComponent extends Component<GameEntity> {
     public SpriteComponent(GameEntity entity, String resourceID, float width, float height) {
         super(entity);
         transform = new Vector(0,0);
+        this.dimensions = new Vector(width, height);
+        this.resourceID = resourceID;
+    }
+
+    /**
+     * Constructor for a sprite component that has a width and height along with a resource identifier.
+     * This sprite has a dimension.
+     * @param entity parent entity
+     * @param resourceID String identifier for the sprite component
+     * @param width float value of width
+     * @param height float value of height
+     * @param transform the transformation vector
+     */
+    public SpriteComponent(GameEntity entity, String resourceID, float width, float height, Vector transform) {
+        super(entity);
+        this.transform = transform;
         this.dimensions = new Vector(width, height);
         this.resourceID = resourceID;
     }
@@ -55,14 +71,6 @@ public class SpriteComponent extends Component<GameEntity> {
      */
     public void setResourceID(String resourceID) {
         this.resourceID = resourceID;
-    }
-
-    /**
-     * Method to get the transform vector.
-     * @return the transform vector
-     */
-    public Vector getTransform() {
-        return transform;
     }
 
     public Vector getLocation(){
