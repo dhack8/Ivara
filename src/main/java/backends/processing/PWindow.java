@@ -30,7 +30,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
 
-    private BasicCameraComponent camera;
+    private CameraComponent camera;
 
     /**
      * TODO
@@ -56,6 +56,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
         currentScene = scene;
         redraw();
+
+
     }
 
     /**
@@ -94,55 +96,53 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     @Override
     public void draw(){
         if(currentScene == null) return;
-        currentScene.setDrawing(true);
-            camera = currentScene.getCamera();
+        camera = currentScene.getCamera();
 
-            scale = displayWidth / camera.getWidth();
+        scale = displayWidth / camera.getWidth();
 
-            Vector cameraPos = camera.getPointOfInterest();
+        Vector cameraPos = camera.getPointOfInterest();
 
-            t = new Vector(-cameraPos.x * scale + displayWidth / 3, -cameraPos.y * scale + displayHeight / 2);
+        t = new Vector(-cameraPos.x * scale + displayWidth / 3, -cameraPos.y * scale + displayHeight / 2);
+        background(220, 220, 220);
 
-            background(220, 220, 220);
+        currentScene.getEntities().stream()
+                .sorted((e1, e2) -> {
+                    int layer1 = e1.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
+                    int layer2 = e2.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
 
-            currentScene.getEntities().stream()
-                    .sorted((e1, e2) -> {
-                        int layer1 = e1.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
-                        int layer2 = e2.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
+                    return layer1 - layer2;
+                }).forEach((e) -> {
+                    for (SpriteComponent spriteComponent : e.getComponents(SpriteComponent.class)) {
+                        // TODO: render sprite based on scene camera
 
-                        return layer1 - layer2;
-                    }).forEach((e) -> {
-                        for (SpriteComponent spriteComponent : e.getComponents(SpriteComponent.class)) {
-                            // TODO: render sprite based on scene camera
+                        Vector transform = spriteComponent.getTransform();
 
-                            Vector transform = spriteComponent.getTransform();
-
-                            if (spriteComponent.isDimensionless()) {
-                                drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, spriteComponent);
-                            } else {
-                                Vector dimen = spriteComponent.getDimensions();
-                                drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, dimen.x, dimen.y, spriteComponent);
-                            }
-                        }
-                        //TODO point of mask?
-                        if (mask == 2) {
-                            for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
-                                AABBCollider ab = cc.getCollider().getAABBBoundingBox();
-                                Vector location = ab.getMin();
-                                Vector dimension = ab.getDimension();
-                                drawRect(location.x, location.y, dimension.x, dimension.y);
-                            }
-
-                            for (SensorComponent sc : e.getComponents(SensorComponent.class)) {
-                                AABBCollider ab = sc.getCollider().getAABBBoundingBox();
-                                Vector location = ab.getMin();
-                                Vector dimension = ab.getDimension();
-                                drawSensor(location.x, location.y, dimension.x, dimension.y);
-                            }
+                        if (spriteComponent.isDimensionless()) {
+                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, spriteComponent);
+                        } else {
+                            Vector dimen = spriteComponent.getDimensions();
+                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, dimen.x, dimen.y, spriteComponent);
                         }
                     }
-            );
-            currentScene.setDrawing(false);
+                    //TODO point of mask?
+                    if (mask == 2) {
+                        for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
+                            AABBCollider ab = cc.getCollider().getAABBBoundingBox();
+                            Vector location = ab.getMin();
+                            Vector dimension = ab.getDimension();
+                            drawRect(location.x, location.y, dimension.x, dimension.y);
+                        }
+
+                        for (SensorComponent sc : e.getComponents(SensorComponent.class)) {
+                            AABBCollider ab = sc.getCollider().getAABBBoundingBox();
+                            Vector location = ab.getMin();
+                            Vector dimension = ab.getDimension();
+                            drawSensor(location.x, location.y, dimension.x, dimension.y);
+                        }
+                    }
+                }
+        );
+        currentScene.setDrawing(false);
     }
 
     /**

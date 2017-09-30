@@ -36,7 +36,7 @@ public class PhysicsSystem extends System<GameEntity> {
                     continue;
                 }
 
-                Collider c1 = SceneUtils.colliderToWorld(cc1);
+                Collider  c1 = SceneUtils.colliderToWorld(cc1);
                 Collider c2 = SceneUtils.colliderToWorld(cc2);
 
                 if (CollisionUtil.intersect(c1, c2)) {
