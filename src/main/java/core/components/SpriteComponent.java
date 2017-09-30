@@ -40,6 +40,15 @@ public class SpriteComponent extends Component<GameEntity> {
     }
 
     /**
+     * Adds an animated sprite to the component.
+     * @param as animated sprite to add
+     */
+    public void add(AnimatedSprite as) {
+        sprites.add(as);
+        animatedSprites.add(as);
+    }
+
+    /**
      * Adds a new sprite from required parameters
      * @param id resourceID object
      * @param transform transform vector

@@ -1,13 +1,21 @@
 package core.struct;
 
-import core.entity.GameEntity;
 import maths.Vector;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Animated sprite is an extension of Sprite that allows for multiple
+ * images to be displayed through one Sprite. This is done by creating
+ * the resource map linking the animated sprite's current state to what
+ * resources it should display. Each animated sprite can specify how long
+ * it should take before it's image rolls over on update to adjust for
+ * syncing issues that can arise from animations looking out of place.
+ *
+ * @author Will Pearson
+ */
 public class AnimatedSprite extends Sprite{
     private String state;
     private List<String> resources;
@@ -16,8 +24,16 @@ public class AnimatedSprite extends Sprite{
     private long time;
     private Map<String, List<String>> resourceMap = new HashMap<>();
 
+    /**
+     * Constructor does not take any resource ID upon creation as you need
+     * to define the map resource map structure that the sprite will use. This
+     * is done with the addResource() method.
+     * @param transform The animated sprite's relative position.
+     * @param dimensions The width and height of the animated sprite.
+     * @param frameTick The time taken before the image should switch.
+     */
     public AnimatedSprite(Vector transform, Vector dimensions, int frameTick) {
-        super(new ResourceID(""), transform, dimensions);
+        super(new ResourceID("black-box"), transform, dimensions);
         this.frameTick = frameTick;
     }
 
