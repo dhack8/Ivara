@@ -17,6 +17,8 @@ public class InputHandler {
     public static final int D = 68;
     public static final int SPACE = 32;
 
+    public static final int LEFT_MOUSE = 37;
+
     private static boolean[] keyPressed = new boolean[MAX_KEY_CODES];
     private static boolean[] mousePressed = new boolean[MAX_MOUSE_CODES];
 

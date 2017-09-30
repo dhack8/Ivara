@@ -64,6 +64,9 @@ public class PlayerController implements Script, SensorListener {
             vComp.setX(0f);
         }
 
+        if (InputHandler.mousePressed(LEFT_MOUSE)) {
+
+        }
 
         /**
         if (InputHandler.keyPressed(W)) {

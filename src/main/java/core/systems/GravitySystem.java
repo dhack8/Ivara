@@ -25,7 +25,6 @@ public class GravitySystem extends System<GameEntity> {
     @Override
     public void update(int dt, World<GameEntity> world) {
 
-        Debug.log(Float.toString(gravity.y * (dt/1000f)));
         Set<GameEntity> physicEntities = world.get(PhysicsComponent.class).stream()
                 .map((physicsComponent -> physicsComponent.getEntity()))
                 .collect(Collectors.toSet());
