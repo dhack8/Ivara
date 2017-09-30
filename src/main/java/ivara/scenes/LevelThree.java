@@ -29,6 +29,6 @@ public class LevelThree extends Scene{
             addEntity(new BasicBlockEntity(i,5, "grass-top"));
         }
 
-        setCamera(new Camera(new Vector(0,0), new Vector(21,9)));
+        setCamera(new Camera(new Vector(0,0), new Vector(32f,18)));
     }
 }
