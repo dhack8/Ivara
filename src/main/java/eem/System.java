@@ -1,7 +1,12 @@
 package eem;
 
 /**
- * Created by Callum Li on 9/28/17.
+ * Abstract class that outlines the requirements a
+ * System must fulfil.
+ *
+ * Systems are responsible for updating all a given
+ * world.
+ * @param <T>
  */
 public abstract class System<T extends Entity> {
 
