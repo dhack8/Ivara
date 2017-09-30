@@ -115,6 +115,10 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
         background(0, 0, 0);
 
+        fill(200);
+        noStroke();
+        rect(b.x, b.y, s*gameDimensions.x, s*gameDimensions.y);
+
         currentScene.getEntities().stream()
                 .sorted((e1, e2) -> {
                     int layer1 = e1.get(LayerComponent.class).orElse(new LayerComponent(e1, 0)).layer;

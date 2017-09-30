@@ -26,8 +26,8 @@ public abstract class Scene {
     public Scene() {
         world.addSystem(new ScriptSystem());
         world.addSystem(new GravitySystem(new Vector(0, -1)));
-        world.addSystem(new PhysicsSystem());
         world.addSystem(new VelocitySystem());
+        world.addSystem(new PhysicsSystem());
         world.addSystem(new SensorSystem());
     }
 
