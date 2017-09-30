@@ -4,6 +4,7 @@ import backends.InputBroadcaster;
 import backends.Renderer;
 import core.AssetHandler;
 import core.components.*;
+import core.entity.GameEntity;
 import core.input.KeyListener;
 import core.input.MouseListener;
 import core.scene.Scene;
@@ -14,6 +15,7 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Window that the game runs in. Extends the Processing window PApplet.
@@ -111,23 +113,15 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
         currentScene.getEntities().stream()
                 .sorted((e1, e2) -> {
-                    int layer1 = e1.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
-                    int layer2 = e2.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
+                    int layer1 = e1.get(LayerComponent.class).orElse(new LayerComponent(e1, 0)).layer;
+                    int layer2 = e2.get(LayerComponent.class).orElse(new LayerComponent(e1, 0)).layer;
 
                     return layer1 - layer2;
                 }).forEach((e) -> {
-                    for (SpriteComponent spriteComponent : e.getComponents(SpriteComponent.class)) {
-                        // TODO: render sprite based on scene camera
 
-                        Vector transform = spriteComponent.getTransform();
+                    drawSprites(e);
 
-                        if (spriteComponent.isDimensionless()) {
-                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, spriteComponent);
-                        } else {
-                            Vector dimen = spriteComponent.getDimensions();
-                            drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, dimen.x, dimen.y, spriteComponent);
-                        }
-                    }
+
                     //TODO point of mask?
                     if (mask == 2) {
                         for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
@@ -146,6 +140,14 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                     }
                 }
         );
+    }
+
+    private void drawSprites(GameEntity e){
+        Optional<SpriteComponent> sc = e.get(SpriteComponent.class);
+
+        if(!sc.isPresent()) return;
+
+        for()
     }
 
     /**
