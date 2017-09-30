@@ -30,7 +30,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
 
-    private BasicCameraComponent camera;
+    private CameraComponent camera;
 
     /**
      * TODO
