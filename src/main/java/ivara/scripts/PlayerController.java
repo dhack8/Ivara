@@ -22,6 +22,12 @@ public class PlayerController implements Script, SensorListener {
 
     private float metresPerSecond = 3f;
 
+    private final PlayerEntity player;
+
+    public PlayerController(PlayerEntity player) {
+        this.player = player;
+    }
+
     //float gravity = 1 / 1000f; // todo temp fix for gravity
     /**
     public PlayerController(GameEntity e) {
@@ -112,10 +118,10 @@ public class PlayerController implements Script, SensorListener {
 
     @Override
     public void onActive(Sensor sensor, GameEntity entity) {
-        ((PlayerEntity)entity).canJump = true;
-        VelocityComponent v = entity.get(VelocityComponent.class).get();
+        player.canJump = true;
+        VelocityComponent v = player.get(VelocityComponent.class).get();
         v.setX(0f);
-        v.setY(0f);
+        //v.setY(0f);
 
     }
 
