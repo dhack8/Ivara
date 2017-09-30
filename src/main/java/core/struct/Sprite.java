@@ -9,7 +9,7 @@ public class Sprite {
 
     public final Vector transform;
     public final Vector dimensions;
-    public final ResourceID resourceID;
+    public ResourceID resourceID;
 
 
     public Sprite(ResourceID resourceID, Vector transform, Vector dimensions) {
