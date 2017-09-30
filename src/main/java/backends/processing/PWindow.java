@@ -12,6 +12,7 @@ import maths.Vector;
 import physics.AABBCollider;
 import physics.Collider;
 import processing.core.PApplet;
+import processing.opengl.PJOGL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        fullScreen();
+        fullScreen(P2D);
         noLoop();
     }
 
