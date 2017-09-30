@@ -2,7 +2,6 @@ package ivara.scenes;
 
 import core.scene.Scene;
 import ivara.entities.BackgroundEntity;
-import ivara.entities.BasicBlockEntity;
 import ivara.entities.NPlatformEntity;
 import ivara.entities.PlayerEntity;
 
@@ -18,15 +17,16 @@ public class IntroLevel extends Scene{
         addEntity(new BackgroundEntity(0,0));
 
         //TODO make it a nplatform witih transparent image so they collide but dont do anything
-
         //wall off screen blocking movement to the left
         addEntity(new NPlatformEntity(-1, 2, 3, true));
 
-        addEntity(new NPlatformEntity(0,5,8,false));
-        addEntity(new NPlatformEntity(9,4,2,false));
-        addEntity(new NPlatformEntity(12,7,7,false));
+        addEntity(new NPlatformEntity(0,5,5,false));
+        addEntity(new NPlatformEntity(5,4,3,false));
+        addEntity(new NPlatformEntity(8,6,5,false));
+        addEntities(LinePlatformFactory.line(13,5,20,2));
 
+        //TODO transparent block
         //wall off screen blocking movement to the right
-        addEntity(new NPlatformEntity(19, 2,4,true));
+        addEntity(new NPlatformEntity(21, -1,3,true));
     }
 }

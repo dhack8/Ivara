@@ -16,8 +16,8 @@ import ivara.scenes.IntroLevel;
 public class Ivara extends Game {
 
     public Ivara(Renderer renderer, InputBroadcaster inputBroadcaster) {
-        super(new IntroLevel(), renderer, inputBroadcaster);
-        //super(new LevelOne(), renderer, inputBroadcaster);
+        //super(new IntroLevel(), renderer, inputBroadcaster);
+        super(new LevelOne(), renderer, inputBroadcaster);
         //super(new LevelThree(), renderer, inputBroadcaster);
         //super(new LevelFive(), renderer, inputBroadcaster);
     }
