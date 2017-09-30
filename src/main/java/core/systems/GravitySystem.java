@@ -1,10 +1,15 @@
 package core.systems;
 
+import core.components.PhysicsComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
 import scew.System;
 import scew.World;
 import maths.Vector;
+import util.Debug;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by Callum Li on 9/30/17.
@@ -19,7 +24,12 @@ public class GravitySystem extends System<GameEntity> {
 
     @Override
     public void update(int dt, World<GameEntity> world) {
-        world.get(VelocityComponent.class)
-                .forEach((c) -> c.add(gravity.x * dt/1000, gravity.y * dt/1000));
+
+        Set<GameEntity> physicEntities = world.get(PhysicsComponent.class).stream()
+                .map((physicsComponent -> physicsComponent.getEntity()))
+                .collect(Collectors.toSet());
+        world.get(VelocityComponent.class).stream()
+                .filter(velocityComponent -> physicEntities.contains(velocityComponent.getEntity()))
+                .forEach((velocityComponent -> velocityComponent.getVelocity().add(gravity.x * (dt/1000f), gravity.y * (dt/1000f))));
     }
 }

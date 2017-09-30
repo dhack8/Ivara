@@ -68,7 +68,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        fullScreen();
+        fullScreen(P2D);
         noLoop();
     }
 
@@ -111,9 +111,13 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         //Translate
         t = new Vector(-topLeft.x * s, -topLeft.y * s);
         //Buffer (bars)
-        b = new Vector(displayWidth/2 - (s*gameDimensions.x/2), displayHeight/2 - (s*gameDimensions.y/2));
+        b = new Vector(displayWidth/2f - (s*gameDimensions.x/2f), displayHeight/2f - (s*gameDimensions.y/2f));
 
         background(0, 0, 0);
+
+        fill(200);
+        noStroke();
+        rect(b.x, b.y, s*gameDimensions.x, s*gameDimensions.y);
 
         currentScene.getEntities().stream()
                 .sorted((e1, e2) -> {

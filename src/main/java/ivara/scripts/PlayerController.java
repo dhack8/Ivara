@@ -8,6 +8,7 @@ import core.entity.GameEntity;
 import core.input.InputHandler;
 import core.struct.Sensor;
 import ivara.entities.PlayerEntity;
+import maths.Vector;
 
 import static core.input.InputHandler.*;
 
@@ -21,6 +22,12 @@ import static core.input.InputHandler.*;
 public class PlayerController implements Script, SensorListener {
 
     private float metresPerSecond = 3f;
+
+    private final PlayerEntity player;
+
+    public PlayerController(PlayerEntity player) {
+        this.player = player;
+    }
 
     //float gravity = 1 / 1000f; // todo temp fix for gravity
     /**
@@ -57,6 +64,9 @@ public class PlayerController implements Script, SensorListener {
             vComp.setX(0f);
         }
 
+        if (InputHandler.mousePressed(LEFT_MOUSE)) {
+
+        }
 
         /**
         if (InputHandler.keyPressed(W)) {
@@ -112,10 +122,13 @@ public class PlayerController implements Script, SensorListener {
 
     @Override
     public void onActive(Sensor sensor, GameEntity entity) {
-        ((PlayerEntity)entity).canJump = true;
-        VelocityComponent v = entity.get(VelocityComponent.class).get();
-        v.setX(0f);
-        v.setY(0f);
+        player.canJump = true;
+        VelocityComponent v = player.get(VelocityComponent.class).get();
+        Vector c = entity.get(VelocityComponent.class)
+                .map(VelocityComponent::getVelocity)
+                .orElse(new Vector(0, 0));
+        v.setX(c.x);
+        v.setY(c.y);
 
     }
 
