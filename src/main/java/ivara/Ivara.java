@@ -8,6 +8,7 @@ import ivara.scenes.LevelFive;
 import ivara.scenes.LevelThree;
 import processing.core.PApplet;
 import ivara.scenes.LevelOne;
+import ivara.scenes.IntroLevel;
 
 /**
  * Created by Callum Li on 9/15/17.
@@ -15,9 +16,10 @@ import ivara.scenes.LevelOne;
 public class Ivara extends Game {
 
     public Ivara(Renderer renderer, InputBroadcaster inputBroadcaster) {
+        super(new IntroLevel(), renderer, inputBroadcaster);
         //super(new LevelOne(), renderer, inputBroadcaster);
         //super(new LevelThree(), renderer, inputBroadcaster);
-        super(new LevelFive(), renderer, inputBroadcaster);
+        //super(new LevelFive(), renderer, inputBroadcaster);
     }
 
     public static void main(String[] args) {
