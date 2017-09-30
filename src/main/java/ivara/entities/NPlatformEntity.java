@@ -3,6 +3,7 @@ package ivara.entities;
 import core.components.ColliderComponent;
 import core.components.SpriteComponent;
 import core.entity.GameEntity;
+import core.struct.ResourceID;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -17,6 +18,7 @@ public class NPlatformEntity extends GameEntity {
     private String startSectionID;
     private String middleSectionID;
     private String endSectionID;
+    private Vector dimensions = new Vector(1,1);
 
     /**
      * Constructs a NPlatform at the specified coordinates (x,y), with n amount of tiles. Is created vertically or
@@ -29,6 +31,9 @@ public class NPlatformEntity extends GameEntity {
      */
     public NPlatformEntity(float x, float y, int n, boolean isVertical) throws IllegalArgumentException{
         super(new Vector(x, y));
+
+        SpriteComponent sc = new SpriteComponent(this);
+
         if(n < 2){
             throw new IllegalArgumentException("Number of blocks too small for creation of NPlatform");
         }
@@ -51,12 +56,10 @@ public class NPlatformEntity extends GameEntity {
             endSectionID = "grass-top-right";
         }
         
-        SpriteComponent first = new SpriteComponent(this, startSectionID, 1, 1);
-        addComponent(first);
+        sc.add( new ResourceID(startSectionID), dimensions);
 
         for (int i = 1; i < n - 1; i++) {
-            SpriteComponent sprite = new SpriteComponent(this, middleSectionID, 1, 1, new Vector(i * direction.x, i * direction.y));
-            addComponent(sprite);
+            sc.add(new ResourceID(middleSectionID), new Vector(i * direction.x, i * direction.y), dimensions);
         }
 
         Vector transform;
@@ -65,8 +68,7 @@ public class NPlatformEntity extends GameEntity {
         } else {
             transform = new Vector(n - 1, 0);
         }
-        SpriteComponent last = new SpriteComponent(this, endSectionID, 1, 1, transform);
-        addComponent(last);
+        sc.add(new ResourceID(endSectionID), transform, dimensions);
 
         if (isVertical) {
             addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.TOPLEFT,
@@ -77,5 +79,7 @@ public class NPlatformEntity extends GameEntity {
                     new Vector(0, 0),
                     new Vector(direction.x * n, 1))));
         }
+
+        addComponent(sc);
     }
 }

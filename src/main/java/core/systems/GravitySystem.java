@@ -2,9 +2,8 @@ package core.systems;
 
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
-import eem.System;
-import eem.World;
-import ivara.scripts.Gravity;
+import scew.System;
+import scew.World;
 import maths.Vector;
 
 /**

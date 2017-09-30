@@ -2,8 +2,8 @@ package core.systems;
 
 import core.components.ScriptComponent;
 import core.entity.GameEntity;
-import eem.System;
-import eem.World;
+import scew.System;
+import scew.World;
 
 /**
  * Created by Callum Li on 9/29/17.
