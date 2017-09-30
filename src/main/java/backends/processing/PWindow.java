@@ -3,12 +3,15 @@ package backends.processing;
 import backends.InputBroadcaster;
 import backends.Renderer;
 import core.AssetHandler;
+import core.Game;
 import core.components.*;
 import core.entity.GameEntity;
 import core.input.KeyListener;
 import core.input.MouseListener;
 import core.scene.Scene;
 import core.struct.Camera;
+import core.struct.Sensor;
+import core.struct.Sprite;
 import maths.Vector;
 import physics.AABBCollider;
 import processing.core.PApplet;
@@ -19,7 +22,7 @@ import java.util.Optional;
 
 /**
  * Window that the game runs in. Extends the Processing window PApplet.
- * Created by Callum Li on 9/16/17.
+ * @author David Hack
  */
 public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
@@ -105,7 +108,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         //Scale
         s = Math.min(screenScale.x, screenScale.y);
         //Translate
-        Vector t = new Vector(topLeft.x * s, topLeft.y * s);
+        Vector t = new Vector(-topLeft.x * s, -topLeft.y * s);
         //Buffer (bars)
         Vector b = new Vector(displayWidth/2 - (s*gameDimensions.x/2), displayHeight/2 - (s*gameDimensions.y/2));
 
@@ -121,55 +124,66 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
                     drawSprites(e);
 
-
-                    //TODO point of mask?
                     if (mask == 2) {
-                        for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
-                            AABBCollider ab = cc.getCollider().getAABBBoundingBox();
-                            Vector location = ab.getMin();
-                            Vector dimension = ab.getDimension();
-                            drawRect(location.x, location.y, dimension.x, dimension.y);
-                        }
+                        drawAABB(e);
 
-                        for (SensorComponent sc : e.getComponents(SensorComponent.class)) {
-                            AABBCollider ab = sc.getCollider().getAABBBoundingBox();
-                            Vector location = ab.getMin();
-                            Vector dimension = ab.getDimension();
-                            drawSensor(location.x, location.y, dimension.x, dimension.y);
-                        }
+                        drawSensors(e);
                     }
                 }
         );
     }
 
+    private void drawSensors(GameEntity e){
+        Optional<SensorComponent> osc = e.get(SensorComponent.class);
+
+        if(!osc.isPresent()) return;
+
+        SensorComponent sc = osc.get();
+
+        for(Sensor sensor : sc.getSensors()) {
+
+            AABBCollider ab = sensor.collider.getAABBBoundingBox();
+
+            Vector loc = new Vector((e.getTransform().x + ab.getMin().x) * s + t.x, (e.getTransform().y + ab.getMin().y) * s + t.y);
+
+            stroke(0, 255, 0);
+            noFill();
+            rect(loc.x, loc.y, ab.getDimension().x * s, ab.getDimension().y * s);
+        }
+    }
+
+    private void drawAABB(GameEntity e){
+        Optional<ColliderComponent> occ = e.get(ColliderComponent.class);
+
+        if(!occ.isPresent()) return;
+
+        AABBCollider ab = occ.get().getCollider().getAABBBoundingBox();
+
+        Vector loc = new Vector((e.getTransform().x + ab.getMin().x)*s + t.x, (e.getTransform().y + ab.getMin().y)*s + t.y);
+
+        stroke(255,0,0);
+        noFill();
+        rect(loc.x, loc.y, ab.getDimension().x * s, ab.getDimension().y * s);
+    }
+
     private void drawSprites(GameEntity e){
-        Optional<SpriteComponent> sc = e.get(SpriteComponent.class);
+        Optional<SpriteComponent> osc = e.get(SpriteComponent.class);
 
-        if(!sc.isPresent()) return;
+        if(!osc.isPresent()) return;
 
-        for()
+        for(Sprite s : osc.get().getSprites()){
+            drawSprite(s, e.getTransform());
+        }
     }
 
-    /**
-     * Draws a sprite in the given location.
-     * @param x x location
-     * @param y y location
-     * @param width width
-     * @param height height
-     * @param sprite the sprite to draw
-     */
-    private void drawSprite(float x, float y, float width, float height, SpriteComponent sprite){
-        image(AssetHandler.getImage(sprite.getResourceID()), x*s + t.x, y*s + t.y, width*s, height*s);
-    }
-
-    /**
-     * Draws a sprite in the given location at its native resolution, without specifying a width and height.
-     * @param x x location
-     * @param y y location
-     * @param sprite the sprite to draw
-     */
-    private void drawSprite(float x, float y, SpriteComponent sprite){
-        image(AssetHandler.getImage(sprite.getResourceID()), x*s + t.x, y*s + t.y);
+    private void drawSprite(Sprite sprite, Vector entityTransform){
+        Vector loc = new Vector((entityTransform.x + sprite.transform.x)*s + t.x, (entityTransform.y + sprite.transform.y)*s + t.y);
+        if(sprite.hasDimension()) {
+            Vector dimension = new Vector(sprite.dimensions.x * s, sprite.dimensions.y * s);
+            image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y, dimension.x, dimension.y);
+        }else{
+            image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y);
+        }
     }
 
     /**

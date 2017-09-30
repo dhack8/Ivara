@@ -6,6 +6,7 @@ import core.struct.Sensor;
 import eem.Component;
 import physics.Collider;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
