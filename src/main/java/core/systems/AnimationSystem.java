@@ -1,5 +1,7 @@
 package core.systems;
 
+import core.components.AnimatedSpriteComponent;
+import core.components.SpriteComponent;
 import core.entity.GameEntity;
 import eem.System;
 import eem.World;
@@ -13,10 +15,11 @@ public class AnimationSystem extends System<GameEntity> {
 
     @Override
     public void update(int dt, World<GameEntity> world) {
-        //getEntities().getAllComponents(AnimatedSpriteComponent.class)
-        //for (GameEntity entity : getEntities()) {
-            //String resourceID = entity.getComponents(AnimatedSpriteComponent.class).stream().findAny().get().getCurrentResource(delta);
-            //entity.getComponents(SpriteComponent.class).stream().findAny().get().setResourceID(resourceID);
+        AnimatedSpriteComponent[] animators = world.get(AnimatedSpriteComponent.class).toArray(new AnimatedSpriteComponent[0]);
+        for (AnimatedSpriteComponent anime : animators) {
+            String resourceID = anime.getCurrentResource(dt);
+            anime.getEntity().get(SpriteComponent.class).setResourceID(resourceID);
+        }
     }
 }
 
