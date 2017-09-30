@@ -1,17 +1,19 @@
 package core.components;
 
 import core.entity.GameEntity;
+import core.struct.Sprite;
 import eem.Component;
 import maths.Vector;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Callum Li on 9/15/17.
  */
 public class SpriteComponent extends Component<GameEntity> {
 
-    private final Vector transform;
-    private final Vector dimensions;
-    private String resourceID;
+    private final List<Sprite> sprites = new ArrayList<>();
 
     /**
      * Constructor for a sprite component that has a width and height along with a resource identifier.
@@ -23,9 +25,8 @@ public class SpriteComponent extends Component<GameEntity> {
      */
     public SpriteComponent(GameEntity entity, String resourceID, float width, float height) {
         super(entity);
-        transform = new Vector(0,0);
-        this.dimensions = new Vector(width, height);
-        this.resourceID = resourceID;
+        Sprite s = new Sprite(new Vector(0, 0), new Vector(width, height), resourceID);
+        sprites.add(s);
     }
 
 
@@ -36,45 +37,36 @@ public class SpriteComponent extends Component<GameEntity> {
      */
     public SpriteComponent(GameEntity entity, String resourceID){
         super(entity);
-        this.transform = new Vector(0,0);
-        this.dimensions = null;
-        this.resourceID = resourceID;
+        Sprite s = new Sprite(new Vector(0, 0), new Vector(0, 0), resourceID);
     }
 
-    /**
-     * Method to get the resource identifier.
-     * @return the resourceID
-     */
-    public String getResourceID() {
-        return resourceID;
-    }
+//    /**
+//     * Method to get the resource identifier.
+//     * @return the resourceID
+//     */
+//    public String getResourceID() {
+//        return resourceID;
+//    }
+//
+//    /**
+//     * Sets the resourceID.
+//     * @param resourceID resourceID
+//     */
+//    public void setResourceID(String resourceID) {
+//        this.resourceID = resourceID;
+//    }
+//
+//    /**
+//     * Method to get the transform vector.
+//     * @return the transform vector
+//     */
+//    public Vector getTransform() {
+//        return transform;
+//    }
+//
+//    public Vector getLocation(){
+//        Vector superLocation = getEntity().getTransform();
+//        return new Vector(transform.x + superLocation.x, transform.y + superLocation.y);
+//    }
 
-    /**
-     * Sets the resourceID.
-     * @param resourceID resourceID
-     */
-    public void setResourceID(String resourceID) {
-        this.resourceID = resourceID;
-    }
-
-    /**
-     * Method to get the transform vector.
-     * @return the transform vector
-     */
-    public Vector getTransform() {
-        return transform;
-    }
-
-    public Vector getLocation(){
-        Vector superLocation = getEntity().getTransform();
-        return new Vector(transform.x + superLocation.x, transform.y + superLocation.y);
-    }
-
-    public Vector getDimensions() {
-        return dimensions;
-    }
-
-    public boolean isDimensionless() {
-        return dimensions == null;
-    }
 }
