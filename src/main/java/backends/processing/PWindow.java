@@ -131,7 +131,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
                     if (mask == 2) {
                         drawAABB(e);
-
                         drawSensors(e);
                     }
                 }

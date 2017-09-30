@@ -127,7 +127,7 @@ public class PWindowTest {
         }
 
         public void moveSprite(){
-            translate(9,0);
+            getTransform().add(9,0);
         }
     }
 }

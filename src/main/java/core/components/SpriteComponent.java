@@ -26,6 +26,10 @@ public class SpriteComponent extends Component<GameEntity> {
         super(entity);
     }
 
+    /**
+     * Adds a sprite to the component.
+     * @param s sprite to add
+     */
     public void add(Sprite s){
         sprites.add(s);
     }
