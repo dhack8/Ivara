@@ -2,9 +2,8 @@ package core.systems;
 
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
-import eem.System;
-import eem.World;
-import processing.core.PVector;
+import scew.System;
+import scew.World;
 
 /**
  * Created by Callum Li on 9/17/17.

@@ -3,7 +3,7 @@ package core.components;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sprite;
-import eem.Component;
+import scew.Component;
 import maths.Vector;
 
 import java.util.ArrayList;

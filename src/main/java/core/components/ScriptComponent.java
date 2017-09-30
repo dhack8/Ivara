@@ -2,11 +2,10 @@ package core.components;
 
 import core.Script;
 import core.entity.GameEntity;
-import eem.Component;
+import scew.Component;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**

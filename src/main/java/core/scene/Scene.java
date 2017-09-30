@@ -1,9 +1,8 @@
 package core.scene;
 
-import core.components.CameraComponent;
 import core.entity.GameEntity;
 import core.struct.Camera;
-import eem.World;
+import scew.World;
 
 import java.util.Collection;
 import java.util.HashMap;
