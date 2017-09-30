@@ -31,7 +31,7 @@ public class MovingBlockEntity extends GameEntity {
     public MovingBlockEntity(float startX, float startY, float endX, float endY, String recourseID, float time) {
         super(new Vector(startX, startY));
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new ResourceID(recourseID), new Vector(0f,0f ),new Vector(1f,1f));
+        sc.add(new ResourceID(recourseID), new Vector(1f,1f));
        // addComponent(new SpriteComponent(this, recourseID, 1f, 1f));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
 
