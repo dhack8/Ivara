@@ -1,6 +1,8 @@
 package ivara.entities;
 
+import core.Script;
 import core.components.ColliderComponent;
+import core.components.ScriptComponent;
 import core.components.SpriteComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
@@ -32,7 +34,8 @@ public class MovingBlockEntity extends GameEntity {
 
         VelocityComponent velocity = new VelocityComponent(this);
         addComponent(new VelocityComponent(this));
-        addComponent(new AutomatedMoveController(this, new Vector(endX, endY), time));
 
+        //addComponent(new AutomatedMoveController(this, new Vector(endX, endY), time));
+        addComponent(new ScriptComponent(this, new AutomatedMoveController(this, new Vector(endX, endY), time)));
     }
 }
