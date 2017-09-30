@@ -24,11 +24,11 @@ public abstract class Scene {
     private Camera camera                           = null;
 
     public Scene() {
-        world.addSystem(new ScriptSystem());
-        world.addSystem(new GravitySystem(new Vector(0, -1)));
+        world.addSystem(new GravitySystem(new Vector(0, 9.8f)));
         world.addSystem(new VelocitySystem());
-        world.addSystem(new PhysicsSystem());
         world.addSystem(new SensorSystem());
+        world.addSystem(new PhysicsSystem());
+        world.addSystem(new ScriptSystem());
     }
 
     /**

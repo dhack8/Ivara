@@ -48,7 +48,6 @@ public class PlayerEntity extends GameEntity {
         Set<Script> scripts = new HashSet<>(); // added multiple scripts
         PlayerController pc = new PlayerController(this);
         scripts.add(pc);
-        scripts.add(new Gravity());
 
         addComponent(new ScriptComponent(this, scripts));
         //addComponent(new Gravity(this));
