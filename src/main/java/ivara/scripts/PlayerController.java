@@ -22,7 +22,7 @@ public class PlayerController implements Script, SensorListener {
 
     private float metresPerSecond = 3f;
 
-    float gravity = 1 / 1000f; // todo temp fix for gravity
+    //float gravity = 1 / 1000f; // todo temp fix for gravity
     /**
     public PlayerController(GameEntity e) {
         super(e);
@@ -38,7 +38,7 @@ public class PlayerController implements Script, SensorListener {
         float speed = metresPerTick(dt);
 
         PlayerEntity pEntity = (PlayerEntity)entity;
-        VelocityComponent vComp = pEntity.get(VelocityComponent.class);
+        VelocityComponent vComp = pEntity.get(VelocityComponent.class).get();
 
         if(InputHandler.keyPressed(W)){
             if(pEntity.canJump){
@@ -92,8 +92,8 @@ public class PlayerController implements Script, SensorListener {
         */
 
 
-        VelocityComponent v = entity.get(VelocityComponent.class); // todo temp fix for gravity
-        v.add(0, 10f/1000f * dt);
+       // VelocityComponent v = entity.get(VelocityComponent.class); // todo temp fix for gravity
+       // v.add(0, 10f/1000f * dt);
     }
 
     /**
@@ -113,7 +113,7 @@ public class PlayerController implements Script, SensorListener {
     @Override
     public void onActive(Sensor sensor, GameEntity entity) {
         ((PlayerEntity)entity).canJump = true;
-        VelocityComponent v = entity.get(VelocityComponent.class);
+        VelocityComponent v = entity.get(VelocityComponent.class).get();
         v.setX(0f);
         v.setY(0f);
 

@@ -24,7 +24,7 @@ public class AutomatedMoveController implements Script {
         boolean outOfBoundsY = current.y < Math.min(start.y, end.y) || current.y > Math.max(start.y, end.y);
 
         if ((outOfBoundsX || outOfBoundsY)) {
-            VelocityComponent velocityComp = entity.get(VelocityComponent.class);
+            VelocityComponent velocityComp = entity.get(VelocityComponent.class).get();
             Vector velocity = velocityComp.getVelocity();
             velocity.scale(-1);
         }
@@ -36,7 +36,7 @@ public class AutomatedMoveController implements Script {
         this.start = new Vector(e.getTransform());
         this.end = end;
 
-        VelocityComponent velocityComp = e.get(VelocityComponent.class);
+        VelocityComponent velocityComp = e.get(VelocityComponent.class).get();
         Vector velocity = velocityComp.getVelocity();
         velocity.set((end.x - start.x) / time, (end.y - start.y) / time);
     }
