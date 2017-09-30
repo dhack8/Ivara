@@ -16,7 +16,7 @@ public abstract class Game {
     /**
      * The number of milliseconds per update tick.
      */
-    private long tickTime = 13;
+    private long tickTime = 6;
 
     /**
      * The current scene of the game.

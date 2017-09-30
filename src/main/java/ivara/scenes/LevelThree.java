@@ -9,7 +9,7 @@ import ivara.entities.*;
 public class LevelThree extends Scene{
 
     public LevelThree(){
-        //addEntity(new BackgroundEntity(0f,0f));
+        addEntity(new BackgroundEntity(-5f,-5f));
 
         addEntity(new PlayerEntity(-1, 0));
 
