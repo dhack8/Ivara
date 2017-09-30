@@ -10,11 +10,7 @@ import eem.Component;
  */
 public class LayerComponent extends Component<GameEntity> {
 
-    private int layer;
-
-    public int getLayer() {
-        return layer;
-    }
+    public final int layer;
 
     /**
      * Creates a layer component with an int value

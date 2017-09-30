@@ -2,6 +2,7 @@ package core.scene;
 
 import core.components.CameraComponent;
 import core.entity.GameEntity;
+import core.struct.Camera;
 import eem.World;
 
 import java.util.Collection;
@@ -19,13 +20,13 @@ public abstract class Scene {
 
     private World<GameEntity> world                 = new World<>();
     private Map<String, GameEntity> nameEntityMap   = new HashMap<>();
-    private CameraComponent camera                  = null;
+    private Camera camera                  = null;
 
     /**
      * Returns the camera for this scene.
      * @return
      */
-    public CameraComponent getCamera(){
+    public Camera getCamera(){
         return camera;
     }
 
