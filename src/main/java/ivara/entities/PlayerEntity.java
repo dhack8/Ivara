@@ -1,7 +1,10 @@
 package ivara.entities;
 
+import core.SensorListener;
 import core.components.*;
 import core.entity.GameEntity;
+import core.struct.Camera;
+import core.struct.Sensor;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
@@ -30,11 +33,17 @@ public class PlayerEntity extends GameEntity {
         VelocityComponent v = new VelocityComponent(this);
         addComponent(v);
         addComponent(new SpriteComponent(this, "player", 1, 1.5f)); //Todo change the PSprite component
-        addComponent(new PlayerController(this));
-        addComponent(new Gravity(this));
+       // addComponent(new PlayerController());
+
+        PlayerController pc = new PlayerController();
+        addComponent(new ScriptComponent(this, pc));
+        //addComponent(new Gravity(this));
+        //addComponent(new Gravity());
+
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.TOPLEFT, new Vector(0.2f, 0.3f), new Vector(0.6f, 1.2f)))); //Todo Change the Collider component
         addComponent(new LayerComponent(this, 999));
-        addComponent(new PhysicsComponent(this, 1, PhysicProperties.Type.DYNAMIC));
+        //addComponent(new PhysicsComponent(this, 1, PhysicProperties.Type.DYNAMIC));
+        addComponent(new PhysicsComponent(this, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
 
         addComponent(
                 new SensorComponent(
@@ -43,19 +52,9 @@ public class PlayerEntity extends GameEntity {
                                 AABBCollider.TOPLEFT,
                                 new Vector(0.199f, 1.4f),
                                 new Vector(0.611f, 0.1f)
-                        ),
-                        (entity) -> {
-                            //World.out.println(entity);
-                            canJump = true;
-                            v.getVelocity().set(0, 0);
-
-                            if (entity instanceof MovingBlockEntity) {
-                                v.getVelocity().set(entity.getComponents(VelocityComponent.class).stream().findAny().get().getVelocity());
-                            }
-                        }
-                )
-        );
-        addComponent(new BasicCameraComponent(this, 19));
+                        ),pc));
+        //addComponent(new CameraComponent(this, 19));
+        //addComponent(new CameraComponent(this, new Camera()));
 
     }
 }
