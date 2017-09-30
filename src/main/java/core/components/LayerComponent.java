@@ -1,7 +1,7 @@
 package core.components;
 
 import core.entity.GameEntity;
-import eem.Component;
+import scew.Component;
 
 /**
  * Layer component gives a entity a layer for renderering.

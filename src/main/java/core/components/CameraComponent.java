@@ -1,9 +1,8 @@
 package core.components;
 
 import core.struct.Camera;
-import eem.Component;
-import eem.Entity;
-import maths.Vector;
+import scew.Component;
+import scew.Entity;
 
 public class CameraComponent extends Component {
 

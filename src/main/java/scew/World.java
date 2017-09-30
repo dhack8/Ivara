@@ -1,4 +1,4 @@
-package eem;
+package scew;
 
 import com.google.common.collect.ClassToInstanceMap;
 import com.google.common.collect.MutableClassToInstanceMap;
@@ -11,19 +11,34 @@ import java.util.stream.Collectors;
 
 
 /**
- * A world is essentially a container for entities.
+ * A world is essentially a container for entities and systems.
+ *
  * @param <T> The type of entity this world contains.
  */
 public class World<T extends Entity> {
 
+    /**
+     * The backing collection for the entities.
+     */
     private final Collection<T> entities = new HashSet<>();
-    private final ClassToInstanceMap<Component<T>> componentMap = MutableClassToInstanceMap.create();
+
+    /**
+     * The backing collection for the systems.
+     */
     private final List<System<T>> systems = new ArrayList<>();
 
+    /**
+     * Returns all the entities within the world.
+     * @return All the entities within the world.
+     */
     final public Collection<T> getEntities() {
         return entities;
     }
 
+    /**
+     * Adds the given entity to the world.
+     * @param entity The entity to add to the world.
+     */
     final public void addEntity(T entity) {
         entities.add(entity);
     }

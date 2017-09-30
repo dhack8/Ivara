@@ -1,6 +1,6 @@
 package core.entity;
 
-import eem.Entity;
+import scew.Entity;
 import maths.Vector;
 
 /**

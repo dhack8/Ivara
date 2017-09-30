@@ -1,4 +1,4 @@
-package eem;
+package scew;
 
 /**
  * Abstract class that outlines the requirements a

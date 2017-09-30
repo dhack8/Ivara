@@ -4,11 +4,10 @@ import core.components.ColliderComponent;
 import core.struct.Sensor;
 import core.components.SensorComponent;
 import core.entity.GameEntity;
-import eem.System;
-import eem.World;
+import scew.System;
+import scew.World;
 import physics.CollisionUtil;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 /**

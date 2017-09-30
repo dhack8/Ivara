@@ -1,4 +1,4 @@
-package eem;
+package scew;
 
 /**
  * Abstract class for Component that defines all the requirements

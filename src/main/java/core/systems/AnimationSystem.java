@@ -3,8 +3,8 @@ package core.systems;
 import core.components.AnimatedSpriteComponent;
 import core.components.SpriteComponent;
 import core.entity.GameEntity;
-import eem.System;
-import eem.World;
+import scew.System;
+import scew.World;
 
 /**
  * TODO: javadoc

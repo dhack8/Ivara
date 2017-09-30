@@ -1,4 +1,4 @@
-package eem;
+package scew;
 
 import java.util.Collection;
 import java.util.HashSet;
