@@ -3,6 +3,8 @@ package ivara.entities;
 import core.components.LayerComponent;
 import core.components.SpriteComponent;
 import core.entity.GameEntity;
+import core.struct.ResourceID;
+import core.struct.Sprite;
 import maths.Vector;
 
 /**
@@ -18,7 +20,12 @@ public class BackgroundEntity extends GameEntity {
      */
     public BackgroundEntity(float x, float y){
         super(new Vector(x,y));
-        addComponent(new SpriteComponent(this, "background"));
+
+        SpriteComponent sc = new SpriteComponent(this);
+        sc.add(new Sprite(new ResourceID("background"), new Vector(0f, 0f), null));
+
+        addComponent(sc);
+
         addComponent(new LayerComponent(this, -1));
     }
 }

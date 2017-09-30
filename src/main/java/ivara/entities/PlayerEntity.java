@@ -1,5 +1,6 @@
 package ivara.entities;
 
+import core.Script;
 import core.SensorListener;
 import core.components.*;
 import core.entity.GameEntity;
@@ -10,6 +11,10 @@ import physics.AABBCollider;
 import physics.PhysicProperties;
 import ivara.scripts.Gravity;
 import ivara.scripts.PlayerController;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This class handles the entity of the player within the game
@@ -35,8 +40,13 @@ public class PlayerEntity extends GameEntity {
         addComponent(new SpriteComponent(this, "player", 1, 1.5f)); //Todo change the PSprite component
        // addComponent(new PlayerController());
 
+
+        Set<Script> scripts = new HashSet<>(); // added multiple scripts
         PlayerController pc = new PlayerController();
-        addComponent(new ScriptComponent(this, pc));
+        scripts.add(pc);
+        scripts.add(new Gravity());
+
+        addComponent(new ScriptComponent(this, scripts));
         //addComponent(new Gravity(this));
         //addComponent(new Gravity());
 

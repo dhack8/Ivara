@@ -3,18 +3,24 @@ package core.struct;
 import maths.Vector;
 
 /**
- * Created by Callum Li on 9/30/17.
+ * @author David Hack
  */
 public class Sprite {
 
     public final Vector transform;
     public final Vector dimensions;
-    public final String resourceID;
+    public final ResourceID resourceID;
 
 
-    public Sprite(Vector transform, Vector dimensions, String resourceID) {
+    public Sprite(ResourceID resourceID, Vector transform, Vector dimensions) {
         this.transform = transform;
         this.dimensions = dimensions;
         this.resourceID = resourceID;
     }
+
+    public boolean hasDimension(){
+        return !(dimensions == null);
+    }
+
+
 }

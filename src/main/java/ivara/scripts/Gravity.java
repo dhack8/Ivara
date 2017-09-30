@@ -14,7 +14,7 @@ public class Gravity implements Script {
 
     @Override
     public void update(int dt, GameEntity entity) {
-        VelocityComponent v = entity.get(VelocityComponent.class);
+        VelocityComponent v = entity.get(VelocityComponent.class).get();
         v.add(0, 10f/1000f * dt);
     }
 }
