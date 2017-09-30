@@ -54,6 +54,16 @@ public abstract class Scene {
     }
 
     /**
+     * Adds multiple entities to the Scene.
+     * @param entites The collection of entities.
+     */
+    protected void addEntities(Collection<Entity> entites) {
+        for (Entity e : entites) {
+            addEntity(e);
+        }
+    }
+
+    /**
      * Adds an entity to the collection of the entities within the Scene
      *
      * @param entity The entity to add
