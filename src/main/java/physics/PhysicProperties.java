@@ -6,6 +6,9 @@ import maths.Vector;
  * Created by Callum Li on 9/17/17.
  */
 public class PhysicProperties {
+
+    public static final PhysicProperties DEFAULT = new PhysicProperties();
+
     public enum Type {
         STATIC, DYNAMIC;
     }

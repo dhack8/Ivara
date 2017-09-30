@@ -1,7 +1,9 @@
 package ivara.scenes;
 
 import core.scene.Scene;
+import core.struct.Camera;
 import ivara.entities.*;
+import maths.Vector;
 
 /**
  * Our very first scene.
@@ -37,5 +39,7 @@ public class LevelOne extends Scene {
         addEntity(new NPlatformEntity(10,-8  , 2, false));
         addEntity(new NPlatformEntity(3,-9  , 3, false));
         //addEntity(new MovingBlockEntity(0f,-9f, 2f,-9f, "dirt_bottom", 2f));
+
+        setCamera(new Camera(new Vector(0,0), new Vector(16,9)));
     }
 }

@@ -44,10 +44,14 @@ public class PhysicsSystem extends System<GameEntity> {
 
     private void resolveCollision(ColliderComponent cc1, ColliderComponent cc2) {
         PhysicProperties p1 = cc1.getEntity()
-                .get(PhysicsComponent.class).get().getProperties();
+                .get(PhysicsComponent.class)
+                .map((c) -> c.getProperties())
+                .orElse(PhysicProperties.DEFAULT);
 
         PhysicProperties p2 = cc2.getEntity()
-                .get(PhysicsComponent.class).get().getProperties();
+                .get(PhysicsComponent.class)
+                .map((c) -> c.getProperties())
+                .orElse(PhysicProperties.DEFAULT);
 
         if (p1.type == PhysicProperties.Type.STATIC &&
                 p2.type == PhysicProperties.Type.STATIC) {

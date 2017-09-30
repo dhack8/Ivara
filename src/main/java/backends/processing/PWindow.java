@@ -32,6 +32,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
     private float s = 100;
     private Vector t = new Vector(0,0); //translation
+    private Vector b = new Vector(0,0); //border
 
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
@@ -108,9 +109,9 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         //Scale
         s = Math.min(screenScale.x, screenScale.y);
         //Translate
-        Vector t = new Vector(-topLeft.x * s, -topLeft.y * s);
+        t = new Vector(-topLeft.x * s, -topLeft.y * s);
         //Buffer (bars)
-        Vector b = new Vector(displayWidth/2 - (s*gameDimensions.x/2), displayHeight/2 - (s*gameDimensions.y/2));
+        b = new Vector(displayWidth/2 - (s*gameDimensions.x/2), displayHeight/2 - (s*gameDimensions.y/2));
 
         background(0, 0, 0);
 
@@ -144,7 +145,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
             AABBCollider ab = sensor.collider.getAABBBoundingBox();
 
-            Vector loc = new Vector((e.getTransform().x + ab.getMin().x) * s + t.x, (e.getTransform().y + ab.getMin().y) * s + t.y);
+            Vector loc = new Vector((e.getTransform().x + ab.getMin().x) * s + t.x + b.x, (e.getTransform().y + ab.getMin().y) * s + t.y + b.y);
 
             stroke(0, 255, 0);
             noFill();
@@ -159,7 +160,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
         AABBCollider ab = occ.get().getCollider().getAABBBoundingBox();
 
-        Vector loc = new Vector((e.getTransform().x + ab.getMin().x)*s + t.x, (e.getTransform().y + ab.getMin().y)*s + t.y);
+        Vector loc = new Vector((e.getTransform().x + ab.getMin().x)*s + t.x + b.x, (e.getTransform().y + ab.getMin().y)*s + t.y + b.y);
 
         stroke(255,0,0);
         noFill();
@@ -177,7 +178,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     }
 
     private void drawSprite(Sprite sprite, Vector entityTransform){
-        Vector loc = new Vector((entityTransform.x + sprite.transform.x)*s + t.x, (entityTransform.y + sprite.transform.y)*s + t.y);
+        Vector loc = new Vector((entityTransform.x + sprite.transform.x)*s + t.x + b.x, (entityTransform.y + sprite.transform.y)*s + t.y + b.y);
         if(sprite.hasDimension()) {
             Vector dimension = new Vector(sprite.dimensions.x * s, sprite.dimensions.y * s);
             image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y, dimension.x, dimension.y);

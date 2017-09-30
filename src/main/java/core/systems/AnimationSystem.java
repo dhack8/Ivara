@@ -10,6 +10,7 @@ import scew.World;
  * TODO: javadoc
  * @author Will Pearson
  */
+/**
 public class AnimationSystem extends System<GameEntity> {
 
 
@@ -22,4 +23,5 @@ public class AnimationSystem extends System<GameEntity> {
         }
     }
 }
+ */
 
