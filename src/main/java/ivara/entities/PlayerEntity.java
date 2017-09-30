@@ -40,6 +40,7 @@ public class PlayerEntity extends GameEntity {
         addComponent(v);
         SpriteComponent sc = new SpriteComponent(this);
         sc.add(new ResourceID("player"), new Vector(1f, 1.5f));
+        addComponent(sc);
         //addComponent(new SpriteComponent(this, "player", 1, 1.5f)); //Todo change the PSprite component
        // addComponent(new PlayerController());
 
