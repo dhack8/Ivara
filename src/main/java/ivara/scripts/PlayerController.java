@@ -8,6 +8,7 @@ import core.entity.GameEntity;
 import core.input.InputHandler;
 import core.struct.Sensor;
 import ivara.entities.PlayerEntity;
+import maths.Vector;
 
 import static core.input.InputHandler.*;
 
@@ -120,8 +121,11 @@ public class PlayerController implements Script, SensorListener {
     public void onActive(Sensor sensor, GameEntity entity) {
         player.canJump = true;
         VelocityComponent v = player.get(VelocityComponent.class).get();
-        v.setX(0f);
-        //v.setY(0f);
+        Vector c = entity.get(VelocityComponent.class)
+                .map(VelocityComponent::getVelocity)
+                .orElse(new Vector(0, 0));
+        v.setX(c.x);
+        v.setY(c.y);
 
     }
 
