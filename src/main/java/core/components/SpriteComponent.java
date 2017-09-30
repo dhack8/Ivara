@@ -1,6 +1,7 @@
 package core.components;
 
 import core.entity.GameEntity;
+import core.struct.AnimatedSprite;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import scew.Component;
@@ -16,6 +17,7 @@ public class SpriteComponent extends Component<GameEntity> {
 
 
     private final List<Sprite> sprites = new ArrayList<>();
+    private final List<AnimatedSprite> animatedSprites = new ArrayList<>();
 
     /**
      * Constructor for a sprite component that has a width and height along with a resource identifier.
@@ -40,5 +42,9 @@ public class SpriteComponent extends Component<GameEntity> {
 
     public List<Sprite> getSprites(){
         return sprites;
+    }
+
+    public List<AnimatedSprite> getAnimatedSprites() {
+        return animatedSprites;
     }
 }
