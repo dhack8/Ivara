@@ -3,7 +3,8 @@ package core.struct;
 import maths.Vector;
 
 /**
- * Created by Callum Li on 9/29/17.
+ * Represents a camera by data with top left
+ * @author David Hack
  */
 public class Camera {
     public final Vector transform;
