@@ -36,15 +36,16 @@ public class PlayerEntity extends GameEntity {
     public PlayerEntity(float x, float y) {
         super(new Vector(x, y));
 
+        //Velocity
         VelocityComponent v = new VelocityComponent(this);
         addComponent(v);
+
+        //Sprites
         SpriteComponent sc = new SpriteComponent(this);
         sc.add(new ResourceID("player"), new Vector(1f, 1.5f));
         addComponent(sc);
-        //addComponent(new SpriteComponent(this, "player", 1, 1.5f)); //Todo change the PSprite component
-       // addComponent(new PlayerController());
 
-
+        //Scripts
         Set<Script> scripts = new HashSet<>(); // added multiple scripts
         PlayerController pc = new PlayerController(this);
         scripts.add(pc);
