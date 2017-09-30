@@ -34,8 +34,8 @@ public class SpriteComponent extends Component<GameEntity> {
         sprites.add(new Sprite(id, transform, dimension));
     }
 
-    public void add(ResourceID id, Vector transform){
-        sprites.add(new Sprite(id, transform, null));
+    public void add(ResourceID id, Vector dimensions){
+        sprites.add(new Sprite(id, new Vector(0,0), dimensions));
     }
 
     public List<Sprite> getSprites(){
