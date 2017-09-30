@@ -5,6 +5,7 @@ import core.SensorListener;
 import core.components.*;
 import core.entity.GameEntity;
 import core.struct.Camera;
+import core.struct.ResourceID;
 import core.struct.Sensor;
 import maths.Vector;
 import physics.AABBCollider;
@@ -37,7 +38,9 @@ public class PlayerEntity extends GameEntity {
 
         VelocityComponent v = new VelocityComponent(this);
         addComponent(v);
-        addComponent(new SpriteComponent(this, "player", 1, 1.5f)); //Todo change the PSprite component
+        SpriteComponent sc = new SpriteComponent(this);
+        sc.add(new ResourceID("player"), new Vector(1f, 1.5f));
+        //addComponent(new SpriteComponent(this, "player", 1, 1.5f)); //Todo change the PSprite component
        // addComponent(new PlayerController());
 
 
