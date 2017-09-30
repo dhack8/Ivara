@@ -20,6 +20,6 @@ public class GravitySystem extends System<GameEntity> {
     @Override
     public void update(int dt, World<GameEntity> world) {
         world.get(VelocityComponent.class)
-                .forEach((c) -> c.add(gravity.x * dt/1000, gravity.y * dt/1000));
+                .forEach((c) -> c.add(gravity.x * (dt/1000f), gravity.y * (dt/1000f)));
     }
 }
