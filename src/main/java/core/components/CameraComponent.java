@@ -9,7 +9,9 @@ public class CameraComponent extends Component {
 
     private final Camera camera;
 
-    protected CameraComponent(Entity entity, Camera camera) {
+
+
+    public CameraComponent(Entity entity, Camera camera) {
         super(entity);
         this.camera = camera;
     }

@@ -55,17 +55,17 @@ public class NPlatformEntity extends GameEntity {
         addComponent(first);
 
         for (int i = 1; i < n - 1; i++) {
-            SpriteComponent sprite = new SpriteComponent(this, middleSectionID, 1, 1);
-            sprite.setTransform(new Vector(i * direction.x, i * direction.y));
+            SpriteComponent sprite = new SpriteComponent(this, middleSectionID, 1, 1, new Vector(i * direction.x, i * direction.y));
             addComponent(sprite);
         }
 
-        SpriteComponent last = new SpriteComponent(this, endSectionID, 1, 1);
+        Vector transform;
         if (isVertical) {
-            last.setTransform(new Vector(n - n * direction.y, n - 1));
+            transform = new Vector(n - n * direction.y, n - 1);
         } else {
-            last.setTransform(new Vector(n - 1, 0));
+            transform = new Vector(n - 1, 0);
         }
+        SpriteComponent last = new SpriteComponent(this, endSectionID, 1, 1, transform);
         addComponent(last);
 
         if (isVertical) {

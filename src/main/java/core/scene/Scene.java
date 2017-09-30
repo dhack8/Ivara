@@ -20,7 +20,7 @@ public abstract class Scene {
 
     private World<GameEntity> world                 = new World<>();
     private Map<String, GameEntity> nameEntityMap   = new HashMap<>();
-    private Camera camera                  = null;
+    private Camera camera                           = null;
 
     /**
      * Returns the camera for this scene.
@@ -28,6 +28,10 @@ public abstract class Scene {
      */
     public Camera getCamera(){
         return camera;
+    }
+
+    public void setCamera(Camera camera) {
+        this.camera = camera;
     }
 
     /**

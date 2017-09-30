@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class SpriteComponent extends Component<GameEntity> {
 
+
     private final List<Sprite> sprites = new ArrayList<>();
 
     /**
@@ -29,6 +30,21 @@ public class SpriteComponent extends Component<GameEntity> {
         sprites.add(s);
     }
 
+    /**
+     * Constructor for a sprite component that has a width and height along with a resource identifier.
+     * This sprite has a dimension.
+     * @param entity parent entity
+     * @param resourceID String identifier for the sprite component
+     * @param width float value of width
+     * @param height float value of height
+     * @param transform the transformation vector
+     */
+    public SpriteComponent(GameEntity entity, String resourceID, float width, float height, Vector transform) {
+        super(entity);
+        Sprite s = new Sprite(transform, new Vector(width, height), resourceID);
+        sprites.add(s);
+    }
+
 
     /**
      * Creates a dimension-less sprite component, rendered at its native resolution.
@@ -38,6 +54,7 @@ public class SpriteComponent extends Component<GameEntity> {
     public SpriteComponent(GameEntity entity, String resourceID){
         super(entity);
         Sprite s = new Sprite(new Vector(0, 0), new Vector(0, 0), resourceID);
+        sprites.add(s);
     }
 
 //    /**
@@ -69,4 +86,27 @@ public class SpriteComponent extends Component<GameEntity> {
 //        return new Vector(transform.x + superLocation.x, transform.y + superLocation.y);
 //    }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Sets the resourceID.
+     * @param resourceID resourceID
+     */
+    public void setResourceID(String resourceID) {
+        this.resourceID = resourceID;
+    }
+
+    public Vector getLocation(){
+        Vector superLocation = getEntity().getTransform();
+        return new Vector(transform.x + superLocation.x, transform.y + superLocation.y);
+    }
+
+    public Vector getDimensions() {
+        return dimensions;
+    }
+
+    public boolean isDimensionless() {
+        return dimensions == null;
+    }
+>>>>>>> 8f071bf089af6405092b6a3b56b42b3dd0d98ab1
 }

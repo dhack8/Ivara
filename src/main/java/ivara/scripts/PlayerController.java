@@ -1,10 +1,12 @@
 package ivara.scripts;
 
 import core.Script;
+import core.SensorListener;
 import core.components.ScriptComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
 import core.input.InputHandler;
+import core.struct.Sensor;
 import ivara.entities.PlayerEntity;
 
 import static core.input.InputHandler.*;
@@ -16,29 +18,55 @@ import static core.input.InputHandler.*;
  *
  * @author Will Pearson
  */
-public class PlayerController implements Script {
+public class PlayerController implements Script, SensorListener {
 
     private float metresPerSecond = 3f;
 
+    float gravity = 1 / 1000f; // todo temp fix for gravity
+    /**
     public PlayerController(GameEntity e) {
         super(e);
     }
+     **/
 
     /**
      * Updates the player entity.
-     * @param dmt elapsed milliseconds since last update
+     * @param dt elapsed milliseconds since last update
      */
     @Override
-    public void update(int dt, GameEntity entity) {
-        float speed = metresPerTick(dmt);
+    public void update(int dt, GameEntity entity) { // Todo change how these are handled -- temp fix for the removal of translate
+        float speed = metresPerTick(dt);
 
+        PlayerEntity pEntity = (PlayerEntity)entity;
+        VelocityComponent vComp = pEntity.get(VelocityComponent.class);
+
+        if(InputHandler.keyPressed(W)){
+            if(pEntity.canJump){
+                vComp.setY(-5f);
+                pEntity.canJump = false;
+            }
+        }else if(InputHandler.keyPressed(S)){
+            vComp.setY(3f);
+        }
+
+        if(InputHandler.keyPressed(A)){
+            vComp.setX(-3f);
+        }else if(InputHandler.keyPressed(D)){
+            vComp.setX(3f);
+        }else{
+            vComp.setX(0f);
+        }
+
+
+        /**
         if (InputHandler.keyPressed(W)) {
             // TODO Jumping
-            PlayerEntity entity = (PlayerEntity)getEntity();
-            if(entity.canJump){
-                VelocityComponent comp = entity.getComponents(VelocityComponent.class).stream().findAny().get();
+            //PlayerEntity entity = (PlayerEntity)getEntity();
+            PlayerEntity playerEntity = (PlayerEntity)entity;
+            if(playerEntity.canJump){
+                VelocityComponent comp = entity.get(VelocityComponent.class);
                 comp.getVelocity().set(0, -5f);
-                entity.canJump = false;
+                playerEntity.canJump = false;
             }
 
 
@@ -47,7 +75,7 @@ public class PlayerController implements Script {
         }
         if (InputHandler.keyPressed(A)) {
             // TODO running
-            getEntity().translate(-speed, 0);
+            entity.translate(-speed, 0);
         }
         if (InputHandler.keyPressed(S)) {
             // TODO ducking
@@ -61,7 +89,11 @@ public class PlayerController implements Script {
             // TODO extra function?
             getEntity().translate(0, -speed);
         }
+        */
 
+
+        VelocityComponent v = entity.get(VelocityComponent.class); // todo temp fix for gravity
+        v.add(0, 10f/1000f * dt);
     }
 
     /**
@@ -71,5 +103,24 @@ public class PlayerController implements Script {
      */
     private float metresPerTick(long dmt) {
         return metresPerSecond / 1000f * dmt;
+    }
+
+    @Override
+    public void onEnter(Sensor sensor, GameEntity entity) {
+
+    }
+
+    @Override
+    public void onActive(Sensor sensor, GameEntity entity) {
+        ((PlayerEntity)entity).canJump = true;
+        VelocityComponent v = entity.get(VelocityComponent.class);
+        v.setX(0f);
+        v.setY(0f);
+
+    }
+
+    @Override
+    public void onExit(Sensor sensor, GameEntity entity) {
+
     }
 }

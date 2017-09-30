@@ -11,9 +11,11 @@ public abstract class GameEntity extends Entity {
 
     private final Vector transform;
 
+
     public Vector getTransform() {
         return transform;
     }
+
 
     public GameEntity(Vector transform) {
         this.transform = transform;
