@@ -5,7 +5,7 @@ import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Sprite;
 import ivara.entities.PlayerEntity;
-import ivara.scripts.PlayerController;
+import ivara.scripts.PlayerScript;
 import maths.Vector;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class SensorComponentTest {
      */
     @Test
     public void singleConstruct() throws Exception{
-        Sensor testSensor = new Sensor(new AABBCollider(new Vector(0,0), new Vector(0,0)), new PlayerController(new PlayerEntity(0,0)));
+        Sensor testSensor = new Sensor(new AABBCollider(new Vector(0,0), new Vector(0,0)), new PlayerScript(new PlayerEntity(0,0)));
         SensorComponent sc = new SensorComponent(testEntity, testSensor);
         assertEquals(testSensor, sc.getSensors().get(0));
     }
@@ -46,9 +46,9 @@ public class SensorComponentTest {
      */
     @Test
     public void arrayConstruct() throws Exception{
-        Sensor testSensor1 = new Sensor(new AABBCollider(new Vector(0,0), new Vector(0,0)), new PlayerController(new PlayerEntity(0,0)));
+        Sensor testSensor1 = new Sensor(new AABBCollider(new Vector(0,0), new Vector(0,0)), new PlayerScript(new PlayerEntity(0,0)));
 
-        Sensor testSensor2 = new Sensor(new AABBCollider(new Vector(0,0), new Vector(0,0)), new PlayerController(new PlayerEntity(0,0)));
+        Sensor testSensor2 = new Sensor(new AABBCollider(new Vector(0,0), new Vector(0,0)), new PlayerScript(new PlayerEntity(0,0)));
 
         SensorComponent sc = new SensorComponent(testEntity, new Sensor[]{
                 testSensor1,
@@ -62,7 +62,7 @@ public class SensorComponentTest {
 
     @Test
     public void add() throws Exception {
-        Sensor testSensor = new Sensor(new AABBCollider(new Vector(0,0), new Vector(0,0)), new PlayerController(new PlayerEntity(0,0)));
+        Sensor testSensor = new Sensor(new AABBCollider(new Vector(0,0), new Vector(0,0)), new PlayerScript(new PlayerEntity(0,0)));
         SensorComponent sc = new SensorComponent(testEntity);
         sc.add(testSensor);
         assertEquals(testSensor, sc.getSensors().get(0));

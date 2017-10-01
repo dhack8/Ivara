@@ -2,8 +2,8 @@ package ivara.entities;
 
 import core.components.*;
 import core.entity.GameEntity;
-import ivara.scripts.Gravity;
-import ivara.scripts.PlayerController;
+import ivara.scripts.GravityScript;
+import ivara.scripts.PlayerScript;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;

@@ -2,8 +2,9 @@ package core.entity;
 
 import core.input.InputHandler;
 import core.scene.Scene;
-import scew.Entity;
+//import scew.Entity;
 import maths.Vector;
+import scew.Entity;
 
 /**
  * This class represents the entities within the game
