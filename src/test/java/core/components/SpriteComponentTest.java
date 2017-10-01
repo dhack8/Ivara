@@ -40,6 +40,7 @@ public class SpriteComponentTest {
 
     /**
      * Test the single animated sprite constructor.
+     * NOTE this should add to both lists
      * @throws Exception
      */
     @Test
@@ -47,9 +48,14 @@ public class SpriteComponentTest {
         AnimatedSprite testSprite = new AnimatedSprite(new Vector(0,0), new Vector(1,1), 1);
         SpriteComponent sc = new SpriteComponent(testEntity, testSprite);
         assertEquals(testSprite, sc.getAnimatedSprites().get(0));
-        assertTrue(sc.getSprites().isEmpty());
+        assertEquals(testSprite, sc.getSprites().get(0));
+        assertFalse(sc.getSprites().isEmpty());
     }
 
+    /**
+     * Tests if adding a normal sprite works properly.
+     * @throws Exception
+     */
     @Test
     public void add() throws Exception {
         Sprite testSprite = new Sprite(new ResourceID("player.png"), new Vector(0,0), new Vector(1,1));
@@ -61,6 +67,10 @@ public class SpriteComponentTest {
         assertTrue(sc.getAnimatedSprites().isEmpty());
     }
 
+    /**
+     * Tests that adding by sprites components works.
+     * @throws Exception
+     */
     @Test
     public void add1() throws Exception {
         SpriteComponent sc = new SpriteComponent(testEntity);
@@ -72,6 +82,10 @@ public class SpriteComponentTest {
         assertTrue(sc.getAnimatedSprites().isEmpty());
     }
 
+    /**
+     * Tests that adding by reduced components works correctly
+     * @throws Exception
+     */
     @Test
     public void add2() throws Exception {
         SpriteComponent sc = new SpriteComponent(testEntity);
@@ -83,6 +97,11 @@ public class SpriteComponentTest {
         assertTrue(sc.getAnimatedSprites().isEmpty());
     }
 
+    /**
+     * Tests adding a animated sprite.
+     * Note this should add to both lists
+     * @throws Exception
+     */
     @Test
     public void add3() throws Exception {
         AnimatedSprite testSprite = new AnimatedSprite(new Vector(0,0), new Vector(1,1), 1);
@@ -91,6 +110,7 @@ public class SpriteComponentTest {
         sc.add(testSprite);
 
         assertEquals(testSprite, sc.getAnimatedSprites().get(0));
-        assertTrue(sc.getSprites().isEmpty());
+        assertEquals(testSprite, sc.getSprites().get(0));
+        assertFalse(sc.getSprites().isEmpty());
     }
 }
