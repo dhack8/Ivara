@@ -1,6 +1,7 @@
 package core.scene;
 
 import core.entity.GameEntity;
+import core.input.InputHandler;
 import core.struct.Camera;
 import core.systems.*;
 import maths.Vector;
@@ -29,6 +30,10 @@ public abstract class Scene {
         world.addSystem(new SensorSystem());
         world.addSystem(new PhysicsSystem());
         world.addSystem(new ScriptSystem());
+    }
+
+    public void setInputHandler(InputHandler inputHandler) {
+        world.addSystem(new InputSystem(inputHandler));
     }
 
     /**

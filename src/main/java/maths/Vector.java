@@ -49,4 +49,10 @@ public class Vector {
         this.x = other.x;
         this.y = other.y;
     }
+
+
+    @Override
+    public String toString() {
+        return "Vector: " + x + ", " + y;
+    }
 }

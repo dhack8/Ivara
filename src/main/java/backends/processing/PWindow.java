@@ -15,6 +15,8 @@ import core.struct.Sprite;
 import maths.Vector;
 import physics.AABBCollider;
 import processing.core.PApplet;
+import processing.event.KeyEvent;
+import processing.event.MouseEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +70,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        fullScreen(P2D);
+        size(400, 400);
         noLoop();
     }
 
@@ -243,39 +245,41 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
             mouseListeners.add(listener);
     }
 
-    /**
-     * Passes the mouse press event to all mouse listeners.
-     */
-    @Override
-    public void mousePressed() {
-        for (MouseListener mL : mouseListeners)
-            mL.setMousePressed(true, super.mouseButton);
-    }
-
-    /**
-     * Passes the mouse release event to all mouse listeners.
-     */
-    @Override
-    public void mouseReleased() {
-        for (MouseListener mL : mouseListeners)
-            mL.setMousePressed(false, super.mouseButton);
-    }
 
     /**
      * Passes the key press event to all key listeners.
      */
     @Override
-    public void keyPressed() {
-        for (KeyListener kL : keyListeners)
-            kL.setKeyPressed(true, super.keyCode);
+    public void keyPressed(KeyEvent event) {
+        keyListeners.forEach((keyListener -> keyListener.keyPressed(event.getKeyCode())));
     }
 
     /**
      * Passes the key release event to all key listeners.
      */
     @Override
-    public void keyReleased() {
-        for (KeyListener kL : keyListeners)
-            kL.setKeyPressed(false, super.keyCode);
+    public void keyReleased(KeyEvent event) {
+        keyListeners.forEach((keyListener -> keyListener.keyReleased(event.getKeyCode())));
+    }
+
+
+    /**
+     * Passes the mouse press event to all mouse listeners.
+     */
+    @Override
+    public void mousePressed(MouseEvent event) {
+        int button = event.getButton();
+        Vector position = new Vector(event.getX(), event.getY()); // pixelToWorld(event.getX(), event.getY());
+        mouseListeners.forEach((mouseListener -> mouseListener.mousePressed(button, position)));
+    }
+
+    /**
+     * Passes the mouse release event to all mouse listeners.
+     */
+    @Override
+    public void mouseReleased(MouseEvent event) {
+        int button = event.getButton();
+        Vector position = new Vector(event.getX(), event.getY()); // pixelToWorld(event.getX(), event.getY());
+        mouseListeners.forEach((mouseListener -> mouseListener.mouseReleased(button, position)));
     }
 }

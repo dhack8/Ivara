@@ -1,9 +1,13 @@
 package core.input;
 
+import maths.Vector;
+
 /**
  * Listens for mouse input
  */
 public interface MouseListener {
 
-    void setMousePressed(boolean b, int mouseButton);
+    void mousePressed(int mouseButton, Vector position);
+    void mouseReleased(int mouseButton, Vector position);
+
 }

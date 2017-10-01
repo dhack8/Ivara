@@ -5,5 +5,6 @@ package core.input;
  */
 public interface KeyListener {
 
-    void setKeyPressed(boolean b, int keyCode);
+    void keyPressed(int keyCode);
+    void keyReleased(int keyCode);
 }
