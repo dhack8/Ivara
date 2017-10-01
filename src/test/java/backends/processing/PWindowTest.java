@@ -1,5 +1,6 @@
 package backends.processing;
 
+import com.jogamp.opengl.GLException;
 import core.scene.Scene;
 import core.struct.Camera;
 import ivara.entities.NPlatformEntity;
@@ -22,8 +23,15 @@ public class PWindowTest {
     @Test
     public void render() throws Exception {
 
-        PWindow testWindow = new PWindow();
-        PApplet.runSketch(new String[]{"PWindow"}, testWindow);
+        PWindow testWindow;
+
+        try {
+            testWindow = new PWindow(true);
+            PApplet.runSketch(new String[]{"PWindow"}, testWindow);
+        }catch (GLException e){
+            testWindow = new PWindow(false);
+            PApplet.runSketch(new String[]{"PWindow"}, testWindow);
+        }
 
         TestScene testScene = null;
 
