@@ -1,16 +1,14 @@
-package core.entity;
+package scew;
 
+import core.entity.GameEntity;
 import maths.Vector;
 import org.junit.Before;
 import org.junit.Test;
-import scew.Component;
-import scew.World;
 
 import static org.junit.Assert.*;
 
 /**
- * Basic tests for testing the EntityContainer functionality
- * @author Alex Mitchell
+ * Created by Alex Mitchell on 1/10/2017.
  */
 public class WorldTest {
     private World w;
@@ -51,5 +49,4 @@ public class WorldTest {
             super(e);
         }
     }
-
 }
