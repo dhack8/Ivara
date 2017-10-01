@@ -1,5 +1,6 @@
 package core.scene;
 
+import core.Game;
 import core.entity.GameEntity;
 import core.input.InputHandler;
 import core.struct.Camera;
@@ -20,10 +21,10 @@ import java.util.Optional;
  */
 public abstract class Scene {
 
+    private Game game;
     private World<GameEntity> world                 = new World<>();
     private Map<String, GameEntity> nameEntityMap   = new HashMap<>();
     private Camera camera                           = null;
-    private InputHandler inputHandler               = null;
 
     public Scene() {
         world.addSystem(new GravitySystem(new Vector(0, 25f)));
@@ -33,15 +34,12 @@ public abstract class Scene {
         world.addSystem(new ScriptSystem());
     }
 
-    public InputHandler getInputHandler() {
-        return inputHandler;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
-    public void setInputHandler(InputHandler inputHandler) {
-        this.inputHandler = inputHandler;
-        for (GameEntity entity : world.getEntities()) {
-            entity.setInput(inputHandler);
-        }
+    public Game getGame() {
+        return game;
     }
 
     /**
@@ -87,7 +85,6 @@ public abstract class Scene {
         });
 
         entity.setScene(this);
-        entity.setInput(inputHandler);
         world.addEntity(entity);
     }
 
