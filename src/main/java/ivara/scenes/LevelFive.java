@@ -19,7 +19,7 @@ public class LevelFive extends Scene {
         //addEntity(new MovingBlockEntity(5f, 3f, 10f, 3f, "grass-top", 1.5f));
 
         //addEntities(LinePlatformFactory.line(0,0,5,0));
-        addEntities(LinePlatformFactory.line(0,0,10,-5));
+        //addEntities(LinePlatformFactory.line(0,0,10,-5));
         //addEntities(LinePlatformFactory.line(10,-3,10,5));
         //addEntity(new NPlatformEntity(4,3, 3, true));
         //addEntity(new NPlatformEntity(6,9, 3, false));

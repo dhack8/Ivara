@@ -1,12 +1,6 @@
 package ivara.scenes;
 
-<<<<<<< HEAD
-import core.entity.GameEntity;
-=======
-import core.entity.Entity;
->>>>>>> master
-import ivara.entities.BasicBlockEntity;
-import ivara.entities.NPlatformEntity;
+
 
 import java.util.*;
 

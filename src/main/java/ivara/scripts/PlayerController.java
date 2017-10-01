@@ -51,7 +51,7 @@ public class PlayerController implements Script, SensorListener {
 
         if(input.isKeyPressed(Constants.W)){
             if(pEntity.canJump){
-                vComp.setY(-5f);
+                vComp.setY(-7f);
                 pEntity.canJump = false;
             }
         }else if(input.isKeyPressed(Constants.S)){

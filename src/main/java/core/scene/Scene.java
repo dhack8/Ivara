@@ -25,7 +25,7 @@ public abstract class Scene {
     private Camera camera                           = null;
 
     public Scene() {
-        world.addSystem(new GravitySystem(new Vector(0, 9.8f)));
+        world.addSystem(new GravitySystem(new Vector(0, 25f)));
         world.addSystem(new VelocitySystem());
         world.addSystem(new SensorSystem());
         world.addSystem(new PhysicsSystem());
@@ -85,8 +85,8 @@ public abstract class Scene {
      * Adds multiple entities to the Scene.
      * @param entites The collection of entities.
      */
-    protected void addEntities(Collection<Entity> entites) {
-        for (Entity e : entites) {
+    protected void addEntities(Collection<GameEntity> entites) {
+        for (GameEntity e : entites) {
             addEntity(e);
         }
     }

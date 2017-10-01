@@ -71,7 +71,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        size(1600, 900, P2D);
+        size(1600, 900);
         //fullscreen(P2D);
         noLoop();
     }
