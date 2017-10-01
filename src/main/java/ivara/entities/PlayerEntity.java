@@ -7,11 +7,10 @@ import core.entity.GameEntity;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sensor;
+import ivara.scripts.PlayerController;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
-import ivara.scripts.Gravity;
-import ivara.scripts.PlayerController;
 
 import java.util.HashSet;
 import java.util.List;
