@@ -20,7 +20,7 @@ public class World<T extends Entity> {
     /**
      * The backing collection for the entities.
      */
-    private final Collection<T> entities = new HashSet<>();
+    private final Collection<T> entities = new ArrayList<>();
 
     /**
      * The backing collection for the systems.

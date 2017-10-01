@@ -23,6 +23,7 @@ public abstract class Scene {
     private World<GameEntity> world                 = new World<>();
     private Map<String, GameEntity> nameEntityMap   = new HashMap<>();
     private Camera camera                           = null;
+    private InputHandler inputHandler               = null;
 
     public Scene() {
         world.addSystem(new GravitySystem(new Vector(0, 25f)));
@@ -32,9 +33,15 @@ public abstract class Scene {
         world.addSystem(new ScriptSystem());
     }
 
-    // todo: Make this coupling less gross.
+    public InputHandler getInputHandler() {
+        return inputHandler;
+    }
+
     public void setInputHandler(InputHandler inputHandler) {
-        world.addSystem(new InputSystem(inputHandler));
+        this.inputHandler = inputHandler;
+        for (GameEntity entity : world.getEntities()) {
+            entity.setInput(inputHandler);
+        }
     }
 
     /**
@@ -79,6 +86,8 @@ public abstract class Scene {
             nameEntityMap.put(n, entity);
         });
 
+        entity.setScene(this);
+        entity.setInput(inputHandler);
         world.addEntity(entity);
     }
 

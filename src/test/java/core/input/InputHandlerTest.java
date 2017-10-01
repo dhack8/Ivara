@@ -1,5 +1,8 @@
 package core.input;
 
+import backends.InputBroadcaster;
+import jdk.internal.util.xml.impl.Input;
+import maths.Vector;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,94 +15,69 @@ import static org.junit.Assert.*;
  */
 public class InputHandlerTest {
 
-    @Before
-    public void setup() {
-        InputHandler.clear();
-    }
 
     /**
      * Tests pressing each key individually
      * @throws Exception
      */
     @Test
-    public void test_keyPressed_1() throws Exception {
+    public void testKeyInput1() throws Exception {
+        TestInputBroadcaster testBroadcaster = new TestInputBroadcaster();
+        InputHandler inputHandler = new InputHandler(testBroadcaster);
+
         for (int i = 0; i < 100; i++) {
-            assertFalse(InputHandler.keyPressed(i));
-            InputHandler.setKeyPressed(true, i);
-            assertTrue(InputHandler.keyPressed(i));
-            InputHandler.setKeyPressed(true, i+1);
-            assertTrue(InputHandler.keyPressed(i));
-            assertTrue(InputHandler.keyPressed(i+1));
-            InputHandler.setKeyPressed(false, i);
-            InputHandler.setKeyPressed(false, i+1);
-            assertFalse(InputHandler.keyPressed(i));
+            assertFalse(inputHandler.isKeyPressed(i));
+            testBroadcaster.broadcastKeyPress(i);
+            assertTrue(inputHandler.isKeyPressed(i));
+            testBroadcaster.broadcastKeyRelease(i);
+            assertFalse(inputHandler.isKeyPressed(i));
         }
     }
 
-    /**
-     * Test pressing multiple keys
-     * @throws Exception
-     */
     @Test
-    public void test_keyPressed_2() throws Exception {
+    public void testMouseInput1() throws Exception {
+        TestInputBroadcaster testBroadcaster = new TestInputBroadcaster();
+        InputHandler inputHandler = new InputHandler(testBroadcaster);
+
         for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 100; j++) {
-                if (i == j)
-                    continue;
-                assertFalse(InputHandler.keyPressed(i));
-                assertFalse(InputHandler.keyPressed(j));
-                InputHandler.setKeyPressed(true, i);
-                InputHandler.setKeyPressed(true, j);
-                assertTrue(InputHandler.keyPressed(i));
-                assertTrue(InputHandler.keyPressed(j));
-                InputHandler.setKeyPressed(false, i);
-                InputHandler.setKeyPressed(false, j);
-                assertFalse(InputHandler.keyPressed(i));
-                assertFalse(InputHandler.keyPressed(j));
-            }
+            assertFalse(inputHandler.isMousePressed(i));
+            testBroadcaster.broadcastMousePress(i, new Vector(0, 0));
+            assertTrue(inputHandler.isMousePressed(i));
+            testBroadcaster.broadcastMouseRelease(i, new Vector(0, 0));
+            assertFalse(inputHandler.isMousePressed(i));
         }
     }
 
-    /**
-     * Tests the mouse pressing for individual mouse button input.
-     * @throws Exception
-     */
-    @Test
-    public void test_mousePressed_1() throws Exception {
-        for (int i = 0; i < 9; i++) {
-            assertFalse(InputHandler.mousePressed(i));
-            InputHandler.setMousePressed(true, i);
-            assertTrue(InputHandler.mousePressed(i));
-            InputHandler.setMousePressed(true, i+1);
-            assertTrue(InputHandler.mousePressed(i));
-            assertTrue(InputHandler.mousePressed(i+1));
-            InputHandler.setMousePressed(false, i);
-            InputHandler.setMousePressed(false, i+1);
-            assertFalse(InputHandler.mousePressed(i));
-        }
-    }
 
-    /**
-     * Test pressing multiple mouse buttons
-     * @throws Exception
-     */
-    @Test
-    public void test_mousePressed_2() throws Exception {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (i == j)
-                    continue;
-                assertFalse(InputHandler.mousePressed(i));
-                assertFalse(InputHandler.mousePressed(j));
-                InputHandler.setMousePressed(true, i);
-                InputHandler.setMousePressed(true, j);
-                assertTrue(InputHandler.mousePressed(i));
-                assertTrue(InputHandler.mousePressed(j));
-                InputHandler.setMousePressed(false, i);
-                InputHandler.setMousePressed(false, j);
-                assertFalse(InputHandler.mousePressed(i));
-                assertFalse(InputHandler.mousePressed(j));
-            }
+    public static class TestInputBroadcaster implements InputBroadcaster {
+
+        private KeyListener keyListener;
+        private MouseListener mouseListener;
+
+        public void broadcastKeyPress(int keyCode) {
+            keyListener.keyPressed(keyCode);
+        }
+
+        public void broadcastKeyRelease(int keyCode) {
+            keyListener.keyReleased(keyCode);
+        }
+
+        public void broadcastMousePress(int button, Vector position) {
+            mouseListener.mousePressed(button, position);
+        }
+
+        public void broadcastMouseRelease(int button, Vector position) {
+            mouseListener.mouseReleased(button, position);
+        }
+
+        @Override
+        public void addKeyListener(KeyListener listener) {
+            keyListener = listener;
+        }
+
+        @Override
+        public void addMouseListener(MouseListener listener) {
+            mouseListener = listener;
         }
     }
 }

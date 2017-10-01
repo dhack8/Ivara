@@ -72,7 +72,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        size(1600, 900, P2D);
+        size(1600, 900);
         //fullScreen(P2D);
         noLoop();
     }
@@ -299,7 +299,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     @Override
     public void mousePressed(MouseEvent event) {
         int button = event.getButton();
-        Vector position = new Vector(event.getX(), event.getY()); // pixelToWorld(event.getX(), event.getY());
+        Vector position = pixelToWorld(event.getX(), event.getY()); // pixelToWorld(event.getX(), event.getY());
         mouseListeners.forEach((mouseListener -> mouseListener.mousePressed(button, position)));
     }
 
@@ -309,7 +309,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     @Override
     public void mouseReleased(MouseEvent event) {
         int button = event.getButton();
-        Vector position = new Vector(event.getX(), event.getY()); // pixelToWorld(event.getX(), event.getY());
+        Vector position = pixelToWorld(event.getX(), event.getY()); // pixelToWorld(event.getX(), event.getY());
         mouseListeners.forEach((mouseListener -> mouseListener.mouseReleased(button, position)));
     }
 }

@@ -8,6 +8,7 @@ import core.entity.GameEntity;
 import core.input.Constants;
 import core.input.InputHandler;
 import core.struct.Sensor;
+import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
 
@@ -41,7 +42,7 @@ public class PlayerController implements Script, SensorListener {
      */
     @Override
     public void update(int dt, GameEntity entity) { // Todo change how these are handled -- temp fix for the removal of translate
-        InputHandler input = entity.get(InputComponent.class).get().input;
+        InputHandler input = entity.getInput();
 
 
         float speed = metresPerTick(dt);
@@ -68,6 +69,8 @@ public class PlayerController implements Script, SensorListener {
 
         if (input.isMousePressed(Constants.LEFT_MOUSE)) {
             System.out.println(input.getMousePosition().toString());
+
+            entity.getScene().addEntity(new BulletEntity(entity.transform, input.getMousePosition(), 1000));
         }
 
         /**
