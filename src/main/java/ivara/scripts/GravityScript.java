@@ -8,7 +8,7 @@ import core.entity.GameEntity;
 /**
  * Created by Callum Li on 9/16/17.
  */
-public class Gravity implements Script {
+public class GravityScript implements Script {
 
     float gravity = 1 / 1000f;
 

@@ -19,13 +19,13 @@ import maths.Vector;
  *
  * @author Will Pearson
  */
-public class PlayerController implements Script, SensorListener {
+public class PlayerScript implements Script, SensorListener {
 
     private float metresPerSecond = 3f;
 
     private final PlayerEntity player;
 
-    public PlayerController(PlayerEntity player) {
+    public PlayerScript(PlayerEntity player) {
         this.player = player;
     }
 

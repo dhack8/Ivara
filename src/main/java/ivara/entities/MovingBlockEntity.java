@@ -9,7 +9,7 @@ import core.entity.GameEntity;
 import core.struct.ResourceID;
 import maths.Vector;
 import physics.AABBCollider;
-import ivara.scripts.AutomatedMoveController;
+import ivara.scripts.BasicMoveScript;
 
 /**
  * A block that can move based on a given script
@@ -40,6 +40,6 @@ public class MovingBlockEntity extends GameEntity {
         addComponent(new VelocityComponent(this));
 
         //addComponent(new AutomatedMoveController(this, new Vector(endX, endY), time));
-        addComponent(new ScriptComponent(this, new AutomatedMoveController(this, new Vector(endX, endY), time)));
+        addComponent(new ScriptComponent(this, new BasicMoveScript(this, new Vector(endX, endY), time)));
     }
 }

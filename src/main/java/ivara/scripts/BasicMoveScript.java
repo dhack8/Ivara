@@ -9,7 +9,7 @@ import maths.Vector;
 /**
  * @author Alex Mitchell
  */
-public class AutomatedMoveController implements Script {
+public class BasicMoveScript implements Script {
 
     private Vector start;
     private Vector end;
@@ -31,7 +31,7 @@ public class AutomatedMoveController implements Script {
 
     }
 
-    public AutomatedMoveController(GameEntity e, Vector end, float time) { // Todo may want to re-consider how we do the automated movement, as constructing a moving block is rather disgusting
+    public BasicMoveScript(GameEntity e, Vector end, float time) { // Todo may want to re-consider how we do the automated movement, as constructing a moving block is rather disgusting
 
         this.start = new Vector(e.getTransform());
         this.end = end;

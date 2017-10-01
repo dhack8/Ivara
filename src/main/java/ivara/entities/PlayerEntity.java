@@ -4,7 +4,7 @@ import core.components.*;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sensor;
-import ivara.scripts.PlayerController;
+import ivara.scripts.PlayerScript;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
@@ -39,7 +39,7 @@ public class PlayerEntity extends GameEntity {
         addComponent(sc);
 
         //Scripts---
-        PlayerController pc = new PlayerController(this);
+        PlayerScript pc = new PlayerScript(this);
         addComponent(new ScriptComponent(this, pc));
 
         //Input---
