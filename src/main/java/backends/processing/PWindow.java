@@ -18,6 +18,7 @@ import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -132,8 +133,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                     drawSprites(e);
 
                     if (mask == 2) {
-                        drawAABB(e);
-
+                        drawCollider(e);
                         drawSensors(e);
                     }
                 }
@@ -150,25 +150,23 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         for(Sensor sensor : sc.getSensors()) {
 
             AABBCollider ab = sensor.collider.getAABBBoundingBox();
-
-            Vector loc = new Vector((e.getTransform().x + ab.getMin().x) * s + t.x + b.x, (e.getTransform().y + ab.getMin().y) * s + t.y + b.y);
-
-            stroke(0, 255, 0);
-            noFill();
-            rect(loc.x, loc.y, ab.getDimension().x * s, ab.getDimension().y * s);
+            drawAABB(e, ab, new Color(0,255,0));
         }
     }
 
-    private void drawAABB(GameEntity e){
+    private void drawCollider(GameEntity e){
         Optional<ColliderComponent> occ = e.get(ColliderComponent.class);
 
         if(!occ.isPresent()) return;
 
         AABBCollider ab = occ.get().getCollider().getAABBBoundingBox();
+        drawAABB(e, ab, new Color(255,0,0));
+    }
 
-        Vector loc = new Vector((e.getTransform().x + ab.getMin().x)*s + t.x + b.x, (e.getTransform().y + ab.getMin().y)*s + t.y + b.y);
+    private void drawAABB(GameEntity e, AABBCollider ab, Color c){
+        Vector loc = getPixelLoc(e.getTransform(), ab.getMin());
 
-        stroke(255,0,0);
+        stroke(c.getRGB());
         noFill();
         rect(loc.x, loc.y, ab.getDimension().x * s, ab.getDimension().y * s);
     }
@@ -184,13 +182,22 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     }
 
     private void drawSprite(Sprite sprite, Vector entityTransform){
-        Vector loc = new Vector((entityTransform.x + sprite.transform.x)*s + t.x + b.x, (entityTransform.y + sprite.transform.y)*s + t.y + b.y);
+        Vector loc = getPixelLoc(entityTransform, sprite.transform);
         if(sprite.hasDimension()) {
             Vector dimension = new Vector(sprite.dimensions.x * s, sprite.dimensions.y * s);
             image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y, dimension.x, dimension.y);
         }else{
             image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y);
         }
+    }
+
+    private Vector getPixelLoc(Vector meters){
+        return new Vector(meters.x*s + t.x + b.x, meters.y*s + t.y + b.y);
+    }
+
+    private Vector getPixelLoc(Vector entityTransform, Vector componentTransform){
+        Vector meters = new Vector(entityTransform.x + componentTransform.x, entityTransform.y + componentTransform.y);
+        return new Vector(meters.x*s + t.x + b.x, meters.y*s + t.y + b.y);
     }
 
     /**

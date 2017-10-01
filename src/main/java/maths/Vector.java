@@ -51,8 +51,8 @@ public class Vector {
     }
 
 
-    @Override
-    public String toString() {
-        return "Vector: " + x + ", " + y;
+        @Override
+        public String toString() {
+            return "Vector {" + x + ", " + y + "}";
+        }
     }
-}

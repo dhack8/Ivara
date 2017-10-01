@@ -22,7 +22,7 @@ public class LevelThree extends Scene{
             addEntity(new BasicBlockEntity(i,3,  "grass-top"));
         }
 
-        addEntity(new MovingBlockEntity(5f, 3f, 5f, 5f, "grass-top", 0.4f));
+        addEntity(new MovingBlockEntity(5f, 3f, 5f, 5f, "grass-top", 5f));
 
 
         for(int i = 6; i < 11; i++){
@@ -30,5 +30,6 @@ public class LevelThree extends Scene{
         }
 
         setCamera(new Camera(new Vector(0,0), new Vector(40,9)));
+
     }
 }
