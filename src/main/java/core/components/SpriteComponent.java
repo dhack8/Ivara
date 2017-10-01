@@ -41,6 +41,7 @@ public class SpriteComponent extends Component<GameEntity> {
      */
     public SpriteComponent(GameEntity entity, AnimatedSprite animatedSprite) {
         super(entity);
+        sprites.add(animatedSprite);
         animatedSprites.add(animatedSprite);
     }
 

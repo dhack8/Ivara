@@ -57,9 +57,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     @Override
     public void render(Scene scene) {
         if(scene == null){
-            textSize(40);
-            background(255,0,0);
-            //text("The scene provided to the renderer is NULL!", 10, 40);
+            displayError("The scene provided to the renderer is NULL!");
             return;
         }
 
@@ -104,10 +102,17 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void draw(){
-        if(currentScene == null) return;
-        
+        if(currentScene == null){
+            displayError("The scene provided to the renderer is NULL!");
+            return;
+        }
 
         Camera camera = currentScene.getCamera();
+
+        if(camera == null){
+            displayError("Scene to be rendered has no camera");
+            return;
+        }
 
         Vector gameDimensions = camera.dimensions;
         Vector topLeft = camera.transform;
@@ -211,6 +216,13 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         return getPixelLoc(meters);
     }
 
+    private void displayError(String text){
+        textSize(40);
+        background(255,0,0);
+        fill(0);
+        text(text, 10, 40);
+    }
+
     /**
      * Should return the world location in meters of a provided pixel co-ordinate.
      * @param x x pixel location
@@ -221,36 +233,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         float xMeters = (x -t.x -b.x)/s;
         float yMeters = (y -t.y -b.y)/s;
         return new Vector(xMeters, yMeters);
-    }
-
-    /**
-     * Draws a rectangle of the specified values passed in. This is called in the draw() method to visualise the
-     * bounding box of the entities for collision.
-     * @param x float value of x position
-     * @param y float value of y position
-     * @param width float value of rectangle width
-     * @param height float value of rectangle height
-     */
-    private void drawRect(float x, float y, float width, float height){
-        stroke(255,0,0);
-        noFill();
-        rect(x*s + t.x, y*s + t.y, width * s, height * s);
-    }
-
-    /**
-     * Draws a rectangle of the specified values passed in. This is called in the draw() method to visualise the
-     * box of the sensors.
-     * @param x value of x position
-     * @param y value of y position
-     * @param width rectangle width
-     * @param height rectangle height
-     */
-    private void drawSensor(float x, float y, float width, float height){
-        strokeWeight(2); //thicker line to make sensor box more visible
-        stroke(0,255,0);
-        noFill();
-        rect(x*s + t.x, y*s + t.y, width * s, height * s);
-        strokeWeight(1); //set back to thin line for bounding boxes
     }
 
     //---------------------- Input Broadcaster ------------------------
