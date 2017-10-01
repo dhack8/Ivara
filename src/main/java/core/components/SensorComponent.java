@@ -49,6 +49,7 @@ public class SensorComponent extends Component<GameEntity> {
         for(Sensor s : sensors) this.sensors.add(s);
     }
 
+
     //End of constructors----------------------------------------
 
     /**
@@ -65,5 +66,6 @@ public class SensorComponent extends Component<GameEntity> {
      */
     public List<Sensor> getSensors() {
         return sensors;
+
     }
 }

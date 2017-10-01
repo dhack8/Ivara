@@ -93,6 +93,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/grass-top-right.png", "grass-top-right", this);
         AssetHandler.loadImage("./assets/player.png", "player", this);
         AssetHandler.loadImage("./assets/background.png", "background", this);
+        AssetHandler.loadImage("./assets/slime.png", "slime", this);
     }
 
     /**

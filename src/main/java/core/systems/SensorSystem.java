@@ -24,7 +24,6 @@ public class SensorSystem extends System<GameEntity> {
         Collection<ColliderComponent> colliders = world.get(ColliderComponent.class);
 
         // todo: add calls to other listener methods e.g. onEnter
-
         for (SensorComponent component : components) {
             for (Sensor sensor : component.getSensors()) {
                 for (ColliderComponent collider : colliders) {
