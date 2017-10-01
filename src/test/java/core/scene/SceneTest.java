@@ -1,15 +1,10 @@
 package core.scene;
 
-import core.components.Component;
-import core.entity.Entity;
+import core.entity.GameEntity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Collection;
-import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -31,7 +26,7 @@ public class SceneTest {
      * Will test a simple add of a new unnamed entity and whether the entity exists in the scene
      */
     public void testAddEntity() throws Exception {
-        Entity e = new Entity(new Vector(1, 1)) {};
+        GameEntity e = new GameEntity(new Vector(1, 1)) {};
         testScene.addEntity(e); // adding an unnamed entity
         assertTrue("Scene should contain the entity.", testScene.getEntities().contains(e));
         assertTrue("Scene should contain only one entity.", testScene.getEntities().size() == 1);
@@ -42,7 +37,7 @@ public class SceneTest {
      * Tests that a named entity is added to the scene correctly
      */
     public void testAddEntity1() throws Exception {
-        Entity e = new Entity(new Vector(1, 1)) {};
+        GameEntity e = new GameEntity(new Vector(1, 1)) {};
         String n = "Test";
         testScene.addEntity(e, n); //adding a named entity
         assertTrue("Scene should contain the entity.", testScene.getEntities().contains(e));
@@ -59,7 +54,7 @@ public class SceneTest {
         int numEntities = 10;
         for (int i = 1; i <= numEntities; i++) {
             // alternating between adding a named and unnamed entity
-            Entity e = new Entity(new Vector(1, 1)){}; // irrelevant position
+            GameEntity e = new GameEntity(new Vector(1, 1)){}; // irrelevant position
             if(i % 2 != 0) testScene.addEntity(e);
             else testScene.addEntity(e, name + i);
         }
@@ -91,7 +86,7 @@ public class SceneTest {
      * Testing the camera creation
      */
     public void testCamera1() throws Exception{
-        Entity e = new PlayerEntity(1,1);
+        GameEntity e = new PlayerEntity(1,1);
         testScene.addEntity(e);
         try{
             testScene.getCamera();

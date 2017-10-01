@@ -1,33 +1,71 @@
 package core.components;
 
-import core.entity.Entity;
+import core.SensorListener;
+import core.entity.GameEntity;
+import core.struct.Sensor;
+import scew.Component;
 import physics.Collider;
 
-import java.util.function.Consumer;
+import java.util.*;
 
 /**
  * Created by Callum Li on 9/17/17.
  */
-public class SensorComponent extends Component {
+public class SensorComponent extends Component<GameEntity> {
 
-    private final Collider collider;
-    private final Consumer<Entity> onIntersect;
 
-    public SensorComponent(Entity entity, Collider collider, Consumer<Entity> onIntersect) {
+    private final List<Sensor>sensors = new ArrayList<>();
+
+    //TODO Callum colliding
+    //private final Set<GameEntity> colliding = new HashSet<>();
+
+    //Constructors --------------------------------------------
+
+    /**
+     * Constructor for SensorComponent that takes no sensors.
+     * @param entity the entity for this sensor
+     */
+    public SensorComponent(GameEntity entity) {
         super(entity);
-        this.collider = collider;
-        this.onIntersect = onIntersect;
     }
 
     /**
-     * Method to get the collider object.
-     * @return the collider
+     * Constructor for SensorComponent that takes a sensor.
+     * @param entity the entity for this sensor
+     * @param sensor the sensor to add
      */
-    public Collider getCollider() {
-        return collider.translate(getEntity().getPosition());
+    public SensorComponent(GameEntity entity, Sensor sensor) {
+        super(entity);
+        sensors.add(sensor);
     }
 
-    public void onIntersect(Entity entity) {
-        onIntersect.accept(entity);
+    /**
+     * Constructor for SensorComponent that takes a array of sensors.
+     * @param entity the entity for this sensor
+     * @param sensors the sensors to add
+     */
+    public SensorComponent(GameEntity entity, Sensor[] sensors) {
+        super(entity);
+        for(Sensor s : sensors) this.sensors.add(s);
+    }
+
+
+    //End of constructors----------------------------------------
+
+    /**
+     * Adds a new sensor
+     * @param sensor the sensor to add
+     */
+    public void add(Sensor sensor){
+        sensors.add(sensor);
+    }
+
+    /**
+     * Getter for the sensors
+     * @return list of the sensors
+     */
+    public List<Sensor> getSensors() {
+        return sensors;
+
     }
 }

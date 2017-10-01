@@ -3,15 +3,18 @@ package physics;
 import maths.Vector;
 
 /**
- * Created by Callum Li on 9/17/17.
+ *
  */
 public class PhysicProperties {
+
+    public static final PhysicProperties DEFAULT = new PhysicProperties();
+
     public enum Type {
         STATIC, DYNAMIC;
     }
 
-    private Type type = Type.STATIC;
-    private float inverseMass = 0;
+    public Type type = Type.STATIC;
+    public float inverseMass = 0;
     private Vector netForce = new Vector(0, 0);
 
     public PhysicProperties() {

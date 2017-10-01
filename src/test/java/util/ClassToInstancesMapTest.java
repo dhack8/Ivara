@@ -1,26 +1,24 @@
 package util;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
 /**
- * This tests the basic functionality of the ClassMap class
+ * This tests the basic functionality of the ClassToInstancesMap class
  * @author Alex Mitchell
  */
-public class ClassMapTest {
-    private ClassMap map;
+public class ClassToInstancesMapTest {
+    private ClassToInstancesMap map;
 
     @Before
     public void init(){
-        map = new ClassMap();
+        map = new ClassToInstancesMap();
     }
 
     @Test

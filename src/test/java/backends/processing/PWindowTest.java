@@ -1,25 +1,13 @@
 package backends.processing;
 
-import core.AssetHandler;
-import core.components.BasicCameraComponent;
-import core.components.PSpriteComponent;
-import core.components.ScriptComponent;
-import core.entity.Entity;
-import core.input.InputHandler;
 import core.scene.Scene;
 import ivara.entities.NPlatformEntity;
 import ivara.entities.PlayerEntity;
-import maths.Vector;
-import org.junit.Before;
 import org.junit.Test;
 import processing.core.PApplet;
-import processing.core.PImage;
-import sun.font.Script;
 
 import javax.swing.*;
-import java.util.NoSuchElementException;
 
-import static core.input.InputHandler.SPACE;
 import static org.junit.Assert.*;
 
 /**
@@ -139,7 +127,7 @@ public class PWindowTest {
         }
 
         public void moveSprite(){
-            translate(9,0);
+            getTransform().add(9,0);
         }
     }
 }

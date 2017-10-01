@@ -54,13 +54,14 @@ dependencies {
 
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:22.0'
-    
+
     // https://mvnrepository.com/artifact/org.processing/core
     compile group: 'org.processing', name: 'core', version: '3.3.5'
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }
+
 
 // Define the main class for the application
 mainClassName = 'ivara.Ivara'

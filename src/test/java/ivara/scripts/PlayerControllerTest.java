@@ -3,7 +3,6 @@ package ivara.scripts;
 import core.components.ScriptComponent;
 import core.components.VelocityComponent;
 import core.input.InputHandler;
-import core.entity.Entity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
 import org.junit.After;

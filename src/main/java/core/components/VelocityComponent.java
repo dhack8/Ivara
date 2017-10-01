@@ -1,18 +1,19 @@
 package core.components;
 
-import core.entity.Entity;
+import core.entity.GameEntity;
+import scew.Component;
 import maths.Vector;
 
 /**
- * Holds the velocity of an Entity.
+ * Holds the velocity of an GameEntity.
  *
  * @author Will Pearson
  */
-public class VelocityComponent extends Component {
+public class VelocityComponent extends Component<GameEntity> {
 
     private Vector velocity = new Vector(0,0);
 
-    public VelocityComponent(Entity entity) {
+    public VelocityComponent(GameEntity entity) {
         super(entity);
     }
 
@@ -31,5 +32,14 @@ public class VelocityComponent extends Component {
      */
     public Vector getVelocity() {
         return velocity;
+    }
+
+
+    public void setX(float x) { // Todo change how this is done :)
+        velocity.set(x,velocity.y);
+    }
+
+    public void setY(float y) { // Todo change how this is done :)
+        velocity.set(velocity.x,y);
     }
 }

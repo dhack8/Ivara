@@ -3,23 +3,29 @@ package backends.processing;
 import backends.InputBroadcaster;
 import backends.Renderer;
 import core.AssetHandler;
+import core.Game;
 import core.components.*;
+import core.entity.GameEntity;
 import core.input.KeyListener;
 import core.input.MouseListener;
-import core.entity.Entity;
 import core.scene.Scene;
+import core.struct.Camera;
+import core.struct.Sensor;
+import core.struct.Sprite;
 import maths.Vector;
 import physics.AABBCollider;
-import physics.Collider;
 import processing.core.PApplet;
-import processing.opengl.PJOGL;
+import processing.event.KeyEvent;
+import processing.event.MouseEvent;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Window that the game runs in. Extends the Processing window PApplet.
- * Created by Callum Li on 9/16/17.
+ * @author David Hack
  */
 public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
@@ -27,13 +33,12 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private AssetHandler handler;
     private int mask = 2;
 
-    private float scale = 100;
+    private float s = 100;
     private Vector t = new Vector(0,0); //translation
+    private Vector b = new Vector(0,0); //border
 
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
-
-    private BasicCameraComponent camera;
 
     /**
      * TODO
@@ -66,7 +71,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        fullScreen();
+        size(1600, 900);
+        //fullscreen(P2D);
         noLoop();
     }
 
@@ -98,77 +104,110 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     @Override
     public void draw(){
         if(currentScene == null) return;
-        currentScene.setDrawing(true);
-            camera = currentScene.getCamera();
+        
 
-            scale = displayWidth / camera.getWidth();
+        Camera camera = currentScene.getCamera();
 
-            Vector cameraPos = camera.getPointOfInterest();
+        Vector gameDimensions = camera.dimensions;
+        Vector topLeft = camera.transform;
 
-            t = new Vector(-cameraPos.x * scale + displayWidth / 3, -cameraPos.y * scale + displayHeight / 2);
+        Vector screenScale = new Vector(width/gameDimensions.x, height/gameDimensions.y);
+        //Scale
+        s = Math.min(screenScale.x, screenScale.y);
+        //Translate
+        t = new Vector(-topLeft.x * s, -topLeft.y * s);
+        //Buffer (bars)
+        b = new Vector(width/2f - (s*gameDimensions.x/2f), height/2f - (s*gameDimensions.y/2f));
 
-            background(220, 220, 220);
+        background(200);
 
-            currentScene.getEntities().stream()
-                    .sorted((e1, e2) -> {
-                        int layer1 = e1.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
-                        int layer2 = e2.getComponents(LayerComponent.class).stream().findAny().orElse(new LayerComponent(e1, 0)).getLayer();
+        currentScene.getEntities().stream()
+                .sorted((e1, e2) -> {
+                    int layer1 = e1.get(LayerComponent.class).orElse(new LayerComponent(e1, 0)).layer;
+                    int layer2 = e2.get(LayerComponent.class).orElse(new LayerComponent(e1, 0)).layer;
 
-                        return layer1 - layer2;
-                    }).forEach((e) -> {
-                        for (PSpriteComponent spriteComponent : e.getComponents(PSpriteComponent.class)) {
-                            // TODO: render sprite based on scene camera
+                    return layer1 - layer2;
+                }).forEach((e) -> {
 
-                            Vector transform = spriteComponent.getTransform();
+                    drawSprites(e);
 
-                            if (spriteComponent.isDimensionless()) {
-                                drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, spriteComponent);
-                            } else {
-                                Vector dimen = spriteComponent.getDimensions();
-                                drawSprite(e.getPosition().x + transform.x, e.getPosition().y + transform.y, dimen.x, dimen.y, spriteComponent);
-                            }
-                        }
-                        //TODO point of mask?
-                        if (mask == 2) {
-                            for (ColliderComponent cc : e.getComponents(ColliderComponent.class)) {
-                                AABBCollider ab = cc.getCollider().getAABBBoundingBox();
-                                Vector location = ab.getMin();
-                                Vector dimension = ab.getDimension();
-                                drawRect(location.x, location.y, dimension.x, dimension.y);
-                            }
-
-                            for (SensorComponent sc : e.getComponents(SensorComponent.class)) {
-                                AABBCollider ab = sc.getCollider().getAABBBoundingBox();
-                                Vector location = ab.getMin();
-                                Vector dimension = ab.getDimension();
-                                drawSensor(location.x, location.y, dimension.x, dimension.y);
-                            }
-                        }
+                    if (mask == 2) {
+                        drawCollider(e);
+                        drawSensors(e);
                     }
-            );
-            currentScene.setDrawing(false);
+                }
+        );
+
+        //Black bars
+        fill(0);
+        noStroke();
+        if(b.x == 0){
+            rect(0, 0, width, b.y);
+            rect(0, height - b.y, width, b.y);
+        }else{
+            rect(0, 0, b.x, height);
+            rect(width - b.x, 0, b.x, height);
+        }
     }
 
-    /**
-     * Draws a sprite in the given location.
-     * @param x x location
-     * @param y y location
-     * @param width width
-     * @param height height
-     * @param sprite the sprite to draw
-     */
-    private void drawSprite(float x, float y, float width, float height, PSpriteComponent sprite){
-        image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y, width*scale, height*scale);
+    private void drawSensors(GameEntity e){
+        Optional<SensorComponent> osc = e.get(SensorComponent.class);
+
+        if(!osc.isPresent()) return;
+
+        SensorComponent sc = osc.get();
+
+        for(Sensor sensor : sc.getSensors()) {
+
+            AABBCollider ab = sensor.collider.getAABBBoundingBox();
+            drawAABB(e, ab, new Color(0,255,0));
+        }
     }
 
-    /**
-     * Draws a sprite in the given location at its native resolution, without specifying a width and height.
-     * @param x x location
-     * @param y y location
-     * @param sprite the sprite to draw
-     */
-    private void drawSprite(float x, float y, PSpriteComponent sprite){
-        image(AssetHandler.getImage(sprite.getResourceID()), x*scale + t.x, y*scale + t.y);
+    private void drawCollider(GameEntity e){
+        Optional<ColliderComponent> occ = e.get(ColliderComponent.class);
+
+        if(!occ.isPresent()) return;
+
+        AABBCollider ab = occ.get().getCollider().getAABBBoundingBox();
+        drawAABB(e, ab, new Color(255,0,0));
+    }
+
+    private void drawAABB(GameEntity e, AABBCollider ab, Color c){
+        Vector loc = getPixelLoc(e.getTransform(), ab.getMin());
+
+        stroke(c.getRGB());
+        noFill();
+        rect(loc.x, loc.y, ab.getDimension().x * s, ab.getDimension().y * s);
+    }
+
+    private void drawSprites(GameEntity e){
+        Optional<SpriteComponent> osc = e.get(SpriteComponent.class);
+
+        if(!osc.isPresent()) return;
+
+        for(Sprite s : osc.get().getSprites()){
+            drawSprite(s, e.getTransform());
+        }
+    }
+
+    private void drawSprite(Sprite sprite, Vector entityTransform){
+        Vector loc = getPixelLoc(entityTransform, sprite.transform);
+        if(sprite.hasDimension()) {
+            Vector dimension = new Vector(sprite.dimensions.x * s, sprite.dimensions.y * s);
+            image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y, dimension.x, dimension.y);
+        }else{
+            image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y);
+        }
+    }
+
+    private Vector getPixelLoc(Vector meters){
+        return new Vector(meters.x*s + t.x + b.x, meters.y*s + t.y + b.y);
+    }
+
+    private Vector getPixelLoc(Vector entityTransform, Vector componentTransform){
+        Vector meters = new Vector(entityTransform.x + componentTransform.x, entityTransform.y + componentTransform.y);
+        return getPixelLoc(meters);
     }
 
     /**
@@ -182,7 +221,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private void drawRect(float x, float y, float width, float height){
         stroke(255,0,0);
         noFill();
-        rect(x*scale + t.x, y*scale + t.y, width * scale, height * scale);
+        rect(x*s + t.x, y*s + t.y, width * s, height * s);
     }
 
     /**
@@ -197,7 +236,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         strokeWeight(2); //thicker line to make sensor box more visible
         stroke(0,255,0);
         noFill();
-        rect(x*scale + t.x, y*scale + t.y, width * scale, height * scale);
+        rect(x*s + t.x, y*s + t.y, width * s, height * s);
         strokeWeight(1); //set back to thin line for bounding boxes
     }
 
@@ -223,39 +262,41 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
             mouseListeners.add(listener);
     }
 
-    /**
-     * Passes the mouse press event to all mouse listeners.
-     */
-    @Override
-    public void mousePressed() {
-        for (MouseListener mL : mouseListeners)
-            mL.setMousePressed(true, super.mouseButton);
-    }
-
-    /**
-     * Passes the mouse release event to all mouse listeners.
-     */
-    @Override
-    public void mouseReleased() {
-        for (MouseListener mL : mouseListeners)
-            mL.setMousePressed(false, super.mouseButton);
-    }
 
     /**
      * Passes the key press event to all key listeners.
      */
     @Override
-    public void keyPressed() {
-        for (KeyListener kL : keyListeners)
-            kL.setKeyPressed(true, super.keyCode);
+    public void keyPressed(KeyEvent event) {
+        keyListeners.forEach((keyListener -> keyListener.keyPressed(event.getKeyCode())));
     }
 
     /**
      * Passes the key release event to all key listeners.
      */
     @Override
-    public void keyReleased() {
-        for (KeyListener kL : keyListeners)
-            kL.setKeyPressed(false, super.keyCode);
+    public void keyReleased(KeyEvent event) {
+        keyListeners.forEach((keyListener -> keyListener.keyReleased(event.getKeyCode())));
+    }
+
+
+    /**
+     * Passes the mouse press event to all mouse listeners.
+     */
+    @Override
+    public void mousePressed(MouseEvent event) {
+        int button = event.getButton();
+        Vector position = new Vector(event.getX(), event.getY()); // pixelToWorld(event.getX(), event.getY());
+        mouseListeners.forEach((mouseListener -> mouseListener.mousePressed(button, position)));
+    }
+
+    /**
+     * Passes the mouse release event to all mouse listeners.
+     */
+    @Override
+    public void mouseReleased(MouseEvent event) {
+        int button = event.getButton();
+        Vector position = new Vector(event.getX(), event.getY()); // pixelToWorld(event.getX(), event.getY());
+        mouseListeners.forEach((mouseListener -> mouseListener.mouseReleased(button, position)));
     }
 }

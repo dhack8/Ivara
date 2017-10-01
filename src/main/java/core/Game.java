@@ -16,7 +16,7 @@ public abstract class Game {
     /**
      * The number of milliseconds per update tick.
      */
-    private long tickTime = 6;
+    private int tickTime = 10;
 
     /**
      * The current scene of the game.
@@ -28,23 +28,23 @@ public abstract class Game {
      */
     private final Renderer renderer;
 
+    private final InputBroadcaster inputBroadcaster;
+
     public Game(Scene initialScene, Renderer renderer, final InputBroadcaster inputBroadcaster) {
-        this.currentScene = initialScene;
         this.renderer = renderer;
+        this.inputBroadcaster = inputBroadcaster;
+        setCurrentScene(initialScene);
 
         assert inputBroadcaster != null;
-        // Update InputHandler based on input event's broadcasted by
-        // the input broadcaster.
-        inputBroadcaster.addKeyListener(new InputUpdater());
-        inputBroadcaster.addMouseListener(new InputUpdater());
     }
 
     public Scene getCurrentScene() {
         return currentScene;
     }
 
-    public void setCurrentScene(Scene currentScene) {
-        this.currentScene = currentScene;
+    public void setCurrentScene(Scene scene) {
+        this.currentScene = scene;
+        this.currentScene.setInputHandler(new InputHandler(inputBroadcaster));
     }
 
     /**
@@ -62,7 +62,7 @@ public abstract class Game {
 
             // Update the game while more than a tick's worth
             // of time needs to be processed.
-            while (accumulator >= tickTime && !currentScene.isDrawing()) {
+            while (accumulator >= tickTime) {
                 // do Tick
                 currentScene.update(tickTime);
 
@@ -77,20 +77,4 @@ public abstract class Game {
     }
 
 
-
-    /**
-     * Handles all input and passes it to the InputHandler.
-     */
-    private class InputUpdater implements KeyListener, MouseListener {
-
-        @Override
-        public void setKeyPressed(boolean b, int keyCode) {
-            InputHandler.setKeyPressed(b, keyCode);
-        }
-
-        @Override
-        public void setMousePressed(boolean b, int mouseButton) {
-            InputHandler.setMousePressed(b, mouseButton);
-        }
-    }
 }

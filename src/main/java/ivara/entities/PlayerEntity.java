@@ -1,23 +1,29 @@
 package ivara.entities;
 
+import core.Script;
 import core.components.*;
-import core.entity.Entity;
+import core.entity.GameEntity;
+import core.struct.ResourceID;
+import core.struct.Sensor;
+import ivara.scripts.PlayerController;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
-import ivara.scripts.Gravity;
-import ivara.scripts.PlayerController;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class handles the entity of the player within the game
  *
  * @author Alex Mitchell
+ * @author David Hack
  */
-public class PlayerEntity extends Entity {
+public class PlayerEntity extends GameEntity {
 
-    //Vector previous = new Vector(0,0);
-
+    //Restricts jumping
     public boolean canJump = false;
+
     /**
      * Creates a PlayerEntity at a given position
      *
@@ -27,36 +33,35 @@ public class PlayerEntity extends Entity {
     public PlayerEntity(float x, float y) {
         super(new Vector(x, y));
 
+        //Velocity---
         VelocityComponent v = new VelocityComponent(this);
         addComponent(v);
-        addComponent(new PSpriteComponent(this, "player", 1, 1.5f)); //Todo change the PSprite component
-        addComponent(new PlayerController(this));
-        addComponent(new Gravity(this));
-        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.TOPLEFT, new Vector(0.2f, 0.3f), new Vector(0.6f, 1.2f)))); //Todo Change the Collider component
+
+        //Sprites---
+        SpriteComponent sc = new SpriteComponent(this);
+        sc.add(new ResourceID("player"), new Vector(1f, 1.5f));
+        addComponent(sc);
+
+        //Scripts---
+        PlayerController pc = new PlayerController(this);
+        addComponent(new ScriptComponent(this, pc));
+
+        //Input---
+        addComponent(new InputComponent(this));
+
+        //Collider---
+        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MINMAX, new Vector(0.2f, 0.3f), new Vector(0.6f, 1.2f)))); //Todo Change the Collider component
+
+        //Layer---
         addComponent(new LayerComponent(this, 999));
-        addComponent(new PhysicsComponent(this, 1, PhysicProperties.Type.DYNAMIC));
 
-        addComponent(
-                new SensorComponent(
-                        this,
-                        new AABBCollider(
-                                AABBCollider.TOPLEFT,
-                                new Vector(0.199f, 1.4f),
-                                new Vector(0.611f, 0.1f)
-                        ),
-                        (entity) -> {
-                            //System.out.println(entity);
-                            canJump = true;
-                            v.getVelocity().set(0, 0); // Todo this is dumb
+        //Physics---
+        addComponent(new PhysicsComponent(this, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
 
-                            if (entity instanceof MovingBlockEntity) {
-                                v.getVelocity().set(entity.getComponents(VelocityComponent.class).stream().findAny().get().getVelocity());
-                            }
-                        }
-                )
-        );
-        addComponent(new BasicCameraComponent(this, 19));
-
+        //Sensors---
+        //AABB for the sensor
+        AABBCollider ab = new AABBCollider(AABBCollider.MINMAX, new Vector(0.199f, 1.4f), new Vector(0.611f, 0.1f));
+        addComponent(new SensorComponent(this, new Sensor(ab, pc)));
     }
 }
 

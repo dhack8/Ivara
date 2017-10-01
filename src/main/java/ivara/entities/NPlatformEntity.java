@@ -1,8 +1,9 @@
 package ivara.entities;
 
 import core.components.ColliderComponent;
-import core.components.PSpriteComponent;
-import core.entity.Entity;
+import core.components.SpriteComponent;
+import core.entity.GameEntity;
+import core.struct.ResourceID;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -11,12 +12,13 @@ import physics.AABBCollider;
  * boolean passed in.
  * @author James Magallanes
  */
-public class NPlatformEntity extends Entity {
+public class NPlatformEntity extends GameEntity {
 
     private Vector direction;
     private String startSectionID;
     private String middleSectionID;
     private String endSectionID;
+    private Vector dimensions = new Vector(1,1);
 
     /**
      * Constructs a NPlatform at the specified coordinates (x,y), with n amount of tiles. Is created vertically or
@@ -29,6 +31,9 @@ public class NPlatformEntity extends Entity {
      */
     public NPlatformEntity(float x, float y, int n, boolean isVertical) throws IllegalArgumentException{
         super(new Vector(x, y));
+
+        SpriteComponent sc = new SpriteComponent(this);
+
         if(n < 2){
             throw new IllegalArgumentException("Number of blocks too small for creation of NPlatform");
         }
@@ -51,31 +56,30 @@ public class NPlatformEntity extends Entity {
             endSectionID = "grass-top-right";
         }
         
-        PSpriteComponent first = new PSpriteComponent(this, startSectionID, 1, 1);
-        addComponent(first);
+        sc.add( new ResourceID(startSectionID), dimensions);
 
         for (int i = 1; i < n - 1; i++) {
-            PSpriteComponent sprite = new PSpriteComponent(this, middleSectionID, 1, 1);
-            sprite.setTransform(new Vector(i * direction.x, i * direction.y));
-            addComponent(sprite);
+            sc.add(new ResourceID(middleSectionID), new Vector(i * direction.x, i * direction.y), dimensions);
         }
 
-        PSpriteComponent last = new PSpriteComponent(this, endSectionID, 1, 1);
+        Vector transform;
         if (isVertical) {
-            last.setTransform(new Vector(n - n * direction.y, n - 1));
+            transform = new Vector(n - n * direction.y, n - 1);
         } else {
-            last.setTransform(new Vector(n - 1, 0));
+            transform = new Vector(n - 1, 0);
         }
-        addComponent(last);
+        sc.add(new ResourceID(endSectionID), transform, dimensions);
 
         if (isVertical) {
-            addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.TOPLEFT,
+            addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MINMAX,
                     new Vector(0, 0),
                     new Vector(1, direction.y * n))));
         } else {
-            addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.TOPLEFT,
+            addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MINMAX,
                     new Vector(0, 0),
                     new Vector(direction.x * n, 1))));
         }
+
+        addComponent(sc);
     }
 }

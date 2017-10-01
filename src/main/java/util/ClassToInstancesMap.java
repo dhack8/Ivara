@@ -8,18 +8,18 @@ import java.util.*;
  * @author Callum Li
  * @author Alex Mitchell
  */
-public class ClassMap {
+public class ClassToInstancesMap<E> {
 
     // Internal Storage of the Classes
-    private Map<Class, Collection<Object>> map = new HashMap<>();
+    private Map<Class<? extends E>, Collection<Object>> map = new HashMap<>();
 
     /**
      * Puts the object into the collection, mapped to the runtime class.
      * @param obj The object to put into the collection.
      */
-    public void put(Object obj) {
+    public void put(E obj) {
         if (!map.containsKey(obj.getClass())) {
-            map.put(obj.getClass(), new HashSet<>());
+            map.put((Class<? extends E>) obj.getClass(), new HashSet<>());
         }
         map.get(obj.getClass()).add(obj);
     }
@@ -45,7 +45,7 @@ public class ClassMap {
     }
 
     /**
-     * Checks to see whether an object is contained within the ClassMap
+     * Checks to see whether an object is contained within the ClassToInstancesMap
      * @param obj The object to check
      * @return A boolean regarding whether the object exists
      */
@@ -54,7 +54,7 @@ public class ClassMap {
     }
 
     /**
-     * Gets the number of instances of classes within the ClassMap
+     * Gets the number of instances of classes within the ClassToInstancesMap
      * @return The count of class instances
      */
     public int size(){
@@ -66,7 +66,7 @@ public class ClassMap {
     }
 
     /**
-     * Gets the number of instances of a given class within the ClassMap
+     * Gets the number of instances of a given class within the ClassToInstancesMap
      * @param clazz The class to check
      * @param <T> The type of class
      * @return The number of items

@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * Basic tests for testing the EntityContainer functionality
  * @author Alex Mitchell
  */
-public class EntityContainerTest {
+public class GameEntityContainerTest {
     private EntityContainer ec;
 
     @Before
@@ -24,7 +24,7 @@ public class EntityContainerTest {
      * Tests that an entity and all its relevant components are stored as they should
      */
     public void testAddEntity() throws Exception {
-        Entity e = new Entity(new Vector(1,1)) {};
+        GameEntity e = new GameEntity(new Vector(1,1)) {};
         TestComp1 t1 = new TestComp1(e);
         e.addComponent(t1);
         e.addComponent(new TestComp2(e));
@@ -39,14 +39,14 @@ public class EntityContainerTest {
 
     // Test component class used to test the Scene functionality
     class TestComp1 extends Component {
-        TestComp1(Entity e){
+        TestComp1(GameEntity e){
             super(e);
         }
     }
 
     // Test component class used to test the Scene functionality
     class TestComp2 extends Component{
-        TestComp2(Entity e){
+        TestComp2(GameEntity e){
             super(e);
         }
     }
