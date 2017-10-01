@@ -3,13 +3,14 @@ package physics;
 import maths.Vector;
 
 /**
- * An AABBCollider .
+ * A class that describes an AABB Collider.
  */
 public class AABBCollider extends Collider {
-    public static final int TOPLEFT = 2;
+    public static final int CENTER_RADIUS = 1;
+    public static final int MINMAX = 2;
 
-    Vector center;
-    Vector radius;
+    final Vector center;
+    final Vector radius;
 
     /**
      * Creates an AABBCollider from two given vectors. The first is the
@@ -19,18 +20,25 @@ public class AABBCollider extends Collider {
      * @param radius The half-width and half-height.
      */
     public AABBCollider(Vector center, Vector radius) {
-        this.center = center;
-        this.radius = radius;
+        this.center = new Vector(center);
+        this.radius = new Vector(radius);
     }
 
     /**
-     * Creates and AABBCollider from an int and two given vectors. TODO finish
-     * @param type
-     * @param v1
-     * @param v2
+     * Creates an AABB Collider from the given arguments. The
+     * way they are treated depends on the given mode.
+     *
+     * Valid modes: CENTER_RADIUS, MINMAX.
+     * @param mode The constructor mode.
+     * @param v1 The first paremeter for the constructor.
+     * @param v2 The second paremeter for the constructor.
      */
-    public AABBCollider(int type, Vector v1, Vector v2) {
-        if (type == TOPLEFT) {
+    public AABBCollider(int mode, Vector v1, Vector v2) {
+        if (mode == CENTER_RADIUS) {
+            center = new Vector(v1);
+            radius = new Vector(v2);
+        } else //if (mode == MINMAX)
+        {
             center = new Vector(v1.x + (v2.x/2), v1.y + (v2.y/2));
             radius = new Vector(v2.x/2, v2.y/2);
         }
@@ -46,34 +54,31 @@ public class AABBCollider extends Collider {
         return new AABBCollider(new Vector(center.x + vector.x, center.y + vector.y), radius);
     }
 
-    /**
-     * Gets the AABBCollider
-     * @return this AABBCollider
-     */
+
     @Override
     public AABBCollider getAABBBoundingBox() {
         return this;
     }
 
     /**
-     * Gets vector of minimum values
-     * @return vector based off minimum values
+     * Returns the position of the corner with the smallest x and y values.
+     * @return The position of the lowest corner.
      */
     public Vector getMin() {
         return new Vector(center.x - radius.x, center.y - radius.y);
     }
 
     /**
-     * Gets vector of maximum values
-     * @return vector based off maximum values
+     * Returns the position of the corner with the largest x and y value.
+     * @return The position of the largest corner.
      */
     public Vector getMax() {
         return new Vector(center.x + radius.x, center.y + radius.y);
     }
 
     /**
-     * Gets the dimensions (width and height) of the AABBCollider.
-     * @return vector symbolising the bounding box of the AABBCollider
+     * Returns the dimensions (width and height) of the AABBCollider.
+     * @return The dimensions of the AABBCollider.
      */
     public Vector getDimension() {
         return new Vector(radius.x*2, radius.y*2);

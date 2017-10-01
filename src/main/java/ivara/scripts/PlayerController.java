@@ -2,15 +2,14 @@ package ivara.scripts;
 
 import core.Script;
 import core.SensorListener;
-import core.components.ScriptComponent;
+import core.components.InputComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
+import core.input.Constants;
 import core.input.InputHandler;
 import core.struct.Sensor;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
-
-import static core.input.InputHandler.*;
 
 /**
  * Script to control the player entity. Relies on the current input
@@ -42,30 +41,33 @@ public class PlayerController implements Script, SensorListener {
      */
     @Override
     public void update(int dt, GameEntity entity) { // Todo change how these are handled -- temp fix for the removal of translate
+        InputHandler input = entity.get(InputComponent.class).get().input;
+
+
         float speed = metresPerTick(dt);
 
         PlayerEntity pEntity = (PlayerEntity)entity;
         VelocityComponent vComp = pEntity.get(VelocityComponent.class).get();
 
-        if(InputHandler.keyPressed(W)){
+        if(input.isKeyPressed(Constants.W)){
             if(pEntity.canJump){
                 vComp.setY(-5f);
                 pEntity.canJump = false;
             }
-        }else if(InputHandler.keyPressed(S)){
+        }else if(input.isKeyPressed(Constants.S)){
             vComp.setY(3f);
         }
 
-        if(InputHandler.keyPressed(A)){
+        if(input.isKeyPressed(Constants.A)){
             vComp.setX(-3f);
-        }else if(InputHandler.keyPressed(D)){
+        }else if(input.isKeyPressed(Constants.D)){
             vComp.setX(3f);
         }else{
             vComp.setX(0f);
         }
 
-        if (InputHandler.mousePressed(LEFT_MOUSE)) {
-
+        if (input.isMousePressed(Constants.LEFT_MOUSE)) {
+            System.out.println(input.getMousePosition().toString());
         }
 
         /**

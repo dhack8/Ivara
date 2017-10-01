@@ -50,8 +50,9 @@ public class Vector {
         this.y = other.y;
     }
 
-    @Override
-    public String toString() {
-        return "Vector {" + x + ", " + y + "}";
+
+        @Override
+        public String toString() {
+            return "Vector {" + x + ", " + y + "}";
+        }
     }
-}

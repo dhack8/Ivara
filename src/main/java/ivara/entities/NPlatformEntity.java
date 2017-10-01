@@ -71,11 +71,11 @@ public class NPlatformEntity extends GameEntity {
         sc.add(new ResourceID(endSectionID), transform, dimensions);
 
         if (isVertical) {
-            addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.TOPLEFT,
+            addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MINMAX,
                     new Vector(0, 0),
                     new Vector(1, direction.y * n))));
         } else {
-            addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.TOPLEFT,
+            addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MINMAX,
                     new Vector(0, 0),
                     new Vector(direction.x * n, 1))));
         }

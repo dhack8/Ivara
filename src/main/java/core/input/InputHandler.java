@@ -1,5 +1,10 @@
 package core.input;
 
+import backends.InputBroadcaster;
+import maths.Vector;
+
+import java.util.BitSet;
+
 /**
  * Stores the input passed in by Game for use by the other libraries.
  *
@@ -8,72 +13,29 @@ package core.input;
  */
 public class InputHandler {
 
-    // Constants
-    private static int MAX_KEY_CODES = 525;
-    private static int MAX_MOUSE_CODES = 38;
-    public static final int W = 87;
-    public static final int A = 65;
-    public static final int S = 83;
-    public static final int D = 68;
-    public static final int SPACE = 32;
 
-    public static final int LEFT_MOUSE = 37;
+    private BitSet pressedKeys = new BitSet();
+    private BitSet pressedMouse = new BitSet();
+    private InputListener listener = new InputListener();
+    private Vector mousePosition = null;
 
-    private static boolean[] keyPressed = new boolean[MAX_KEY_CODES];
-    private static boolean[] mousePressed = new boolean[MAX_MOUSE_CODES];
+    public InputHandler() {}
 
-    /**
-     * Sets the key to whether it is pressed or not.
-     * @param pressed key pressed.
-     * @param code key code
-     */
-    public static void setKeyPressed(boolean pressed, int code) {
-        try {
-            keyPressed[code] = pressed;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Key code out of range: " + code);
-        }
+    public InputHandler(InputBroadcaster broadcaster) {
+        broadcaster.addMouseListener(listener);
+        broadcaster.addKeyListener(listener);
     }
 
-    /**
-     * Sets the mouse button to being pressed or not.
-     * @param pressed mouse pressed
-     * @param button button number
-     */
-    public static void setMousePressed(boolean pressed, int button) {
-        try {
-            mousePressed[button] = pressed;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Mouse button out of range: " + button);
-        }
+    public boolean isKeyPressed(int keyCode) {
+        return pressedKeys.get(keyCode);
     }
 
-    /**
-     * Checks if the given key is pressed
-     * @param code keyCode
-     * @return true if the key is pressed.
-     */
-    public static boolean keyPressed(int code) {
-        try {
-            return keyPressed[code];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Key code out of range: " + code);
-            return false;
-        }
+    public boolean isMousePressed(int button) {
+        return pressedMouse.get(button);
     }
 
-    /**
-     * Checks if the given mouse button is pressed.
-     * @param button mouseButton
-     * @return true if the button is pressed
-     */
-    public static boolean mousePressed(int button) {
-        try {
-            return mousePressed[button];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Mouse button out of range: " + button);
-            return false;
-        }
+    public Vector getMousePosition() {
+        return mousePosition;
     }
 
     /**
@@ -84,11 +46,29 @@ public class InputHandler {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * Clears all input.
-     */
-    static void clear() {
-        mousePressed = new boolean[MAX_MOUSE_CODES];
-        keyPressed = new boolean[MAX_KEY_CODES];
+
+    private class InputListener implements KeyListener, MouseListener {
+
+        @Override
+        public void mousePressed(int mouseButton, Vector position) {
+            pressedMouse.set(mouseButton, true);
+            mousePosition = position;
+        }
+
+        @Override
+        public void mouseReleased(int mouseButton, Vector position) {
+            pressedMouse.set(mouseButton, false);
+            mousePosition = position;
+        }
+
+        @Override
+        public void keyPressed(int keyCode) {
+            pressedKeys.set(keyCode, true);
+        }
+
+        @Override
+        public void keyReleased(int keyCode) {
+            pressedKeys.set(keyCode, false);
+        }
     }
 }
