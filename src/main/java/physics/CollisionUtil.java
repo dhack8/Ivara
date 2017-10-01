@@ -3,17 +3,23 @@ package physics;
 import maths.Vector;
 
 /**
- * Created by Callum Li on 9/15/17.
+ * A class that contains useful static methods for detecting and resolving
+ * collisions.
  */
 public class CollisionUtil {
 
+    /**
+     * Determines whether the given colliders are intersecting.
+     * @param c1 The first collider
+     * @param c2 The second collider
+     * @return True if they are intersecting, otherwise false.
+     */
     public static boolean intersect(Collider c1, Collider c2) {
         if (c1 instanceof AABBCollider &&
                 c2 instanceof AABBCollider) {
 
             return intersect((AABBCollider) c1, (AABBCollider) c2);
         }
-
         return false;
     }
 
