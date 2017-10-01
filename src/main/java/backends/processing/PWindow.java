@@ -102,19 +102,20 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     @Override
     public void draw(){
         if(currentScene == null) return;
+        
 
         Camera camera = currentScene.getCamera();
 
         Vector gameDimensions = camera.dimensions;
         Vector topLeft = camera.transform;
 
-        Vector screenScale = new Vector(displayWidth/gameDimensions.x, displayHeight/gameDimensions.y);
+        Vector screenScale = new Vector(width/gameDimensions.x, height/gameDimensions.y);
         //Scale
         s = Math.min(screenScale.x, screenScale.y);
         //Translate
         t = new Vector(-topLeft.x * s, -topLeft.y * s);
         //Buffer (bars)
-        b = new Vector(displayWidth/2f - (s*gameDimensions.x/2f), displayHeight/2f - (s*gameDimensions.y/2f));
+        b = new Vector(width/2f - (s*gameDimensions.x/2f), height/2f - (s*gameDimensions.y/2f));
 
         background(0, 0, 0);
 
