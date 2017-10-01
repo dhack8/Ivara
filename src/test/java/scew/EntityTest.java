@@ -1,6 +1,6 @@
-package core.entity;
+package scew;
 
-import scew.Component;
+import core.entity.GameEntity;
 import maths.Vector;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,15 +13,15 @@ import static org.junit.Assert.*;
  * Testing the basic actions of entities
  * @author Alex Mitchell
  */
-public class GameEntityTest {
-    private GameEntity testEntity;
+public class EntityTest {
+
+    private Entity testEntity;
 
     @Before
     public void setUp() throws Exception {
-        testEntity = new GameEntity(new Vector(1,1)) {};
+        //testEntity = new GameEntity(new Vector(1,1)) {};
+        testEntity = new Entity(){};
     }
-
-
 
     @Test
     /**
@@ -54,13 +54,13 @@ public class GameEntityTest {
 
 
     class TestComp1 extends Component{
-        public TestComp1(GameEntity e){
+        public TestComp1(Entity e){
             super(e);
         }
     }
 
     class TestComp2 extends Component{
-        public TestComp2(GameEntity e){
+        public TestComp2(Entity e){
             super(e);
         }
     }
