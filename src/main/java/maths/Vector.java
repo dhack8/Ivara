@@ -22,6 +22,10 @@ public class Vector {
         this.y = y;
     }
 
+    public void set(Vector vector) {
+        set(vector.x, vector.y);
+    }
+
     public void set(float x, float y){
         this.x = x;
         this.y = y;

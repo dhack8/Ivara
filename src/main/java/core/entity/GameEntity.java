@@ -13,8 +13,6 @@ public abstract class GameEntity extends Entity {
 
     public final Vector transform;
     private Scene scene;
-    private InputHandler input;
-
 
     public Vector getTransform() {
         return transform;
@@ -28,12 +26,8 @@ public abstract class GameEntity extends Entity {
         return scene;
     }
 
-    public void setInput(InputHandler input) {
-        this.input = input;
-    }
-
     public InputHandler getInput() {
-        return input;
+        return scene.getGame().inputHandler;
     }
 
     public GameEntity(Vector transform) {

@@ -9,10 +9,10 @@ import physics.Collider;
 import java.util.*;
 
 /**
- * Created by Callum Li on 9/17/17.
+ * A sensor component, container for sensors.
+ * @author Callum Li
  */
 public class SensorComponent extends Component<GameEntity> {
-
 
     private final List<Sensor>sensors = new ArrayList<>();
 
@@ -66,6 +66,5 @@ public class SensorComponent extends Component<GameEntity> {
      */
     public List<Sensor> getSensors() {
         return sensors;
-
     }
 }
