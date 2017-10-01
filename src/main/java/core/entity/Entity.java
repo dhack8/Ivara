@@ -33,10 +33,8 @@ public abstract class Entity{
     }
 
     /**
-     * Translate the entity
-     * todo: update docs
-     * @param dx Position change in the X plane
-     * @param dy Position change in the Y plane
+     * Translate the entity by a certain PVector
+     * @param vector the PVector to add to the entity's current Vector
      */
     public void translate(PVector vector) {
         position.add(vector);
