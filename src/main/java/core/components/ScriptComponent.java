@@ -9,6 +9,8 @@ import java.util.*;
 /**
  * Script component belongs to an entity. Gets overridden with
  * proper implementation of a script. E.g. NPC1, NPC2, Player...
+ *
+ * @author David Hack & Others
  */
 public class ScriptComponent extends Component<GameEntity> {
 

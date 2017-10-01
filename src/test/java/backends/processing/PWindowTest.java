@@ -1,8 +1,10 @@
 package backends.processing;
 
 import core.scene.Scene;
+import core.struct.Camera;
 import ivara.entities.NPlatformEntity;
 import ivara.entities.PlayerEntity;
+import maths.Vector;
 import org.junit.Test;
 import processing.core.PApplet;
 
@@ -57,7 +59,7 @@ public class PWindowTest {
 
         int n = JOptionPane.showConfirmDialog(
                 new JFrame(),
-                "Did you see a little man center left, standing at the start of a nice platform with nice corners?",
+                "Did you see a little man standing at the start of a nice platform with nice corners?",
                 "Render result",
                 JOptionPane.YES_NO_OPTION);
 
@@ -77,7 +79,7 @@ public class PWindowTest {
 
         int m = JOptionPane.showConfirmDialog(
                 new JFrame(),
-                "Did you see a little man center left, standing at the end of the platform?",
+                "Did you see a little man standing at the end of the platform?",
                 "Render result",
                 JOptionPane.YES_NO_OPTION);
 
@@ -114,6 +116,7 @@ public class PWindowTest {
 
             addEntity(tE);
             addEntity(new NPlatformEntity(2,3, 10, false));
+            setCamera(new Camera(new Vector(0,0), new Vector(32,18)));
         }
 
         public void moveSprite(){

@@ -41,6 +41,12 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private List<KeyListener> keyListeners = new ArrayList<>();
     private List<MouseListener> mouseListeners = new ArrayList<>();
 
+    private boolean useOpenGl;
+
+    public PWindow(boolean useOpenGl){
+        this.useOpenGl = useOpenGl;
+    }
+
     /**
      * Sets the mask, whether or not debugging view is on.
      * @param mask 1 for game 2 for debug
@@ -70,8 +76,17 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        size(1600, 900);
-        //fullScreen(P2D);
+
+        if(useOpenGl) {
+            size(1600, 900, P2D);
+            //fullScreen(P2D);
+            System.out.println("---USING OPENGL---");
+        }else{
+            size(1600, 900);
+            //fullScreen();
+            System.out.println("---USING JAVA2D---");
+        }
+
         noLoop();
     }
 
@@ -220,7 +235,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         textSize(40);
         background(255,0,0);
         fill(0);
-        text(text, 10, 40);
+        //TEXT THROWS ERRORS PROCESSINGS FAULT
+        //text(text, 10, 40);
     }
 
     /**
