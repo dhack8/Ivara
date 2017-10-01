@@ -1,6 +1,7 @@
 package core.scene;
 
 import core.entity.GameEntity;
+import core.struct.Camera;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
 import org.junit.Before;
@@ -74,40 +75,11 @@ public class SceneTest {
      * Testing the camera creation
      */
     public void testCamera() throws Exception{
-        try{
-            testScene.getCamera();
-            fail("Should not have been able to find a camera.");
-        }catch(RuntimeException e){
 
-        }
+        assertTrue("Camera should be null.",testScene.getCamera()==null);
+        testScene.setCamera(new Camera(new Vector(0,0), new Vector(16,9)));
+        assertTrue("Should've found a camera", testScene.getCamera()!=null);
     }
-
-
-    @Test
-    /**
-     * Testing the camera creation
-     */
-    public void testCamera1() throws Exception{
-        GameEntity e = new PlayerEntity(1,1);
-        testScene.addEntity(e);
-        try{
-            testScene.getCamera();
-        }catch(RuntimeException error){
-            fail("Should have been able to find a camera.");
-        }
-    }
-
-    @Test
-    /**
-     * Testing the update method
-     */
-    public void testUpdate() throws Exception { // Todo how should I test this
-
-    }
-
-
-
-
 
 
 }

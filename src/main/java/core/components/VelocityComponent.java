@@ -11,10 +11,16 @@ import maths.Vector;
  */
 public class VelocityComponent extends Component<GameEntity> {
 
-    private Vector velocity = new Vector(0,0);
+    private final Vector velocity;
 
     public VelocityComponent(GameEntity entity) {
         super(entity);
+        this.velocity = new Vector(0, 0);
+    }
+
+    public VelocityComponent(GameEntity entity, Vector velocity) {
+        super(entity);
+        this.velocity = new Vector(velocity.x, velocity.y);
     }
 
     /**
