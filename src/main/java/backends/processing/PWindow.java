@@ -71,7 +71,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        size(400, 400);
+        size(1600, 900, P2D);
+        //fullscreen(P2D);
         noLoop();
     }
 
@@ -116,12 +117,9 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         t = new Vector(-topLeft.x * s, -topLeft.y * s);
         //Buffer (bars)
         b = new Vector(width/2f - (s*gameDimensions.x/2f), height/2f - (s*gameDimensions.y/2f));
+        System.out.println(b);
 
-        background(0, 0, 0);
-
-        fill(200);
-        noStroke();
-        rect(b.x, b.y, s*gameDimensions.x, s*gameDimensions.y);
+        background(200);
 
         currentScene.getEntities().stream()
                 .sorted((e1, e2) -> {
@@ -139,6 +137,17 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                     }
                 }
         );
+
+        //Black bars
+        fill(0);
+        noStroke();
+        if(b.x == 0){
+            rect(0, 0, width, b.y);
+            rect(0, height - b.y, width, b.y);
+        }else{
+            rect(0, 0, b.x, height);
+            rect(width - b.x, 0, b.x, height);
+        }
     }
 
     private void drawSensors(GameEntity e){
@@ -198,7 +207,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
     private Vector getPixelLoc(Vector entityTransform, Vector componentTransform){
         Vector meters = new Vector(entityTransform.x + componentTransform.x, entityTransform.y + componentTransform.y);
-        return new Vector(meters.x*s + t.x + b.x, meters.y*s + t.y + b.y);
+        return getPixelLoc(meters);
     }
 
     /**

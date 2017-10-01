@@ -46,6 +46,9 @@ public class PlayerEntity extends GameEntity {
         PlayerController pc = new PlayerController(this);
         addComponent(new ScriptComponent(this, pc));
 
+        //Input---
+        addComponent(new InputComponent(this));
+
         //Collider---
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MINMAX, new Vector(0.2f, 0.3f), new Vector(0.6f, 1.2f)))); //Todo Change the Collider component
 
