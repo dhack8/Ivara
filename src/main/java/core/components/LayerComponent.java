@@ -4,7 +4,7 @@ import core.entity.GameEntity;
 import scew.Component;
 
 /**
- * Layer component gives a entity a layer for renderering.
+ * Layer component gives a entity a layer for rendering.
  *
  * @author David Hack
  */

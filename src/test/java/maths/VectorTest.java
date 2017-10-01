@@ -5,7 +5,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by David Hack Local on 01-Oct-17.
+ * Test the Vector class.
+ * @author David Hack
  */
 public class VectorTest {
     /**
