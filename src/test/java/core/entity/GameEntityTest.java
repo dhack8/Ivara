@@ -1,6 +1,6 @@
 package core.entity;
 
-import core.components.Component;
+import scew.Component;
 import maths.Vector;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,17 +26,17 @@ public class GameEntityTest {
      * Tests basic translations with dx and dy
      */
     public void testTranslate() throws Exception {
-        Vector initial = new Vector(testEntity.getPosition());
+        Vector initial = new Vector(testEntity.getTransform());
         float dx = 10;
         float dy = 15;
 
         testEntity.translate(dx,dy);
-        assertTrue("GameEntity should be at x position " + initial.x + dx + " but was " + testEntity.getPosition().x, initial.x + dx == testEntity.getPosition().x);
-        assertTrue("GameEntity should be at y position " + initial.y + dy + " but was " + testEntity.getPosition().y, initial.y + dy == testEntity.getPosition().y);
+        assertTrue("GameEntity should be at x position " + initial.x + dx + " but was " + testEntity.getTransform().x, initial.x + dx == testEntity.getTransform().x);
+        assertTrue("GameEntity should be at y position " + initial.y + dy + " but was " + testEntity.getTransform().y, initial.y + dy == testEntity.getTransform().y);
 
         testEntity.translate(-dx,-dy);
-        assertTrue("GameEntity should be at x position " + initial.x + " but was " + testEntity.getPosition().x, initial.x == testEntity.getPosition().x);
-        assertTrue("GameEntity should be at y position " + initial.y + " but was " + testEntity.getPosition().y, initial.y == testEntity.getPosition().y);
+        assertTrue("GameEntity should be at x position " + initial.x + " but was " + testEntity.getTransform().x, initial.x == testEntity.getTransform().x);
+        assertTrue("GameEntity should be at y position " + initial.y + " but was " + testEntity.getTransform().y, initial.y == testEntity.getTransform().y);
     }
 
     @Test
@@ -44,16 +44,16 @@ public class GameEntityTest {
      * Tests basic translations with a translation vector
      */
     public void testTranslate1() throws Exception {
-        Vector initial = new Vector(testEntity.getPosition());
+        Vector initial = new Vector(testEntity.getTransform());
         Vector translate = new Vector(10,15);
 
         testEntity.translate(translate);
-        assertTrue("GameEntity should be at x position " + initial.x + translate.x + " but was " + testEntity.getPosition().x, initial.x + translate.x == testEntity.getPosition().x);
-        assertTrue("GameEntity should be at y position " + initial.y + translate.y + " but was " + testEntity.getPosition().y, initial.y + translate.y == testEntity.getPosition().y);
+        assertTrue("GameEntity should be at x position " + initial.x + translate.x + " but was " + testEntity.getTransform().x, initial.x + translate.x == testEntity.getTransform().x);
+        assertTrue("GameEntity should be at y position " + initial.y + translate.y + " but was " + testEntity.getTransform().y, initial.y + translate.y == testEntity.getTransform().y);
 
         testEntity.translate(translate.mult(-1));
-        assertTrue("GameEntity should be at x position " + initial.x + " but was " + testEntity.getPosition().x, initial.x == testEntity.getPosition().x);
-        assertTrue("GameEntity should be at y position " + initial.y + " but was " + testEntity.getPosition().y, initial.y == testEntity.getPosition().y);
+        assertTrue("GameEntity should be at x position " + initial.x + " but was " + testEntity.getTransform().x, initial.x == testEntity.getTransform().x);
+        assertTrue("GameEntity should be at y position " + initial.y + " but was " + testEntity.getTransform().y, initial.y == testEntity.getTransform().y);
     }
 
     @Test
