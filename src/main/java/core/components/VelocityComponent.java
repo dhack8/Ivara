@@ -40,6 +40,9 @@ public class VelocityComponent extends Component<GameEntity> {
         return velocity;
     }
 
+    public void set(Vector velocity) {
+        this.velocity.set(velocity);
+    }
 
     public void setX(float x) { // Todo change how this is done :)
         velocity.set(x,velocity.y);

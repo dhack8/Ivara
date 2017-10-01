@@ -30,9 +30,13 @@ public abstract class Game {
 
     private final InputBroadcaster inputBroadcaster;
 
+    public final InputHandler inputHandler;
+
     public Game(Scene initialScene, Renderer renderer, final InputBroadcaster inputBroadcaster) {
         this.renderer = renderer;
         this.inputBroadcaster = inputBroadcaster;
+        this.inputHandler = new InputHandler(inputBroadcaster);
+
         setCurrentScene(initialScene);
 
         assert inputBroadcaster != null;
@@ -44,7 +48,7 @@ public abstract class Game {
 
     public void setCurrentScene(Scene scene) {
         this.currentScene = scene;
-        this.currentScene.setInputHandler(new InputHandler(inputBroadcaster));
+        this.currentScene.setGame(this);
     }
 
     /**
