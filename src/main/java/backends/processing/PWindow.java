@@ -212,6 +212,18 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     }
 
     /**
+     * Should return the world location in meters of a provided pixel co-ordinate.
+     * @param x x pixel location
+     * @param y y pixel location
+     * @return vector of game world position
+     */
+    public Vector pixelToWorld(int x, int y){
+        float xMeters = (x -t.x -b.x)/s;
+        float yMeters = (y -t.y -b.y)/s;
+        return new Vector(xMeters, yMeters);
+    }
+
+    /**
      * Draws a rectangle of the specified values passed in. This is called in the draw() method to visualise the
      * bounding box of the entities for collision.
      * @param x float value of x position
