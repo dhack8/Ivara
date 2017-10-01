@@ -32,6 +32,7 @@ public abstract class Scene {
         world.addSystem(new ScriptSystem());
     }
 
+    // todo: Make this coupling less gross.
     public void setInputHandler(InputHandler inputHandler) {
         world.addSystem(new InputSystem(inputHandler));
     }

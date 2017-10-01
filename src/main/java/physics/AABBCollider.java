@@ -7,7 +7,7 @@ import maths.Vector;
  */
 public class AABBCollider extends Collider {
     public static final int CENTER_RADIUS = 1;
-    public static final int MINMAX = 2;
+    public static final int MIN_DIM = 2;
 
     final Vector center;
     final Vector radius;
@@ -28,7 +28,7 @@ public class AABBCollider extends Collider {
      * Creates an AABB Collider from the given arguments. The
      * way they are treated depends on the given mode.
      *
-     * Valid modes: CENTER_RADIUS, MINMAX.
+     * Valid modes: CENTER_RADIUS, MIN_DIM.
      * @param mode The constructor mode.
      * @param v1 The first paremeter for the constructor.
      * @param v2 The second paremeter for the constructor.
@@ -37,7 +37,7 @@ public class AABBCollider extends Collider {
         if (mode == CENTER_RADIUS) {
             center = new Vector(v1);
             radius = new Vector(v2);
-        } else //if (mode == MINMAX)
+        } else //if (mode == MIN_DIM)
         {
             center = new Vector(v1.x + (v2.x/2), v1.y + (v2.y/2));
             radius = new Vector(v2.x/2, v2.y/2);
