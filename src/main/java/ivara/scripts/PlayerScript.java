@@ -68,7 +68,7 @@ public class PlayerScript implements Script, SensorListener {
         }
 
         if (input.isMousePressed(Constants.LEFT_MOUSE)) {
-            System.out.println(input.getMousePosition().toString());
+            //System.out.println(input.getMousePosition().toString());
 
             entity.getScene().addEntity(new BulletEntity(entity.transform, input.getMousePosition(), 1000));
         }

@@ -162,7 +162,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         //Black bars
         fill(0);
         noStroke();
-        if(b.x == 0){
+        if(b.x < 0.5f){
             rect(0, 0, width, b.y);
             rect(0, height - b.y, width, b.y);
         }else{
