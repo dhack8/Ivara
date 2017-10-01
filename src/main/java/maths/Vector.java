@@ -50,9 +50,17 @@ public class Vector {
         this.y = other.y;
     }
 
-
-        @Override
-        public String toString() {
-            return "Vector {" + x + ", " + y + "}";
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Vector) {
+            Vector other = (Vector) obj;
+            return other.x == this.x && other.y == this.y;
         }
+        return false;
     }
+
+    @Override
+    public String toString() {
+        return "Vector {" + x + ", " + y + "}";
+    }
+}

@@ -5,6 +5,8 @@ import ivara.entities.BackgroundEntity;
 import ivara.entities.NPlatformEntity;
 import ivara.entities.PlayerEntity;
 
+import java.util.Optional;
+
 /**
  * This is the very basic "intro level" where the user gets used to the controls.
  * It initialises the player at the far left of the screen, halfway up.
