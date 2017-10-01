@@ -17,7 +17,7 @@ import java.util.*;
  * @author Will Pearson
  */
 public final class LinePlatformFactory {
-
+/*
 <<<<<<< HEAD
     public static Collection<GameEntity> linePlatforms(int x0, int y0, int x1, int y1) {
 =======
@@ -217,4 +217,5 @@ public final class LinePlatformFactory {
 >>>>>>> master
         return platforms;
     }
+    */
 }

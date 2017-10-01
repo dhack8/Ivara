@@ -1,16 +1,10 @@
 package ivara.scenes;
 
 import core.scene.Scene;
-<<<<<<< HEAD
 import core.struct.Camera;
-import ivara.entities.BackgroundEntity;
-import ivara.entities.BasicBlockEntity;
-import ivara.entities.MovingBlockEntity;
-import ivara.entities.PlayerEntity;
-import maths.Vector;
-=======
 import ivara.entities.*;
->>>>>>> master
+import maths.Vector;
+
 
 /**
  * Created by Alex Mitchell on 17/09/2017.
