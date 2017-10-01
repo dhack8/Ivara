@@ -17,6 +17,7 @@ import physics.AABBCollider;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
+import processing.opengl.PGraphicsOpenGL;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -41,8 +42,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private List<MouseListener> mouseListeners = new ArrayList<>();
 
     /**
-     * TODO
-     * @param mask
+     * Sets the mask, whether or not debugging view is on.
+     * @param mask 1 for game 2 for debug
      */
     @Override
     public void setMask(int mask) {
@@ -71,8 +72,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void settings(){
-        size(1600, 900);
-        //fullscreen(P2D);
+        size(1600, 900, P2D);
+        //fullScreen(P2D);
         noLoop();
     }
 
@@ -208,6 +209,18 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private Vector getPixelLoc(Vector entityTransform, Vector componentTransform){
         Vector meters = new Vector(entityTransform.x + componentTransform.x, entityTransform.y + componentTransform.y);
         return getPixelLoc(meters);
+    }
+
+    /**
+     * Should return the world location in meters of a provided pixel co-ordinate.
+     * @param x x pixel location
+     * @param y y pixel location
+     * @return vector of game world position
+     */
+    public Vector pixelToWorld(int x, int y){
+        float xMeters = (x -t.x -b.x)/s;
+        float yMeters = (y -t.y -b.y)/s;
+        return new Vector(xMeters, yMeters);
     }
 
     /**

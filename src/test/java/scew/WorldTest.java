@@ -1,6 +1,6 @@
-package core.entity;
+package scew;
 
-import core.components.Component;
+import core.entity.GameEntity;
 import maths.Vector;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,15 +8,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Basic tests for testing the EntityContainer functionality
- * @author Alex Mitchell
+ * Created by Alex Mitchell on 1/10/2017.
  */
-public class GameEntityContainerTest {
-    private EntityContainer ec;
+public class WorldTest {
+    private World w;
 
     @Before
     public void setUp() throws Exception {
-        ec = new EntityContainer();
+        w = new World();
     }
 
     @Test
@@ -29,26 +28,25 @@ public class GameEntityContainerTest {
         e.addComponent(t1);
         e.addComponent(new TestComp2(e));
 
-        ec.addEntity(e);
+        w.addEntity(e);
 
-        assertTrue("The EntityContainer should contain the added entity", ec.entities.contains(e));
-        assertTrue("The EntityContainer should contain a single TestComp1 component", ec.classMap.get(TestComp1.class).size() == 1);
-        assertTrue("The EntityContainer should contain a single TestComp2 component", ec.classMap.get(TestComp2.class).size() == 1);
+        assertTrue("The EntityContainer should contain the added entity", w.getEntities().contains(e));
+        assertTrue("The EntityContainer should contain a single TestComp1 component", w.get(TestComp1.class).size() == 1);
+        assertTrue("The EntityContainer should contain a single TestComp2 component", w.get(TestComp2.class).size() == 1);
     }//
 
 
     // Test component class used to test the Scene functionality
-    class TestComp1 extends Component {
+    class TestComp1 extends Component<GameEntity> {
         TestComp1(GameEntity e){
             super(e);
         }
     }
 
     // Test component class used to test the Scene functionality
-    class TestComp2 extends Component{
+    class TestComp2 extends Component<GameEntity>{
         TestComp2(GameEntity e){
             super(e);
         }
     }
-
 }

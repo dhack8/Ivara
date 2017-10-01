@@ -6,6 +6,8 @@ import maths.Vector;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 
 /**
@@ -39,7 +41,7 @@ public class SceneTest {
     public void testAddEntity1() throws Exception {
         GameEntity e = new GameEntity(new Vector(1, 1)) {};
         String n = "Test";
-        testScene.addEntity(e, n); //adding a named entity
+        testScene.addEntity(e, Optional.of(n)); //adding a named entity
         assertTrue("Scene should contain the entity.", testScene.getEntities().contains(e));
         assertTrue("Scene should contain only one entity.", testScene.getEntities().size() == 1);
         assertTrue("Scene should contain the entity in the named entities collection.", testScene.getEntity(n).equals(e));
@@ -56,7 +58,7 @@ public class SceneTest {
             // alternating between adding a named and unnamed entity
             GameEntity e = new GameEntity(new Vector(1, 1)){}; // irrelevant position
             if(i % 2 != 0) testScene.addEntity(e);
-            else testScene.addEntity(e, name + i);
+            else testScene.addEntity(e, Optional.of(name + i));
         }
 
         assertTrue("Scene should contain " + numEntities + " entities, but found " + testScene.getEntities().size() + ".", testScene.getEntities().size() == numEntities);
