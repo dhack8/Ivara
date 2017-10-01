@@ -117,7 +117,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         t = new Vector(-topLeft.x * s, -topLeft.y * s);
         //Buffer (bars)
         b = new Vector(width/2f - (s*gameDimensions.x/2f), height/2f - (s*gameDimensions.y/2f));
-        System.out.println(b);
 
         background(200);
 
