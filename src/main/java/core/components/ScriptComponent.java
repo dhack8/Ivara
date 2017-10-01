@@ -14,6 +14,8 @@ public class ScriptComponent extends Component<GameEntity> {
 
     private final List<Script> scripts = new ArrayList<>();
 
+    //Constructors --------------------------------------------
+
     /**
      * Constructor for a ScriptComponent with no scripts.
      * @param entity The entity for the script
@@ -25,6 +27,7 @@ public class ScriptComponent extends Component<GameEntity> {
     /**
      * Constructor for a ScriptComponent that takes a single script.
      * @param entity The entity for the script
+     * @param script script to add
      */
     public ScriptComponent(GameEntity entity, Script script) {
         super(entity);
@@ -34,11 +37,14 @@ public class ScriptComponent extends Component<GameEntity> {
     /**
      * Constructor for a ScriptComponent that takes a array of scripts.
      * @param entity The entity for the script
+     * @param scripts scripts to add
      */
     public ScriptComponent(GameEntity entity, Script[] scripts) {
         super(entity);
         for(Script s : scripts) this.scripts.add(s);
     }
+
+    //End of constructors----------------------------------------
 
     /**
      * Adds a single script to the component.
@@ -46,5 +52,13 @@ public class ScriptComponent extends Component<GameEntity> {
      */
     public void add(Script s){
         scripts.add(s);
+    }
+
+    /**
+     * Getter for the components scripts
+     * @return list of scripts
+     */
+    public List<Script> getScripts(){
+        return scripts;
     }
 }

@@ -6,9 +6,7 @@ import core.struct.Sensor;
 import scew.Component;
 import physics.Collider;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Callum Li on 9/17/17.
@@ -16,20 +14,56 @@ import java.util.Set;
 public class SensorComponent extends Component<GameEntity> {
 
 
-    private final Sensor[] sensors;
-    private final Set<GameEntity> colliding = new HashSet<>();
+    private final List<Sensor>sensors = new ArrayList<>();
 
-    public Sensor[] getSensors() {return sensors;}
+    //TODO Callum colliding
+    //private final Set<GameEntity> colliding = new HashSet<>();
 
-    public SensorComponent(GameEntity entity, Collider collider, SensorListener listener) {
+    //Constructors --------------------------------------------
+
+    /**
+     * Constructor for SensorComponent that takes no sensors.
+     * @param entity the entity for this sensor
+     */
+    public SensorComponent(GameEntity entity) {
         super(entity);
-        Sensor sensor = new Sensor(collider, listener);
-        sensors = new Sensor[]{sensor};
     }
 
+    /**
+     * Constructor for SensorComponent that takes a sensor.
+     * @param entity the entity for this sensor
+     * @param sensor the sensor to add
+     */
+    public SensorComponent(GameEntity entity, Sensor sensor) {
+        super(entity);
+        sensors.add(sensor);
+    }
+
+    /**
+     * Constructor for SensorComponent that takes a array of sensors.
+     * @param entity the entity for this sensor
+     * @param sensors the sensors to add
+     */
     public SensorComponent(GameEntity entity, Sensor[] sensors) {
         super(entity);
-        this.sensors = sensors;
+        for(Sensor s : sensors) this.sensors.add(s);
     }
 
+    //End of constructors----------------------------------------
+
+    /**
+     * Adds a new sensor
+     * @param sensor the sensor to add
+     */
+    public void add(Sensor sensor){
+        sensors.add(sensor);
+    }
+
+    /**
+     * Getter for the sensors
+     * @return list of the sensors
+     */
+    public List<Sensor> getSensors() {
+        return sensors;
+    }
 }
