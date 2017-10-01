@@ -22,14 +22,40 @@ public class SpriteComponent extends Component<GameEntity> {
     //Animated sprites
     private final List<AnimatedSprite> animatedSprites = new ArrayList<>();
 
+    //Constructors --------------------------------------------
+
     /**
-     * Constructor for a sprite component that has a width and height along with a resource identifier.
+     * Constructor for a sprite component that has no sprites.
      * This sprite has a dimension.
      * @param entity parent entity
      */
     public SpriteComponent(GameEntity entity) {
         super(entity);
     }
+
+    /**
+     * Constructor for a sprite component that takes one animated sprite.
+     * This sprite has a dimension.
+     * @param entity parent entity
+     * @param animatedSprite animated sprite to add
+     */
+    public SpriteComponent(GameEntity entity, AnimatedSprite animatedSprite) {
+        super(entity);
+        animatedSprites.add(animatedSprite);
+    }
+
+    /**
+     * Constructor for a sprite component that takes one sprite.
+     * This sprite has a dimension.
+     * @param entity parent entity
+     * @param sprite sprite to add
+     */
+    public SpriteComponent(GameEntity entity, Sprite sprite) {
+        super(entity);
+        sprites.add(sprite);
+    }
+
+    //End of constructors----------------------------------------
 
     /**
      * Adds a sprite to the component.

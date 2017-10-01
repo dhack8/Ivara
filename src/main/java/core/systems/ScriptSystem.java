@@ -19,6 +19,6 @@ public class ScriptSystem extends System<GameEntity> {
     @Override
     public void update(int dt, World<GameEntity> world) {
         world.get(ScriptComponent.class).stream()
-                .forEach((s) -> s.scripts.forEach((sc) -> sc.update(dt, s.getEntity())));
+                .forEach((s) -> s.getScripts().forEach((sc) -> sc.update(dt, s.getEntity())));
     }
 }
