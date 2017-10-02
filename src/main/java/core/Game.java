@@ -8,6 +8,8 @@ import core.scene.Scene;
 import core.input.KeyListener;
 import core.input.MouseListener;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * Created by Callum Li on 9/14/17.
  */
@@ -75,8 +77,13 @@ public abstract class Game {
 
             // Display the current scene.
 
-            renderer.render(currentScene);
-
+            CountDownLatch latch = new CountDownLatch(1);
+            renderer.render(currentScene, latch);
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
