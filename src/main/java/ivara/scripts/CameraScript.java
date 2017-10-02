@@ -16,6 +16,7 @@ public class CameraScript implements Script {
 
     public CameraScript(GameEntity toTrack, Vector offset){
         tracking = toTrack;
+        this.offset = offset;
         //camera = tracking.getScene().getCamera();
     }
 

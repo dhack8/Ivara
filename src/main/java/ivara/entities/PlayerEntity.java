@@ -47,7 +47,7 @@ public class PlayerEntity extends GameEntity {
         scriptComponent.add(pc);
         scriptComponent.add(cs);
 
-        addComponent(new ScriptComponent(this));
+        addComponent(scriptComponent);
 
         //Input---
         addComponent(new InputComponent(this));
