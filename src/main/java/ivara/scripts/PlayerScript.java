@@ -16,7 +16,7 @@ import maths.Vector;
  * Script to control the player entity. Relies on the current input
  * stored in InputHandler to determine control.
  * Assumes y axis goes top down and x axis goes left right.
- *
+ * @author Alex Mitchell
  * @author Will Pearson
  */
 public class PlayerScript implements Script, SensorListener {
@@ -29,13 +29,6 @@ public class PlayerScript implements Script, SensorListener {
         this.player = player;
     }
 
-    //float gravity = 1 / 1000f; // todo temp fix for gravity
-    /**
-    public PlayerController(GameEntity e) {
-        super(e);
-    }
-     **/
-
     /**
      * Updates the player entity.
      * @param dt elapsed milliseconds since last update
@@ -47,68 +40,30 @@ public class PlayerScript implements Script, SensorListener {
 
         float speed = metresPerTick(dt);
 
-        PlayerEntity pEntity = (PlayerEntity)entity;
+        PlayerEntity pEntity = (PlayerEntity) entity;
         VelocityComponent vComp = pEntity.get(VelocityComponent.class).get();
 
-        if(input.isKeyPressed(Constants.W)){
-            if(pEntity.canJump){
+        if (input.isKeyPressed(Constants.W)) {
+            if (pEntity.canJump) {
                 vComp.setY(-7f);
                 pEntity.canJump = false;
             }
-        }else if(input.isKeyPressed(Constants.S)){
+        } else if (input.isKeyPressed(Constants.S)) {
             vComp.setY(3f);
         }
 
-        if(input.isKeyPressed(Constants.A)){
+        if (input.isKeyPressed(Constants.A)) {
             vComp.setX(-3f);
-        }else if(input.isKeyPressed(Constants.D)){
+        } else if (input.isKeyPressed(Constants.D)) {
             vComp.setX(3f);
-        }else{
+        } else {
             vComp.setX(0f);
         }
 
         if (input.isMousePressed(Constants.LEFT_MOUSE)) {
-            //System.out.println(input.getMousePosition().toString());
 
             entity.getScene().addEntity(new BulletEntity(entity.transform, input.getMousePosition(), 1000));
         }
-
-        /**
-        if (InputHandler.keyPressed(W)) {
-            // TODO Jumping
-            //PlayerEntity entity = (PlayerEntity)getEntity();
-            PlayerEntity playerEntity = (PlayerEntity)entity;
-            if(playerEntity.canJump){
-                VelocityComponent comp = entity.get(VelocityComponent.class);
-                comp.getVelocity().set(0, -5f);
-                playerEntity.canJump = false;
-            }
-
-
-
-
-        }
-        if (InputHandler.keyPressed(A)) {
-            // TODO running
-            entity.translate(-speed, 0);
-        }
-        if (InputHandler.keyPressed(S)) {
-            // TODO ducking
-            getEntity().translate(0, speed);
-        }
-        if (InputHandler.keyPressed(D)) {
-            // TODO running
-            getEntity().translate(speed, 0);
-        }
-        if (InputHandler.keyPressed(SPACE)) { // TODO: Remove once levels are designed properly
-            // TODO extra function?
-            getEntity().translate(0, -speed);
-        }
-        */
-
-
-       // VelocityComponent v = entity.get(VelocityComponent.class); // todo temp fix for gravity
-       // v.add(0, 10f/1000f * dt);
     }
 
     /**
