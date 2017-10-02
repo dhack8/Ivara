@@ -21,6 +21,13 @@ public class PlayerEntity extends GameEntity {
     //Restricts jumping
     public boolean canJump = false;
 
+    //Dimensions
+    private float width = 1f;
+    private float height = 1.5f;
+
+    private float widthOff = 0.4f;
+    private float heightOff = 0.3f;
+
     /**
      * Creates a PlayerEntity at a given position
      *
@@ -36,12 +43,12 @@ public class PlayerEntity extends GameEntity {
 
         //Sprites---
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new ResourceID("player"), new Vector(1f, 1.5f));
+        sc.add(new ResourceID("player"), new Vector(width, height));
         addComponent(sc);
 
         //Scripts---
         PlayerScript pc = new PlayerScript(this);
-        CameraScript cs = new CameraScript(this, new Vector(0.5f, 0.75f));
+        CameraScript cs = new CameraScript(this, new Vector(width/2, height/2));
 
         ScriptComponent scriptComponent = new ScriptComponent(this);
         scriptComponent.add(pc);
@@ -53,7 +60,9 @@ public class PlayerEntity extends GameEntity {
         addComponent(new InputComponent(this));
 
         //Collider---
-        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, new Vector(0.2f, 0.3f), new Vector(0.6f, 1.2f)))); //Todo Change the Collider component
+        Vector cTopLeft = new Vector(widthOff/2, heightOff);
+        Vector cDimensions = new Vector(width-widthOff, height-heightOff);
+        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, cTopLeft, cDimensions))); //Todo Change the Collider component
 
         //Layer---
         addComponent(new LayerComponent(this, 999));
@@ -63,7 +72,10 @@ public class PlayerEntity extends GameEntity {
 
         //Sensors---
         //AABB for the sensor
-        AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, new Vector(0.199f, 1.4f), new Vector(0.611f, 0.1f));
+        //FOR WALL RUNNING THIS SENSOR NEEDS TO BE THE SAME WIDTH AS THE COLLIDER, BIT SMALLER FOR NO WALL RUNNING
+        Vector sTopLeft = new Vector(widthOff/2, height-0.1f);
+        Vector sDimensions = new Vector(width-widthOff, 0.1f);
+        AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
         addComponent(new SensorComponent(this, new Sensor(ab, pc)));
     }
 }
