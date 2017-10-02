@@ -18,7 +18,7 @@ public class LevelManager {
     private int currentScene;
 
     public LevelManager(Scene s){
-        if(s == null) throw new RuntimeException("Cannot add a null scene.");
+        if(s == null) throw new IllegalArgumentException("Cannot add a null scene.");
         scenes = new ArrayList<Scene>();
         scenes.add(s);
         currentScene = 0;
@@ -26,8 +26,8 @@ public class LevelManager {
     }
 
     public LevelManager(List<Scene> levels){
-        if(levels == null)throw new RuntimeException("Cannot add a null collection of levels.");
-        if(!(levels.size()>0)) throw new RuntimeException("There must be at least one level.");
+        if(levels == null)throw new IllegalArgumentException("Cannot add a null collection of levels.");
+        if(!(levels.size()>0)) throw new IllegalArgumentException("There must be at least one level.");
         scenes = levels;
         currentScene = 0;
     }
@@ -66,7 +66,7 @@ public class LevelManager {
      * @param s The scene to add
      */
     public void addScene(Scene s){
-        if(s == null) throw new RuntimeException("Cannot add a null scene.");
+        if(s == null) throw new IllegalArgumentException("Cannot add a null scene.");
         scenes.add(s);
     }
 
@@ -76,8 +76,8 @@ public class LevelManager {
      * @param level The number of the level/scene
      */
     public void addScene(Scene s, int level){
-        if(s == null) throw new RuntimeException("Cannot add a null scene.");
-        if(level < 0 || level > scenes.size()) throw new RuntimeException("Out of bounds of the collection");
+        if(s == null) throw new IllegalArgumentException("Cannot add a null scene.");
+        if(level < 0 || level > scenes.size()) throw new IllegalArgumentException("Out of bounds of the collection");
         scenes.add(level, s);
     }
 
@@ -86,7 +86,8 @@ public class LevelManager {
      * @param s The collection of scenes
      */
     public void addScenes(Collection<Scene> s){
-        if(s == null) throw new RuntimeException("Cannot add a null collection.");
+        if(s == null) throw new IllegalArgumentException("Cannot add a null collection.");
+        if(!(s.size()>0)) throw new IllegalArgumentException("There must be at least one level.");
         scenes.addAll(s);
     }
 
