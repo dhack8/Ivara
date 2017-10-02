@@ -1,9 +1,11 @@
 package ivara.scenes;
 
 import core.scene.Scene;
+import core.struct.Camera;
 import ivara.entities.BackgroundEntity;
 import ivara.entities.NPlatformEntity;
 import ivara.entities.PlayerEntity;
+import maths.Vector;
 
 import java.util.Optional;
 
@@ -30,5 +32,7 @@ public class IntroLevel extends Scene{
         //TODO transparent block
         //wall off screen blocking movement to the right
         addEntity(new NPlatformEntity(21, -1,3,true));
+
+        setCamera(new Camera(new Vector(0,0), new Vector(32,18)));
     }
 }

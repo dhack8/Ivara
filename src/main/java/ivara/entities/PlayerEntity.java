@@ -4,6 +4,7 @@ import core.components.*;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sensor;
+import ivara.scripts.CameraScript;
 import ivara.scripts.PlayerScript;
 import maths.Vector;
 import physics.AABBCollider;
@@ -40,7 +41,13 @@ public class PlayerEntity extends GameEntity {
 
         //Scripts---
         PlayerScript pc = new PlayerScript(this);
-        addComponent(new ScriptComponent(this, pc));
+        CameraScript cs = new CameraScript(this, new Vector(0.5f, 0.75f));
+
+        ScriptComponent scriptComponent = new ScriptComponent(this);
+        scriptComponent.add(pc);
+        scriptComponent.add(cs);
+
+        addComponent(new ScriptComponent(this));
 
         //Input---
         addComponent(new InputComponent(this));
