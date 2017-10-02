@@ -11,6 +11,8 @@ import processing.core.PApplet;
 
 import javax.swing.*;
 
+import java.util.concurrent.CountDownLatch;
+
 import static org.junit.Assert.*;
 
 /**
@@ -39,7 +41,7 @@ public class PWindowTest {
 
         long start = System.currentTimeMillis();
         while(true) {
-            testWindow.render(testScene);
+            testWindow.render(testScene, null);
             if(System.currentTimeMillis() - start > delay){
                 break;
             }
@@ -59,7 +61,7 @@ public class PWindowTest {
 
         start = System.currentTimeMillis();
         while(true) {
-            testWindow.render(testScene);
+            testWindow.render(testScene, null);
             if(System.currentTimeMillis() - start > delay){
                 break;
             }
@@ -79,7 +81,7 @@ public class PWindowTest {
 
         start = System.currentTimeMillis();
         while(true) {
-            testWindow.render(testScene);
+            testWindow.render(testScene, null);
             if(System.currentTimeMillis() - start > delay){
                 break;
             }
@@ -99,7 +101,7 @@ public class PWindowTest {
 
         start = System.currentTimeMillis();
         while(true) {
-            testWindow.render(testScene);
+            testWindow.render(testScene, null);
             if(System.currentTimeMillis() - start > delay){
                 break;
             }

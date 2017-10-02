@@ -23,6 +23,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Window that the game runs in. Extends the Processing window PApplet.
@@ -43,6 +44,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
     private boolean useOpenGl;
 
+    private CountDownLatch latch = null;
+
     public PWindow(boolean useOpenGl){
         this.useOpenGl = useOpenGl;
     }
@@ -61,12 +64,13 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param scene current scene
      */
     @Override
-    public void render(Scene scene) {
+    public void render(Scene scene, CountDownLatch latch) {
         if(scene == null){
             displayError("The scene provided to the renderer is NULL!");
             return;
         }
 
+        this.latch = latch;
         currentScene = scene;
         redraw();
     }
@@ -169,6 +173,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
             rect(0, 0, b.x, height);
             rect(width - b.x, 0, b.x, height);
         }
+
+        if(latch != null) latch.countDown();
     }
 
     private void drawSensors(GameEntity e){
