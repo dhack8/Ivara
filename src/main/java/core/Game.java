@@ -58,6 +58,10 @@ public abstract class Game {
         levelManager.nextScene(this);
     }
 
+    public void pause(){
+        levelManager.pause(this);
+    }
+
     /**
      * Starts the game.
      */

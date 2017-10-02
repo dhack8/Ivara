@@ -20,8 +20,6 @@ import java.util.List;
 public class Ivara extends Game {
 
     public Ivara(LevelManager lm, Renderer renderer, InputBroadcaster inputBroadcaster) {
-        //super(new LevelOne(), renderer, inputBroadcaster);
-        //super(new LevelThree(), renderer, inputBroadcaster);
         super(lm, renderer, inputBroadcaster);
     }
 
@@ -38,17 +36,26 @@ public class Ivara extends Game {
 
         //todo
 
-        Game g = new Ivara(new LevelManager(getLevels()), processingBackend, processingBackend);
+        LevelManager l = new LevelManager(getLevels());
+        l.setPauseMenu(new LevelFour());
+
+        Game g = new Ivara(l, processingBackend, processingBackend);
         g.start();
     }
 
+    /**
+     * Static method that returns a List of levels (ordered) to construct the LevelManager with
+     * @return
+     */
     private static List<Scene> getLevels(){
         List<Scene> levels = new ArrayList<>();
+        //level 0 or the first level is the menu
         levels.add(new LevelOne());
         //levels.add(new LevelTwo());
         levels.add(new LevelThree());
         levels.add(new LevelFour());
-        levels.add(new LevelFive());
+        //levels.add(new LevelFive());
+        //final level is the credits?
         return levels;
     }
 

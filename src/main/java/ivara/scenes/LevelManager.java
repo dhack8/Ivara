@@ -11,18 +11,23 @@ import java.util.NoSuchElementException;
 
 /**
  * @author Alex Mitchell
+ *
+ * This class manages the levels within a game
  */
 public class LevelManager {
 
     private List<Scene> scenes;
     private int currentScene;
 
+    private boolean paused;
+    private Scene pauseMenu;
+
     public LevelManager(Scene s){
         if(s == null) throw new IllegalArgumentException("Cannot add a null scene.");
         scenes = new ArrayList<Scene>();
         scenes.add(s);
         currentScene = 0;
-
+        paused = false;
     }
 
     public LevelManager(List<Scene> levels){
@@ -30,9 +35,8 @@ public class LevelManager {
         if(!(levels.size()>0)) throw new IllegalArgumentException("There must be at least one level.");
         scenes = levels;
         currentScene = 0;
+        paused = false;
     }
-
-
 
     public Scene getScene(int level){
         if(level >= scenes.size()) throw new NoSuchElementException("The scene does not exist.");
@@ -40,7 +44,7 @@ public class LevelManager {
     }
 
     public Scene getCurrentScene(){
-        return scenes.get(currentScene);
+        return paused? pauseMenu : scenes.get(currentScene);
     }
 
     /**
@@ -49,6 +53,7 @@ public class LevelManager {
      * Final scene is credits?
      */
     public void nextScene(Game g){
+        if(paused) throw new RuntimeException("Cannot change to the next scene while the menu is open.");
         if(currentScene == scenes.size()-1)currentScene = 0;
         else currentScene++;
         getCurrentScene().setGame(g);
@@ -56,6 +61,7 @@ public class LevelManager {
 
     public void setScene(int level, Game g){
         if(level >= scenes.size()) throw new NoSuchElementException("The scene does not exist.");
+        paused = false;
         currentScene = level;
         getCurrentScene().setGame(g);
     }
@@ -90,5 +96,22 @@ public class LevelManager {
         if(!(s.size()>0)) throw new IllegalArgumentException("There must be at least one level.");
         scenes.addAll(s);
     }
+
+    public void setPauseMenu(Scene pause){
+        if(pause == null) throw new IllegalArgumentException("Cannot set a null pause menu.");
+        pauseMenu = pause;
+    }
+
+    public void pause(Game g){
+        paused = !paused;
+        getCurrentScene().setGame(g);
+    }
+
+
+    //Todo NOTE
+    /**
+     * At this current stage, a LevelManager must have at least 1 scene
+     * A pause menu is optional, and must be set after the construction of the LevelManager
+     */
 
 }

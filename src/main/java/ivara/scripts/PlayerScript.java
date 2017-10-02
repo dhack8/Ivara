@@ -69,6 +69,11 @@ public class PlayerScript implements Script, SensorListener {
             entity.getScene().getGame().nextScene();
         }
 
+        if(input.isKeyPressed(Constants.SPACE)){
+            entity.getScene().getGame().pause();
+            System.out.println("Pause");
+        }
+
 
         if (input.isMousePressed(Constants.LEFT_MOUSE)) {
 
