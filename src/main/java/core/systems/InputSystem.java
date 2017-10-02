@@ -1,6 +1,6 @@
 package core.systems;
 
-import core.components.InputComponent;
+import core.components.InputHandlerComponent;
 import core.entity.GameEntity;
 import core.input.InputHandler;
 import scew.System;
@@ -19,7 +19,7 @@ public class InputSystem extends System<GameEntity> {
 
     @Override
     public void update(int dt, World<GameEntity> world) {
-        world.get(InputComponent.class).stream()
-                .forEach((inputComponent -> inputComponent.input = handler));
+        world.get(InputHandlerComponent.class).stream()
+                .forEach((inputHandlerComponent -> inputHandlerComponent.setInput(handler)));
     }
 }

@@ -2,15 +2,17 @@ package ivara.scripts;
 
 import core.Script;
 import core.SensorListener;
-import core.components.InputComponent;
+import core.components.SensorHandlerComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
 import core.input.Constants;
 import core.input.InputHandler;
+import core.input.SensorHandler;
 import core.struct.Sensor;
 import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
+import physics.AABBCollider;
 
 /**
  * Script to control the player entity. Relies on the current input
@@ -24,9 +26,23 @@ public class PlayerScript implements Script, SensorListener {
     private float metresPerSecond = 3f;
 
     private final PlayerEntity player;
+    private final Sensor bottomSensor;
 
+
+    /**
+     * Creates a player script without a bottom sensor,
+     * exists for backwards compatibility with the sensorComponentTest.
+     * @param player The player this script belongs to.
+     * @deprecated Prefer other constructors for PlayerScript.
+     */
     public PlayerScript(PlayerEntity player) {
         this.player = player;
+        this.bottomSensor = new Sensor(new AABBCollider(0, new Vector(0, 0), new Vector(0, 0)));
+    }
+
+    public PlayerScript(PlayerEntity player, Sensor bottomSensor) {
+        this.player = player;
+        this.bottomSensor = bottomSensor;
     }
 
     /**
@@ -35,6 +51,13 @@ public class PlayerScript implements Script, SensorListener {
      */
     @Override
     public void update(int dt, GameEntity entity) { // Todo change how these are handled -- temp fix for the removal of translate
+        SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
+        if (sensorHandler.isActive(bottomSensor)) {
+            GameEntity entity1 = sensorHandler.getActivatingEntities(bottomSensor).stream().findAny().get();
+            System.out.println("Hello World");
+            onActive(bottomSensor, entity1);
+        }
+
         InputHandler input = entity.getInput();
 
 
@@ -44,6 +67,7 @@ public class PlayerScript implements Script, SensorListener {
         VelocityComponent vComp = pEntity.get(VelocityComponent.class).get();
 
         if (input.isKeyPressed(Constants.W)) {
+            System.out.println("UP");
             if (pEntity.canJump) {
                 vComp.setY(-7f);
                 pEntity.canJump = false;
@@ -64,6 +88,8 @@ public class PlayerScript implements Script, SensorListener {
 
             entity.getScene().addEntity(new BulletEntity(entity.transform, input.getMousePosition(), 1000));
         }
+
+
     }
 
     /**

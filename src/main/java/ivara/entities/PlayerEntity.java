@@ -46,18 +46,9 @@ public class PlayerEntity extends GameEntity {
         sc.add(new ResourceID("player"), new Vector(width, height));
         addComponent(sc);
 
-        //Scripts---
-        PlayerScript pc = new PlayerScript(this);
-        CameraScript cs = new CameraScript(this, new Vector(width/2, height/2));
-
-        ScriptComponent scriptComponent = new ScriptComponent(this);
-        scriptComponent.add(pc);
-        scriptComponent.add(cs);
-
-        addComponent(scriptComponent);
 
         //Input---
-        addComponent(new InputComponent(this));
+        addComponent(new InputHandlerComponent(this));
 
         //Collider---
         Vector cTopLeft = new Vector(widthOff/2, heightOff);
@@ -76,7 +67,21 @@ public class PlayerEntity extends GameEntity {
         Vector sTopLeft = new Vector(widthOff/2, height-0.1f);
         Vector sDimensions = new Vector(width-widthOff, 0.1f);
         AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
-        addComponent(new SensorComponent(this, new Sensor(ab, pc)));
+        Sensor bottomSensor = new Sensor(ab);
+        addComponent(new SensorComponent(this, bottomSensor));
+
+        //Enable Listening for Sensor Events
+        addComponent(new SensorHandlerComponent(this));
+
+        //Scripts---
+        PlayerScript pc = new PlayerScript(this, bottomSensor);
+        CameraScript cs = new CameraScript(this, new Vector(width/2, height/2));
+
+        ScriptComponent scriptComponent = new ScriptComponent(this);
+        scriptComponent.add(pc);
+        scriptComponent.add(cs);
+
+        addComponent(scriptComponent);
     }
 }
 
