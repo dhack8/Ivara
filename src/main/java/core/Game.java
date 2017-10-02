@@ -7,6 +7,7 @@ import core.input.InputHandler;
 import core.scene.Scene;
 import core.input.KeyListener;
 import core.input.MouseListener;
+import ivara.scenes.LevelManager;
 
 /**
  * Created by Callum Li on 9/14/17.
@@ -21,7 +22,8 @@ public abstract class Game {
     /**
      * The current scene of the game.
      */
-    private Scene currentScene;
+    //private Scene currentScene;
+    private LevelManager levelManager;
 
     /**
      * Backend Dependent Renderer
@@ -32,23 +34,28 @@ public abstract class Game {
 
     public final InputHandler inputHandler;
 
-    public Game(Scene initialScene, Renderer renderer, final InputBroadcaster inputBroadcaster) {
+    public Game(LevelManager lm, Renderer renderer, final InputBroadcaster inputBroadcaster) {
         this.renderer = renderer;
         this.inputBroadcaster = inputBroadcaster;
         this.inputHandler = new InputHandler(inputBroadcaster);
+        this.levelManager = lm;
 
-        setCurrentScene(initialScene);
+        //todo need to change
+        setCurrentScene(0); // levelManager.getCurrentScene().setGame(this);
 
         assert inputBroadcaster != null;
     }
 
     public Scene getCurrentScene() {
-        return currentScene;
+        return levelManager.getCurrentScene();
     }
 
-    public void setCurrentScene(Scene scene) {
-        this.currentScene = scene;
-        this.currentScene.setGame(this);
+    public void setCurrentScene(int level) {
+        levelManager.setScene(level, this);
+    }
+
+    public void nextScene(){
+        levelManager.nextScene(this);
     }
 
     /**
@@ -68,14 +75,14 @@ public abstract class Game {
             // of time needs to be processed.
             while (accumulator >= tickTime) {
                 // do Tick
-                currentScene.update(tickTime);
+                levelManager.getCurrentScene().update(tickTime);
 
                 accumulator -= tickTime;
             }
 
             // Display the current scene.
 
-            renderer.render(currentScene);
+            renderer.render(levelManager.getCurrentScene());
 
         }
     }

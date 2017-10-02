@@ -5,19 +5,24 @@ import backends.Renderer;
 import backends.processing.PWindow;
 import com.jogamp.opengl.GLException;
 import core.Game;
-import ivara.scenes.LevelThree;
+import core.scene.Scene;
+import ivara.scenes.*;
 import processing.core.PApplet;
-import ivara.scenes.LevelOne;
-import ivara.scenes.IntroLevel;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Callum Li on 9/15/17.
  */
 public class Ivara extends Game {
 
-    public Ivara(Renderer renderer, InputBroadcaster inputBroadcaster) {
+    public Ivara(LevelManager lm, Renderer renderer, InputBroadcaster inputBroadcaster) {
         //super(new LevelOne(), renderer, inputBroadcaster);
-        super(new LevelThree(), renderer, inputBroadcaster);
+        //super(new LevelThree(), renderer, inputBroadcaster);
+        super(lm, renderer, inputBroadcaster);
     }
 
     public static void main(String[] args) {
@@ -31,7 +36,20 @@ public class Ivara extends Game {
             PApplet.runSketch(new String[]{"PWindow"}, processingBackend);
         }
 
-        Game g = new Ivara(processingBackend, processingBackend);
+        //todo
+
+        Game g = new Ivara(new LevelManager(getLevels()), processingBackend, processingBackend);
         g.start();
     }
+
+    private static List<Scene> getLevels(){
+        List<Scene> levels = new ArrayList<>();
+        levels.add(new LevelOne());
+        //levels.add(new LevelTwo());
+        levels.add(new LevelThree());
+        levels.add(new LevelFour());
+        levels.add(new LevelFive());
+        return levels;
+    }
+
 }

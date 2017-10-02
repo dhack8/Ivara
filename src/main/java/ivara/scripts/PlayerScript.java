@@ -25,6 +25,8 @@ public class PlayerScript implements Script, SensorListener {
 
     private final PlayerEntity player;
 
+    private  int accum = 0;
+
     public PlayerScript(PlayerEntity player) {
         this.player = player;
     }
@@ -59,6 +61,14 @@ public class PlayerScript implements Script, SensorListener {
         } else {
             vComp.setX(0f);
         }
+
+
+        accum += dt;
+        if(accum > 5000){
+            accum = 0;
+            entity.getScene().getGame().nextScene();
+        }
+
 
         if (input.isMousePressed(Constants.LEFT_MOUSE)) {
 
