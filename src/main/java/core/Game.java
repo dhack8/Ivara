@@ -76,7 +76,7 @@ public abstract class Game {
             }
 
             // Display the current scene.
-
+            //Latch blocks until the renderer releases it at the end of drawing
             CountDownLatch latch = new CountDownLatch(1);
             renderer.render(currentScene, latch);
             try {
