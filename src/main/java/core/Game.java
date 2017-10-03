@@ -92,15 +92,7 @@ public abstract class Game {
             }
 
             // Display the current scene.
-
-            //Latch blocks until the renderer releases it at the end of drawing
-            CountDownLatch latch = new CountDownLatch(1);
-            renderer.render(levelManager.getCurrentScene(), latch);
-            try {
-                latch.await();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            renderer.render(levelManager.getCurrentScene());
 
         }
     }

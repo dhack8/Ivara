@@ -13,5 +13,5 @@ public interface Renderer {
 
     void setMask(int mask);
 
-    void render(Scene scene, CountDownLatch latch);
+    void render(Scene scene);
 }
