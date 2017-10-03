@@ -62,7 +62,8 @@ public class PlayerScript implements Script, SensorListener {
             vComp.setX(0f);
         }
 
-
+        //todo for testing with levelmanager
+        /**
         accum += dt;
         if(accum > 5000){
             accum = 0;
@@ -73,7 +74,7 @@ public class PlayerScript implements Script, SensorListener {
             entity.getScene().getGame().pause();
             System.out.println("Pause");
         }
-
+        **/
 
         if (input.isMousePressed(Constants.LEFT_MOUSE)) {
 

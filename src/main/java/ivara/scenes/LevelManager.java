@@ -10,8 +10,12 @@ import java.util.*;
  * @author Alex Mitchell
  *
  * This class manages the levels within a game
+ *
+ * The LevelManager assumes that a game is set before the methods are run
  */
 public class LevelManager {
+
+    private Game game; // for back reference
 
     private List<Scene> scenes;
     private int currentScene;
@@ -29,6 +33,8 @@ public class LevelManager {
         //scenes.add(Objects.requireNonNull(s, "Cannot add a null scene."));
         currentScene = 0;
         paused = false;
+
+        //this.game = g;
     }
 
     /**
@@ -42,6 +48,13 @@ public class LevelManager {
         scenes = levels;
         currentScene = 0;
         paused = false;
+
+        //this.game = g;
+    }
+
+    public void setGame(Game g){
+        if(g == null) throw new IllegalArgumentException("Game cannot be null.");
+        game = g;
     }
 
     /**
@@ -62,30 +75,29 @@ public class LevelManager {
         return paused? pauseMenu : scenes.get(currentScene);
     }
 
-    /**     *
+    /**
      * Changes the current scene to the next scene
      * Upon reaching the last scene, the next scene becomes the first scene
      * Scene 0 is expected to be the menu
      *
-     * @param g A reference to the game in order to set a back reference.
      */
-    public void nextScene(Game g){ // Todo change this as the passed in game is only for giving a back-reference
+    public void nextScene(){ // Todo change this as the passed in game is only for giving a back-reference
         if(paused) throw new RuntimeException("Cannot change to the next scene while the menu is open.");
         if(currentScene == scenes.size()-1)currentScene = 0;
         else currentScene++;
-        getCurrentScene().setGame(g);
+
+        getCurrentScene().setGame(game);
     }
 
     /**
      * Sets the current scene to a scene specified by the level number
      * @param level The number of the level
-     * @param g A reference to the game in order to set a back reference
      */
-    public void setScene(int level, Game g){ // Todo decide if game should be here, or add a check if g == null
+    public void setScene(int level){ // Todo decide if game should be here, or add a check if g == null
         if(level >= scenes.size()) throw new NoSuchElementException("The scene does not exist.");
         paused = false;
         currentScene = level;
-        getCurrentScene().setGame(g);
+        getCurrentScene().setGame(game);
     }
 
 
@@ -120,16 +132,6 @@ public class LevelManager {
     }
 
     /**
-     * Appends a collection of scenes to the current collection of scenes
-     * @param s The collection of scenes
-     */
-    /**
-    public void addScenes(Collection<Scene> s){
-        scenes.addAll(Objects.requireNonNull(s, "Cannot add a null collection."));
-    }
-     **/
-
-    /**
      * Sets a pause menu scene for a game
      * By default, there is no pause menu
      * @param pause The scene to use as a pause menu
@@ -141,12 +143,11 @@ public class LevelManager {
 
     /**
      * Pauses the game / switches to the pause menu
-     * @param g A reference to the game, used for backwards reference
      */
-    public void pause(Game g){
+    public void pause(){
         if(pauseMenu == null) throw new RuntimeException("Cannot pause when no menu exists.");
         paused = !paused;
-        getCurrentScene().setGame(g);
+        getCurrentScene().setGame(game);
     }
 
 

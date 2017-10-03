@@ -40,8 +40,13 @@ public abstract class Game {
         this.inputHandler = new InputHandler(inputBroadcaster);
         this.levelManager = lm;
 
+        lm.setGame(this);
+
+        //set starting scene here
+
+        setCurrentScene(0);
         //todo need to change
-        setCurrentScene(0); // levelManager.getCurrentScene().setGame(this);
+        //setCurrentScene(0); // levelManager.getCurrentScene().setGame(this);
 
         assert inputBroadcaster != null;
     }
@@ -51,15 +56,15 @@ public abstract class Game {
     }
 
     public void setCurrentScene(int level) {
-        levelManager.setScene(level, this);
+        levelManager.setScene(level);
     }
 
     public void nextScene(){
-        levelManager.nextScene(this);
+        levelManager.nextScene();
     }
 
     public void pause(){
-        levelManager.pause(this);
+        levelManager.pause();
     }
 
     /**
