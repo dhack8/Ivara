@@ -1,11 +1,9 @@
 package ivara.scenes;
 
 import core.scene.Scene;
-import core.struct.Camera;
 import ivara.entities.BasicBlockEntity;
 import ivara.entities.MovingBlockEntity;
 import ivara.entities.PlayerEntity;
-import maths.Vector;
 
 /**
  * Created by Alex Mitchell on 17/09/2017.
@@ -28,7 +26,6 @@ public class LevelFour extends Scene{
 
         addEntity(new BasicBlockEntity(6,6,"dirt"));
         addEntity(new PlayerEntity(6,5));
-        setCamera(new Camera(new Vector(0,0), new Vector(32,18)));
 
     }
 }

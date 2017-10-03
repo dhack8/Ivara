@@ -1,9 +1,7 @@
 package ivara.scenes;
 
 import core.scene.Scene;
-import core.struct.Camera;
 import ivara.entities.*;
-import maths.Vector;
 
 /**
  * Testing out use of LinePlatformFactory
@@ -16,7 +14,6 @@ public class LevelFive extends Scene {
 
         //addEntity(new BackgroundEntity(0,0));
         addEntity(new PlayerEntity(1, -8));
-        setCamera(new Camera(new Vector(0,0), new Vector(32,18)));
 
         //addEntity(new MovingBlockEntity(5f, 3f, 5f, 5f, "grass-top", 0.4f));
         //addEntity(new MovingBlockEntity(5f, 3f, 10f, 3f, "grass-top", 1.5f));
