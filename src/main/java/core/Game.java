@@ -7,7 +7,6 @@ import core.input.InputHandler;
 import core.scene.Scene;
 import core.input.KeyListener;
 import core.input.MouseListener;
-import ivara.scenes.LevelManager;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -24,8 +23,7 @@ public abstract class Game {
     /**
      * The current scene of the game.
      */
-    //private Scene currentScene;
-    private LevelManager levelManager;
+    private Scene currentScene;
 
     /**
      * Backend Dependent Renderer
@@ -36,37 +34,23 @@ public abstract class Game {
 
     public final InputHandler inputHandler;
 
-    public Game(LevelManager lm, Renderer renderer, final InputBroadcaster inputBroadcaster) {
+    public Game(Scene initialScene, Renderer renderer, final InputBroadcaster inputBroadcaster) {
         this.renderer = renderer;
         this.inputBroadcaster = inputBroadcaster;
         this.inputHandler = new InputHandler(inputBroadcaster);
-        this.levelManager = lm;
 
-        lm.setGame(this);
-
-        //set starting scene here
-
-        setCurrentScene(0);
-        //todo need to change
-        //setCurrentScene(0); // levelManager.getCurrentScene().setGame(this);
+        setCurrentScene(initialScene);
 
         assert inputBroadcaster != null;
     }
 
     public Scene getCurrentScene() {
-        return levelManager.getCurrentScene();
+        return currentScene;
     }
 
-    public void setCurrentScene(int level) {
-        levelManager.setScene(level);
-    }
-
-    public void nextScene(){
-        levelManager.nextScene();
-    }
-
-    public void pause(){
-        levelManager.pause();
+    public void setCurrentScene(Scene scene) {
+        this.currentScene = scene;
+        this.currentScene.setGame(this);
     }
 
     /**
@@ -86,22 +70,20 @@ public abstract class Game {
             // of time needs to be processed.
             while (accumulator >= tickTime) {
                 // do Tick
-                levelManager.getCurrentScene().update(tickTime);
+                currentScene.update(tickTime);
 
                 accumulator -= tickTime;
             }
 
             // Display the current scene.
-
             //Latch blocks until the renderer releases it at the end of drawing
             CountDownLatch latch = new CountDownLatch(1);
-            renderer.render(levelManager.getCurrentScene(), latch);
+            renderer.render(currentScene, latch);
             try {
                 latch.await();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
         }
     }
 

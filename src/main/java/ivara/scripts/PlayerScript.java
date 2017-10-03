@@ -11,7 +11,6 @@ import core.input.SensorHandler;
 import core.struct.Sensor;
 import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
-import ivara.scenes.LevelManager;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -29,7 +28,7 @@ public class PlayerScript implements Script, SensorListener {
     private final PlayerEntity player;
     private final Sensor bottomSensor;
 
-    //private  int accum = 0; // for testing
+
     /**
      * Creates a player script without a bottom sensor,
      * exists for backwards compatibility with the sensorComponentTest.
@@ -84,20 +83,6 @@ public class PlayerScript implements Script, SensorListener {
         } else {
             vComp.setX(0f);
         }
-
-        //todo for testing with levelmanager
-        /**
-        accum += dt;
-        if(accum > 5000){
-            accum = 0;
-            entity.getScene().getGame().nextScene();
-        }
-
-        if(input.isKeyPressed(Constants.SPACE)){
-            entity.getScene().getGame().pause();
-            System.out.println("Pause");
-        }
-        **/
 
         if (input.isMousePressed(Constants.LEFT_MOUSE)) {
 
