@@ -36,7 +36,7 @@ public class MovingBlockEntity extends GameEntity {
        // addComponent(new SpriteComponent(this, recourseID, 1f, 1f));
         addComponent(new ColliderComponent(this, new AABBCollider(new Vector(0.5f, 0.5f), new Vector(0.5f, 0.5f))));
 
-        VelocityComponent velocity = new VelocityComponent(this);
+        //VelocityComponent velocity = new VelocityComponent(this);
         addComponent(new VelocityComponent(this));
 
         //addComponent(new AutomatedMoveController(this, new Vector(endX, endY), time));

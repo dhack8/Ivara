@@ -22,12 +22,14 @@ import physics.AABBCollider;
  * @author Alex Mitchell
  * @author Will Pearson
  */
-public class PlayerScript implements Script, SensorListener {
+public class PlayerScript implements Script{//}, SensorListener {
 
     private float metresPerSecond = 3f;
 
-    private final PlayerEntity player;
+    private final PlayerEntity player; //todo do we need this?
     private final Sensor bottomSensor;
+
+    private Vector relative;
 
     //private  int accum = 0; // for testing
     /**
@@ -39,11 +41,14 @@ public class PlayerScript implements Script, SensorListener {
     public PlayerScript(PlayerEntity player) {
         this.player = player;
         this.bottomSensor = new Sensor(new AABBCollider(0, new Vector(0, 0), new Vector(0, 0)));
+        relative = new Vector(0f,0f);
     }
 
     public PlayerScript(PlayerEntity player, Sensor bottomSensor) {
         this.player = player;
         this.bottomSensor = bottomSensor;
+        relative = new Vector(0f,0f);
+
     }
 
     /**
@@ -51,38 +56,33 @@ public class PlayerScript implements Script, SensorListener {
      * @param dt elapsed milliseconds since last update
      */
     @Override
-    public void update(int dt, GameEntity entity) { // Todo change how these are handled -- temp fix for the removal of translate
-        SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
-        if (sensorHandler.isActive(bottomSensor)) {
-            GameEntity entity1 = sensorHandler.getActivatingEntities(bottomSensor).stream().findAny().get();
-            //System.out.println("Hello World");
-            onActive(bottomSensor, entity1);
-        }
-
+    public void update(int dt, GameEntity entity) {
+        float speed = metresPerTick(dt); // Todo consider this for velocity
         InputHandler input = entity.getInput();
-
-
-        float speed = metresPerTick(dt);
-
         PlayerEntity pEntity = (PlayerEntity) entity;
         VelocityComponent vComp = pEntity.get(VelocityComponent.class).get();
 
+        SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
+        if (sensorHandler.isActive(bottomSensor)) {
+            GameEntity collided = sensorHandler.getActivatingEntities(bottomSensor).stream().findAny().get();
+            groundCollision(pEntity, collided);
+            vComp.setY(relative.y); // Todo regardless, when the sensor is triggered the y velocity is set to 0
+        }else relative.set(0f,0f); // Todo Relative velocity reset to 0 when there is no contact with a block
+
         if (input.isKeyPressed(Constants.W)) {
-            //System.out.println("UP");
             if (pEntity.canJump) {
-                vComp.setY(-7f);
+                vComp.setY(-7f + relative.y); // Todo, on a jump y velocity is set to relative y velocity + the jump velocity
                 pEntity.canJump = false;
             }
-        } else if (input.isKeyPressed(Constants.S)) {
-            vComp.setY(3f);
         }
 
         if (input.isKeyPressed(Constants.A)) {
-            vComp.setX(-3f);
+            vComp.setX(-3f + relative.x); // Todo on a move left or right, horizontal speed is set to relative y velocity + move velocity
+
         } else if (input.isKeyPressed(Constants.D)) {
-            vComp.setX(3f);
-        } else {
-            vComp.setX(0f);
+            vComp.setX(3f + relative.x);
+        }else{
+            vComp.setX(relative.x); // Todo when no left or right is pressed, the speed is set to the relative x speed
         }
 
         //todo for testing with levelmanager
@@ -103,8 +103,6 @@ public class PlayerScript implements Script, SensorListener {
 
             entity.getScene().addEntity(new BulletEntity(entity.transform, input.getMousePosition(), 1000));
         }
-
-
     }
 
     /**
@@ -116,25 +114,20 @@ public class PlayerScript implements Script, SensorListener {
         return metresPerSecond / 1000f * dmt;
     }
 
-    @Override
-    public void onEnter(Sensor sensor, GameEntity entity) {
 
-    }
-
-    @Override
-    public void onActive(Sensor sensor, GameEntity entity) {
+    /**
+     * Does the necessary actions for when a player comes into contact with the ground
+     *
+     * @param entity The player entity
+     */
+    private void groundCollision(PlayerEntity player, GameEntity entity) {
         player.canJump = true;
         VelocityComponent v = player.get(VelocityComponent.class).get();
         Vector c = entity.get(VelocityComponent.class)
                 .map(VelocityComponent::getVelocity)
                 .orElse(new Vector(0, 0));
-        v.setX(c.x);
-        v.setY(c.y);
 
+        relative.set(c); // todo relative speed is set
     }
 
-    @Override
-    public void onExit(Sensor sensor, GameEntity entity) {
-
-    }
 }
