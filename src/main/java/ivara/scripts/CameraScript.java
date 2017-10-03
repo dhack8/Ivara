@@ -23,7 +23,7 @@ public class CameraScript implements Script {
     @Override
     public void update(int dt, GameEntity entity) {
         camera = tracking.getScene().getCamera();
-        float x = tracking.getTransform().x + offset.x - camera.dimensions.x/2;
+        float x = tracking.getTransform().x + offset.x - camera.dimensions.x/2.5f;
         float y = tracking.getTransform().y + offset.y - camera.dimensions.y/2;
         camera.transform.set(x,y);
     }
