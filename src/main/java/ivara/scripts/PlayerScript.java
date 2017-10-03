@@ -55,7 +55,7 @@ public class PlayerScript implements Script, SensorListener {
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
         if (sensorHandler.isActive(bottomSensor)) {
             GameEntity entity1 = sensorHandler.getActivatingEntities(bottomSensor).stream().findAny().get();
-            System.out.println("Hello World");
+            //System.out.println("Hello World");
             onActive(bottomSensor, entity1);
         }
 
@@ -68,7 +68,7 @@ public class PlayerScript implements Script, SensorListener {
         VelocityComponent vComp = pEntity.get(VelocityComponent.class).get();
 
         if (input.isKeyPressed(Constants.W)) {
-            System.out.println("UP");
+            //System.out.println("UP");
             if (pEntity.canJump) {
                 vComp.setY(-7f);
                 pEntity.canJump = false;
