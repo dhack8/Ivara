@@ -33,6 +33,6 @@ public class IntroLevel extends Scene{
         //wall off screen blocking movement to the right
         addEntity(new NPlatformEntity(21, -1,3,true));
 
-        setCamera(new Camera(new Vector(0,0), new Vector(32,18)));
+        setCamera(new Camera());
     }
 }
