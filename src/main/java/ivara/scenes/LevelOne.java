@@ -56,6 +56,6 @@ public class LevelOne extends Scene {
         addEntity(new MovingBlockEntity(-1,8,-1,3, "grass-top", 3));
         addEntity(new NPlatformEntity(-5,2,7,true));
         addEntity(new NPlatformEntity(-4,8,4,false));
-        setCamera(new Camera(new Vector(0,0), new Vector(16,9)));
+        setCamera(new Camera());
     }
 }
