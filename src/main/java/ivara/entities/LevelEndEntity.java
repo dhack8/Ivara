@@ -21,7 +21,7 @@ public class LevelEndEntity extends GameEntity {
         super(new Vector(x,y));
 
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new ResourceID("dirt"), new Vector(width, height));
+        sc.add(new ResourceID("flag-orange"), new Vector(width, height));
         addComponent(sc);
 
         addComponent(new LayerComponent(this, 999));
