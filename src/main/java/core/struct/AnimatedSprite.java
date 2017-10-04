@@ -44,7 +44,7 @@ public class AnimatedSprite extends Sprite{
      */
     public void addResources(String state, List<String> resources) {
         assert state != null && resources != null && resources.size() > 0;
-        assert resourceMap.containsKey(state);
+        assert !resourceMap.containsKey(state);
         resourceMap.put(state, resources);
     }
 
