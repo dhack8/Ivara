@@ -7,6 +7,7 @@ import ivara.entities.NPlatformEntity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
 
+import javax.sound.sampled.Line;
 import java.util.Optional;
 
 /**
@@ -22,20 +23,16 @@ public class IntroLevel extends Scene{
 
         //TODO make it a nplatform witih transparent image so they collide but dont do anything
         //wall off screen blocking movement to the left
-        addEntity(new NPlatformEntity(-1, 2, 3, true));
+        //addEntity(new NPlatformEntity(-1, 2, 3, true));
 
         addEntity(new NPlatformEntity(0,5,5,false));
         addEntity(new NPlatformEntity(5,4,3,false));
         addEntity(new NPlatformEntity(8,6,5,false));
-        //addEntities(LinePlatformFactory.line(13,5,20,2));
-        addEntity(new NPlatformEntity(13,5,2,false));
-        addEntity(new NPlatformEntity(15,4,2,false));
-        addEntity(new NPlatformEntity(17,3,2,false));
-        addEntity(new NPlatformEntity(19,2,2,false));
+        addEntities(LinePlatformFactory.line(13,5,20,2));
 
         //TODO transparent block
         //wall off screen blocking movement to the right
-        addEntity(new NPlatformEntity(21, -1,3,true));
+        //addEntity(new NPlatformEntity(21, -1,3,true));
 
         setCamera(new Camera());
     }

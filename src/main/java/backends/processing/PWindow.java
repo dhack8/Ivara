@@ -100,6 +100,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/black-box.png", "black-box", this);
         AssetHandler.loadImage("./assets/dirt.png", "dirt", this);
         AssetHandler.loadImage("./assets/dirt-bottom.png", "dirt-bottom", this);
+        AssetHandler.loadImage("./assets/fake-block.png", "fake-block", this);
+        AssetHandler.loadImage("./assets/fake-block-dead.png", "fake-block-dead", this);
         AssetHandler.loadImage("./assets/flag-green.png", "flag-green", this);
         AssetHandler.loadImage("./assets/flag-orange.png", "flag-orange", this);
         AssetHandler.loadImage("./assets/ghost.png", "ghost", this);
@@ -113,6 +115,9 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/grass-top.png", "grass-top", this);
         AssetHandler.loadImage("./assets/grass-top-left.png", "grass-top-left", this);
         AssetHandler.loadImage("./assets/grass-top-right.png", "grass-top-right", this);
+        AssetHandler.loadImage("./assets/long-slime.png", "long-slime", this);
+        AssetHandler.loadImage("./assets/long-slime2.png", "long-slime2", this);
+        AssetHandler.loadImage("./assets/long-slime-dead.png", "long-slime-dead", this);
         AssetHandler.loadImage("./assets/player.png", "player", this);
         AssetHandler.loadImage("./assets/player-dead.png", "player-dead", this);
         AssetHandler.loadImage("./assets/player-duck.png", "player-duck", this);
