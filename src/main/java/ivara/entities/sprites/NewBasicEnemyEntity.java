@@ -94,7 +94,6 @@ public class NewBasicEnemyEntity extends GameEntity{
         AABBCollider bRCol = new AABBCollider(AABBCollider.MIN_DIM, bRight, bDimensions);
         Sensor bRSensor = new Sensor(bRCol);
 
-
         //Add sensors to sensor component
         SensorComponent sComp = new SensorComponent(this, new Sensor[]{leftSensor, rightSensor, groundSensor, bLSensor, bRSensor});
         addComponent(sComp);
@@ -102,7 +101,8 @@ public class NewBasicEnemyEntity extends GameEntity{
         addComponent(new SensorHandlerComponent(this));
 
         //Scripts---
-        BasicEnemyScript s = new BasicEnemyScript(this, leftSensor, rightSensor, groundSensor);
+        //BasicEnemyScript s = new BasicEnemyScript(this, leftSensor, rightSensor, groundSensor);
+        BasicEnemyScript s = new BasicEnemyScript(this, leftSensor, rightSensor, groundSensor, bLSensor, bRSensor);
         ScriptComponent scriptComp = new ScriptComponent(this, s);
         addComponent(scriptComp);
     }
