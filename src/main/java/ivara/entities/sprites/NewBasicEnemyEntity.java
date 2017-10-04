@@ -40,9 +40,9 @@ public class NewBasicEnemyEntity extends GameEntity{
 
     //Todo working on sensors for moving onto a non-existent platform
 
-    private float groundSensorXOffset = 1f;
+    private float groundSensorXOffset = 0f;
     private float groundSensorYOffset = 0f;
-    private float groundSensorWidth = 0.5f;
+    private float groundSensorWidth = 0.2f;
     private float groundSensorHeight= 0f;
 
     public NewBasicEnemyEntity(Vector transform, String resourceID){
@@ -85,8 +85,8 @@ public class NewBasicEnemyEntity extends GameEntity{
         Sensor groundSensor = new Sensor(bottom);
 
         //Bottom sensors
-        Vector bLeft = new Vector(-groundSensorXOffset, height);
-        Vector bRight = new Vector(width, height);
+        Vector bLeft = new Vector(-groundSensorWidth, height + groundSensorYOffset);
+        Vector bRight = new Vector(width, height+groundSensorYOffset);
         Vector bDimensions = new Vector(groundSensorWidth, groundSensorHeight);
 
         AABBCollider bLCol = new AABBCollider(AABBCollider.MIN_DIM, bLeft, bDimensions);

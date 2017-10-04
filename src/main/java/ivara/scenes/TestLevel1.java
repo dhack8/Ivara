@@ -15,7 +15,7 @@ public class TestLevel1 extends Scene{
     public TestLevel1(){
         addEntity(new BasicBlockEntity(0,1,"dirt"));
         addEntity(new NPlatformEntity(1,2,3, false));
-        addEntity(new BasicBlockEntity(4,1,"dirt"));
+        addEntity(new BasicBlockEntity(4,2.1f,"dirt"));
         addEntity(new PlayerEntity(0,0));
         addEntity(new NewBasicEnemyEntity(new Vector(2,1), "slime"));
 
