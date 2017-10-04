@@ -25,9 +25,9 @@ public class LevelChangeScript implements Script{
     public void update(int dt, GameEntity entity) {
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
         if(sensorHandler.isActive(sensor)){
-            GameEntity collided = sensorHandler.getActivatingEntities(sensor).stream().findAny().get();
+            GameEntity collided = sensorHandler.getActivatingEntities(sensor).stream().filter((e) -> e instanceof PlayerEntity).findAny().get();
 
-            if(collided instanceof PlayerEntity && !entered) {
+            if(!entered) {
                 entered = true;
                 entity.getScene().getGame().nextScene();
             }

@@ -50,7 +50,7 @@ public class Ivara extends Game {
     private static List<Scene> getLevels(){
         List<Scene> levels = new ArrayList<>();
         //level 0 or the first level is the menu
-        levels.add(new IntroLevel());
+        //levels.add(new IntroLevel());
         levels.add(new LevelOne());
         //levels.add(new LevelTwo());
         levels.add(new LevelThree());
