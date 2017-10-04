@@ -25,9 +25,9 @@ public class AssetHandlerTest {
 
     @Before
     public void setUp() throws Exception {
-        //testHandler = new AssetHandler();
+        testHandler = new AssetHandler();
         filePath = "./assets/player.png";
-        renderer = new PWindow(false);
+        renderer = new PWindow(true);
         //renderer.setup();
     }
 
@@ -36,19 +36,19 @@ public class AssetHandlerTest {
      * loadImage method. Asserts that the image retrieved from the map is not null.
      * @throws RuntimeException
      */
-    @Test
-    public void loadImage() throws RuntimeException { //TODO runtime exception
-        try {
-            AssetHandler.loadImage(filePath, "Player", renderer);
-            //assertTrue(testHandler.getImageMap().size() == 1);
-            //System.out.println("testHandler image map size = " + testHandler.getImageMap().size());
-
-        }catch(Exception e){
-            throw new RuntimeException(e.getMessage() + e.getCause());
-        }
-        //PImage test = testHandler.getImage("Player");
-        //assertNotNull(test);
-    }
+//    @Test
+//    public void loadImage() throws RuntimeException { //TODO runtime exception
+//        try {
+//            testHandler.loadImage(filePath, "Player", renderer);
+//            //assertTrue(testHandler.getImageMap().size() == 1);
+//            //System.out.println("testHandler image map size = " + testHandler.getImageMap().size());
+//
+//        }catch(Exception e){
+//            throw new RuntimeException(e.getMessage() + e.getCause());
+//        }
+//        //PImage test = testHandler.getImage("Player");
+//        //assertNotNull(test);
+//    }
 
     /**
      * Test for the getImage method. Tests the retrieval of the getImage method in AssetHandler by adding "player.png"
