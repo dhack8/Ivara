@@ -40,7 +40,7 @@ public class PlayerSprite extends AnimatedSprite {
                 "player-left"
         };
         addResources(state, Arrays.asList(resources));
-        setState("idle-right");
+        setState("walking-left"); //TODO incorporate state changes by key
     }
 
 

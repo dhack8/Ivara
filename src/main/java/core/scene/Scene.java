@@ -33,6 +33,7 @@ public abstract class Scene {
         world.addSystem(new SensorSystem());
         world.addSystem(new PhysicsSystem());
         world.addSystem(new ScriptSystem());
+        world.addSystem(new AnimationSystem());
     }
 
     public void setGame(Game game) {

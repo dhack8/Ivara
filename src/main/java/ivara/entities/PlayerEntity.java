@@ -4,6 +4,7 @@ import core.components.*;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sensor;
+import ivara.entities.sprites.PlayerSprite;
 import ivara.scripts.CameraScript;
 import ivara.scripts.PlayerScript;
 import maths.Vector;
@@ -43,7 +44,8 @@ public class PlayerEntity extends GameEntity {
 
         //Sprites---
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new ResourceID("player"), new Vector(width, height));
+        //sc.add(new ResourceID("player"), new Vector(width, height));
+        sc.add(new PlayerSprite(new Vector(0,0), new Vector(width, height), 1000));
         addComponent(sc);
 
 
