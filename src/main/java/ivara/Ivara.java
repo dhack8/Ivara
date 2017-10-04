@@ -5,13 +5,12 @@ import backends.Renderer;
 import backends.processing.PWindow;
 import com.jogamp.opengl.GLException;
 import core.Game;
+import core.scene.LevelManager;
 import core.scene.Scene;
 import ivara.scenes.*;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -36,7 +35,8 @@ public class Ivara extends Game {
 
         //todo
 
-        LevelManager l = new LevelManager(getLevels());
+        //LevelManager l = new LevelManager(getLevels());
+        LevelManager l = new LevelManager(new TestLevel1());
         l.setPauseMenu(new LevelFour());
 
         Game g = new Ivara(l, processingBackend, processingBackend);

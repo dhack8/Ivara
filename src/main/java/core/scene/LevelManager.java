@@ -1,4 +1,4 @@
-package ivara.scenes;
+package core.scene;
 
 import core.Game;
 import core.scene.Scene;

@@ -1,7 +1,6 @@
 package ivara.scripts;
 
 import core.Script;
-import core.SensorListener;
 import core.components.SensorHandlerComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
@@ -11,7 +10,6 @@ import core.input.SensorHandler;
 import core.struct.Sensor;
 import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
-import ivara.scenes.LevelManager;
 import maths.Vector;
 import physics.AABBCollider;
 

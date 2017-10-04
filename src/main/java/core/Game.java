@@ -5,11 +5,7 @@ import backends.InputBroadcaster;
 import backends.Renderer;
 import core.input.InputHandler;
 import core.scene.Scene;
-import core.input.KeyListener;
-import core.input.MouseListener;
-import ivara.scenes.LevelManager;
-
-import java.util.concurrent.CountDownLatch;
+import core.scene.LevelManager;
 
 /**
  * Created by Callum Li on 9/14/17.
