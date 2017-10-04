@@ -96,8 +96,15 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void setup(){
+        AssetHandler.loadImage("./assets/background.png", "background", this);
+        AssetHandler.loadImage("./assets/black-box.png", "black-box", this);
         AssetHandler.loadImage("./assets/dirt.png", "dirt", this);
         AssetHandler.loadImage("./assets/dirt-bottom.png", "dirt-bottom", this);
+        AssetHandler.loadImage("./assets/flag-green.png", "flag-green", this);
+        AssetHandler.loadImage("./assets/flag-orange.png", "flag-orange", this);
+        AssetHandler.loadImage("./assets/ghost.png", "ghost", this);
+        AssetHandler.loadImage("./assets/ghost2.png", "ghost2", this);
+        AssetHandler.loadImage("./assets/ghost-dead.png", "ghost-dead", this);
         AssetHandler.loadImage("./assets/grass-bottom.png", "grass-bottom", this);
         AssetHandler.loadImage("./assets/grass-bottom-left.png", "grass-bottom-left", this);
         AssetHandler.loadImage("./assets/grass-bottom-right.png", "grass-bottom-right", this);
@@ -107,9 +114,17 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/grass-top-left.png", "grass-top-left", this);
         AssetHandler.loadImage("./assets/grass-top-right.png", "grass-top-right", this);
         AssetHandler.loadImage("./assets/player.png", "player", this);
-        AssetHandler.loadImage("./assets/background.png", "background", this);
+        AssetHandler.loadImage("./assets/player-dead.png", "player-dead", this);
+        AssetHandler.loadImage("./assets/player-duck.png", "player-duck", this);
+        AssetHandler.loadImage("./assets/player-jump.png", "player-jump", this);
+        AssetHandler.loadImage("./assets/player-left.png", "player-left", this);
+        AssetHandler.loadImage("./assets/player-right.png", "player-right", this);
+        AssetHandler.loadImage("./assets/player-walk-left.png", "player-walk-left", this);
+        AssetHandler.loadImage("./assets/player-walk-right.png", "player-walk-right", this);
+        AssetHandler.loadImage("./assets/player-walk2-left.png", "player-walk2-left", this);
+        AssetHandler.loadImage("./assets/player-walk2-right.png", "player-walk2-right", this);
         AssetHandler.loadImage("./assets/slime.png", "slime", this);
-        AssetHandler.loadImage("./assets/flag-orange.png", "flag-orange", this);
+        AssetHandler.loadImage("./assets/slime-dead.png", "slime-dead", this);
     }
 
     /**
