@@ -41,7 +41,7 @@ public class PWindowTest {
 
         long start = System.currentTimeMillis();
         while(true) {
-            testWindow.render(testScene, null);
+            testWindow.render(testScene);
             if(System.currentTimeMillis() - start > delay){
                 break;
             }
@@ -61,7 +61,7 @@ public class PWindowTest {
 
         start = System.currentTimeMillis();
         while(true) {
-            testWindow.render(testScene, null);
+            testWindow.render(testScene);
             if(System.currentTimeMillis() - start > delay){
                 break;
             }
@@ -81,7 +81,7 @@ public class PWindowTest {
 
         start = System.currentTimeMillis();
         while(true) {
-            testWindow.render(testScene, null);
+            testWindow.render(testScene);
             if(System.currentTimeMillis() - start > delay){
                 break;
             }
@@ -101,7 +101,7 @@ public class PWindowTest {
 
         start = System.currentTimeMillis();
         while(true) {
-            testWindow.render(testScene, null);
+            testWindow.render(testScene);
             if(System.currentTimeMillis() - start > delay){
                 break;
             }

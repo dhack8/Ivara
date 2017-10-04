@@ -29,5 +29,7 @@ public class LevelThree extends Scene{
 
         setCamera(new Camera());
 
+        //todo added
+        addEntity(new LevelEndEntity(2,0));
     }
 }
