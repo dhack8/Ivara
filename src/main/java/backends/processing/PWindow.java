@@ -43,6 +43,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     private List<MouseListener> mouseListeners = new ArrayList<>();
 
     private boolean useOpenGl;
+    private boolean drawing = false;
 
     public PWindow(boolean useOpenGl){
         this.useOpenGl = useOpenGl;
@@ -69,7 +70,14 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         }
 
         currentScene = scene;
+
+        drawing = true;
+
         redraw();
+
+        while(drawing){
+            System.out.println("Alo is cool with a k");
+        }
     }
 
     /**
@@ -171,6 +179,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
             rect(0, 0, b.x, height);
             rect(width - b.x, 0, b.x, height);
         }
+
+        drawing = false;
     }
 
     private void drawSensors(GameEntity e){
@@ -239,6 +249,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         fill(0);
         //TEXT THROWS ERRORS PROCESSINGS FAULT
         //text(text, 10, 40);
+        drawing = false;
     }
 
     /**
