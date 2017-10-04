@@ -28,6 +28,10 @@ public class IntroLevel extends Scene{
         addEntity(new NPlatformEntity(5,4,3,false));
         addEntity(new NPlatformEntity(8,6,5,false));
         //addEntities(LinePlatformFactory.line(13,5,20,2));
+        addEntity(new NPlatformEntity(13,5,2,false));
+        addEntity(new NPlatformEntity(15,4,2,false));
+        addEntity(new NPlatformEntity(17,3,2,false));
+        addEntity(new NPlatformEntity(19,2,2,false));
 
         //TODO transparent block
         //wall off screen blocking movement to the right

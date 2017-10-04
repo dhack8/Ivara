@@ -25,20 +25,27 @@ public class AssetHandlerTest {
 
     @Before
     public void setUp() throws Exception {
-        testHandler = new AssetHandler();
+        //testHandler = new AssetHandler();
         filePath = "./assets/player.png";
-        //renderer = new PWindow();
+        renderer = new PWindow(false);
         //renderer.setup();
     }
 
     /**
      * Adds an image file, along with a String identifier, into the map within the AssetHandler class to test the
      * loadImage method. Asserts that the image retrieved from the map is not null.
-     * @throws Exception
+     * @throws RuntimeException
      */
     @Test
-    public void loadImage() throws Exception { //TODO runtime exceptions
-        //testHandler.loadImage(filePath, "Player", renderer);
+    public void loadImage() throws RuntimeException { //TODO runtime exception
+        try {
+            AssetHandler.loadImage(filePath, "Player", renderer);
+            //assertTrue(testHandler.getImageMap().size() == 1);
+            //System.out.println("testHandler image map size = " + testHandler.getImageMap().size());
+
+        }catch(Exception e){
+            throw new RuntimeException(e.getMessage() + e.getCause());
+        }
         //PImage test = testHandler.getImage("Player");
         //assertNotNull(test);
     }
