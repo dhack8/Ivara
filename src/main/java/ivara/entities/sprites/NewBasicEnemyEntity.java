@@ -42,8 +42,8 @@ public class NewBasicEnemyEntity extends GameEntity{
 
     private float groundSensorXOffset = 1f;
     private float groundSensorYOffset = 0f;
-    private float groundSensorWidth = 1f;
-    private float groundSensorHeight= 1f;
+    private float groundSensorWidth = 0.5f;
+    private float groundSensorHeight= 0f;
 
     public NewBasicEnemyEntity(Vector transform, String resourceID){
         super(transform);
