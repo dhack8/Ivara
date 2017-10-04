@@ -76,7 +76,11 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         redraw();
 
         while(drawing){
-            System.out.println("Alo is cool with a k");
+            try {
+                Thread.sleep(0, 2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
