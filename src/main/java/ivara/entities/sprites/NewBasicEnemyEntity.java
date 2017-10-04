@@ -89,14 +89,14 @@ public class NewBasicEnemyEntity extends GameEntity{
         Vector bRight = new Vector(width, height);
         Vector bDimensions = new Vector(groundSensorWidth, groundSensorHeight);
 
-        AABBCollider bLCol = new AABBCollider(AABBCollider.MIN_DIM, bLeft, bottomDimensions);
-        Sensor groundSensor = new Sensor(bottom);
-        AABBCollider bottom = new AABBCollider(AABBCollider.MIN_DIM, bottomLeft, bottomDimensions);
-        Sensor groundSensor = new Sensor(bottom);
+        AABBCollider bLCol = new AABBCollider(AABBCollider.MIN_DIM, bLeft, bDimensions);
+        Sensor bLSensor = new Sensor(bLCol);
+        AABBCollider bRCol = new AABBCollider(AABBCollider.MIN_DIM, bRight, bDimensions);
+        Sensor bRSensor = new Sensor(bRCol);
 
 
         //Add sensors to sensor component
-        SensorComponent sComp = new SensorComponent(this, new Sensor[]{leftSensor, rightSensor, groundSensor});
+        SensorComponent sComp = new SensorComponent(this, new Sensor[]{leftSensor, rightSensor, groundSensor, bLSensor, bRSensor});
         addComponent(sComp);
         //Enable Listening for Sensor Events
         addComponent(new SensorHandlerComponent(this));
