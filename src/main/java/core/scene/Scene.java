@@ -4,6 +4,7 @@ import core.Game;
 import core.entity.GameEntity;
 import core.input.InputHandler;
 import core.struct.Camera;
+import core.struct.Timer;
 import core.systems.*;
 import maths.Vector;
 import scew.World;
@@ -26,6 +27,7 @@ public abstract class Scene {
     private World<GameEntity> world                 = new World<>();
     private Map<String, GameEntity> nameEntityMap   = new HashMap<>();
     private Camera camera                           = null;
+    private TimerSystem timerSystem                 = new TimerSystem();
 
     public Scene() {
         world.addSystem(new GravitySystem(new Vector(0, 25f)));
@@ -34,6 +36,7 @@ public abstract class Scene {
         world.addSystem(new PhysicsSystem());
         world.addSystem(new ScriptSystem());
         world.addSystem(new AnimationSystem());
+        world.addSystem(timerSystem);
     }
 
     public void setGame(Game game) {
@@ -101,6 +104,15 @@ public abstract class Scene {
     }
 
     /**
+     * Removes the given entity from the scene if it exists.
+     * @param entity The entity to remove.
+     */
+    public void removeEntity(GameEntity entity) {
+        world.removeEntity(entity);
+        entity.setScene(null);
+    }
+
+    /**
      * Adds an entity to the collection of the entities within the Scene
      *
      * @param entity The entity to add
@@ -109,18 +121,16 @@ public abstract class Scene {
         addEntity(entity, Optional.empty());
     }
 
+    public void addTimer(Timer timer) {
+        timerSystem.addTimer(timer);
+    }
+
+    /**
+     * Updates the scene by the delta milliseconds
+     * @param delta The milliseconds to update.
+     */
     public void update(int delta) {
         world.update(delta);
 
-        /*
-        EntitySystem r = new MassCollisionResolver(entities);
-        r.update(delta);
-        VelocitySystem v = new VelocitySystem(entities);
-        v.update(delta);
-        SensorSystem s = new SensorSystem(entities);
-        s.update(delta);
-        EntitySystem a = new AnimationSystem(entities);
-        a.update(delta);
-         */
     }
 }

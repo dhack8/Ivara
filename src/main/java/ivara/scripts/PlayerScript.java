@@ -8,6 +8,7 @@ import core.input.Constants;
 import core.input.InputHandler;
 import core.input.SensorHandler;
 import core.struct.Sensor;
+import core.struct.Timer;
 import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
@@ -99,7 +100,9 @@ public class PlayerScript implements Script{//}, SensorListener {
 
         if (input.isMousePressed(Constants.LEFT_MOUSE)) {
 
-            entity.getScene().addEntity(new BulletEntity(entity.transform, input.getMousePosition(), 1000));
+            GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(), 1000);
+            entity.getScene().addEntity(bullet);
+            entity.getScene().addTimer(new Timer(1000, () -> entity.getScene().removeEntity(bullet)));
         }
     }
 

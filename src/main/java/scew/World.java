@@ -44,6 +44,15 @@ public class World<T extends Entity> {
     }
 
     /**
+     * Removes the given entity from the world if it exists in this world.
+     * @param entity The entity to remove.
+     * @return True if an entity was removed, otherwise false.
+     */
+    final public boolean removeEntity(T entity) {
+        return entities.remove(entity);
+    }
+
+    /**
      * Adds the given system to the world.
      * @param system The system to add.
      */
