@@ -18,15 +18,19 @@ public class TimerSystem extends System<GameEntity> {
 
     @Override
     public void update(int dt, World<GameEntity> world) {
+        // Prevent asynchronous modification.
         Set<Timer> finishedTimers = new HashSet<>();
+        Set<Timer> runningTimers = new HashSet<>(timers);
 
-        for (Timer timer : timers) {
+        // Update timers.
+        for (Timer timer : runningTimers) {
             timer.update(dt);
             if (timer.isFinished()) {
                 finishedTimers.add(timer);
             }
         }
 
+        // Remove finished timers and perform actions.
         timers.removeAll(finishedTimers);
 
         for (Timer timer : finishedTimers) {
