@@ -13,6 +13,7 @@ import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
 import physics.AABBCollider;
+import util.Debug;
 
 /**
  * Script to control the player entity. Relies on the current input
@@ -57,7 +58,7 @@ public class PlayerScript implements Script{//}, SensorListener {
     @Override
     public void update(int dt, GameEntity entity) {
         float speed = metresPerTick(dt); // Todo consider this for velocity
-        InputHandler input = entity.getInput();
+        InputHandler.InputFrame input = entity.getInput();
         PlayerEntity pEntity = (PlayerEntity) entity;
         VelocityComponent vComp = pEntity.get(VelocityComponent.class).get();
 
@@ -103,6 +104,10 @@ public class PlayerScript implements Script{//}, SensorListener {
             GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(), 1000);
             entity.getScene().addEntity(bullet);
             entity.getScene().addTimer(new Timer(1000, () -> entity.getScene().removeEntity(bullet)));
+        }
+
+        if (input.isKeyReleased(Constants.W)) {
+            Debug.log("Released UP");
         }
     }
 

@@ -27,8 +27,8 @@ public abstract class GameEntity extends Entity {
         return scene;
     }
 
-    public InputHandler getInput() {
-        return scene.getGame().inputHandler;
+    public InputHandler.InputFrame getInput() {
+        return scene.getGame().getInputFrame();
     }
 
     public GameEntity(Vector transform) {

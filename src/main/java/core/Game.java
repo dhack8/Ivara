@@ -30,7 +30,8 @@ public abstract class Game {
 
     private final InputBroadcaster inputBroadcaster;
 
-    public final InputHandler inputHandler;
+    private final InputHandler inputHandler;
+    private InputHandler.InputFrame inputFrame = new InputHandler.InputFrame();
 
     public Game(LevelManager lm, Renderer renderer, final InputBroadcaster inputBroadcaster) {
         this.renderer = renderer;
@@ -66,6 +67,14 @@ public abstract class Game {
     }
 
     /**
+     * Retrieves the current input frame.
+     * @return
+     */
+    public InputHandler.InputFrame getInputFrame() {
+        return inputFrame;
+    }
+
+    /**
      * Starts the game.
      */
     final public void start() {
@@ -82,6 +91,7 @@ public abstract class Game {
             // of time needs to be processed.
             while (accumulator >= tickTime) {
                 // do Tick
+                inputFrame = inputHandler.nextInputFrame();
                 levelManager.getCurrentScene().update(tickTime);
 
                 accumulator -= tickTime;
