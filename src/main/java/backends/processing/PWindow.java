@@ -3,7 +3,6 @@ package backends.processing;
 import backends.InputBroadcaster;
 import backends.Renderer;
 import core.AssetHandler;
-import core.Game;
 import core.components.*;
 import core.entity.GameEntity;
 import core.input.KeyListener;
@@ -17,13 +16,11 @@ import physics.AABBCollider;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
-import processing.opengl.PGraphicsOpenGL;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * Window that the game runs in. Extends the Processing window PApplet.
@@ -331,5 +328,17 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         int button = event.getButton();
         Vector position = pixelToWorld(event.getX(), event.getY()); // pixelToWorld(event.getX(), event.getY());
         mouseListeners.forEach((mouseListener -> mouseListener.mouseReleased(button, position)));
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent event) {
+        Vector position = pixelToWorld(event.getX(), event.getY());
+        mouseListeners.forEach(mouseListener -> mouseListener.mouseMoved(position));
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent event) {
+        Vector position = pixelToWorld(event.getX(), event.getY());
+        mouseListeners.forEach(mouseListener -> mouseListener.mouseMoved(position));
     }
 }

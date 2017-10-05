@@ -60,6 +60,11 @@ public class InputHandler {
         }
 
         @Override
+        public void mouseMoved(Vector position) {
+            inputFrame.mousePosition = new Vector(position.x, position.y);
+        }
+
+        @Override
         public void keyPressed(int keyCode) {
             inputFrame.pressedKeys.set(keyCode, true);
         }
