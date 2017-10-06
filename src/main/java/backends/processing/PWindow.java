@@ -74,7 +74,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
         while(drawing){
             try {
-                Thread.sleep(0, 2);
+                Thread.sleep(0, 5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
