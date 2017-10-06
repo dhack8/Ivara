@@ -142,6 +142,14 @@ public class LevelManager {
     }
 
     /**
+     * Returns the pause Scene
+     * @return The pause Scene
+     */
+    public Scene getPauseMenu(){
+        return pauseMenu;
+    }
+
+    /**
      * Pauses the game / switches to the pause menu
      */
     public void pause(){
