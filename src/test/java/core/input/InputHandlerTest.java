@@ -23,7 +23,7 @@ public class InputHandlerTest {
     @Test
     public void testKeyInput1() throws Exception {
         TestInputBroadcaster testBroadcaster = new TestInputBroadcaster();
-        InputHandler inputHandler = new InputHandler(testBroadcaster);
+        InputHandler.InputFrame inputHandler = new InputHandler.InputFrame();
 
         for (int i = 0; i < 100; i++) {
             assertFalse(inputHandler.isKeyPressed(i));
@@ -37,7 +37,7 @@ public class InputHandlerTest {
     @Test
     public void testMouseInput1() throws Exception {
         TestInputBroadcaster testBroadcaster = new TestInputBroadcaster();
-        InputHandler inputHandler = new InputHandler(testBroadcaster);
+        InputHandler.InputFrame inputHandler = new InputHandler.InputFrame();
 
         for (int i = 0; i < 100; i++) {
             assertFalse(inputHandler.isMousePressed(i));
