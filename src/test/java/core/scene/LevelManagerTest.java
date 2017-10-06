@@ -23,6 +23,13 @@ public class LevelManagerTest {
         }catch(IllegalArgumentException e){
 
         }
+    }
+
+    @Test
+    /**
+     *
+     */
+    public void testConstructor2(){
 
     }
 }

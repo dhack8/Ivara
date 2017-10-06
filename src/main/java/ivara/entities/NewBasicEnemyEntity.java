@@ -1,4 +1,4 @@
-package ivara.entities.sprites;
+package ivara.entities;
 
 import core.Script;
 import core.components.*;
@@ -42,7 +42,7 @@ public class NewBasicEnemyEntity extends GameEntity{
 
     private float groundSensorXOffset = 0f;
     private float groundSensorYOffset = 0f;
-    private float groundSensorWidth = 0.2f;
+    private float groundSensorWidth = 0.01f;
     private float groundSensorHeight= 0f;
 
     public NewBasicEnemyEntity(Vector transform, String resourceID){

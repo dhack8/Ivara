@@ -5,7 +5,7 @@ import core.struct.Camera;
 import ivara.entities.BasicBlockEntity;
 import ivara.entities.NPlatformEntity;
 import ivara.entities.PlayerEntity;
-import ivara.entities.sprites.NewBasicEnemyEntity;
+import ivara.entities.NewBasicEnemyEntity;
 import maths.Vector;
 
 /**
