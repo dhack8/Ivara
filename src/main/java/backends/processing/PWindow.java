@@ -98,6 +98,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         }
 
         noLoop();
+
     }
 
     /**
@@ -139,6 +140,9 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/player-walk2-right.png", "player-walk2-right", this);
         AssetHandler.loadImage("./assets/slime.png", "slime", this);
         AssetHandler.loadImage("./assets/slime-dead.png", "slime-dead", this);
+
+        // Unlimit framerate
+        frameRate(999);
     }
 
     /**
@@ -186,6 +190,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                     if (mask == 2) {
                         drawCollider(e);
                         drawSensors(e);
+                        drawFramerate();
                     }
                 }
         );
@@ -202,6 +207,10 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         }
 
         drawing = false;
+    }
+
+    private void drawFramerate() {
+        text(frameRate, 20, 20);
     }
 
     private void drawSensors(GameEntity e){
