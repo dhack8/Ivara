@@ -6,7 +6,10 @@ import ivara.entities.PlayerEntity;
 import maths.Vector;
 import org.junit.Before;
 import org.junit.Test;
+import scew.Entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -69,6 +72,21 @@ public class SceneTest {
         }
     }
 
+    @Test
+    /**
+     * Tests adding a collection of entities
+     */
+    public void testAddEntity3() throws Exception {
+        int numEntities = 10;
+        List<GameEntity> entities = new ArrayList<>();
+        for(int i = 0; i < numEntities; i++){
+            entities.add(new GameEntity(new Vector(0,0)){});
+        }
+        testScene.addEntities(entities);
+        for (GameEntity e : entities) {
+            assertTrue("Entity does not exist in the scene.", testScene.getEntities().contains(e));
+        }
+    }
 
     @Test
     /**
@@ -81,5 +99,24 @@ public class SceneTest {
         assertTrue("Should've found a camera", testScene.getCamera()!=null);
     }
 
+    @Test
+    /**
+     * Test removal of an entity
+     */
+    public void testRemove(){
+        GameEntity e = new GameEntity(new Vector(0,0)) {};
+        testScene.addEntity(e);
+        testScene.removeEntity(e);
+        assertTrue("The entity should not exist.", !testScene.getEntities().contains(e));
+    }
+
+    @Test
+    /**
+     * Test removal of an entity that doesn't exist
+     */
+    public void testRemove1(){
+        GameEntity e = new GameEntity(new Vector(0,0)) {};
+        testScene.removeEntity(e); // no error thrown
+    }
 
 }

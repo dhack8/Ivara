@@ -1,7 +1,6 @@
 package core.input;
 
 import backends.InputBroadcaster;
-import jdk.internal.util.xml.impl.Input;
 import maths.Vector;
 import org.junit.Before;
 import org.junit.Test;
