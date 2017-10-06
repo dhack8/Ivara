@@ -33,19 +33,19 @@ public class AnimatedSpriteTest {
 
         // Adds initial resources.
         testSprite.addResources("state1", resourceList1);
-        assert testSprite.resourceID.equals("res1");
+        assertTrue(testSprite.resourceID.equals("res1"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res2");
+        assertTrue(testSprite.resourceID.equals("res2"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res3");
+        assertTrue(testSprite.resourceID.equals("res3"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res1");
+        assertTrue(testSprite.resourceID.equals("res1"));
     }
 
     /**
@@ -61,27 +61,27 @@ public class AnimatedSpriteTest {
         // Adds initial resources.
         testSprite.addResources("state1", resourceList1);
         testSprite.addResources("state2", resourceList2);
-        assert testSprite.resourceID.equals("res1");
+        assertTrue(testSprite.resourceID.equals("res1"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res2");
+        assertTrue(testSprite.resourceID.equals("res2"));
 
         // Switch state
         testSprite.setState("state2");
-        assert testSprite.resourceID.equals("res4");
+        assertTrue(testSprite.resourceID.equals("res4"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res5");
+        assertTrue(testSprite.resourceID.equals("res5"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res6");
+        assertTrue(testSprite.resourceID.equals("res6"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res4");
+        assertTrue(testSprite.resourceID.equals("res4"));
 
     }
 
@@ -97,39 +97,39 @@ public class AnimatedSpriteTest {
         // Adds initial resources.
         testSprite.addResources("state1", resourceList1);
         testSprite.addResources("state2", resourceList2);
-        assert testSprite.resourceID.equals("res1");
+        assertTrue(testSprite.resourceID.equals("res1"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res2");
+        assertTrue(testSprite.resourceID.equals("res2"));
 
         // Switch state
         testSprite.setState("state2");
-        assert testSprite.resourceID.equals("res4");
+        assertTrue(testSprite.resourceID.equals("res4"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res5");
+        assertTrue(testSprite.resourceID.equals("res5"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res6");
+        assertTrue(testSprite.resourceID.equals("res6"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res4");
+        assertTrue(testSprite.resourceID.equals("res4"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res5");
+        assertTrue(testSprite.resourceID.equals("res5"));
 
         // Switch state
         testSprite.setState("state1");
-        assert testSprite.resourceID.equals("res1");
+        assertTrue(testSprite.resourceID.equals("res1"));
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assert testSprite.resourceID.equals("res2");
+        assertTrue(testSprite.resourceID.equals("res2"));
     }
 
     /**
@@ -139,7 +139,7 @@ public class AnimatedSpriteTest {
      */
     public AnimatedSprite createEmptyAnimatedSprite(int frameTick) {
         AnimatedSprite empty = new AnimatedSprite(new Vector(0, 0), new Vector(1, 1), frameTick);
-        assert empty.resourceID.equals("black-box");
+        assertTrue(empty.resourceID.equals("black)-box"));
         return empty;
     }
 }
