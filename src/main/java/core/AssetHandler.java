@@ -36,18 +36,18 @@ public class AssetHandler {
      * @throws RuntimeException if no image is retrieved.
      */
     public static PImage getImage(String resourceID){
-        try{
-            return images.get(resourceID);
-        }catch(Exception e){
-            throw new RuntimeException("File(" + resourceID + ") not found in the AssetHandler! MESSAGE: " + e.getMessage() + " CAUSE: " + e.getCause());
-        }
+        PImage resultImg = images.get(resourceID);
+        if (resultImg == null)
+            throw new RuntimeException("File(" + resourceID + ") not found in the AssetHandler!");
+        else
+            return resultImg;
     }
 
     /**
      * Gets map of images
      * @return map of all images
      */
-    public Map<String, PImage> getImageMap(){
+    public static Map<String, PImage> getImageMap(){
         return images;
     }
 }

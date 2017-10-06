@@ -19,36 +19,40 @@ import static org.junit.Assert.*;
 public class AssetHandlerTest {
 
     String filePath;
-    AssetHandler testHandler;
     PApplet renderer;
-
+    PImage img;
 
     @Before
     public void setUp() throws Exception {
-        testHandler = new AssetHandler();
         filePath = "./assets/player.png";
-        renderer = new PWindow(true);
-        //renderer.setup();
+        try {
+            img = new PImage(ImageIO.read(new File(filePath)));
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage() + e.getCause());
+        }
+        renderer = new PWindow(false){
+            public PImage loadImage(String filename) {
+                return img;
+            }
+        };
     }
 
     /**
      * Adds an image file, along with a String identifier, into the map within the AssetHandler class to test the
-     * loadImage method. Asserts that the image retrieved from the map is not null.
+     * loadImage method. Asserts that the image retrieved is correct.
      * @throws RuntimeException
      */
-//    @Test
-//    public void loadImage() throws RuntimeException { //TODO runtime exception
-//        try {
-//            testHandler.loadImage(filePath, "Player", renderer);
-//            //assertTrue(testHandler.getImageMap().size() == 1);
-//            //System.out.println("testHandler image map size = " + testHandler.getImageMap().size());
-//
-//        }catch(Exception e){
-//            throw new RuntimeException(e.getMessage() + e.getCause());
-//        }
-//        //PImage test = testHandler.getImage("Player");
-//        //assertNotNull(test);
-//    }
+    @Test
+    public void loadImage() throws RuntimeException { //TODO runtime exception
+        try {
+            AssetHandler.loadImage(filePath, "Player", renderer);
+            assertTrue(AssetHandler.getImageMap().size() == 1);
+        }catch(Exception e){
+            throw new RuntimeException(e.getMessage() + e.getCause());
+        }
+        PImage test = AssetHandler.getImageMap().get("Player");
+        assertEquals(img, test);
+    }
 
     /**
      * Test for the getImage method. Tests the retrieval of the getImage method in AssetHandler by adding "player.png"
@@ -58,18 +62,8 @@ public class AssetHandlerTest {
      */
     @Test
     public void getImage() throws RuntimeException {
-        PImage imageToLoad;
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File(filePath));
-            imageToLoad = new PImage(img);
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage() + e.getCause());
-        }
-
-        assertNotNull(imageToLoad);
-        testHandler.getImageMap().put("Player", imageToLoad);
-        assertEquals(imageToLoad, testHandler.getImageMap().get("Player"));
+        AssetHandler.getImageMap().put("Player", img);
+        assertEquals(img, AssetHandler.getImage("Player"));
     }
 
     /**
@@ -80,12 +74,12 @@ public class AssetHandlerTest {
     @Test
     public void getNonExistentImage() throws Exception{
         try{
-            testHandler.getImage("Player");
+            AssetHandler.getImage("Player");
+            assert false;
         }catch(Exception e){
             assert true;
         }
-
-        assertNull(testHandler.getImageMap().get("Player"));
+        assertNull(AssetHandler.getImageMap().get("Player"));
     }
 
 }
