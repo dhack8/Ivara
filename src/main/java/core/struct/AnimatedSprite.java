@@ -2,6 +2,7 @@ package core.struct;
 
 import maths.Vector;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,8 +45,11 @@ public class AnimatedSprite extends Sprite{
      */
     public void addResources(String state, List<String> resources) {
         assert state != null && resources != null && resources.size() > 0;
-        assert !resourceMap.containsKey(state);
-        resourceMap.put(state, resources);
+        if (resourceMap.containsKey(state)) {
+            List<String> r = resourceMap.get(state);
+            r.addAll(resources);
+        } else
+            resourceMap.put(state, new ArrayList<>(resources));
     }
 
     /**
@@ -65,7 +69,7 @@ public class AnimatedSprite extends Sprite{
      */
     public void updateResource(long delta) {
         time += delta;
-        if (time > frameTick) {
+        if (time > frameTick) { // TODO: Fix error when update time is longer than two frameTick times. i.e. should skip two animations not one.
             time -= frameTick;
             frame = (frame+1)%resources.size();
         }
