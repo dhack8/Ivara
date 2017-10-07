@@ -1,6 +1,5 @@
 package ivara.entities;
 
-import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
@@ -8,7 +7,6 @@ import core.struct.Sensor;
 import ivara.scripts.BasicEnemyScript;
 import maths.Vector;
 import physics.AABBCollider;
-import physics.PhysicProperties;
 
 /**
  * This class handles the creation of a basic enemy entity
@@ -18,24 +16,25 @@ public class BasicEnemyEntity extends GameEntity{
     //Initial setup variables -- change later?
     private static final float SPEED = 0.7f;
     private static final boolean START_RIGHT = true;
-
-    //Entity dimensions
-    private float width = 1f;
-    private float height = 1f;
-
-    //Side sensor dimensions
-    private float sensorWidth = 0f;
-    private float sideSensorHeight = height/1.2f;
-
-    //Bottom sensor dimensions
-    private float bottomSensorWidth = width/1.1f;
-    private float bottomSensorHeight = 0f;
+    private float sensorPadding = 0.06f;
 
     //Todo working on sensors for moving onto a non-existent platform
     private float groundSensorHeight= 0f;
 
-    public BasicEnemyEntity(Vector transform, String resourceID){
+    public BasicEnemyEntity(Vector transform, Vector dimensions, String resourceID){
         super(transform);
+
+        //Entity dimensions
+        float width = dimensions.x;
+        float height = dimensions.y;
+
+        //Side sensor dimensions
+        float sensorWidth = 0f;
+        float sideSensorHeight = height - 2* sensorPadding;
+
+        //Bottom sensor dimensions
+        float bottomSensorWidth = width - 2* sensorPadding;
+        float bottomSensorHeight = 0f;
 
         //Velocity---
         VelocityComponent v = new VelocityComponent(this);
@@ -60,8 +59,8 @@ public class BasicEnemyEntity extends GameEntity{
 
         //Sensors---
         //Side sensors
-        Vector sTopLeft = new Vector(-sensorWidth, (height-sideSensorHeight)/2f); // small indent so that the ground or blocks above arent detected
-        Vector sTopRight = new Vector(width, (height-sideSensorHeight)/2f);
+        Vector sTopLeft = new Vector(-sensorWidth, sensorPadding); // small indent so that the ground or blocks above arent detected
+        Vector sTopRight = new Vector(width, sensorPadding);
         Vector sDimensions = new Vector(sensorWidth, sideSensorHeight);
         AABBCollider left = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
         AABBCollider right = new AABBCollider(AABBCollider.MIN_DIM, sTopRight, sDimensions);
@@ -69,7 +68,7 @@ public class BasicEnemyEntity extends GameEntity{
         Sensor rightSensor = new Sensor(right);
 
         //Bottom sensor
-        Vector bottomLeft = new Vector((width-bottomSensorWidth)/2 , height);
+        Vector bottomLeft = new Vector(sensorPadding , height);
         Vector bottomDimensions = new Vector(bottomSensorWidth, bottomSensorHeight);
         AABBCollider bottom = new AABBCollider(AABBCollider.MIN_DIM, bottomLeft, bottomDimensions);
         Sensor groundSensor = new Sensor(bottom);

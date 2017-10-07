@@ -15,7 +15,7 @@ import maths.Vector;
  */
 public class BasicEnemyScript implements Script{
 
-    private final int pauseTime = 200;
+    private int pauseTime = 200;
 
     private Sensor left; // checking if the left is obstructed
     private Sensor right; // checking if the right is obstructed
@@ -26,7 +26,7 @@ public class BasicEnemyScript implements Script{
 
     private boolean goingLeft;
 
-    public BasicEnemyScript(GameEntity entity, Sensor left, Sensor right, Sensor bottom){
+    public BasicEnemyScript(GameEntity entity, int pauseTime, Sensor left, Sensor right, Sensor bottom){
         this.left = left;
         this.right = right;
         this.bottom = bottom;
@@ -73,6 +73,10 @@ public class BasicEnemyScript implements Script{
 
     }
 
+    public void setPauseTime(int time){
+        pauseTime = time;
+    }
+
     private void hitOnLeft(VelocityComponent vc, GameEntity entity){
         vc.setX(vc.getVelocity().x*-1);
         pause(vc, entity);
@@ -92,5 +96,4 @@ public class BasicEnemyScript implements Script{
         vc.pause();
         entity.getScene().addTimer(new Timer(pauseTime, () -> vc.unpause()));
     }
-
 }

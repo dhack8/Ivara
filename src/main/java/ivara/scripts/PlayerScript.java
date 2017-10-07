@@ -134,6 +134,7 @@ public class PlayerScript implements Script{//}, SensorListener {
     private void groundCollision(PlayerEntity player, GameEntity entity) {
         player.canJump = true;
         VelocityComponent v = player.get(VelocityComponent.class).get();
+
         Vector c = entity.get(VelocityComponent.class)
                 .map(VelocityComponent::getVelocity)
                 .orElse(new Vector(0, 0));
