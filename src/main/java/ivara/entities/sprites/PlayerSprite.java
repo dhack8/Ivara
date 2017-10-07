@@ -25,8 +25,8 @@ public class PlayerSprite extends AnimatedSprite {
         super(transform, dimensions, frameTick);
         String state = WALK_RIGHT;
         String[] resources = new String[] {
-                "player-walk-right",
-                "player-walk2-right"
+                "player-walk2-right",
+                "player-walk-right"
         };
         addResources(state, Arrays.asList(resources));
         state = IDLE_RIGHT;
@@ -36,8 +36,8 @@ public class PlayerSprite extends AnimatedSprite {
         addResources(state, Arrays.asList(resources));
         state = WALK_LEFT;
         resources = new String[] {
-                "player-walk-left",
-                "player-walk2-left"
+                "player-walk2-left",
+                "player-walk-left"
         };
         addResources(state, Arrays.asList(resources));
         state = IDLE_LEFT;
