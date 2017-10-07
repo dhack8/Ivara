@@ -45,33 +45,18 @@ public class BasicEnemyScript implements Script{
 
     @Override
     public void update(int dt, GameEntity entity) {
-        VelocityComponent vComp = entity.get(VelocityComponent.class).get();
-        Vector velocity = vComp.getVelocity();
+        VelocityComponent vc = entity.get(VelocityComponent.class).get();
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
 
         if (sensorHandler.isActive(right) && !goingLeft) { // if collision on either side
-            GameEntity collided = sensorHandler.getActivatingEntities(right).stream().findAny().get(); // todo use this later for checking if player collision?
-            vComp.setX(velocity.x*-1);
-            pause(vComp, entity);
-
-            goingLeft = true;
+            hitOnRight(vc, entity);
         }else if (sensorHandler.isActive(left) && goingLeft) { // if collision on either side
-            GameEntity collided = sensorHandler.getActivatingEntities(left).stream().findAny().get(); // todo use this later for checking if player collision?
-            vComp.setX(velocity.x*-1);
-            pause(vComp, entity);
-
-            goingLeft = false;
+            hitOnLeft(vc, entity);
         }else if(bLeft != null && bRight != null){ // Todo: Temporary
             if(!sensorHandler.isActive(bLeft) && goingLeft){
-                vComp.setX(velocity.x*-1);
-                pause(vComp, entity);
-
-                goingLeft = false;
+                hitOnLeft(vc, entity);
             }else if(!sensorHandler.isActive(bRight) && !goingLeft){
-                vComp.setX(velocity.x*-1);
-                pause(vComp, entity);
-
-                goingLeft = true;
+                hitOnRight(vc, entity);
             }
         }
 
@@ -86,15 +71,23 @@ public class BasicEnemyScript implements Script{
 
     }
 
-    private void pause(VelocityComponent vc, GameEntity entity){
-        System.out.println("Trying to pause");
-        if(vc.isPaused()){
-            System.out.println("aborting pause");
-            return;
-        }
+    private void hitOnLeft(VelocityComponent vc, GameEntity entity){
+        vc.setX(vc.getVelocity().x*-1);
+        pause(vc, entity);
 
+        goingLeft = false;
+    }
+
+    private void hitOnRight(VelocityComponent vc, GameEntity entity){
+        vc.setX(vc.getVelocity().x*-1);
+        pause(vc, entity);
+
+        goingLeft = true;
+    }
+
+    private void pause(VelocityComponent vc, GameEntity entity){
+        if(vc.isPaused()){return;}
         vc.pause();
-        System.out.println("paused");
         entity.getScene().addTimer(new Timer(200, () -> vc.unpause()));
     }
 

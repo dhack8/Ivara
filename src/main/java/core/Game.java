@@ -39,8 +39,6 @@ public abstract class Game {
         this.inputHandler = new InputHandler(inputBroadcaster);
         this.levelManager = lm;
 
-        renderer.setMask(1);
-
         lm.setGame(this);
 
         //set starting scene here
