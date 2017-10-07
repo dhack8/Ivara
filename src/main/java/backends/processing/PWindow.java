@@ -141,8 +141,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/slime.png", "slime", this);
         AssetHandler.loadImage("./assets/slime-dead.png", "slime-dead", this);
 
-        // Unlimit framerate
-        frameRate(999);
+        // limited framerate
+        frameRate(200);
     }
 
     /**
@@ -190,10 +190,11 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                     if (mask == 2) {
                         drawCollider(e);
                         drawSensors(e);
-                        drawFramerate();
                     }
                 }
         );
+
+        if (mask == 2) drawFramerate();
 
         //Black bars
         fill(0);
