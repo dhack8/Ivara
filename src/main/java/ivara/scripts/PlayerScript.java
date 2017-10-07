@@ -109,6 +109,11 @@ public class PlayerScript implements Script{//}, SensorListener {
         if (input.isKeyReleased(Constants.W)) {
             Debug.log("Released UP");
         }
+
+        if(input.isKeyReleased(Constants.SPACE)){ // pause menu
+            Debug.log("Released SPACE");
+            entity.getScene().getGame().pause();
+        }
     }
 
     /**

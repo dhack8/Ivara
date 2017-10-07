@@ -59,7 +59,7 @@ public class LevelOne extends Scene {
 
 
         //todo added
-        addEntity(new LevelEndEntity(2,1));
+        addEntity(new LevelEndEntity(1,2));
 
         setCamera(new Camera());
     }

@@ -17,6 +17,10 @@ public class LevelEndEntity extends GameEntity {
     private float width = 1f;
     private float height = 1f;
 
+    private float poleWidth = 0.1f;
+
+    private float yOffset = 0.01f;
+
     public LevelEndEntity(float x, float y){
         super(new Vector(x,y));
 
@@ -29,7 +33,8 @@ public class LevelEndEntity extends GameEntity {
         //Sensors---
         //AABB for the sensor
         Vector sTopLeft = new Vector(0f, 0f);
-        Vector sDimensions = new Vector(0.1f, height);
+        //Vector sDimensions = new Vector(0.1f, height);
+        Vector sDimensions = new Vector(poleWidth, height);
         AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
         Sensor leftSensor = new Sensor(ab);
         addComponent(new SensorComponent(this, leftSensor));
