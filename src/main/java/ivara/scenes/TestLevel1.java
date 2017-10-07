@@ -5,7 +5,7 @@ import core.struct.Camera;
 import ivara.entities.BasicBlockEntity;
 import ivara.entities.NPlatformEntity;
 import ivara.entities.PlayerEntity;
-import ivara.entities.NewBasicEnemyEntity;
+import ivara.entities.BasicEnemyEntity;
 import maths.Vector;
 
 /**
@@ -17,7 +17,7 @@ public class TestLevel1 extends Scene{
         addEntity(new NPlatformEntity(1,2,3, false));
         addEntity(new BasicBlockEntity(4,2.1f,"dirt"));
         addEntity(new PlayerEntity(0,0));
-        addEntity(new NewBasicEnemyEntity(new Vector(2,1), "slime"));
+        addEntity(new BasicEnemyEntity(new Vector(2,1), "slime"));
 
         addEntity(new NPlatformEntity(5f, 1f, 4, true, 7f, 3f, 3f));
 

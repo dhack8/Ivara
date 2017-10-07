@@ -20,19 +20,16 @@ public class BasicEnemyScript implements Script{
 
     private Sensor bLeft; // Checking if a block exists where the entity is about to walk (to the left)
     private Sensor bRight; // Checking if a block exists where the entity is about to walk (to the right)
-    private GameEntity game; // reference to the entity that has this script // todo do we need/want this?
 
-    public BasicEnemyScript(GameEntity game, Sensor left, Sensor right, Sensor bottom){
+    public BasicEnemyScript(Sensor left, Sensor right, Sensor bottom){
         this.left = left;
         this.right = right;
-        this.game = game;
         this.bottom = bottom;
     }
 
-    public BasicEnemyScript(GameEntity game, Sensor left, Sensor right, Sensor bottom, Sensor bLeft, Sensor bRight){
+    public BasicEnemyScript(Sensor left, Sensor right, Sensor bottom, Sensor bLeft, Sensor bRight){
         this.left = left;
         this.right = right;
-        this.game = game;
         this.bottom = bottom;
 
         this.bLeft = bLeft;
@@ -47,10 +44,14 @@ public class BasicEnemyScript implements Script{
 
         if (sensorHandler.isActive(right)) { // if collision on either side
             GameEntity collided = sensorHandler.getActivatingEntities(right).stream().findAny().get(); // todo use this later for checking if player collision?
+            float inside = right.collider.getAABBBoundingBox().getDimension().x;
             vComp.setX(velocity.x*-1);
+            entity.transform.add(-inside, 0);
         }else if (sensorHandler.isActive(left)) { // if collision on either side
             GameEntity collided = sensorHandler.getActivatingEntities(left).stream().findAny().get(); // todo use this later for checking if player collision?
+            float inside = left.collider.getAABBBoundingBox().getDimension().x;
             vComp.setX(velocity.x*-1);
+            entity.transform.add(inside, 0);
         }else if(bLeft != null && bRight != null){ // Todo: Temporary
             if(!sensorHandler.isActive(bLeft)){
                 vComp.setX(velocity.x*-1);

@@ -1,95 +1,100 @@
 package ivara.entities;
 
+import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
-import ivara.scripts.GravityScript;
-import ivara.scripts.PlayerScript;
+import core.struct.ResourceID;
+import core.struct.Sensor;
+import ivara.scripts.BasicEnemyScript;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
 
 /**
- * This is a move left/right enemy entity
+ * This class handles the creation of a basic enemy entity
  * @author Alex Mitchell
- * @author David Hack
  */
-public class BasicEnemyEntity extends GameEntity {
-    public BasicEnemyEntity(Vector transform) {
+public class BasicEnemyEntity extends GameEntity{
+    //Initial setup variables -- change later?
+    private static final float SPEED = 0.7f;
+    private static final boolean START_RIGHT = true;
+
+    //Entity dimensions
+    private float width = 1f;
+    private float height = 1f;
+
+    //Side sensor dimensions
+    private float sideSensorWidth = 0.000001f;
+    private float sideSensorHeight = height/1.1f;
+
+    //Bottom sensor dimensions
+    private float bottomSensorWidth = width/1.1f;
+    private float bottomSensorHeight = 0f;
+
+    //Todo working on sensors for moving onto a non-existent platform
+    private float groundSensorWidth = 0.01f;
+    private float groundSensorHeight= 0f;
+
+    public BasicEnemyEntity(Vector transform, String resourceID){
         super(transform);
-    } // Todo make a super enemy entity
 
-    /*
-    private final float sensorWidth = 0.01f;
-    private final float velocity = -1;
-    private final float width = 0.75f;
-    private final float height = 0.75f;
-
-    VelocityComponent v;
-
-    public BasicEnemyEntity(float x, float y){
-        super(new Vector(x, y));
-
-        v = new VelocityComponent(this);
-        v.getVelocity().set(velocity, 0);
+        //Velocity---
+        VelocityComponent v = new VelocityComponent(this);
+        v.set(new Vector((START_RIGHT? SPEED: -SPEED), 0f));
         addComponent(v);
-        addComponent(new SpriteComponent(this, "slime", 0.75f, 0.75f)); //Todo change the PSprite component
-        //addComponent(new PlayerController(this));
-        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.TOPLEFT, new Vector(0f, 0f), new Vector(width, height)))); //Todo Change the Collider component
+
+        //Sprites---
+        SpriteComponent sc = new SpriteComponent(this);
+        sc.add(new ResourceID(resourceID), new Vector(width, height));
+        addComponent(sc);
+
+        //Collider---
+        Vector cTopLeft = new Vector(0f, 0f);
+        Vector cDimensions = new Vector(width, height);
+        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, cTopLeft, cDimensions)));
+
+        //Layer---
         addComponent(new LayerComponent(this, 999));
-        addComponent(new PhysicsComponent(this, 0, PhysicProperties.Type.DYNAMIC));
 
-        //Bumpers to bounce on blocks
-        addBlockBumper(new Vector(-sensorWidth, 0f), new Vector(sensorWidth, height - 0.01f));
-        addBlockBumper(new Vector(width, 0f), new Vector(sensorWidth, height - 0.01f));
+        //Physics--- Todo: If there is a physics component, a sensor must be used to counter the increasing Y velocity
+        //addComponent(new PhysicsComponent(this, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
 
-        //Bumpers for the edge
+        //Sensors---
+        //Side sensors
+        Vector sTopLeft = new Vector(-sideSensorWidth, (height-sideSensorHeight)/2f); // small indent so that the ground or blocks above arent detected
+        Vector sTopRight = new Vector(width, (height-sideSensorHeight)/2f);
+        Vector sDimensions = new Vector(sideSensorWidth, sideSensorHeight);
+        AABBCollider left = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
+        AABBCollider right = new AABBCollider(AABBCollider.MIN_DIM, sTopRight, sDimensions);
+        Sensor leftSensor = new Sensor(left);
+        Sensor rightSensor = new Sensor(right);
 
+        //Bottom sensor
+        Vector bottomLeft = new Vector((width-bottomSensorWidth)/2 , height);
+        Vector bottomDimensions = new Vector(bottomSensorWidth, bottomSensorHeight);
+        AABBCollider bottom = new AABBCollider(AABBCollider.MIN_DIM, bottomLeft, bottomDimensions);
+        Sensor groundSensor = new Sensor(bottom);
 
-        addComponent( // for the bottom
-                new SensorComponent(
-                        this,
-                        new AABBCollider(AABBCollider.TOPLEFT, new Vector(0f, height-sensorWidth), new Vector(width, sensorWidth)),
-                        (entity) -> {v.getVelocity().y = 0;}
-                )
-        );
+        //Edge detector sensors
+        Vector bLeft = new Vector(-groundSensorWidth, height);
+        Vector bRight = new Vector(width, height);
+        Vector bDimensions = new Vector(groundSensorWidth, groundSensorHeight);
+
+        AABBCollider bLCol = new AABBCollider(AABBCollider.MIN_DIM, bLeft, bDimensions);
+        Sensor bLSensor = new Sensor(bLCol);
+        AABBCollider bRCol = new AABBCollider(AABBCollider.MIN_DIM, bRight, bDimensions);
+        Sensor bRSensor = new Sensor(bRCol);
+
+        //Add sensors to sensor component
+        SensorComponent sComp = new SensorComponent(this, new Sensor[]{leftSensor, rightSensor, groundSensor, bLSensor, bRSensor});
+        addComponent(sComp);
+        //Enable Listening for Sensor Events
+        addComponent(new SensorHandlerComponent(this));
+
+        //Scripts---
+        //BasicEnemyScript s = new BasicEnemyScript(this, leftSensor, rightSensor, groundSensor);
+        BasicEnemyScript s = new BasicEnemyScript(leftSensor, rightSensor, groundSensor, bLSensor, bRSensor);
+        ScriptComponent scriptComp = new ScriptComponent(this, s);
+        addComponent(scriptComp);
     }
-
-    private void addBlockBumper(Vector topLeft, Vector dimensions){
-        addComponent(
-                new SensorComponent(
-                        this,
-                        new AABBCollider(
-                                AABBCollider.TOPLEFT,
-                                new Vector(topLeft.x, topLeft.y),
-                                new Vector(dimensions.x, dimensions.y)
-                        ),
-                        (entity) -> {
-                            v.getVelocity().mult(-1f);
-
-                            float move = (v.getVelocity().x/v.getVelocity().x)*-1;
-                            translate(sensorWidth*move , 0);
-                        }
-                )
-        );
-    }
-
-    private void addEdgeBumper(Vector topLeft, Vector dimensions){
-        addComponent(
-                new SensorComponent(
-                        this,
-                        new AABBCollider(
-                                AABBCollider.TOPLEFT,
-                                new Vector(topLeft.x, topLeft.y),
-                                new Vector(dimensions.x, dimensions.y)
-                        ),
-                        (entity) -> {
-                            v.getVelocity().mult(-1f);
-
-                            float move = (v.getVelocity().x/v.getVelocity().x)*-1;
-                            translate(sensorWidth*move , 0);
-                        }
-                )
-        );
-    }
-    */
 }
