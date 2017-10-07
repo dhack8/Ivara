@@ -6,6 +6,7 @@ import core.components.VelocityComponent;
 import core.entity.GameEntity;
 import core.input.SensorHandler;
 import core.struct.Sensor;
+import core.struct.Timer;
 import maths.Vector;
 
 /**
@@ -21,19 +22,25 @@ public class BasicEnemyScript implements Script{
     private Sensor bLeft; // Checking if a block exists where the entity is about to walk (to the left)
     private Sensor bRight; // Checking if a block exists where the entity is about to walk (to the right)
 
-    public BasicEnemyScript(Sensor left, Sensor right, Sensor bottom){
+    private boolean goingLeft;
+
+    public BasicEnemyScript(GameEntity entity, Sensor left, Sensor right, Sensor bottom){
         this.left = left;
         this.right = right;
         this.bottom = bottom;
+
+        goingLeft = entity.get(VelocityComponent.class).get().getVelocity().x < 0;
     }
 
-    public BasicEnemyScript(Sensor left, Sensor right, Sensor bottom, Sensor bLeft, Sensor bRight){
+    public BasicEnemyScript(GameEntity entity, Sensor left, Sensor right, Sensor bottom, Sensor bLeft, Sensor bRight){
         this.left = left;
         this.right = right;
         this.bottom = bottom;
 
         this.bLeft = bLeft;
         this.bRight = bRight;
+
+        goingLeft = entity.get(VelocityComponent.class).get().getVelocity().x < 0;
     }
 
     @Override
@@ -42,21 +49,29 @@ public class BasicEnemyScript implements Script{
         Vector velocity = vComp.getVelocity();
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
 
-        if (sensorHandler.isActive(right)) { // if collision on either side
+        if (sensorHandler.isActive(right) && !goingLeft) { // if collision on either side
             GameEntity collided = sensorHandler.getActivatingEntities(right).stream().findAny().get(); // todo use this later for checking if player collision?
-            float inside = right.collider.getAABBBoundingBox().getDimension().x;
             vComp.setX(velocity.x*-1);
-            entity.transform.add(-inside, 0);
-        }else if (sensorHandler.isActive(left)) { // if collision on either side
+            pause(vComp, entity);
+
+            goingLeft = true;
+        }else if (sensorHandler.isActive(left) && goingLeft) { // if collision on either side
             GameEntity collided = sensorHandler.getActivatingEntities(left).stream().findAny().get(); // todo use this later for checking if player collision?
-            float inside = left.collider.getAABBBoundingBox().getDimension().x;
             vComp.setX(velocity.x*-1);
-            entity.transform.add(inside, 0);
+            pause(vComp, entity);
+
+            goingLeft = false;
         }else if(bLeft != null && bRight != null){ // Todo: Temporary
-            if(!sensorHandler.isActive(bLeft)){
+            if(!sensorHandler.isActive(bLeft) && goingLeft){
                 vComp.setX(velocity.x*-1);
-            }else if(!sensorHandler.isActive(bRight)){
+                pause(vComp, entity);
+
+                goingLeft = false;
+            }else if(!sensorHandler.isActive(bRight) && !goingLeft){
                 vComp.setX(velocity.x*-1);
+                pause(vComp, entity);
+
+                goingLeft = true;
             }
         }
 
@@ -69,6 +84,18 @@ public class BasicEnemyScript implements Script{
         }
          **/
 
+    }
+
+    private void pause(VelocityComponent vc, GameEntity entity){
+        System.out.println("Trying to pause");
+        if(vc.isPaused()){
+            System.out.println("aborting pause");
+            return;
+        }
+
+        vc.pause();
+        System.out.println("paused");
+        entity.getScene().addTimer(new Timer(200, () -> vc.unpause()));
     }
 
 }

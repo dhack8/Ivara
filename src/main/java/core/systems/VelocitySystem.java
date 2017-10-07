@@ -15,6 +15,7 @@ public class VelocitySystem extends System<GameEntity> {
     public void update(int dt, World<GameEntity> world) {
 
         world.get(VelocityComponent.class).stream()
+                .filter((c) -> !c.isPaused())
                 .forEach((c) -> c.getEntity()
                         .getTransform()
                         .add(

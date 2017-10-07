@@ -24,15 +24,14 @@ public class BasicEnemyEntity extends GameEntity{
     private float height = 1f;
 
     //Side sensor dimensions
-    private float sideSensorWidth = 0.000001f;
-    private float sideSensorHeight = height/1.1f;
+    private float sensorWidth = 0f;
+    private float sideSensorHeight = height/1.2f;
 
     //Bottom sensor dimensions
     private float bottomSensorWidth = width/1.1f;
     private float bottomSensorHeight = 0f;
 
     //Todo working on sensors for moving onto a non-existent platform
-    private float groundSensorWidth = 0.01f;
     private float groundSensorHeight= 0f;
 
     public BasicEnemyEntity(Vector transform, String resourceID){
@@ -61,9 +60,9 @@ public class BasicEnemyEntity extends GameEntity{
 
         //Sensors---
         //Side sensors
-        Vector sTopLeft = new Vector(-sideSensorWidth, (height-sideSensorHeight)/2f); // small indent so that the ground or blocks above arent detected
+        Vector sTopLeft = new Vector(-sensorWidth, (height-sideSensorHeight)/2f); // small indent so that the ground or blocks above arent detected
         Vector sTopRight = new Vector(width, (height-sideSensorHeight)/2f);
-        Vector sDimensions = new Vector(sideSensorWidth, sideSensorHeight);
+        Vector sDimensions = new Vector(sensorWidth, sideSensorHeight);
         AABBCollider left = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
         AABBCollider right = new AABBCollider(AABBCollider.MIN_DIM, sTopRight, sDimensions);
         Sensor leftSensor = new Sensor(left);
@@ -76,9 +75,9 @@ public class BasicEnemyEntity extends GameEntity{
         Sensor groundSensor = new Sensor(bottom);
 
         //Edge detector sensors
-        Vector bLeft = new Vector(-groundSensorWidth, height);
+        Vector bLeft = new Vector(-sensorWidth, height);
         Vector bRight = new Vector(width, height);
-        Vector bDimensions = new Vector(groundSensorWidth, groundSensorHeight);
+        Vector bDimensions = new Vector(sensorWidth, groundSensorHeight);
 
         AABBCollider bLCol = new AABBCollider(AABBCollider.MIN_DIM, bLeft, bDimensions);
         Sensor bLSensor = new Sensor(bLCol);
@@ -93,7 +92,7 @@ public class BasicEnemyEntity extends GameEntity{
 
         //Scripts---
         //BasicEnemyScript s = new BasicEnemyScript(this, leftSensor, rightSensor, groundSensor);
-        BasicEnemyScript s = new BasicEnemyScript(leftSensor, rightSensor, groundSensor, bLSensor, bRSensor);
+        BasicEnemyScript s = new BasicEnemyScript(this, leftSensor, rightSensor, groundSensor, bLSensor, bRSensor);
         ScriptComponent scriptComp = new ScriptComponent(this, s);
         addComponent(scriptComp);
     }

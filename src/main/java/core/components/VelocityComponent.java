@@ -12,6 +12,7 @@ import maths.Vector;
 public class VelocityComponent extends Component<GameEntity> {
 
     private final Vector velocity;
+    private boolean paused = false;
 
     public VelocityComponent(GameEntity entity) {
         super(entity);
@@ -50,5 +51,17 @@ public class VelocityComponent extends Component<GameEntity> {
 
     public void setY(float y) { // Todo change how this is done :)
         velocity.set(velocity.x,y);
+    }
+
+    public void pause(){
+        paused = true;
+    }
+
+    public void unpause(){
+        paused = false;
+    }
+
+    public boolean isPaused(){
+        return paused;
     }
 }
