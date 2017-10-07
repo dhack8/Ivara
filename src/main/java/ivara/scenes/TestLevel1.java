@@ -19,6 +19,8 @@ public class TestLevel1 extends Scene{
         addEntity(new PlayerEntity(0,0));
         addEntity(new NewBasicEnemyEntity(new Vector(2,1), "slime"));
 
+        addEntity(new NPlatformEntity(5f, 1f, 4, true, 7f, 3f, 3f));
+
         setCamera(new Camera());
     }
 }
