@@ -59,6 +59,8 @@ public class AnimatedSprite extends Sprite{
      */
     public void setState(String newState) {
         assert resourceMap.containsKey(newState);
+        if (newState.equals(state))
+            return;
         this.state = newState;
         this.resources = resourceMap.get(state);
         this.frame = 0;
@@ -70,7 +72,7 @@ public class AnimatedSprite extends Sprite{
      */
     public void updateResource(long delta) {
         time += delta;
-        if (time > frameTick) { // TODO: Fix error when update time is longer than two frameTick times. i.e. should skip two animations not one.
+        while (time > frameTick) {
             time -= frameTick;
             frame = (frame+1)%resources.size();
             super.resourceID = new ResourceID(resources.get(frame));
