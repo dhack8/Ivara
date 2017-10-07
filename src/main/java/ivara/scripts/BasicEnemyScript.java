@@ -15,6 +15,8 @@ import maths.Vector;
  */
 public class BasicEnemyScript implements Script{
 
+    private final int pauseTime = 200;
+
     private Sensor left; // checking if the left is obstructed
     private Sensor right; // checking if the right is obstructed
     private Sensor bottom; // collision on bottom
@@ -88,7 +90,7 @@ public class BasicEnemyScript implements Script{
     private void pause(VelocityComponent vc, GameEntity entity){
         if(vc.isPaused()){return;}
         vc.pause();
-        entity.getScene().addTimer(new Timer(200, () -> vc.unpause()));
+        entity.getScene().addTimer(new Timer(pauseTime, () -> vc.unpause()));
     }
 
 }
