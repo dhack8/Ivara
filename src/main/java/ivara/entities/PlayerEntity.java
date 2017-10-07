@@ -44,8 +44,9 @@ public class PlayerEntity extends GameEntity {
 
         //Sprites---
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new ResourceID("player"), new Vector(width, height));
-//        sc.add(new PlayerSprite(new Vector(0,0), new Vector(width, height), 1000));
+        //sc.add(new ResourceID("player"), new Vector(width, height));
+        PlayerSprite playerSprite = new PlayerSprite(new Vector(0,0), new Vector(width, height), 170);
+        sc.add(playerSprite);
         addComponent(sc);
 
 
@@ -76,7 +77,7 @@ public class PlayerEntity extends GameEntity {
         addComponent(new SensorHandlerComponent(this));
 
         //Scripts---
-        PlayerScript pc = new PlayerScript(this, bottomSensor);
+        PlayerScript pc = new PlayerScript(this, playerSprite, bottomSensor);
         CameraScript cs = new CameraScript(this, new Vector(width/2, height/2));
 
         ScriptComponent scriptComponent = new ScriptComponent(this);

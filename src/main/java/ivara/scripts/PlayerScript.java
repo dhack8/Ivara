@@ -11,6 +11,7 @@ import core.struct.Sensor;
 import core.struct.Timer;
 import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
+import ivara.entities.sprites.PlayerSprite;
 import maths.Vector;
 import physics.AABBCollider;
 import util.Debug;
@@ -29,26 +30,15 @@ public class PlayerScript implements Script{//}, SensorListener {
     private final PlayerEntity player; //todo do we need this?
     private final Sensor bottomSensor;
 
+    private PlayerSprite sprite;
+
     private Vector relative;
 
-    //private  int accum = 0; // for testing
-    /**
-     * Creates a player script without a bottom sensor,
-     * exists for backwards compatibility with the sensorComponentTest.
-     * @param player The player this script belongs to.
-     * @deprecated Prefer other constructors for PlayerScript.
-     */
-    public PlayerScript(PlayerEntity player) {
+    public PlayerScript(PlayerEntity player, PlayerSprite sprite, Sensor bottomSensor) {
         this.player = player;
-        this.bottomSensor = new Sensor(new AABBCollider(0, new Vector(0, 0), new Vector(0, 0)));
-        relative = new Vector(0f,0f);
-    }
-
-    public PlayerScript(PlayerEntity player, Sensor bottomSensor) {
-        this.player = player;
+        this.sprite = sprite;
         this.bottomSensor = bottomSensor;
         relative = new Vector(0f,0f);
-
     }
 
     /**
@@ -78,11 +68,13 @@ public class PlayerScript implements Script{//}, SensorListener {
 
         if (input.isKeyPressed(Constants.A)) {
             vComp.setX(-3f + relative.x); // Todo on a move left or right, horizontal speed is set to relative y velocity + move velocity
-
+            sprite.setState(PlayerSprite.WALK_LEFT);
         } else if (input.isKeyPressed(Constants.D)) {
             vComp.setX(3f + relative.x);
+            sprite.setState(PlayerSprite.WALK_RIGHT);
         }else{
             vComp.setX(relative.x); // Todo when no left or right is pressed, the speed is set to the relative x speed
+            sprite.setState(PlayerSprite.IDLE_RIGHT);
         }
 
         //todo for testing with levelmanager

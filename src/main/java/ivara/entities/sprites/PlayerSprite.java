@@ -7,6 +7,11 @@ import java.util.Arrays;
 
 public class PlayerSprite extends AnimatedSprite {
 
+    public final static String WALK_RIGHT = "walk-right";
+    public final static String WALK_LEFT = "walk-left";
+    public final static String IDLE_RIGHT = "idle-right";
+    public final static String IDLE_LEFT = "idle-left";
+
     /**
      * Constructor does not take any resource ID upon creation as you need
      * to define the map resource map structure that the sprite will use. This
@@ -18,30 +23,28 @@ public class PlayerSprite extends AnimatedSprite {
      */
     public PlayerSprite(Vector transform, Vector dimensions, int frameTick) {
         super(transform, dimensions, frameTick);
-        String state = "walking-right";
+        String state = WALK_RIGHT;
         String[] resources = new String[] {
                 "player-walk-right",
                 "player-walk2-right"
         };
         addResources(state, Arrays.asList(resources));
-        state = "idle-right";
+        state = IDLE_RIGHT;
         resources = new String[] {
                 "player-right"
         };
         addResources(state, Arrays.asList(resources));
-        state = "walking-left";
+        state = WALK_LEFT;
         resources = new String[] {
                 "player-walk-left",
                 "player-walk2-left"
         };
         addResources(state, Arrays.asList(resources));
-        state = "idle-left";
+        state = IDLE_LEFT;
         resources = new String[] {
                 "player-left"
         };
         addResources(state, Arrays.asList(resources));
-        setState("walking-left"); //TODO incorporate state changes by key
+        setState(IDLE_RIGHT); //TODO incorporate state changes by key
     }
-
-
 }
