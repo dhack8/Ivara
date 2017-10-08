@@ -45,7 +45,7 @@ public class PlayerEntity extends GameEntity {
         //Sprites---
         SpriteComponent sc = new SpriteComponent(this);
         //sc.add(new ResourceID("player"), new Vector(width, height));
-        PlayerSprite playerSprite = new PlayerSprite(new Vector(0,0), new Vector(width, height), 170);
+        PlayerSprite playerSprite = new PlayerSprite(new Vector(0,0), new Vector(width, height), 160);
         sc.add(playerSprite);
         addComponent(sc);
 
