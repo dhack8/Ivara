@@ -2,8 +2,7 @@ package ivara.scenes;
 
 import core.scene.Scene;
 import core.struct.Camera;
-import ivara.entities.BasicBlockEntity;
-import ivara.entities.NPlatformEntity;
+import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.BasicEnemyEntity;
 import ivara.entities.*;
@@ -15,17 +14,17 @@ import maths.Vector;
  */
 public class TestLevel1 extends Scene{
     public void startScene(){
-        addEntity(new BasicBlockEntity(0,1,"dirt"));
-        addEntity(new NPlatformEntity(1,2,3, false));
-        addEntity(new BasicBlockEntity(4,2.1f,"dirt"));
-        addEntity(new BasicBlockEntity(-1,2.7f,"dirt"));
+        addEntity(new PlatformEntity(new Vector(0,1)));
+        addEntity(new PlatformEntity(new Vector(1,2),3, false));
+        addEntity(new PlatformEntity(new Vector(4, 2.1f)));
+        addEntity(new PlatformEntity(new Vector(-1, 2.7f)));
 
         addEntity(new PlayerEntity(0,0));
         addEntity(new SnakeEntity(new Vector(2, 0.5f)));
 
         addEntity(new GhostEntity(new Vector(4,0), new Vector(8,0), 5));
 
-        addEntity(new NPlatformEntity(5f, 1f, 4, true, 7f, 3f, 3f));
+        addEntity(new PlatformEntity(new Vector(5,1), 4, true, new Vector(7,3 ), 3f));
 
         setCamera(new Camera());
     }

@@ -2,9 +2,9 @@ package ivara.scenes;
 
 import core.scene.Scene;
 import core.struct.Camera;
-import ivara.entities.BasicBlockEntity;
 import ivara.entities.LevelEndEntity;
-import ivara.entities.MovingBlockEntity;
+import ivara.entities.PlatformEntity;
+import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
 
@@ -14,19 +14,19 @@ import maths.Vector;
 public class LevelFour extends Scene{
     public void startScene(){ // Todo figure out where the timing issues are coming in
 
-        addEntity(new MovingBlockEntity(0,0,1,0, "dirt", 1f)); // left -> right
-        addEntity(new MovingBlockEntity(0,1, 0,2, "dirt", 1f)); // up -> down
+        addEntity(new PlatformEntity(new Vector(0,0),new Vector(1,0), 1f)); // left -> right
+        addEntity(new PlatformEntity(new Vector(0,1), new Vector(0,2), 1f)); // up -> down
 
 
-        addEntity(new MovingBlockEntity(6,0, 5,0, "dirt", 1f)); // right -> left
-        addEntity(new MovingBlockEntity(6,2, 6,1, "dirt", 1f)); // down -> up
+        addEntity(new PlatformEntity(new Vector(6,0), new Vector(5,0), 1f)); // right -> left
+        addEntity(new PlatformEntity(new Vector(6,1), new Vector(6,0), 1f)); // down -> up
 
 
-        addEntity(new MovingBlockEntity(9,5, 7,1, "dirt", 1f)); // backward diag test
+        addEntity(new PlatformEntity(new Vector(9,5), new Vector(7,1), 1f)); // backward diag test
 
 
 
-        addEntity(new BasicBlockEntity(6,6,"dirt"));
+        addEntity(new PlatformEntity(new Vector(6,6)));
         addEntity(new PlayerEntity(6,5));
         setCamera(new Camera(new Vector(0,0), new Vector(32,18)));
 
