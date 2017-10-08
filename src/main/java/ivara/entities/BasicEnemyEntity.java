@@ -2,8 +2,10 @@ package ivara.entities;
 
 import core.components.*;
 import core.entity.GameEntity;
+import core.struct.AnimatedSprite;
 import core.struct.ResourceID;
 import core.struct.Sensor;
+import core.struct.Sprite;
 import ivara.entities.scripts.BasicEnemyScript;
 import maths.Vector;
 import physics.AABBCollider;
@@ -16,12 +18,12 @@ abstract public class BasicEnemyEntity extends GameEntity{
     //Initial setup variables -- change later?
     private static final float SPEED = 0.7f;
     private static final boolean START_RIGHT = true;
-    private float sensorPadding = 0.06f;
+    private float sensorPadding = 0.08f;
 
     //Todo working on sensors for moving onto a non-existent platform
     private float groundSensorHeight= 0f;
 
-    public BasicEnemyEntity(Vector transform, Vector dimensions, String resourceID){
+    public BasicEnemyEntity(Vector transform, Vector dimensions){
         super(transform);
 
         //Entity dimensions
@@ -40,11 +42,6 @@ abstract public class BasicEnemyEntity extends GameEntity{
         VelocityComponent v = new VelocityComponent(this);
         v.set(new Vector((START_RIGHT? SPEED: -SPEED), 0f));
         addComponent(v);
-
-        //Sprites---
-        SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new ResourceID(resourceID), new Vector(width, height));
-        addComponent(sc);
 
         //Collider---
         Vector cTopLeft = new Vector(0f, 0f);
@@ -94,5 +91,19 @@ abstract public class BasicEnemyEntity extends GameEntity{
         BasicEnemyScript s = new BasicEnemyScript(this, leftSensor, rightSensor, groundSensor, bLSensor, bRSensor);
         ScriptComponent scriptComp = new ScriptComponent(this, s);
         addComponent(scriptComp);
+    }
+
+    public void setSprite(Sprite s){
+        //Sprites---
+        SpriteComponent sc = new SpriteComponent(this);
+        sc.add(s);
+        addComponent(sc);
+    }
+
+    public void setSprite(AnimatedSprite s){
+        //Sprites---
+        SpriteComponent sc = new SpriteComponent(this);
+        sc.add(s);
+        addComponent(sc);
     }
 }
