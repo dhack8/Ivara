@@ -2,11 +2,10 @@ package ivara.entities;
 
 import core.components.*;
 import core.entity.GameEntity;
-import core.struct.ResourceID;
 import core.struct.Sensor;
 import ivara.entities.sprites.PlayerSprite;
-import ivara.scripts.CameraScript;
-import ivara.scripts.PlayerScript;
+import ivara.entities.scripts.CameraScript;
+import ivara.entities.scripts.PlayerScript;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;

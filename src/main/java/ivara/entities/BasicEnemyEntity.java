@@ -4,7 +4,7 @@ import core.components.*;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sensor;
-import ivara.scripts.BasicEnemyScript;
+import ivara.entities.scripts.BasicEnemyScript;
 import maths.Vector;
 import physics.AABBCollider;
 

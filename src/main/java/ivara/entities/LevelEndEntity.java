@@ -4,10 +4,9 @@ import core.components.*;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sensor;
-import ivara.scripts.LevelChangeScript;
+import ivara.entities.scripts.LevelChangeScript;
 import maths.Vector;
 import physics.AABBCollider;
-import scew.Entity;
 
 /**
  * Created by Alex Mitchell on 3/10/2017.

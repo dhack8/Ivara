@@ -6,7 +6,7 @@ import core.components.SpriteComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
-import ivara.scripts.BasicMoveScript;
+import ivara.entities.scripts.BasicMoveScript;
 import maths.Vector;
 import physics.AABBCollider;
 
