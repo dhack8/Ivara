@@ -11,7 +11,6 @@ import core.struct.Sensor;
 import core.struct.Timer;
 import ivara.entities.BulletEntity;
 import ivara.entities.Enemy;
-import ivara.entities.PlayerEntity;
 import ivara.entities.sprites.PlayerSprite;
 import maths.Vector;
 import util.Debug;
@@ -37,6 +36,7 @@ public class PlayerScript implements Script{//}, SensorListener {
     }
 
     private float metresPerSecond = 3f;
+    private float jump = -9f;
 
     private final Sensor bottomSensor;
     private final Sensor enemySensor;
@@ -63,13 +63,14 @@ public class PlayerScript implements Script{//}, SensorListener {
      */
     @Override
     public void update(int dt, GameEntity entity) {
+        Debug.log("I am running " + System.currentTimeMillis());
+
         InputHandler.InputFrame input = entity.getInput();
         VelocityComponent vComp = entity.get(VelocityComponent.class).get();
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
 
         //Enemy Detection
         if(sensorHandler.isActive(enemySensor)) handleEnemy(sensorHandler, entity);
-        else Debug.log("Sensor OFF");
 
         //Bottom sensor stuff---
         if (sensorHandler.isActive(bottomSensor)) handleOnGround(vComp, sensorHandler, entity);
@@ -92,11 +93,7 @@ public class PlayerScript implements Script{//}, SensorListener {
 
     private void handleEnemy(SensorHandler sensorHandler, GameEntity player){
         GameEntity collided = sensorHandler.getActivatingEntities(enemySensor).stream().findAny().get();
-        if(collided instanceof Enemy){
-            Debug.log("Player dead!");
-        }else{
-            Debug.log("Player NOT dead!");
-        }
+        if(collided instanceof Enemy) player.getScene().resetScene();
     }
 
     private void handleOnGround(VelocityComponent vComp, SensorHandler sensorHandler, GameEntity player){
@@ -112,7 +109,7 @@ public class PlayerScript implements Script{//}, SensorListener {
 
     private void performJump(VelocityComponent vComp){
         if (canJump) {
-            vComp.setY(-7f + relative.y); // Todo, on a jump y velocity is set to relative y velocity + the jump velocity
+            vComp.setY(jump + relative.y); // Todo, on a jump y velocity is set to relative y velocity + the jump velocity
             canJump = false;
         }
     }

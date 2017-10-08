@@ -11,8 +11,8 @@ import java.util.Arrays;
  */
 public class SnakeEntity extends BasicEnemyEntity implements Enemy{
 
-    private final static float WIDTH = 1f;
-    private final static float HEIGHT = 3f;
+    private final static float WIDTH = 0.6f;
+    private final static float HEIGHT = 1.5f;
     private final static int RATE = 200;
 
     public SnakeEntity(Vector location){

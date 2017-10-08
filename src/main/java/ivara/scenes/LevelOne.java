@@ -10,7 +10,7 @@ import maths.Vector;
  * @author James Magallanes
  */
 public class LevelOne extends Scene {
-    public void resetScene() {
+    public void startScene() {
 
         /*
         //addEntity(new BackgroundEntity(0,0));

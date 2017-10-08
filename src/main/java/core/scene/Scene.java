@@ -2,7 +2,6 @@ package core.scene;
 
 import core.Game;
 import core.entity.GameEntity;
-import core.input.InputHandler;
 import core.struct.Camera;
 import core.struct.Timer;
 import core.systems.*;
@@ -38,10 +37,24 @@ public abstract class Scene {
         world.addSystem(new AnimationSystem());
         world.addSystem(timerSystem);
 
-        resetScene();
+        startScene();
     }
 
-    abstract public void resetScene();
+    abstract public void startScene();
+
+    public void resetScene(){
+        world = new World<>();
+        world.addSystem(new GravitySystem(new Vector(0, 25f)));
+        world.addSystem(new VelocitySystem());
+        world.addSystem(new SensorSystem());
+        world.addSystem(new PhysicsSystem());
+        world.addSystem(new ScriptSystem());
+        world.addSystem(new AnimationSystem());
+        world.addSystem(timerSystem);
+
+        nameEntityMap = new HashMap<>();
+        startScene();
+    }
 
     public void setGame(Game game) {
         this.game = game;
