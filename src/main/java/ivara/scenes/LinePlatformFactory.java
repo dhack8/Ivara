@@ -3,8 +3,9 @@ package ivara.scenes;
 
 
 import core.entity.GameEntity;
-import ivara.entities.BasicBlockEntity;
-import ivara.entities.NPlatformEntity;
+import ivara.entities.PlatformEntity;
+import maths.*;
+import maths.Vector;
 import scew.Entity;
 
 import java.util.*;
@@ -65,11 +66,11 @@ public final class LinePlatformFactory {
         private static GameEntity platformType(int x, int y, int n, boolean isVertical) {
         assert(n > 0);
         if (n == 1)
-            return new BasicBlockEntity(x, y, "grass-top");
+            return new PlatformEntity(new Vector(x, y));
         else if (isVertical)
-            return new NPlatformEntity(x, y, n, true);
+            return new PlatformEntity(new Vector(x,y), n, true);
         else
-            return new NPlatformEntity(x, y, n, false);
+            return new PlatformEntity(new Vector(x,y), n, false);
     }
 
 

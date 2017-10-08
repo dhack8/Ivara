@@ -43,19 +43,19 @@ public class LevelOne extends Scene {
         addEntity(new BackgroundEntity(0,0));
         addEntity(new PlayerEntity(0, 1.5f));
 
-        addEntity(new NPlatformEntity(0,3,2,false));
-        addEntity(new MovingBlockEntity(3, 3, 8, 3, "grass-top", 2.5f));
-        addEntity(new NPlatformEntity(10,3,2,false));
-        addEntity(new MovingBlockEntity(13,4,13,-4, "grass-top", 2.5f));
-        addEntity(new NPlatformEntity(15,-4,3,false));
+        addEntity(new PlatformEntity(new Vector(0,3),2,false));
+        addEntity(new PlatformEntity(new Vector(3,3) , new Vector(8,3) ,2.5f));
+        addEntity(new PlatformEntity(new Vector(10, 3),2,false));
+        addEntity(new PlatformEntity(new Vector(13, 4),new Vector(13, 4), 2.5f));
+        addEntity(new PlatformEntity(new Vector(15, -4),3,false));
 
         //fall catcher
-        addEntity(new NPlatformEntity(2,11,9,false));
-        addEntity(new NPlatformEntity(11,7,5,true));
+        addEntity(new PlatformEntity(new Vector(2, 11), 9,false));
+        addEntity(new PlatformEntity(new Vector(11, 7),5,true));
         //addEntities(LinePlatformFactory.line(-1,8,1,10));
-        addEntity(new MovingBlockEntity(-1,8,-1,3, "grass-top", 3));
-        addEntity(new NPlatformEntity(-5,2,7,true));
-        addEntity(new NPlatformEntity(-4,8,4,false));
+        addEntity(new PlatformEntity(new Vector(-1, 8),new Vector(-1, 3), 3));
+        addEntity(new PlatformEntity(new Vector(-5, 2),7,true));
+        addEntity(new PlatformEntity(new Vector(-4, 8),4,false));
 
 
         //todo added

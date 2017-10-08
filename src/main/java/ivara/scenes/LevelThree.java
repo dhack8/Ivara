@@ -16,15 +16,15 @@ public class LevelThree extends Scene{
 
         addEntity(new PlayerEntity(-1, 0));
 
-        addEntity(new BasicBlockEntity(-1, 1, "dirt"));
-        addEntity(new BasicBlockEntity(4, 1, "dirt"));
-        addEntity(new NPlatformEntity(0,2,4,false));
+        addEntity(new PlatformEntity(new Vector(-1, 1)));
+        addEntity(new PlatformEntity(new Vector(4,1)));
+        addEntity(new PlatformEntity(new Vector(0,2),4,false));
 
-        addEntity(new MovingBlockEntity(5f, 3f, 5f, 5f, "grass-top", 5f));
+        addEntity(new PlatformEntity(new Vector(5,3), new Vector(5,5), 5f));
 
 
         for(int i = 6; i < 11; i++){
-            addEntity(new BasicBlockEntity(i,5, "grass-top"));
+            addEntity(new PlatformEntity(new Vector(i, 5)));
         }
 
         setCamera(new Camera());
