@@ -18,6 +18,7 @@ import java.util.Map;
  * @author Will Pearson
  */
 public class AnimatedSprite extends Sprite{
+
     private String state;
     private List<String> resources;
     private int frame;

@@ -12,6 +12,7 @@ import core.struct.Timer;
 import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.sprites.PlayerSprite;
+import javafx.geometry.Orientation;
 import maths.Vector;
 import physics.AABBCollider;
 import util.Debug;
@@ -25,6 +26,17 @@ import util.Debug;
  */
 public class PlayerScript implements Script{//}, SensorListener {
 
+    private enum Orientation{
+        RIGHT,
+        LEFT
+    }
+
+    private enum State{
+        WALK,
+        IDLE,
+        JUMP
+    }
+
     private float metresPerSecond = 3f;
 
     private final PlayerEntity player; //todo do we need this?
@@ -33,6 +45,9 @@ public class PlayerScript implements Script{//}, SensorListener {
     private PlayerSprite sprite;
 
     private Vector relative;
+
+    private Orientation orientation = Orientation.RIGHT;
+    private State state = State.IDLE;
 
     public PlayerScript(PlayerEntity player, PlayerSprite sprite, Sensor bottomSensor) {
         this.player = player;
@@ -57,7 +72,10 @@ public class PlayerScript implements Script{//}, SensorListener {
             GameEntity collided = sensorHandler.getActivatingEntities(bottomSensor).stream().findAny().get();
             groundCollision(pEntity, collided);
             vComp.setY(relative.y); // Todo regardless, when the sensor is triggered the y velocity is set to 0
-        }else relative.set(0f,0f); // Todo Relative velocity reset to 0 when there is no contact with a block
+        }else{
+            relative.set(0f,0f); // Todo Relative velocity reset to 0 when there is no contact with a block
+            updateState(State.JUMP);
+        }
 
         if (input.isKeyPressed(Constants.W)) {
             if (pEntity.canJump) {
@@ -68,13 +86,15 @@ public class PlayerScript implements Script{//}, SensorListener {
 
         if (input.isKeyPressed(Constants.A)) {
             vComp.setX(-3f + relative.x); // Todo on a move left or right, horizontal speed is set to relative y velocity + move velocity
-            sprite.setState(PlayerSprite.WALK_LEFT);
+            updateState(Orientation.LEFT);
+            if(sensorHandler.isActive(bottomSensor)) updateState(State.WALK);
         } else if (input.isKeyPressed(Constants.D)) {
             vComp.setX(3f + relative.x);
-            sprite.setState(PlayerSprite.WALK_RIGHT);
+            updateState(Orientation.RIGHT);
+            if(sensorHandler.isActive(bottomSensor)) updateState(State.WALK);
         }else{
             vComp.setX(relative.x); // Todo when no left or right is pressed, the speed is set to the relative x speed
-            sprite.setState(PlayerSprite.IDLE_RIGHT);
+            if(sensorHandler.isActive(bottomSensor)) updateState(State.IDLE);
         }
 
         //todo for testing with levelmanager
@@ -134,4 +154,47 @@ public class PlayerScript implements Script{//}, SensorListener {
         relative.set(c); // todo relative speed is set
     }
 
+    private void updateState(Orientation o, State s){
+        orientation = o;
+        state = s;
+        updateSprite();
+    }
+
+    private void updateState(State s){
+        state = s;
+        updateSprite();
+    }
+
+    private void updateState(Orientation o){
+        orientation = o;
+        updateSprite();
+    }
+
+    private void updateSprite(){
+        if(orientation.equals(Orientation.RIGHT)){
+            switch (state){
+                case WALK:
+                    sprite.setState(PlayerSprite.WALK_RIGHT);
+                    break;
+                case IDLE:
+                    sprite.setState(PlayerSprite.IDLE_RIGHT);
+                    break;
+                case JUMP:
+                    sprite.setState(PlayerSprite.JUMP_RIGHT);
+                    break;
+            }
+        }else{
+            switch (state){
+                case WALK:
+                    sprite.setState(PlayerSprite.WALK_LEFT);
+                    break;
+                case IDLE:
+                    sprite.setState(PlayerSprite.IDLE_LEFT);
+                    break;
+                case JUMP:
+                    sprite.setState(PlayerSprite.JUMP_LEFT);
+                    break;
+            }
+        }
+    }
 }

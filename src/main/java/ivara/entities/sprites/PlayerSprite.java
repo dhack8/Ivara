@@ -11,6 +11,10 @@ public class PlayerSprite extends AnimatedSprite {
     public final static String WALK_LEFT = "walk-left";
     public final static String IDLE_RIGHT = "idle-right";
     public final static String IDLE_LEFT = "idle-left";
+    public final static String JUMP_RIGHT = "jump-right";
+    public final static String JUMP_LEFT = "jump-left";
+    public final static String DUCK_RIGHT = "duck-right";
+    public final static String DUCK_LEFT = "duck-left";
 
     /**
      * Constructor does not take any resource ID upon creation as you need
@@ -29,22 +33,50 @@ public class PlayerSprite extends AnimatedSprite {
                 "player-walk-right"
         };
         addResources(state, Arrays.asList(resources));
+
         state = IDLE_RIGHT;
         resources = new String[] {
                 "player-right"
         };
         addResources(state, Arrays.asList(resources));
+
+        state = JUMP_RIGHT;
+        resources = new String[] {
+                "player-jump-right"
+        };
+        addResources(state, Arrays.asList(resources));
+
+        state = DUCK_RIGHT;
+        resources = new String[] {
+                "player-duck-right"
+        };
+        addResources(state, Arrays.asList(resources));
+
         state = WALK_LEFT;
         resources = new String[] {
                 "player-walk2-left",
                 "player-walk-left"
         };
         addResources(state, Arrays.asList(resources));
+
         state = IDLE_LEFT;
         resources = new String[] {
                 "player-left"
         };
         addResources(state, Arrays.asList(resources));
+
+        state = JUMP_LEFT;
+        resources = new String[] {
+                "player-jump-left"
+        };
+        addResources(state, Arrays.asList(resources));
+
+        state = DUCK_LEFT;
+        resources = new String[] {
+                "player-duck-left"
+        };
+        addResources(state, Arrays.asList(resources));
+
         setState(IDLE_RIGHT); //TODO incorporate state changes by key
     }
 }

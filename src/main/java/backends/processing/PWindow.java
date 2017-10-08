@@ -130,8 +130,10 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/long-slime-dead.png", "long-slime-dead", this);
         AssetHandler.loadImage("./assets/player.png", "player", this);
         AssetHandler.loadImage("./assets/player-dead.png", "player-dead", this);
-        AssetHandler.loadImage("./assets/player-duck.png", "player-duck", this);
-        AssetHandler.loadImage("./assets/player-jump.png", "player-jump", this);
+        AssetHandler.loadImage("./assets/player-duck-left.png", "player-duck-left", this);
+        AssetHandler.loadImage("./assets/player-duck-right.png", "player-duck-right", this);
+        AssetHandler.loadImage("./assets/player-jump-left.png", "player-jump-left", this);
+        AssetHandler.loadImage("./assets/player-jump-right.png", "player-jump-right", this);
         AssetHandler.loadImage("./assets/player-left.png", "player-left", this);
         AssetHandler.loadImage("./assets/player-right.png", "player-right", this);
         AssetHandler.loadImage("./assets/player-walk-left.png", "player-walk-left", this);
