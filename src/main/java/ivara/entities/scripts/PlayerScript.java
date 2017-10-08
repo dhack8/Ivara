@@ -21,6 +21,7 @@ import util.Debug;
  * Assumes y axis goes top down and x axis goes left right.
  * @author Alex Mitchell
  * @author Will Pearson
+ * @author David Hack
  */
 public class PlayerScript implements Script{//}, SensorListener {
 
@@ -63,8 +64,6 @@ public class PlayerScript implements Script{//}, SensorListener {
      */
     @Override
     public void update(int dt, GameEntity entity) {
-        Debug.log("I am running " + System.currentTimeMillis());
-
         InputHandler.InputFrame input = entity.getInput();
         VelocityComponent vComp = entity.get(VelocityComponent.class).get();
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();

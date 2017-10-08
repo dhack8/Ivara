@@ -28,22 +28,26 @@ public abstract class Scene {
     private Camera camera                           = null;
     private TimerSystem timerSystem                 = new TimerSystem();
 
-    public Scene() {
-        world.addSystem(new GravitySystem(new Vector(0, 25f)));
-        world.addSystem(new VelocitySystem());
-        world.addSystem(new SensorSystem());
-        world.addSystem(new PhysicsSystem());
-        world.addSystem(new ScriptSystem());
-        world.addSystem(new AnimationSystem());
-        world.addSystem(timerSystem);
+    private GameEntity timer;
 
+    public Scene() {
+        addSystems();
         startScene();
+
+        //startTime = System.currentTimeMillis();
     }
 
     abstract public void startScene();
 
     public void resetScene(){
         world = new World<>();
+        addSystems();
+
+        nameEntityMap = new HashMap<>();
+        startScene();
+    }
+
+    private void addSystems(){
         world.addSystem(new GravitySystem(new Vector(0, 25f)));
         world.addSystem(new VelocitySystem());
         world.addSystem(new SensorSystem());
@@ -51,9 +55,14 @@ public abstract class Scene {
         world.addSystem(new ScriptSystem());
         world.addSystem(new AnimationSystem());
         world.addSystem(timerSystem);
+    }
 
-        nameEntityMap = new HashMap<>();
-        startScene();
+    public void showTimer(){
+
+    }
+
+    public void hideTimer(){
+
     }
 
     public void setGame(Game game) {
