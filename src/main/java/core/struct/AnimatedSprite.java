@@ -60,11 +60,17 @@ public class AnimatedSprite extends Sprite{
      */
     public void setState(String newState) {
         assert resourceMap.containsKey(newState);
+
         if (newState.equals(state))
             return;
+
         this.state = newState;
         this.resources = resourceMap.get(state);
         this.frame = 0;
+
+        if (super.resourceID.id.equals("black-box") && !resources.isEmpty()){
+            super.resourceID = new ResourceID(resources.get(frame));
+        }
     }
 
     /**
