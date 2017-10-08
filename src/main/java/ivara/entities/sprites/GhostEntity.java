@@ -4,6 +4,7 @@ import core.components.*;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
 import core.struct.Sensor;
+import ivara.entities.Enemy;
 import ivara.entities.scripts.BasicMoveScript;
 import maths.Vector;
 import physics.AABBCollider;
@@ -13,7 +14,7 @@ import java.util.Arrays;
 /**
  * Created by David Hack Local on 08-Oct-17.
  */
-public class GhostEntity extends GameEntity{
+public class GhostEntity extends GameEntity implements Enemy{
     private static final float SPEED = 0.7f;
 
     private final static float WIDTH = 1.2f;

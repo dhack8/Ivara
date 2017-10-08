@@ -28,6 +28,8 @@ public class PlayerEntity extends GameEntity {
     private float widthOff = 0.4f;
     private float heightOff = 0.3f;
 
+    private float jumpSensorHeight = 0.05f;
+
     /**
      * Creates a PlayerEntity at a given position
      *
@@ -66,11 +68,17 @@ public class PlayerEntity extends GameEntity {
         //Sensors---
         //AABB for the sensor
         //FOR WALL RUNNING THIS SENSOR NEEDS TO BE THE SAME WIDTH AS THE COLLIDER, BIT SMALLER FOR NO WALL RUNNING
-        Vector sTopLeft = new Vector(widthOff/2, height-0.1f);
-        Vector sDimensions = new Vector(width-widthOff, 0.1f);
+        Vector sTopLeft = new Vector(widthOff/2, height-jumpSensorHeight);
+        Vector sDimensions = new Vector(width-widthOff, jumpSensorHeight);
         AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
         Sensor bottomSensor = new Sensor(ab);
-        addComponent(new SensorComponent(this, bottomSensor));
+
+        //This sensor goes around whole player except the jump sensor
+        cDimensions.y = cDimensions.y - jumpSensorHeight;
+        ab = new AABBCollider(AABBCollider.MIN_DIM, cTopLeft, cDimensions);
+        Sensor enemySensor = new Sensor(ab);
+
+        addComponent(new SensorComponent(this, new Sensor[]{bottomSensor, enemySensor}));
 
         //Enable Listening for Sensor Events
         addComponent(new SensorHandlerComponent(this));

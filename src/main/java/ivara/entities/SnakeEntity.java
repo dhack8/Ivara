@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * Created by David Hack Local on 08-Oct-17.
  */
-public class SnakeEntity extends BasicEnemyEntity{
+public class SnakeEntity extends BasicEnemyEntity implements Enemy{
 
     private final static float WIDTH = 1f;
     private final static float HEIGHT = 3f;
