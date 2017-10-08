@@ -4,6 +4,7 @@ import core.Script;
 import core.components.SensorHandlerComponent;
 import core.entity.GameEntity;
 import core.input.SensorHandler;
+import core.scene.Scene;
 import core.struct.Sensor;
 import ivara.entities.PlayerEntity;
 
@@ -12,6 +13,7 @@ import ivara.entities.PlayerEntity;
  */
 public class LevelChangeScript implements Script{
     private final Sensor sensor;
+    private final boolean RESET_ON_LEVEL_CHANGE = true;
 
     private boolean entered = false; // Todo sort out a way to reset a scene
     /**
@@ -32,7 +34,9 @@ public class LevelChangeScript implements Script{
 
             if(!entered && playerCollision) {
                 entered = true;
-                entity.getScene().getGame().nextScene();
+                Scene current = entity.getScene();
+                current.getGame().nextScene();
+                if(RESET_ON_LEVEL_CHANGE)current.resetScene();
             }
         }
     }
