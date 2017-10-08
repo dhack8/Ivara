@@ -1,7 +1,6 @@
-package ivara.scripts;
+package ivara.entities.scripts;
 
 import core.Script;
-import core.components.ScriptComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
 

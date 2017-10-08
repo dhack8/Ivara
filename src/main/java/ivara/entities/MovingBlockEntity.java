@@ -1,6 +1,5 @@
 package ivara.entities;
 
-import core.Script;
 import core.components.ColliderComponent;
 import core.components.ScriptComponent;
 import core.components.SpriteComponent;
@@ -9,7 +8,7 @@ import core.entity.GameEntity;
 import core.struct.ResourceID;
 import maths.Vector;
 import physics.AABBCollider;
-import ivara.scripts.BasicMoveScript;
+import ivara.entities.scripts.BasicMoveScript;
 
 /**
  * A block that can move based on a given script

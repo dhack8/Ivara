@@ -1,4 +1,4 @@
-package ivara.scripts;
+package ivara.entities.scripts;
 
 import core.Script;
 import core.components.SensorHandlerComponent;
@@ -7,7 +7,6 @@ import core.entity.GameEntity;
 import core.input.SensorHandler;
 import core.struct.Sensor;
 import core.struct.Timer;
-import maths.Vector;
 
 /**
  * This script inverts the velocity of an enemy entity when there is a left/right collision or no floor tile

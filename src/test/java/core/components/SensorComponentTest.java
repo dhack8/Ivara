@@ -1,11 +1,7 @@
 package core.components;
 
 import core.entity.GameEntity;
-import core.struct.ResourceID;
 import core.struct.Sensor;
-import core.struct.Sprite;
-import ivara.entities.PlayerEntity;
-import ivara.scripts.PlayerScript;
 import maths.Vector;
 import org.junit.Before;
 import org.junit.Test;

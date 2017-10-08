@@ -4,10 +4,9 @@ import core.components.ScriptComponent;
 import core.components.SpriteComponent;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
-import ivara.scripts.CameraScript;
-import ivara.scripts.OnClickScript;
+import ivara.entities.scripts.CameraScript;
+import ivara.entities.scripts.OnClickScript;
 import maths.Vector;
-import scew.Entity;
 
 /**
  * Created by Alex Mitchell on 7/10/2017.
