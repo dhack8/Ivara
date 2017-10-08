@@ -14,7 +14,7 @@ import maths.Vector;
  * Created by Alex Mitchell on 4/10/2017.
  */
 public class TestLevel1 extends Scene{
-    public TestLevel1(){
+    public void resetScene(){
         addEntity(new BasicBlockEntity(0,1,"dirt"));
         addEntity(new NPlatformEntity(1,2,3, false));
         addEntity(new BasicBlockEntity(4,2.1f,"dirt"));

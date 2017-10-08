@@ -11,9 +11,7 @@ import maths.Vector;
  * @author Will Pearson
  */
 public class LevelFive extends Scene {
-
-    public LevelFive() {
-
+    public void resetScene() {
         //addEntity(new BackgroundEntity(0,0));
         addEntity(new PlayerEntity(1, -8));
         setCamera(new Camera(new Vector(0,0), new Vector(32,18)));

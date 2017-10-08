@@ -52,7 +52,6 @@ public class Ivara extends Game {
         //level 0 or the first level is the menu
         //levels.add(new IntroLevel());
         levels.add(new LevelOne());
-        //levels.add(new LevelTwo());
         levels.add(new LevelThree());
         levels.add(new LevelFour());
         //levels.add(new LevelFive());

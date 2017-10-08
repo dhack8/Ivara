@@ -37,7 +37,11 @@ public abstract class Scene {
         world.addSystem(new ScriptSystem());
         world.addSystem(new AnimationSystem());
         world.addSystem(timerSystem);
+
+        resetScene();
     }
+
+    abstract public void resetScene();
 
     public void setGame(Game game) {
         this.game = game;

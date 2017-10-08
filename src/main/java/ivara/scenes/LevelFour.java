@@ -12,8 +12,7 @@ import maths.Vector;
  * Created by Alex Mitchell on 17/09/2017.
  */
 public class LevelFour extends Scene{
-
-    public LevelFour(){ // Todo figure out where the timing issues are coming in
+    public void resetScene(){ // Todo figure out where the timing issues are coming in
 
         addEntity(new MovingBlockEntity(0,0,1,0, "dirt", 1f)); // left -> right
         addEntity(new MovingBlockEntity(0,1, 0,2, "dirt", 1f)); // up -> down

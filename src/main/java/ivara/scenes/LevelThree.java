@@ -10,8 +10,7 @@ import maths.Vector;
  * Created by Alex Mitchell on 17/09/2017.
  */
 public class LevelThree extends Scene{
-
-    public LevelThree(){
+    public void resetScene(){
         addEntity(new BackgroundEntity(0f,0f));
 
         addEntity(new PlayerEntity(-1, 0));

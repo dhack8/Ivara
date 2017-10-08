@@ -16,8 +16,7 @@ import java.util.Optional;
  * The map is a simple line across, with a simple jump
  */
 public class IntroLevel extends Scene{
-
-    public IntroLevel(){
+    public void resetScene() {
         addEntity(new PlayerEntity(2, 3.5f));
         addEntity(new BackgroundEntity(0,0));
 

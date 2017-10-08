@@ -10,6 +10,7 @@ import core.input.SensorHandler;
 import core.struct.Sensor;
 import core.struct.Timer;
 import ivara.entities.BulletEntity;
+import ivara.entities.Enemy;
 import ivara.entities.PlayerEntity;
 import ivara.entities.sprites.PlayerSprite;
 import maths.Vector;
@@ -37,8 +38,8 @@ public class PlayerScript implements Script{//}, SensorListener {
 
     private float metresPerSecond = 3f;
 
-    private final PlayerEntity player; //todo do we need this?
     private final Sensor bottomSensor;
+    private final Sensor enemySensor;
 
     private PlayerSprite sprite;
 
@@ -49,10 +50,10 @@ public class PlayerScript implements Script{//}, SensorListener {
 
     private boolean canJump = true;
 
-    public PlayerScript(PlayerEntity player, PlayerSprite sprite, Sensor bottomSensor) {
-        this.player = player;
+    public PlayerScript(PlayerSprite sprite, Sensor bottomSensor, Sensor enemySensor) {
         this.sprite = sprite;
         this.bottomSensor = bottomSensor;
+        this.enemySensor = enemySensor;
         relative = new Vector(0f,0f);
     }
 
@@ -66,8 +67,12 @@ public class PlayerScript implements Script{//}, SensorListener {
         VelocityComponent vComp = entity.get(VelocityComponent.class).get();
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
 
+        //Enemy Detection
+        if(sensorHandler.isActive(enemySensor)) handleEnemy(sensorHandler, entity);
+        else Debug.log("Sensor OFF");
+
         //Bottom sensor stuff---
-        if (sensorHandler.isActive(bottomSensor))handleOnGround(vComp, sensorHandler, entity);
+        if (sensorHandler.isActive(bottomSensor)) handleOnGround(vComp, sensorHandler, entity);
         else handleAirborne();
 
         //Try jump---
@@ -83,6 +88,15 @@ public class PlayerScript implements Script{//}, SensorListener {
 
         //Pause menu---
         if(input.isKeyReleased(Constants.SPACE)) entity.getScene().getGame().pause();
+    }
+
+    private void handleEnemy(SensorHandler sensorHandler, GameEntity player){
+        GameEntity collided = sensorHandler.getActivatingEntities(enemySensor).stream().findAny().get();
+        if(collided instanceof Enemy){
+            Debug.log("Player dead!");
+        }else{
+            Debug.log("Player NOT dead!");
+        }
     }
 
     private void handleOnGround(VelocityComponent vComp, SensorHandler sensorHandler, GameEntity player){
@@ -104,7 +118,7 @@ public class PlayerScript implements Script{//}, SensorListener {
     }
 
     private void handleWalk(VelocityComponent vComp, SensorHandler sensorHandler, Orientation o){
-        vComp.setX(((o.equals(Orientation.LEFT)?-1:1)*3f) + relative.x);
+        vComp.setX(((o.equals(Orientation.LEFT)?-1:1)*metresPerSecond) + relative.x);
         updateState(o);
         if(sensorHandler.isActive(bottomSensor)) updateState(State.WALK);
     }

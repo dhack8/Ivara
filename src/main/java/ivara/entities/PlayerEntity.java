@@ -25,7 +25,7 @@ public class PlayerEntity extends GameEntity {
     private float widthOff = 0.4f;
     private float heightOff = 0.3f;
 
-    private float jumpSensorHeight = 0.05f;
+    private float jumpSensorHeight = 0.1f;
 
     /**
      * Creates a PlayerEntity at a given position
@@ -81,7 +81,7 @@ public class PlayerEntity extends GameEntity {
         addComponent(new SensorHandlerComponent(this));
 
         //Scripts---
-        PlayerScript pc = new PlayerScript(this, playerSprite, bottomSensor);
+        PlayerScript pc = new PlayerScript(playerSprite, bottomSensor, enemySensor);
         CameraScript cs = new CameraScript(this, new Vector(width/2, height/2));
 
         ScriptComponent scriptComponent = new ScriptComponent(this);
