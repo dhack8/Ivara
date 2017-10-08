@@ -27,7 +27,7 @@ public class LevelEndEntity extends GameEntity {
         sc.add(new ResourceID("flag-orange"), new Vector(width, height));
         addComponent(sc);
 
-        addComponent(new LayerComponent(this, 999));
+        addComponent(new LayerComponent(this, 0));
 
         //Sensors---
         //AABB for the sensor

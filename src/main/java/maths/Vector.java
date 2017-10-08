@@ -67,4 +67,8 @@ public class Vector {
     public String toString() {
         return "Vector {" + x + ", " + y + "}";
     }
+
+    public float dist(Vector other){
+        return (float) Math.sqrt((x-other.x)*(x-other.x) + (y-other.y)*(y-other.y));
+    }
 }
