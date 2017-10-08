@@ -18,9 +18,6 @@ import physics.PhysicProperties;
  */
 public class PlayerEntity extends GameEntity {
 
-    //Restricts jumping
-    public boolean canJump = false;
-
     //Dimensions
     private float width = 1f;
     private float height = 1.5f;
