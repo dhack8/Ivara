@@ -1,4 +1,4 @@
-package ivara.scripts;
+package ivara.entities.scripts;
 
 import core.Script;
 import core.components.SensorHandlerComponent;

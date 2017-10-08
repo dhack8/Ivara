@@ -1,4 +1,4 @@
-package ivara.scripts;
+package ivara.entities.scripts;
 
 import core.Script;
 import core.components.SensorHandlerComponent;
@@ -12,9 +12,7 @@ import core.struct.Timer;
 import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.sprites.PlayerSprite;
-import javafx.geometry.Orientation;
 import maths.Vector;
-import physics.AABBCollider;
 import util.Debug;
 
 /**
