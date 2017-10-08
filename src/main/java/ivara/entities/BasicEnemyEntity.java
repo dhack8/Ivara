@@ -12,7 +12,7 @@ import physics.AABBCollider;
  * This class handles the creation of a basic enemy entity
  * @author Alex Mitchell
  */
-public class BasicEnemyEntity extends GameEntity{
+abstract public class BasicEnemyEntity extends GameEntity{
     //Initial setup variables -- change later?
     private static final float SPEED = 0.7f;
     private static final boolean START_RIGHT = true;
