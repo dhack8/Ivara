@@ -4,7 +4,6 @@ import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
-import ivara.entities.MenuButtonEntity;
 import ivara.entities.UIEntity;
 import ivara.entities.UIListener;
 import maths.Vector;
