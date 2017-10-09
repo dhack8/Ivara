@@ -95,7 +95,7 @@ public class PlayerScript implements Script{//}, SensorListener {
         if(input.isKeyReleased(Constants.SPACE)) entity.getScene().getGame().pause();
     }
 
-    private void handleEnemy(SensorHandler sensorHandler, GameEntity player){
+    private void handleEnemy(SensorHandler sensorHandler, GameEntity player){ // Todo: fix when colliding with multiple things
         GameEntity collided = sensorHandler.getActivatingEntities(enemySensor).stream().findAny().get();
         if(collided instanceof Enemy) player.getScene().resetScene();
     }
