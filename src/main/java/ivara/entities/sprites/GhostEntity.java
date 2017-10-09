@@ -6,6 +6,7 @@ import core.struct.AnimatedSprite;
 import core.struct.Sensor;
 import ivara.entities.Enemy;
 import ivara.entities.scripts.BasicMoveScript;
+import ivara.entities.scripts.ChargeScript;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -22,6 +23,12 @@ public class GhostEntity extends GameEntity implements Enemy{
 
     private final static int RATE = 600;
 
+    /**
+     * Constructs a ghost entity that floats between two points
+     * @param transform The starting location
+     * @param target The target location
+     * @param time The time taken to reach the target location
+     */
     public GhostEntity(Vector transform, Vector target, float time){
         super(transform);
         Vector dimension = new Vector(WIDTH, HEIGHT);
@@ -38,6 +45,42 @@ public class GhostEntity extends GameEntity implements Enemy{
 
         //Script---
         addComponent(new ScriptComponent(this, new BasicMoveScript(this, target, time)));
+
+        //Sprite---
+        SpriteComponent sc = new SpriteComponent(this);
+        sc.add(new GhostSprite(dimension, RATE));
+        addComponent(sc);
+    }
+
+    /**
+     * Constructs a ghost that chases the player in intervals.
+     * The ghost resets on a collision
+     * @param toChase The entity to chase
+     * @param transform The starting position
+     */
+    public GhostEntity(GameEntity toChase, Vector transform){
+        super(transform);
+        Vector dimension = new Vector(WIDTH, HEIGHT);
+
+        //Velocity---
+        addComponent(new VelocityComponent(this));
+
+        //Layer---
+        addComponent(new LayerComponent(this, 1000));
+
+        //Collider--
+        Vector topLeft = new Vector(0,0);
+        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension)));
+
+        //Sensors--
+        Sensor wholeSensor = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension));
+        addComponent(new SensorComponent(this, wholeSensor));
+        //Enable Listening for Sensor Events
+        addComponent(new SensorHandlerComponent(this));
+
+        //Script--
+        addComponent(new ScriptComponent(this, new ChargeScript(this, toChase,wholeSensor)));
+
 
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);

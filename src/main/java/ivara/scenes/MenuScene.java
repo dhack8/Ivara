@@ -11,7 +11,7 @@ import maths.Vector;
 public class MenuScene extends Scene{
     @Override
     public void startScene() {
-        addEntity(new MenuButtonEntity(new Vector(1,1), MenuButtonEntity.MenuOption.PLAY));
+        addEntity(new MenuButtonEntity(new Vector(1,1), MenuButtonEntity.MenuOption.START));
         setCamera(new Camera());
     }
 }
