@@ -11,26 +11,29 @@ import core.struct.Timer;
 import maths.Vector;
 
 /**
- * This script floats aimlessly and then charges at the player's last position
+ * This script floats aimlessly and then charges at an entity's last position
  * Created by Alex Mitchell on 9/10/2017.
  */
 public class ChargeScript implements Script {
     private GameEntity thisEntity;
     private GameEntity toChase;
     private boolean chasing;
-
     private Timer t;
 
-    private final float SPEED = 3f; // 2 ms^-1 total (x + y component)
+    private final float SPEED = 3f; // in ms^-1
     private final int CHASE_TIME = 1000; // time (in ms) spent chasing in a single direction
     private final int WAIT_TIME = 500; // time (in ms) spent stationary
 
+    /**
+     * This script "chases" a target entity with brief pauses
+     * @param thisEntity The entity using the script
+     * @param toChase The entity to chase
+     */
     public ChargeScript(GameEntity thisEntity, GameEntity toChase){
         this.thisEntity = thisEntity;
         this.toChase = toChase;
         chasing = false;
-
-        t = new Timer(0, ()->{});
+        t = new Timer(0, ()->{}); // initial timer
     }
 
     @Override
@@ -52,18 +55,31 @@ public class ChargeScript implements Script {
         }
     }
 
-    private void chase(){ // go get em b o i <3
+    /**
+     * Sets the entity's velocity such that it seeks out the target entity
+     */
+    private void chase(){
         VelocityComponent vComp = thisEntity.get(VelocityComponent.class).get();
         Vector target = toChase.getTransform();
         Vector from = thisEntity.getTransform();
         vComp.set(getV(target, from));
     }
 
-    private void hover(){// sit patiently :)
+    /**
+     * Sets the entity's velocity to nothing
+     */
+    private void hover(){
         VelocityComponent vComp = thisEntity.get(VelocityComponent.class).get();
         vComp.set(new Vector(0f,0f));
     }
 
+    /**
+     * Calculates and returns a vector representing the x and y velocities.
+     * These are used to move the entity towards a target
+     * @param target The target position
+     * @param from The start position
+     * @return A vector representing velocity
+     */
     private Vector getV(Vector target, Vector from){
         float dx = target.x - from.x;
         float dy = target.y - from.y;
