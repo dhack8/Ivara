@@ -20,7 +20,7 @@ public class ChargeScript implements Script {
     private boolean chasing;
     private Timer t;
 
-    private final float SPEED = 3f; // in ms^-1
+    private final float SPEED = 1f; // in ms^-1
     private final int CHASE_TIME = 1000; // time (in ms) spent chasing in a single direction
     private final int WAIT_TIME = 500; // time (in ms) spent stationary
 
