@@ -3,7 +3,6 @@ package ivara.entities.sprites;
 import core.components.*;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
-import core.struct.Sensor;
 import ivara.entities.Enemy;
 import ivara.entities.scripts.BasicMoveScript;
 import ivara.entities.scripts.ChargeScript;
@@ -37,7 +36,7 @@ public class GhostEntity extends GameEntity implements Enemy{
         addComponent(new VelocityComponent(this));
 
         //Layer---
-        addComponent(new LayerComponent(this, 1000));
+        addComponent(new RenderComponent(this, 1000));
 
         //Collider--
         Vector topLeft = new Vector(0,0);
@@ -66,7 +65,7 @@ public class GhostEntity extends GameEntity implements Enemy{
         addComponent(new VelocityComponent(this));
 
         //Layer---
-        addComponent(new LayerComponent(this, 1000));
+        addComponent(new RenderComponent(this, 1000));
 
         //Collider--
         Vector topLeft = new Vector(0,0);

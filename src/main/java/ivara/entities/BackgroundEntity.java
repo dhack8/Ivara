@@ -1,6 +1,6 @@
 package ivara.entities;
 
-import core.components.LayerComponent;
+import core.components.RenderComponent;
 import core.components.SpriteComponent;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
@@ -26,6 +26,6 @@ public class BackgroundEntity extends GameEntity {
 
         addComponent(sc);
 
-        addComponent(new LayerComponent(this, -1));
+        addComponent(new RenderComponent(this, -1, RenderComponent.Mode.FULLSCREEN));
     }
 }
