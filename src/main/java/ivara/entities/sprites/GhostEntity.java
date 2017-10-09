@@ -1,11 +1,13 @@
 package ivara.entities.sprites;
 
+import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
 import ivara.entities.Enemy;
 import ivara.entities.scripts.BasicMoveScript;
 import ivara.entities.scripts.ChargeScript;
+import ivara.entities.scripts.ShootScript;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -54,10 +56,10 @@ public class GhostEntity extends GameEntity implements Enemy{
     /**
      * Constructs a ghost that chases the player in intervals.
      * The ghost resets on a collision
-     * @param toChase The entity to chase
+     * @param target The entity to target
      * @param transform The starting position
      */
-    public GhostEntity(Vector transform, GameEntity toChase){
+    public GhostEntity(Vector transform, GameEntity target){
         super(transform);
         Vector dimension = new Vector(WIDTH, HEIGHT);
 
@@ -72,13 +74,15 @@ public class GhostEntity extends GameEntity implements Enemy{
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension)));
 
         //Script--
-        addComponent(new ScriptComponent(this, new ChargeScript(this, toChase)));
+        addComponent(new ScriptComponent(this, new ChargeScript(this, target)));
 
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);
         sc.add(new GhostSprite(dimension, RATE));
         addComponent(sc);
     }
+
+
 
     private class GhostSprite extends AnimatedSprite {
         private GhostSprite(Vector dimensions, int frameTick){
