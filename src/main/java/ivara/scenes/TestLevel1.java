@@ -1,6 +1,8 @@
 package ivara.scenes;
 
-import core.components.SpriteComponent;
+
+import core.Game;
+import core.entity.GameEntity;
 import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
@@ -23,15 +25,15 @@ public class TestLevel1 extends Scene{
         addEntity(new PlatformEntity(new Vector(4, 2.1f)));
         addEntity(new PlatformEntity(new Vector(-1, 2.7f)));
 
-
-
-
-        addEntity(new PlayerEntity(0,0));
+        GameEntity player = new PlayerEntity(0,0);
+        addEntity(player);
         addEntity(new SnakeEntity(new Vector(2, 0.5f)));
 
-        addEntity(new GhostEntity(new Vector(4,0), new Vector(8,0), 5));
+        //addEntity(new GhostEntity(new Vector(4,0), new Vector(8,0), 5));
+        addEntity(new GhostEntity(new Vector(6,-2), player));
 
         addEntity(new PlatformEntity(new Vector(5,1), 4, true, new Vector(7,3 ), 3f));
+        addEntity(new PlatformEntity(new Vector(4,-4), 4, true));
 
         addEntities(LinePlatformFactory.line(-1, -1, -4,-7));
 

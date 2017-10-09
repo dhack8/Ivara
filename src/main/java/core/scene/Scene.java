@@ -28,13 +28,9 @@ public abstract class Scene {
     private Camera camera                           = null;
     private TimerSystem timerSystem                 = new TimerSystem();
 
-    private GameEntity timer;
-
     public Scene() {
         addSystems();
         startScene();
-
-        //startTime = System.currentTimeMillis();
     }
 
     abstract public void startScene();
@@ -55,14 +51,6 @@ public abstract class Scene {
         world.addSystem(new ScriptSystem());
         world.addSystem(new AnimationSystem());
         world.addSystem(timerSystem);
-    }
-
-    public void showTimer(){
-
-    }
-
-    public void hideTimer(){
-
     }
 
     public void setGame(Game game) {

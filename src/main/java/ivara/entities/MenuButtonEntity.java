@@ -13,8 +13,8 @@ import maths.Vector;
  */
 public class MenuButtonEntity extends GameEntity{
 
-    public enum MenuOption{ // Various types of menu button
-        PLAY, INFO, QUIT
+    public enum MenuOption{ // Todo: these need to be a part of the menu - as per requirements
+        START, SAVE, RESUME, LOAD, INFO, QUIT
     }
 
     private Vector dimensions = new Vector(1f,1f);
@@ -26,19 +26,24 @@ public class MenuButtonEntity extends GameEntity{
         ScriptComponent scriptComponent = new ScriptComponent(this);
 
         //Add to the components, depending on the button type
-        switch (buttonType){
+        switch (buttonType){ //Todo: decide if there should be a single button script that handles all the possible actions
             case INFO:
                 throw new IllegalArgumentException("Information script has not been created.");
                 //spriteComponent.add(new ResourceID("black-box"), dimensions);
                 //break;
-            case PLAY:
+            case START:
                 spriteComponent.add(new ResourceID("black-box"), dimensions);
                 scriptComponent.add(new ClickStartScript());
                 break;
             case QUIT:
                 throw new IllegalArgumentException("Quit script has not been created.");
-                //spriteComponent.add(new ResourceID("black-box"), dimensions);
-                //break;
+                // Exit
+            case SAVE:
+                throw new IllegalArgumentException("Save game is yet to be implemented.");
+            case LOAD:
+                throw new IllegalArgumentException("Load game is yet to be implemented.");
+            case RESUME:
+                throw new IllegalArgumentException("Resume game is yet to be implemented.");
         }
         //Add the components
         addComponent(scriptComponent);

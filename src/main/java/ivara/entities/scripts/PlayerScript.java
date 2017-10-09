@@ -1,6 +1,8 @@
 package ivara.entities.scripts;
 
 import core.Script;
+import core.components.PhysicsComponent;
+import core.components.ScriptComponent;
 import core.components.SensorHandlerComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
@@ -13,7 +15,10 @@ import ivara.entities.BulletEntity;
 import ivara.entities.Enemy;
 import ivara.entities.sprites.PlayerSprite;
 import maths.Vector;
+import physics.PhysicProperties;
 import util.Debug;
+
+import java.util.Optional;
 
 /**
  * Script to control the player entity. Relies on the current input
@@ -99,6 +104,10 @@ public class PlayerScript implements Script{//}, SensorListener {
         GameEntity collided = sensorHandler.getActivatingEntities(bottomSensor).stream().findAny().get();
         groundCollision(player, collided);
         vComp.setY(relative.y); // Todo regardless, when the sensor is triggered the y velocity is set to 0
+
+        if(collided instanceof Enemy && !sensorHandler.isActive(enemySensor)){
+            player.getScene().removeEntity(collided);
+        }
     }
 
     private void handleAirborne(){
