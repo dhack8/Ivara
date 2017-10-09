@@ -57,7 +57,7 @@ public class PlayerEntity extends GameEntity {
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, cTopLeft, cDimensions))); //Todo Change the Collider component
 
         //Layer---
-        addComponent(new LayerComponent(this, 999));
+        addComponent(new RenderComponent(this, 999));
 
         //Physics---
         addComponent(new PhysicsComponent(this, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));

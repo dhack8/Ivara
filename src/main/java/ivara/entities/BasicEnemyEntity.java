@@ -3,7 +3,6 @@ package ivara.entities;
 import core.components.*;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
-import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Sprite;
 import ivara.entities.scripts.BasicEnemyScript;
@@ -49,7 +48,7 @@ abstract public class BasicEnemyEntity extends GameEntity{
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, cTopLeft, cDimensions)));
 
         //Layer---
-        addComponent(new LayerComponent(this, 999));
+        addComponent(new RenderComponent(this, 999));
 
         //Physics--- Todo: If there is a physics component, a sensor must be used to counter the increasing Y velocity
         //addComponent(new PhysicsComponent(this, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));

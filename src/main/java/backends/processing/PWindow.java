@@ -181,8 +181,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
         currentScene.getEntities().stream()
                 .sorted((e1, e2) -> {
-                    int layer1 = e1.get(LayerComponent.class).orElse(new LayerComponent(e1, 0)).layer;
-                    int layer2 = e2.get(LayerComponent.class).orElse(new LayerComponent(e1, 0)).layer;
+                    int layer1 = e1.get(RenderComponent.class).orElse(new RenderComponent(e1, 0)).getLayer();
+                    int layer2 = e2.get(RenderComponent.class).orElse(new RenderComponent(e2, 0)).getLayer();
 
                     return layer1 - layer2;
                 }).forEach((e) -> {
@@ -226,7 +226,6 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         SensorComponent sc = osc.get();
 
         for(Sensor sensor : sc.getSensors()) {
-
             AABBCollider ab = sensor.collider.getAABBBoundingBox();
             drawAABB(e, ab, new Color(0,255,0));
         }
@@ -241,6 +240,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         drawAABB(e, ab, new Color(255,0,0));
     }
 
+    //NOT AFFECTED BY RENDER COMPONENT
     private void drawAABB(GameEntity e, AABBCollider ab, Color c){
         Vector loc = getPixelLoc(e.getTransform(), ab.getMin());
 
@@ -255,17 +255,31 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         if(!osc.isPresent()) return;
 
         for(Sprite s : osc.get().getSprites()){
-            drawSprite(s, e.getTransform());
+            drawSprite(e, s, e.getTransform());
         }
     }
 
-    private void drawSprite(Sprite sprite, Vector entityTransform){
-        Vector loc = getPixelLoc(entityTransform, sprite.transform);
-        if(sprite.hasDimension()) {
-            Vector dimension = new Vector(sprite.dimensions.x * s, sprite.dimensions.y * s);
-            image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y, dimension.x, dimension.y);
+    //EFFECTED BY RENDER COMPONENT
+    private void drawSprite(GameEntity e, Sprite sprite, Vector entityTransform){
+        RenderComponent rc = e.get(RenderComponent.class).orElse(new RenderComponent(e));
+
+        if(!rc.getMode().equals(RenderComponent.Mode.FULLSCREEN)) {
+            Vector loc;
+            if (rc.getMode().equals(RenderComponent.Mode.NORMAL)) {
+                loc = getPixelLoc(entityTransform, sprite.transform);
+            }else{
+                loc = new Vector((entityTransform.x + sprite.transform.x) * s + b.x, (entityTransform.y + sprite.transform.y) * s + b.y);
+            }
+
+            if(sprite.hasDimension()) {
+                Vector dimension = new Vector(sprite.dimensions.x * s, sprite.dimensions.y * s);
+                image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y, dimension.x, dimension.y);
+            }else{
+                image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y);
+            }
+
         }else{
-            image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y);
+            image(AssetHandler.getImage(sprite.resourceID.id), b.x, b.y, width-2*b.x, height-2*b.y);
         }
     }
 
