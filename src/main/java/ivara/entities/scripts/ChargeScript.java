@@ -11,7 +11,7 @@ import core.struct.Timer;
 import maths.Vector;
 
 /**
- * This script floats aimlessly and then charges at the player's last position, unless a collision occurs
+ * This script floats aimlessly and then charges at the player's last position
  * Created by Alex Mitchell on 9/10/2017.
  */
 public class ChargeScript implements Script {
@@ -19,19 +19,37 @@ public class ChargeScript implements Script {
     private GameEntity toChase;
     private boolean chasing;
 
-    private final float SPEED = 2f; // 2 ms^-1 total (x + y component)
+    private Timer t;
+
+    private final float SPEED = 3f; // 2 ms^-1 total (x + y component)
+    private final int CHASE_TIME = 1000; // time (in ms) spent chasing in a single direction
+    private final int WAIT_TIME = 500; // time (in ms) spent stationary
 
     public ChargeScript(GameEntity thisEntity, GameEntity toChase){
         this.thisEntity = thisEntity;
         this.toChase = toChase;
         chasing = false;
+
+        t = new Timer(0, ()->{});
     }
 
     @Override
     public void update(int dt, GameEntity entity) {
-        toChase.getScene().addTimer(new Timer(2000,
-                !chasing?()->{chasing = true; chase();}:()->{chasing = false; hover();}
-        ));
+        if(t.isFinished()){
+            t = new Timer(
+                    (chasing)?CHASE_TIME:WAIT_TIME,
+                    ()->{
+                        if(!chasing){
+                            chasing = true;
+                            chase();
+                        }else{
+                            chasing = false;
+                            hover();
+                        }
+                    }
+            );
+            entity.getScene().addTimer(t);
+        }
     }
 
     private void chase(){ // go get em b o i <3
