@@ -33,12 +33,7 @@ public class Ivara extends Game {
             PApplet.runSketch(new String[]{"PWindow"}, processingBackend);
         }
 
-
-
-        LevelManager l = new LevelManager(getLevels());
-        //LevelManager l = new LevelManager(new TestLevel1());
-        l.setPauseMenu(new TestLevel1());
-
+        LevelManager l = new LevelManager(getLevels(), new TestLevel1());
         Game g = new Ivara(l, processingBackend, processingBackend);
         g.start();
     }
@@ -49,13 +44,9 @@ public class Ivara extends Game {
      */
     private static List<Scene> getLevels(){
         List<Scene> levels = new ArrayList<>();
-        //level 0 or the first level is the menu
-        //levels.add(new IntroLevel());
         levels.add(new LevelOne());
         levels.add(new LevelThree());
         levels.add(new LevelFour());
-        //levels.add(new LevelFive());
-        //final level is the credits?
         return levels;
     }
 

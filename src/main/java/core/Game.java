@@ -43,12 +43,6 @@ public abstract class Game {
 
         lm.setGame(this);
 
-        //set starting scene here
-
-        setCurrentScene(0);
-        //todo need to change
-        //setCurrentScene(0); // levelManager.getCurrentScene().setGame(this);
-
         assert inputBroadcaster != null;
     }
 
