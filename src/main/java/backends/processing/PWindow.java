@@ -144,7 +144,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/slime-dead.png", "slime-dead", this);
 
         // limited framerate
-        frameRate(999);
+        frameRate(200);
     }
 
     /**

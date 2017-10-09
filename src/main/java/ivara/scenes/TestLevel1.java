@@ -24,7 +24,7 @@ public class TestLevel1 extends Scene{
         addEntity(new SnakeEntity(new Vector(2, 0.5f)));
 
         //addEntity(new GhostEntity(new Vector(4,0), new Vector(8,0), 5));
-        addEntity(new GhostEntity(player, new Vector(6,-2)));
+        addEntity(new GhostEntity(new Vector(6,-2), player));
 
         addEntity(new PlatformEntity(new Vector(5,1), 4, true, new Vector(7,3 ), 3f));
 

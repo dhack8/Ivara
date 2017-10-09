@@ -58,7 +58,7 @@ public class GhostEntity extends GameEntity implements Enemy{
      * @param toChase The entity to chase
      * @param transform The starting position
      */
-    public GhostEntity(GameEntity toChase, Vector transform){
+    public GhostEntity(Vector transform, GameEntity toChase){
         super(transform);
         Vector dimension = new Vector(WIDTH, HEIGHT);
 
@@ -72,15 +72,8 @@ public class GhostEntity extends GameEntity implements Enemy{
         Vector topLeft = new Vector(0,0);
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension)));
 
-        //Sensors--
-        Sensor wholeSensor = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension));
-        addComponent(new SensorComponent(this, wholeSensor));
-        //Enable Listening for Sensor Events
-        addComponent(new SensorHandlerComponent(this));
-
         //Script--
-        addComponent(new ScriptComponent(this, new ChargeScript(this, toChase,wholeSensor)));
-
+        addComponent(new ScriptComponent(this, new ChargeScript(this, toChase)));
 
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);
