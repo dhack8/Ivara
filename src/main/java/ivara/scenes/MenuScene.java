@@ -11,7 +11,8 @@ import physics.AABBCollider;
 import util.Debug;
 
 /**
- * Created by Alex Mitchell on 9/10/2017.
+ * This scene acts as a pause menu for the game
+ * @author Alex Mitchell 
  */
 public class MenuScene extends Scene{
     @Override
@@ -24,6 +25,7 @@ public class MenuScene extends Scene{
         start.addListener(new UIListener() {
             @Override
             public void onClick() {
+                //Todo: Reset the previous scene on exit to avoid problems such as there not being a new game when the scene is set to level 0
                 start.getScene().getGame().setCurrentScene(0); // Start from level 1 (level 0 is menu)
             }
         });
@@ -36,7 +38,7 @@ public class MenuScene extends Scene{
         resume.addListener(new UIListener() {
             @Override
             public void onClick() {
-                resume.getScene().getGame().pause(); // Todo: There will be a problem clicking pause on the starting menu, maybe set the initial game state as pause??? Change the first scene to be first level, not the pause menu
+                resume.getScene().getGame().pause();
             }
         });
         addEntity(resume);
