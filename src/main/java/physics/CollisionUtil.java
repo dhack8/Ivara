@@ -24,6 +24,33 @@ public class CollisionUtil {
     }
 
     /**
+     * Returns true if the given point is contained within the
+     * given collider.
+     * @param collider The collider.
+     * @param point The point.
+     * @return True if the point is within the collider, otherwise false.
+     */
+    public static boolean contains(Collider collider, Vector point) {
+        if (collider instanceof AABBCollider) {
+            return contains((AABBCollider) collider, point);
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if the given point is contained within the
+     * given AABB Collider.
+     * @param collider The AABB Collider.
+     * @param point The point.
+     * @return True if the point is within the AABB Collider, otherwise false.
+     */
+    public static boolean contains(AABBCollider collider, Vector point) {
+        Vector min = collider.getMin();
+        Vector max = collider.getMax();
+        return point.x >= min.x && point.y >= min.y && point.x <= max.x && point.y <= max.y;
+    }
+
+    /**
      * Returns whether two given AABBCollidiers are intersecting.
      * @param a The first AABBCollider.
      * @param b The second AABBCollider.

@@ -1,12 +1,17 @@
 package ivara.scenes;
 
+import core.components.SpriteComponent;
 import core.scene.Scene;
 import core.struct.Camera;
+import core.struct.ResourceID;
+import core.struct.Sprite;
 import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.*;
 import ivara.entities.sprites.GhostEntity;
+import ivara.entities.sprites.PlayerSprite;
 import maths.Vector;
+import physics.AABBCollider;
 
 /**
  * Created by Alex Mitchell on 4/10/2017.
@@ -17,6 +22,9 @@ public class TestLevel1 extends Scene{
         addEntity(new PlatformEntity(new Vector(1,2),3, false));
         addEntity(new PlatformEntity(new Vector(4, 2.1f)));
         addEntity(new PlatformEntity(new Vector(-1, 2.7f)));
+
+
+
 
         addEntity(new PlayerEntity(0,0));
         addEntity(new SnakeEntity(new Vector(2, 0.5f)));

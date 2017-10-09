@@ -2,8 +2,11 @@ package ivara.scenes;
 
 import core.scene.Scene;
 import core.struct.Camera;
+import core.struct.ResourceID;
+import core.struct.Sprite;
 import ivara.entities.*;
 import maths.Vector;
+import physics.AABBCollider;
 
 /**
  * Level one, introduces moving platform (horizontal and vertical) to the player.
@@ -59,6 +62,20 @@ public class LevelOne extends Scene {
 
         //todo added
         addEntity(new LevelEndEntity(1,2));
+
+
+
+        /// Test UI Code
+        UIEntity ui = new UIEntity(
+                new Vector(1.2f, 1.2f),
+                new Sprite(new ResourceID("player"), new Vector(0, 0), new Vector(1f, 1.5f)),
+                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(1f, 1.5f))
+        );
+
+        ui.addListener(() -> removeEntity(ui));
+
+        addEntity(ui);
+        //
 
         setCamera(new Camera());
     }

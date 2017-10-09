@@ -6,6 +6,7 @@ import scew.Component;
 
 /**
  * Created by Callum Li on 10/1/17.
+ * @deprecated Input Handling is now built into the game
  */
 public class InputHandlerComponent extends Component<GameEntity> {
 
