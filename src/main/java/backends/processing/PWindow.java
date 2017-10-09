@@ -60,7 +60,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * @param scene current scene
      */
     @Override
-    public void render(Scene scene) {
+    public synchronized void render(Scene scene) {
+
         if(scene == null){
             displayError("The scene provided to the renderer is NULL!");
             return;
@@ -69,12 +70,11 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         currentScene = scene;
 
         drawing = true;
-
-        redraw();
-
+        loop();
         while(drawing){
             try {
-                Thread.sleep(0, 10);
+                wait();
+                noLoop();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -97,7 +97,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
             System.out.println("---USING JAVA2D---");
         }
 
-        noLoop();
+        //noLoop();
 
     }
 
@@ -144,7 +144,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/slime-dead.png", "slime-dead", this);
 
         // limited framerate
-        frameRate(200);
+        frameRate(999);
     }
 
     /**
@@ -153,7 +153,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      * correct draw function.
      */
     @Override
-    public void draw(){
+    public synchronized void draw(){
         if(currentScene == null){
             displayError("The scene provided to the renderer is NULL!");
             return;
@@ -210,6 +210,8 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         }
 
         drawing = false;
+
+        notifyAll();
     }
 
     private void drawFramerate() {
