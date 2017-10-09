@@ -105,7 +105,7 @@ public class PlayerScript implements Script{//}, SensorListener {
         groundCollision(player, collided);
         vComp.setY(relative.y); // Todo regardless, when the sensor is triggered the y velocity is set to 0
 
-        if(collided instanceof Enemy){
+        if(collided instanceof Enemy && !sensorHandler.isActive(enemySensor)){
             player.getScene().removeEntity(collided);
         }
     }
