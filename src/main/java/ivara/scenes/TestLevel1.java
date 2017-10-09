@@ -4,7 +4,6 @@ import core.scene.Scene;
 import core.struct.Camera;
 import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
-import ivara.entities.BasicEnemyEntity;
 import ivara.entities.*;
 import ivara.entities.sprites.GhostEntity;
 import maths.Vector;

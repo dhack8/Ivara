@@ -2,14 +2,9 @@ package ivara.scenes;
 
 import core.scene.Scene;
 import core.struct.Camera;
-import ivara.entities.BackgroundEntity;
+import ivara.entities.*;
 import ivara.entities.PlatformEntity;
-import ivara.entities.PlatformEntity;
-import ivara.entities.PlayerEntity;
 import maths.Vector;
-
-import javax.sound.sampled.Line;
-import java.util.Optional;
 
 /**
  * This is the very basic "intro level" where the user gets used to the controls.

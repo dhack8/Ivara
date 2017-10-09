@@ -1,4 +1,4 @@
-package ivara.scenes;
+package ivara.entities;
 
 
 
