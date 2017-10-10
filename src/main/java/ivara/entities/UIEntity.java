@@ -39,7 +39,7 @@ public class UIEntity extends GameEntity {
 
                 if (input.isMouseReleased(Constants.LEFT_MOUSE)) {
                     if (isInSprite(input.getMousePosition())) {
-                        System.out.println("On Joy and Sorrow");
+                        //System.out.println("On Joy and Sorrow");
                         broadcastClick();
                     }
                 }
