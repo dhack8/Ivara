@@ -123,7 +123,7 @@ public abstract class Scene {
      */
     public void removeEntity(GameEntity entity) {
         world.removeEntity(entity);
-        entity.setScene(null);
+        //entity.setScene(null);
     }
 
     /**

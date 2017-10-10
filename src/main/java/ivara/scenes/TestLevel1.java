@@ -7,6 +7,8 @@ import core.struct.Camera;
 import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.*;
+import ivara.entities.enemies.BarnacleEntity;
+import ivara.entities.enemies.BeeEntity;
 import ivara.entities.enemies.GhostEntity;
 import ivara.entities.enemies.SnakeEntity;
 import maths.Vector;
@@ -19,7 +21,7 @@ public class TestLevel1 extends Scene{
         addEntity(new PlatformEntity(new Vector(0,1)));
         addEntity(new PlatformEntity(new Vector(1,2),3, false));
         addEntity(new PlatformEntity(new Vector(4, 2.1f)));
-        addEntity(new PlatformEntity(new Vector(-1, 2.7f)));
+        addEntity(new PlatformEntity(new Vector(-8, 3f), 7, false));
 
         GameEntity player = new PlayerEntity(0,0);
         addEntity(player);
@@ -27,6 +29,8 @@ public class TestLevel1 extends Scene{
 
         //addEntity(new GhostEntity(new Vector(4,0), new Vector(8,0), 5));
         addEntity(new GhostEntity(new Vector(8,-2), player));
+        addEntity(new BeeEntity(new Vector(1,-3), player));
+        addEntity(new BarnacleEntity(new Vector(-6, 2.3f)));
 
         addEntity(new PlatformEntity(new Vector(5,1), 4, true, new Vector(7,3 ), 3f));
         addEntity(new PlatformEntity(new Vector(4,-4), 4, true));
