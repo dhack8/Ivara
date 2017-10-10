@@ -33,8 +33,8 @@ public class Ivara extends Game {
             PApplet.runSketch(new String[]{"PWindow"}, processingBackend);
         }
 
-        LevelManager l = new LevelManager(getLevels(), new TestLevel1());
-        //LevelManager l = new LevelManager(getLevels(), new MenuScene());
+        //LevelManager l = new LevelManager(getLevels(), new TestLevel1());
+        LevelManager l = new LevelManager(getLevels(), new MenuScene());
 
         Game g = new Ivara(l, processingBackend, processingBackend);
         g.start();

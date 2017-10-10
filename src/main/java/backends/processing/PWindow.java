@@ -150,6 +150,12 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         AssetHandler.loadImage("./assets/slime.png", "slime", this);
         AssetHandler.loadImage("./assets/slime-dead.png", "slime-dead", this);
 
+        //Todo: Change these to be nicer buttons
+        AssetHandler.loadImage("./assets/start.png", "start", this);
+        AssetHandler.loadImage("./assets/resume.png", "resume", this);
+        AssetHandler.loadImage("./assets/save.png", "save", this);
+        AssetHandler.loadImage("./assets/load.png", "load", this);
+
         // limited framerate
         frameRate(200);
     }
