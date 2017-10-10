@@ -25,7 +25,7 @@ public class PlayerEntity extends GameEntity {
     private float widthOff = 0.4f;
     private float heightOff = 0.3f;
 
-    private float jumpSensorHeight = 0.1f;
+    private float jumpSensorHeight = 0.15f;
 
     /**
      * Creates a PlayerEntity at a given position

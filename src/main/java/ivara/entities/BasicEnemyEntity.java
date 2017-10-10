@@ -17,7 +17,7 @@ abstract public class BasicEnemyEntity extends GameEntity{
     //Initial setup variables -- change later?
     private static final float SPEED = 0.7f;
     private static final boolean START_RIGHT = true;
-    private float sensorPadding = 0.08f;
+    private float sensorPadding = 0.1f;
 
     //Todo working on sensors for moving onto a non-existent platform
     private float groundSensorHeight= 0f;
