@@ -107,6 +107,9 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     @Override
     public void setup(){
         AssetHandler.loadImage("./assets/background.png", "background", this);
+        AssetHandler.loadImage("./assets/bee.png", "bee", this);
+        AssetHandler.loadImage("./assets/bee2.png", "bee2", this);
+        AssetHandler.loadImage("./assets/bee-dead.png", "bee-dead", this);
         AssetHandler.loadImage("./assets/black-box.png", "black-box", this);
         AssetHandler.loadImage("./assets/dirt.png", "dirt", this);
         AssetHandler.loadImage("./assets/dirt-bottom.png", "dirt-bottom", this);
