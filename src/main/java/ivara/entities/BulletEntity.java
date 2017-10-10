@@ -10,6 +10,9 @@ import core.struct.Sensor;
 import core.struct.Sprite;
 import maths.Vector;
 import physics.AABBCollider;
+import java.util.ArrayList;
+import java.util.Collection;
+
 
 /**
  * Created by Callum Li on 10/1/17.
@@ -19,8 +22,10 @@ public class BulletEntity extends GameEntity {
     private Vector dimensions = new Vector(0.4f, 0.4f);
 
     //public BulletEntity(Vector transform, Vector end, int dt) {
-    public BulletEntity(Vector transform, Vector end, ResourceID id,int dt) {
+    public BulletEntity(Vector transform, Vector end, ResourceID id, int dt, Collection<Class<? extends GameEntity>> nonColliders) {
+
         super(new Vector(transform.x, transform.y));
+
         Vector velocity = new Vector((end.x - transform.x)*(1000/dt), (end.y - transform.y)*(1000/dt));
 
         BulletEntity thisEntity = this;
@@ -38,11 +43,9 @@ public class BulletEntity extends GameEntity {
 
                             @Override
                             public void onActive(Sensor sensor, GameEntity entity) {
-                                if (!(entity instanceof PlayerEntity)) //Todo: expand the functionality to take a collection of things that the sensor can't collide with
+                                if(!nonColliders.contains(entity.getClass())){
                                     get(VelocityComponent.class).get().set(new Vector(0, 0));
-
-
-                                //Todo: testing
+                                }
 
                             }
 

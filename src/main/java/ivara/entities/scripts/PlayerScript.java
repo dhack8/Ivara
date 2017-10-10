@@ -14,11 +14,13 @@ import core.struct.Sensor;
 import core.struct.Timer;
 import ivara.entities.BulletEntity;
 import ivara.entities.Enemy;
+import ivara.entities.PlayerEntity;
 import ivara.entities.sprites.PlayerSprite;
 import maths.Vector;
 import physics.PhysicProperties;
 import util.Debug;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -135,7 +137,8 @@ public class PlayerScript implements Script{//}, SensorListener {
     }
 
     private void fireBullet(GameEntity entity, InputHandler.InputFrame input){
-        GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(), new ResourceID("slimeball"), 1000);
+        GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(),new ResourceID("slimeball"), 1000, Arrays.asList(PlayerEntity.class));
+
         entity.getScene().addEntity(bullet);
         entity.getScene().addTimer(new Timer(1000, () -> entity.getScene().removeEntity(bullet)));
     }
