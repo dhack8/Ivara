@@ -1,20 +1,14 @@
 package ivara.scenes;
 
 
-import core.Game;
 import core.entity.GameEntity;
 import core.scene.Scene;
 import core.struct.Camera;
-import core.struct.ResourceID;
-import core.struct.Sprite;
 import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.*;
-import ivara.entities.scripts.ShootScript;
-import ivara.entities.sprites.GhostEntity;
-import ivara.entities.sprites.PlayerSprite;
+import ivara.entities.GhostEntity;
 import maths.Vector;
-import physics.AABBCollider;
 
 /**
  * Created by Alex Mitchell on 4/10/2017.

@@ -1,26 +1,25 @@
 package ivara.entities;
 
 import core.SensorListener;
-import core.components.ScriptComponent;
 import core.components.SensorComponent;
 import core.components.SpriteComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sensor;
-import ivara.entities.sprites.GhostEntity;
+import core.struct.Sprite;
 import maths.Vector;
 import physics.AABBCollider;
-
-import java.util.Collection;
 
 /**
  * Created by Callum Li on 10/1/17.
  */
 public class BulletEntity extends GameEntity {
 
+    private Vector dimensions = new Vector(0.4f, 0.4f);
+
     //public BulletEntity(Vector transform, Vector end, int dt) {
-    public BulletEntity(Vector transform, Vector end, int dt) {
+    public BulletEntity(Vector transform, Vector end, ResourceID id,int dt) {
         super(new Vector(transform.x, transform.y));
         Vector velocity = new Vector((end.x - transform.x)*(1000/dt), (end.y - transform.y)*(1000/dt));
 
@@ -30,7 +29,7 @@ public class BulletEntity extends GameEntity {
 
         addComponent(new SensorComponent(this,
                 new Sensor(
-                        new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(1, 1)),
+                        new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), dimensions),
                         new SensorListener() {
                             @Override
                             public void onEnter(Sensor sensor, GameEntity entity) {
@@ -53,9 +52,6 @@ public class BulletEntity extends GameEntity {
                             }
                         }
                 )));
-
-        SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new ResourceID("player"), new Vector(1f, 1.5f));
-        addComponent(sc);
+        addComponent(new SpriteComponent(this, new Sprite(id, new Vector(0,0), dimensions)));
     }
 }

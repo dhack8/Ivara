@@ -3,6 +3,7 @@ package ivara.entities.scripts;
 import core.Script;
 import core.entity.GameEntity;
 import core.input.InputHandler;
+import core.struct.ResourceID;
 import core.struct.Timer;
 import ivara.entities.BulletEntity;
 import maths.Vector;
@@ -34,7 +35,7 @@ public class ShootScript implements Script{
             t = new Timer(
                     DELAY,
                     ()->{
-                        GameEntity bullet = new BulletEntity(entity.transform, target.getTransform(), TIME_TO_TARGET); // Todo change this as speed won't be constant
+                        GameEntity bullet = new BulletEntity(entity.transform, target.getTransform(), new ResourceID("slimeball"), TIME_TO_TARGET); // Todo change this as speed won't be constant
                         entity.getScene().addEntity(bullet);
                         entity.getScene().addTimer(new Timer(DURATION, ()->entity.getScene().removeEntity(bullet)));
                     }

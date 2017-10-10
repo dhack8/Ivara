@@ -9,6 +9,7 @@ import core.entity.GameEntity;
 import core.input.Constants;
 import core.input.InputHandler;
 import core.input.SensorHandler;
+import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Timer;
 import ivara.entities.BulletEntity;
@@ -134,7 +135,7 @@ public class PlayerScript implements Script{//}, SensorListener {
     }
 
     private void fireBullet(GameEntity entity, InputHandler.InputFrame input){
-        GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(), 1000);
+        GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(), new ResourceID("slimeball"), 1000);
         entity.getScene().addEntity(bullet);
         entity.getScene().addTimer(new Timer(1000, () -> entity.getScene().removeEntity(bullet)));
     }
