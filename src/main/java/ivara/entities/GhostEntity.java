@@ -1,4 +1,4 @@
-package ivara.entities.sprites;
+package ivara.entities;
 
 import core.Script;
 import core.components.*;

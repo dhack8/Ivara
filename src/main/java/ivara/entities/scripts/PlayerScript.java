@@ -9,12 +9,12 @@ import core.entity.GameEntity;
 import core.input.Constants;
 import core.input.InputHandler;
 import core.input.SensorHandler;
+import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Timer;
 import ivara.entities.BulletEntity;
 import ivara.entities.Enemy;
 import ivara.entities.PlayerEntity;
-import ivara.entities.sprites.GhostEntity;
 import ivara.entities.sprites.PlayerSprite;
 import maths.Vector;
 import physics.PhysicProperties;
@@ -98,7 +98,7 @@ public class PlayerScript implements Script{//}, SensorListener {
         if(input.isKeyReleased(Constants.SPACE)) entity.getScene().getGame().pause();
     }
 
-    private void handleEnemy(SensorHandler sensorHandler, GameEntity player){
+    private void handleEnemy(SensorHandler sensorHandler, GameEntity player){ // Todo: fix when colliding with multiple things
         GameEntity collided = sensorHandler.getActivatingEntities(enemySensor).stream().findAny().get();
         if(collided instanceof Enemy) player.getScene().resetScene();
     }
@@ -137,7 +137,8 @@ public class PlayerScript implements Script{//}, SensorListener {
     }
 
     private void fireBullet(GameEntity entity, InputHandler.InputFrame input){
-        GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(), 1000, Arrays.asList(PlayerEntity.class));
+        GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(),new ResourceID("slimeball"), 1000, Arrays.asList(PlayerEntity.class));
+
         entity.getScene().addEntity(bullet);
         entity.getScene().addTimer(new Timer(1000, () -> entity.getScene().removeEntity(bullet)));
     }
