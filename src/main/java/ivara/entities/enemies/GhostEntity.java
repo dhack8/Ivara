@@ -6,6 +6,7 @@ import core.struct.AnimatedSprite;
 import ivara.entities.enemies.Enemy;
 import ivara.entities.scripts.BasicMoveScript;
 import ivara.entities.scripts.ChargeScript;
+import ivara.entities.scripts.ChaseScript;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -72,7 +73,7 @@ public class GhostEntity extends GameEntity implements Enemy{
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension)));
 
         //Script--
-        addComponent(new ScriptComponent(this, new ChargeScript(this, target)));
+        addComponent(new ScriptComponent(this, new ChaseScript(this, target)));
 
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);
