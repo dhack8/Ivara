@@ -11,7 +11,7 @@ import core.struct.Timer;
 import maths.Vector;
 
 /**
- * This script floats aimlessly and then charges at an entity's last position
+ * This script allows an entity to chase an enemy, and patrol when it's too far away from the home
  * Created by Alex Mitchell on 9/10/2017.
  */
 public class ChaseScript implements Script {
@@ -26,12 +26,12 @@ public class ChaseScript implements Script {
     private final float DISTANCE = 8f;
     private final float SPEED = 2f; // in ms^-1
 
-    private Vector pos1;
-    private Vector pos2;
+    private Vector p1; // the patrol positions
+    private Vector p2;
 
 
     /**
-     * This script "chases" a target entity with brief pauses
+     * This script chases a target and patrols a "home" location when not chasing
      * @param entity The entity using the script
      * @param toChase The entity to chase
      */
@@ -42,8 +42,8 @@ public class ChaseScript implements Script {
         home = true;
 
         homePos = new Vector(entity.getTransform());
-        pos1 = new Vector(homePos.x -8f, homePos.y);
-        pos2 = new Vector(homePos.x +2.5f, homePos.y);
+        p1 = new Vector(homePos.x -2.5f, homePos.y); // temporarily, the patrol positions are +-2.5f on the x plane in relation to the home location
+        p2 = new Vector(homePos.x +2.5f, homePos.y);
 
     }
 
@@ -68,9 +68,13 @@ public class ChaseScript implements Script {
         }
     }
 
-
+    /**
+     * Checks whether a given position is close to a point (rounding errors are preventing exact checks)
+     * @param position The position to check regarding the entity's position
+     * @return Whether the point is near the entity
+     */
     private boolean nearPoint(Vector position){
-        float threshold = 0.25f;
+        float threshold = 0.1f;
 
         Vector location = entity.getTransform();
 
@@ -110,13 +114,13 @@ public class ChaseScript implements Script {
         //System.out.println("patrol");
         VelocityComponent vComp = entity.get(VelocityComponent.class).get();
 
-        if(nearPoint(pos1)){ // cheeky swap for now
-            Vector temp = pos1;
-            pos1 = pos2;
-            pos2 = temp;
+        if(nearPoint(p1)){ // cheeky swap for now
+            Vector temp = p1;
+            p1 = p2;
+            p2 = temp;
         }
 
-        vComp.set(getV(pos1, entity.getTransform()));
+        vComp.set(getV(p1, entity.getTransform()));
     }
 
     /**
