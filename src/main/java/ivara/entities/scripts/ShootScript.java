@@ -3,9 +3,12 @@ package ivara.entities.scripts;
 import core.Script;
 import core.entity.GameEntity;
 import core.input.InputHandler;
+import core.scene.Scene;
 import core.struct.Timer;
 import ivara.entities.BulletEntity;
 import maths.Vector;
+
+import java.util.Arrays;
 
 /**
  * Created by Alex Mitchell on 10/10/2017.
@@ -13,6 +16,7 @@ import maths.Vector;
 public class ShootScript implements Script{
     private GameEntity entity;
     private GameEntity target;
+
     private Timer t; // delay timer
     private final int DELAY = 1000; // how long between each shot
     private final int DURATION = 1000; // how long till the bullet resets
@@ -34,9 +38,9 @@ public class ShootScript implements Script{
             t = new Timer(
                     DELAY,
                     ()->{
-                        GameEntity bullet = new BulletEntity(entity.transform, target.getTransform(), TIME_TO_TARGET); // Todo change this as speed won't be constant
+                        GameEntity bullet = new BulletEntity(entity.transform, target.getTransform(), TIME_TO_TARGET, Arrays.asList(entity.getClass())); // Todo change this as speed won't be constant
                         entity.getScene().addEntity(bullet);
-                        entity.getScene().addTimer(new Timer(DURATION, ()->entity.getScene().removeEntity(bullet)));
+                        entity.getScene().addTimer(new Timer(DURATION, ()->entity.getScene().removeEntity(bullet))); //Todo: make unkillable?
                     }
             );
             entity.getScene().addTimer(t);
