@@ -1,13 +1,11 @@
-package ivara.entities;
+package ivara.entities.enemies;
 
-import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
-import ivara.entities.Enemy;
+import ivara.entities.enemies.Enemy;
 import ivara.entities.scripts.BasicMoveScript;
 import ivara.entities.scripts.ChargeScript;
-import ivara.entities.scripts.ShootScript;
 import maths.Vector;
 import physics.AABBCollider;
 

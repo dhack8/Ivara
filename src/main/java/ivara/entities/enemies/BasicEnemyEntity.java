@@ -1,4 +1,4 @@
-package ivara.entities;
+package ivara.entities.enemies;
 
 import core.components.*;
 import core.entity.GameEntity;

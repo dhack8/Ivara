@@ -1,16 +1,15 @@
-package ivara.entities;
+package ivara.entities.enemies;
 
-import core.struct.AnimatedSprite;
 import core.struct.ResourceID;
 import core.struct.Sprite;
+import ivara.entities.enemies.BasicEnemyEntity;
+import ivara.entities.enemies.Enemy;
 import maths.Vector;
-
-import java.util.Arrays;
 
 /**
  * Created by David Hack Local on 08-Oct-17.
  */
-public class SlimeEntity extends BasicEnemyEntity implements Enemy{
+public class SlimeEntity extends BasicEnemyEntity implements Enemy {
 
     private final static float WIDTH = 1f;
     private final static float HEIGHT = 1f;
