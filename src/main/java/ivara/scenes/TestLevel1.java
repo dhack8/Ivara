@@ -37,6 +37,8 @@ public class TestLevel1 extends Scene{
 
         addEntities(LinePlatformFactory.line(-1, -1, -4,-7));
 
+
+        addEntity(new BackgroundEntity(0,0, new Vector(-20,20)));
         setCamera(new Camera());
     }
 }
