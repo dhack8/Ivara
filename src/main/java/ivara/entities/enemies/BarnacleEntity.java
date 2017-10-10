@@ -1,10 +1,10 @@
 package ivara.entities.enemies;
 
-import core.components.*;
+import core.components.ColliderComponent;
+import core.components.RenderComponent;
+import core.components.SpriteComponent;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
-import ivara.entities.PlayerEntity;
-import ivara.entities.scripts.ShootScript;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -13,44 +13,38 @@ import java.util.Arrays;
 /**
  * Created by David Hack Local on 10-Oct-17.
  */
-public class BeeEntity extends GameEntity implements Enemy{
+public class BarnacleEntity extends GameEntity implements ImortalEnemy{
 
-    private final static float WIDTH = 0.8f;
-    private final static float HEIGHT = 0.8f;
+    private final static float WIDTH = 0.5f;
+    private final static float HEIGHT = 0.7f;
 
-    private final static int ANIMATION_RATE = 150;
+    private final static int ANIMATION_RATE = 400;
 
-    public BeeEntity(Vector transform, GameEntity target){
+    public BarnacleEntity(Vector transform){
         super(transform);
         Vector dimension = new Vector(WIDTH, HEIGHT);
 
-        //Velocity---
-        addComponent(new VelocityComponent(this));
-
         //Layer---
-        addComponent(new RenderComponent(this, 1000));
+        addComponent(new RenderComponent(this, 1100));
 
         //Collider--
         Vector topLeft = new Vector(0,0);
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension)));
 
-        //Script---
-        addComponent(new ScriptComponent(this, new ShootScript(this, target, new Vector(PlayerEntity.WIDTH/2f, PlayerEntity.HEIGHT/2f))));
-
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new BeeSprite(dimension, ANIMATION_RATE));
+        sc.add(new BarnacleSprite(dimension, ANIMATION_RATE));
         addComponent(sc);
     }
 
-    private class BeeSprite extends AnimatedSprite {
-        private BeeSprite(Vector dimensions, int frameTick){
+    private class BarnacleSprite extends AnimatedSprite {
+        private BarnacleSprite(Vector dimensions, int frameTick){
             super(new Vector(0,0), dimensions, frameTick);
 
             String state = "normal";
             String[] resources = new String[] {
-                    "bee",
-                    "bee2"
+                    "barnacle",
+                    "barnacle2"
             };
             addResources(state, Arrays.asList(resources));
 
@@ -58,3 +52,4 @@ public class BeeEntity extends GameEntity implements Enemy{
         }
     }
 }
+

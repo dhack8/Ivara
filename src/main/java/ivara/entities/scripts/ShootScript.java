@@ -18,7 +18,7 @@ public class ShootScript implements Script{
     private GameEntity target;
 
     private Timer t; // delay timer
-    private final int DELAY = 1000; // how long between each shot
+    private final int DELAY = 2000; // how long between each shot
     private final int DURATION = 1000; // how long till the bullet resets
     private final int TIME_TO_TARGET = 1000; // how long it takes to reach the player position
     private final float SPEED = 1f; // in ms^-1

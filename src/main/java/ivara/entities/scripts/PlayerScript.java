@@ -13,6 +13,7 @@ import core.struct.Timer;
 import ivara.entities.BulletEntity;
 import ivara.entities.enemies.Enemy;
 import ivara.entities.PlayerEntity;
+import ivara.entities.enemies.ImortalEnemy;
 import ivara.entities.sprites.PlayerSprite;
 import maths.Vector;
 
@@ -95,7 +96,7 @@ public class PlayerScript implements Script{//}, SensorListener {
 
     private void handleEnemy(SensorHandler sensorHandler, GameEntity player){ // Todo: fix when colliding with multiple things
         GameEntity collided = sensorHandler.getActivatingEntities(enemySensor).stream().findAny().get();
-        if(collided instanceof Enemy) player.getScene().resetScene();
+        if(collided instanceof Enemy || collided instanceof ImortalEnemy) player.getScene().resetScene();
     }
 
     private void handleOnGround(VelocityComponent vComp, SensorHandler sensorHandler, GameEntity player){
@@ -105,6 +106,8 @@ public class PlayerScript implements Script{//}, SensorListener {
 
         if(collided instanceof Enemy && !sensorHandler.isActive(enemySensor)){
             player.getScene().removeEntity(collided);
+        }else if(collided instanceof ImortalEnemy){
+            player.getScene().resetScene();
         }
     }
 

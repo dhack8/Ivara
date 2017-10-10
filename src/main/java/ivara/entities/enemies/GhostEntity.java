@@ -17,10 +17,10 @@ import java.util.Arrays;
 public class GhostEntity extends GameEntity implements Enemy{
     private static final float SPEED = 0.7f;
 
-    private final static float WIDTH = 1.2f;
-    private final static float HEIGHT = 1.7f;
+    private final static float WIDTH = 1f;
+    private final static float HEIGHT = 1.3f;
 
-    private final static int RATE = 600;
+    private final static int ANIMATION_RATE = 600;
 
     /**
      * Constructs a ghost entity that floats between two points
@@ -47,7 +47,7 @@ public class GhostEntity extends GameEntity implements Enemy{
 
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new GhostSprite(dimension, RATE));
+        sc.add(new GhostSprite(dimension, ANIMATION_RATE));
         addComponent(sc);
     }
 
@@ -76,7 +76,7 @@ public class GhostEntity extends GameEntity implements Enemy{
 
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new GhostSprite(dimension, RATE));
+        sc.add(new GhostSprite(dimension, ANIMATION_RATE));
         addComponent(sc);
     }
 
