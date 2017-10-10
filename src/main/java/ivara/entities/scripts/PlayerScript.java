@@ -1,8 +1,6 @@
 package ivara.entities.scripts;
 
 import core.Script;
-import core.components.PhysicsComponent;
-import core.components.ScriptComponent;
 import core.components.SensorHandlerComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
@@ -13,15 +11,12 @@ import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Timer;
 import ivara.entities.BulletEntity;
-import ivara.entities.Enemy;
+import ivara.entities.enemies.Enemy;
 import ivara.entities.PlayerEntity;
 import ivara.entities.sprites.PlayerSprite;
 import maths.Vector;
-import physics.PhysicProperties;
-import util.Debug;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * Script to control the player entity. Relies on the current input

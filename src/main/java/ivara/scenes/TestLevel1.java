@@ -7,7 +7,8 @@ import core.struct.Camera;
 import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.*;
-import ivara.entities.GhostEntity;
+import ivara.entities.enemies.GhostEntity;
+import ivara.entities.enemies.SnakeEntity;
 import maths.Vector;
 
 /**
