@@ -26,8 +26,8 @@ public class ChaseScript implements Script {
     private final float DISTANCE = 8f;
 
     private final float CHASE_SPEED = 1.2f; // in ms^-1
-    private final float RETREAT_SPEED = 2f; // in ms^-1
-    private final float PATROL_SPEED = 1.5f; // in ms^-1
+    private final float RETREAT_SPEED = 1.2f; // in ms^-1
+    private final float PATROL_SPEED = 1.2f; // in ms^-1
 
     private Vector p1; // the patrol positions
     private Vector p2;
