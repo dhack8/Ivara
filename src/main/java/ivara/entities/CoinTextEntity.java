@@ -26,7 +26,8 @@ public class CoinTextEntity extends GameEntity {
                 new Script() {
                     @Override
                     public void update(int dt, GameEntity entity) {
-                        Integer.toString(player.coinsCollected);
+                        score.clear();
+                        score.add(Integer.toString(player.coinsCollected), 16);
                     }
                 }));
     }
