@@ -1,11 +1,12 @@
-package ivara.entities.sprites;
+package ivara.entities.enemies;
 
 import core.components.*;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
-import ivara.entities.Enemy;
+import ivara.entities.enemies.Enemy;
 import ivara.entities.scripts.BasicMoveScript;
 import ivara.entities.scripts.ChargeScript;
+import ivara.entities.scripts.ChaseScript;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -17,10 +18,10 @@ import java.util.Arrays;
 public class GhostEntity extends GameEntity implements Enemy{
     private static final float SPEED = 0.7f;
 
-    private final static float WIDTH = 1.2f;
-    private final static float HEIGHT = 1.7f;
+    private final static float WIDTH = 1f;
+    private final static float HEIGHT = 1.3f;
 
-    private final static int RATE = 600;
+    private final static int ANIMATION_RATE = 600;
 
     /**
      * Constructs a ghost entity that floats between two points
@@ -47,17 +48,17 @@ public class GhostEntity extends GameEntity implements Enemy{
 
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new GhostSprite(dimension, RATE));
+        sc.add(new GhostSprite(dimension, ANIMATION_RATE));
         addComponent(sc);
     }
 
     /**
      * Constructs a ghost that chases the player in intervals.
      * The ghost resets on a collision
-     * @param toChase The entity to chase
+     * @param target The entity to target
      * @param transform The starting position
      */
-    public GhostEntity(Vector transform, GameEntity toChase){
+    public GhostEntity(Vector transform, GameEntity target){
         super(transform);
         Vector dimension = new Vector(WIDTH, HEIGHT);
 
@@ -72,13 +73,15 @@ public class GhostEntity extends GameEntity implements Enemy{
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension)));
 
         //Script--
-        addComponent(new ScriptComponent(this, new ChargeScript(this, toChase)));
+        addComponent(new ScriptComponent(this, new ChaseScript(this, target)));
 
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new GhostSprite(dimension, RATE));
+        sc.add(new GhostSprite(dimension, ANIMATION_RATE));
         addComponent(sc);
     }
+
+
 
     private class GhostSprite extends AnimatedSprite {
         private GhostSprite(Vector dimensions, int frameTick){

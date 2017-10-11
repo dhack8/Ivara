@@ -4,6 +4,7 @@ import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
+import ivara.entities.BackgroundEntity;
 import ivara.entities.UIEntity;
 import ivara.entities.UIListener;
 import maths.Vector;
@@ -15,26 +16,41 @@ import util.Debug;
  * @author Alex Mitchell 
  */
 public class MenuScene extends Scene{
+
+    private final float BUTTON_WIDTH = 6f;
+    private final float BUTTON_HEIGHT = 3f;
+
+    private final int NUM_BUTTONS = 4; // Spacing is defined by the number of buttons within the scene
+    
+
     @Override
     public void startScene() {
 
+        Camera c = new Camera();
+        setCamera(c);
+        Vector cDimensions = c.dimensions;
+        float leftover = cDimensions.y - (NUM_BUTTONS*BUTTON_HEIGHT);
+        float btnSpace = leftover/(NUM_BUTTONS+1);
+
+        int btnCount = 0;
+
         //--- New game button
-        UIEntity start = new UIEntity(new Vector(1f,1f),
-                new Sprite(new ResourceID("player"), new Vector(0, 0), new Vector(1f, 1.5f)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(1f, 1.5f)));
+        UIEntity start = new UIEntity(new Vector((cDimensions.x/2) - BUTTON_WIDTH/2,(btnSpace + (btnCount++*(BUTTON_HEIGHT + btnSpace)))),
+                new Sprite(new ResourceID("start"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
+                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
         start.addListener(new UIListener() {
             @Override
             public void onClick() {
                 //Todo: Reset the previous scene on exit to avoid problems such as there not being a new game when the scene is set to level 0
-                start.getScene().getGame().setCurrentScene(0); // Start from level 1 (level 0 is menu)
+                start.getScene().getGame().setCurrentScene(0);
             }
         });
         addEntity(start);
 
         //--- Resume button
-        UIEntity resume = new UIEntity(new Vector(1f,3f),
-                new Sprite(new ResourceID("player"), new Vector(0, 0), new Vector(1f, 1.5f)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(1f, 1.5f)));
+        UIEntity resume = new UIEntity(new Vector((cDimensions.x/2) - BUTTON_WIDTH/2,(btnSpace + (btnCount++*(BUTTON_HEIGHT + btnSpace)))),
+                new Sprite(new ResourceID("resume"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
+                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
         resume.addListener(new UIListener() {
             @Override
             public void onClick() {
@@ -43,11 +59,11 @@ public class MenuScene extends Scene{
         });
         addEntity(resume);
 
-        //--- save button
+        //--- Save button
 
-        UIEntity save = new UIEntity(new Vector(1f,5f),
-                new Sprite(new ResourceID("player"), new Vector(0, 0), new Vector(1f, 1.5f)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(1f, 1.5f)));
+        UIEntity save = new UIEntity(new Vector((cDimensions.x/2) - BUTTON_WIDTH/2,(btnSpace + (btnCount++*(BUTTON_HEIGHT + btnSpace)))),
+                new Sprite(new ResourceID("save"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
+                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
         start.addListener(new UIListener() {
             @Override
             public void onClick() {
@@ -56,11 +72,11 @@ public class MenuScene extends Scene{
         });
         addEntity(save);
 
-        //--- load button
+        //--- Load button
 
-        UIEntity load = new UIEntity(new Vector(1f,7f),
-                new Sprite(new ResourceID("player"), new Vector(0, 0), new Vector(1f, 1.5f)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(1f, 1.5f)));
+        UIEntity load = new UIEntity(new Vector((cDimensions.x/2) - BUTTON_WIDTH/2,(btnSpace + (btnCount++*(BUTTON_HEIGHT + btnSpace)))),
+                new Sprite(new ResourceID("load"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
+                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
         start.addListener(new UIListener() {
             @Override
             public void onClick() {
@@ -69,6 +85,8 @@ public class MenuScene extends Scene{
         });
         addEntity(load);
 
-        setCamera(new Camera());
+        addEntity(new BackgroundEntity());
+
+
     }
 }

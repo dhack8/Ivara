@@ -14,7 +14,7 @@ import maths.Vector;
 public class IntroLevel extends Scene{
     public void startScene() {
         addEntity(new PlayerEntity(2, 3.5f));
-        addEntity(new BackgroundEntity(0,0));
+        addEntity(new BackgroundEntity());
 
         //TODO make it a nplatform witih transparent image so they collide but dont do anything
         //wall off screen blocking movement to the left

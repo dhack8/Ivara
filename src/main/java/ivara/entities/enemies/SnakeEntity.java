@@ -1,7 +1,8 @@
-package ivara.entities;
+package ivara.entities.enemies;
 
 import core.struct.AnimatedSprite;
-import core.struct.Sprite;
+import ivara.entities.enemies.BasicEnemyEntity;
+import ivara.entities.enemies.Enemy;
 import maths.Vector;
 
 import java.util.Arrays;
@@ -9,7 +10,7 @@ import java.util.Arrays;
 /**
  * Created by David Hack Local on 08-Oct-17.
  */
-public class SnakeEntity extends BasicEnemyEntity implements Enemy{
+public class SnakeEntity extends BasicEnemyEntity implements Enemy {
 
     private final static float WIDTH = 0.6f;
     private final static float HEIGHT = 1.5f;

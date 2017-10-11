@@ -1,24 +1,23 @@
 package ivara.entities.scripts;
 
 import core.Script;
-import core.components.PhysicsComponent;
-import core.components.ScriptComponent;
 import core.components.SensorHandlerComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
 import core.input.Constants;
 import core.input.InputHandler;
 import core.input.SensorHandler;
+import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Timer;
 import ivara.entities.BulletEntity;
-import ivara.entities.Enemy;
+import ivara.entities.enemies.Enemy;
+import ivara.entities.PlayerEntity;
+import ivara.entities.enemies.ImortalEnemy;
 import ivara.entities.sprites.PlayerSprite;
 import maths.Vector;
-import physics.PhysicProperties;
-import util.Debug;
 
-import java.util.Optional;
+import java.util.Arrays;
 
 /**
  * Script to control the player entity. Relies on the current input
@@ -95,9 +94,9 @@ public class PlayerScript implements Script{//}, SensorListener {
         if(input.isKeyReleased(Constants.SPACE)) entity.getScene().getGame().pause();
     }
 
-    private void handleEnemy(SensorHandler sensorHandler, GameEntity player){
+    private void handleEnemy(SensorHandler sensorHandler, GameEntity player){ // Todo: fix when colliding with multiple things
         GameEntity collided = sensorHandler.getActivatingEntities(enemySensor).stream().findAny().get();
-        if(collided instanceof Enemy) player.getScene().resetScene();
+        if(collided instanceof Enemy || collided instanceof ImortalEnemy) player.getScene().resetScene();
     }
 
     private void handleOnGround(VelocityComponent vComp, SensorHandler sensorHandler, GameEntity player){
@@ -107,6 +106,8 @@ public class PlayerScript implements Script{//}, SensorListener {
 
         if(collided instanceof Enemy && !sensorHandler.isActive(enemySensor)){
             player.getScene().removeEntity(collided);
+        }else if(collided instanceof ImortalEnemy){
+            player.getScene().resetScene();
         }
     }
 
@@ -134,7 +135,8 @@ public class PlayerScript implements Script{//}, SensorListener {
     }
 
     private void fireBullet(GameEntity entity, InputHandler.InputFrame input){
-        GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(), 1000);
+        GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(),new ResourceID("slimeball"), 1000, Arrays.asList(PlayerEntity.class));
+
         entity.getScene().addEntity(bullet);
         entity.getScene().addTimer(new Timer(1000, () -> entity.getScene().removeEntity(bullet)));
     }

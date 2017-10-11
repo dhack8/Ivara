@@ -93,6 +93,10 @@ public class BasicEnemyScript implements Script{
     private void pause(VelocityComponent vc, GameEntity entity){
         if(vc.isPaused()){return;}
         vc.pause();
-        entity.getScene().addTimer(new Timer(pauseTime, () -> vc.unpause()));
+        if(entity.getScene() == null) return;
+        entity.getScene().addTimer(new Timer(pauseTime, () -> {
+            if(vc == null) System.out.println("vc null");
+            vc.unpause();
+        }));
     }
 }

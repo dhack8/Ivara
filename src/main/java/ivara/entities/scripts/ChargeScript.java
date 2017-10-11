@@ -15,7 +15,7 @@ import maths.Vector;
  * Created by Alex Mitchell on 9/10/2017.
  */
 public class ChargeScript implements Script {
-    private GameEntity thisEntity;
+    private GameEntity entity;
     private GameEntity toChase;
     private boolean chasing;
     private Timer t;
@@ -26,11 +26,11 @@ public class ChargeScript implements Script {
 
     /**
      * This script "chases" a target entity with brief pauses
-     * @param thisEntity The entity using the script
+     * @param entity The entity using the script
      * @param toChase The entity to chase
      */
-    public ChargeScript(GameEntity thisEntity, GameEntity toChase){
-        this.thisEntity = thisEntity;
+    public ChargeScript(GameEntity entity, GameEntity toChase){
+        this.entity = entity;
         this.toChase = toChase;
         chasing = false;
         t = new Timer(0, ()->{}); // initial timer
@@ -59,9 +59,9 @@ public class ChargeScript implements Script {
      * Sets the entity's velocity such that it seeks out the target entity
      */
     private void chase(){
-        VelocityComponent vComp = thisEntity.get(VelocityComponent.class).get();
+        VelocityComponent vComp = entity.get(VelocityComponent.class).get();
         Vector target = toChase.getTransform();
-        Vector from = thisEntity.getTransform();
+        Vector from = entity.getTransform();
         vComp.set(getV(target, from));
     }
 
@@ -69,7 +69,7 @@ public class ChargeScript implements Script {
      * Sets the entity's velocity to nothing
      */
     private void hover(){
-        VelocityComponent vComp = thisEntity.get(VelocityComponent.class).get();
+        VelocityComponent vComp = entity.get(VelocityComponent.class).get();
         vComp.set(new Vector(0f,0f));
     }
 

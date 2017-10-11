@@ -42,40 +42,26 @@ public class LevelOne extends Scene {
         //addEntity(new MovingBlockEntity(0f,-9f, 2f,-9f, "dirt_bottom", 2f));
 
         */
-        addEntity(new BackgroundEntity(0,0));
+        addEntity(new BackgroundEntity());
         addEntity(new PlayerEntity(0, 1.5f));
 
         addEntity(new PlatformEntity(new Vector(0,3),2,false));
         addEntity(new PlatformEntity(new Vector(3,3) , new Vector(8,3) ,2.5f));
         addEntity(new PlatformEntity(new Vector(10, 3),2,false));
-        addEntity(new PlatformEntity(new Vector(13, 4),new Vector(13, 4), 2.5f));
+        addEntity(new PlatformEntity(new Vector(13, 4),new Vector(13, 6), 2.5f));
         addEntity(new PlatformEntity(new Vector(15, -4),3,false));
 
         //fall catcher
         addEntity(new PlatformEntity(new Vector(2, 11), 9,false));
         addEntity(new PlatformEntity(new Vector(11, 7),5,true));
         //addEntities(LinePlatformFactory.line(-1,8,1,10));
-        addEntity(new PlatformEntity(new Vector(-1, 8),new Vector(-1, 3), 3));
+        addEntity(new PlatformEntity(new Vector(-1, 7),new Vector(-1, 3), 3));
         addEntity(new PlatformEntity(new Vector(-5, 2),7,true));
         addEntity(new PlatformEntity(new Vector(-4, 8),4,false));
 
 
         //todo added
         addEntity(new LevelEndEntity(1,2));
-
-
-
-        /// Test UI Code
-        UIEntity ui = new UIEntity(
-                new Vector(1.2f, 1.2f),
-                new Sprite(new ResourceID("player"), new Vector(0, 0), new Vector(1f, 1.5f)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(1f, 1.5f))
-        );
-
-        ui.addListener(() -> removeEntity(ui));
-
-        addEntity(ui);
-        //
 
         setCamera(new Camera());
     }
