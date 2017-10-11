@@ -7,6 +7,7 @@ import core.input.SensorHandler;
 import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Sprite;
+import core.struct.Timer;
 import maths.Vector;
 import physics.AABBCollider;
 import util.Debug;
@@ -17,6 +18,8 @@ import util.Debug;
 public class CoinEntity extends GameEntity {
     public CoinEntity(Vector transform, PlayerEntity player) {
         super(transform);
+
+        CoinEntity coinEntity = this;
 
         addComponent(new SpriteComponent(
                 this,
@@ -51,6 +54,10 @@ public class CoinEntity extends GameEntity {
                                     .stream()
                                     .anyMatch((e) -> e.equals(player))) {
                                 Debug.log("Coin Sensor Activated");
+                                player.coinsCollected += 1;
+                                getScene().removeEntity(coinEntity);
+
+                                getScene().addTimer(new Timer(1000, () -> getScene().addEntity(new CoinEntity(coinEntity.transform, player))));
                             }
                         }
                     }

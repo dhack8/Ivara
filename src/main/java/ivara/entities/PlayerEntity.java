@@ -27,6 +27,8 @@ public class PlayerEntity extends GameEntity {
 
     private float jumpSensorHeight = 0.15f;
 
+    public int coinsCollected = 0;
+
     /**
      * Creates a PlayerEntity at a given position
      *
