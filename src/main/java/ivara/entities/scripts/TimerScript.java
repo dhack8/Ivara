@@ -28,6 +28,7 @@ public class TimerScript implements Script {
         long millis = currentTime - start;
         long seconds = (millis / 1000) % 60 ;
         long minutes = (millis / (1000*60)) % 60;
+        millis = (millis % 1000)/10;
         return String.format("%02d:%02d.%02d", minutes, seconds, millis);
     }
 }
