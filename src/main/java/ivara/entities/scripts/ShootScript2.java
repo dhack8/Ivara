@@ -22,7 +22,7 @@ public class ShootScript2 implements Script {
     private GameEntity target;
 
     private Timer t; // delay timer
-    private final int DELAY = 1000; // delay after shot
+    private final int DELAY = 2000; // delay after shot
     private final int DURATION = 2000; // how long till the bullet resets
     private final float SPEED = 3f; // in ms^-1
     private Vector offset; //vector offsetting aim

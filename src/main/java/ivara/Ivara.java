@@ -35,6 +35,7 @@ public class Ivara extends Game {
 
         //LevelManager l = new LevelManager(getLevels(), new TestLevel1());
         LevelManager l = new LevelManager(getLevels(), new MenuScene());
+        //LevelManager l = new LevelManager(getLevels());
 
         Game g = new Ivara(l, processingBackend, processingBackend);
         g.start();
@@ -46,7 +47,6 @@ public class Ivara extends Game {
      */
     private static List<Scene> getLevels(){
         List<Scene> levels = new ArrayList<>();
-        levels.add(new TestLevel1());
         levels.add(new LevelOne());
         levels.add(new LevelThree());
         levels.add(new LevelFour());
