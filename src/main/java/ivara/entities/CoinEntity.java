@@ -15,7 +15,7 @@ import util.Debug;
  * Created by Callum Li on 10/12/17.
  */
 public class CoinEntity extends GameEntity {
-    public CoinEntity(Vector transform) {
+    public CoinEntity(Vector transform, PlayerEntity player) {
         super(transform);
 
         addComponent(new SpriteComponent(
@@ -46,7 +46,12 @@ public class CoinEntity extends GameEntity {
                     @Override
                     public void update(int dt, GameEntity entity) {
                         if (sensorHandler.getSensorHandler().isActive(coinSesnor)) {
-                            Debug.log("Coin Sensor Activated");
+                            if (sensorHandler.getSensorHandler().
+                                    getActivatingEntities(coinSesnor)
+                                    .stream()
+                                    .anyMatch((e) -> e.equals(player))) {
+                                Debug.log("Coin Sensor Activated");
+                            }
                         }
                     }
                 })
