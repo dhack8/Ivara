@@ -32,7 +32,7 @@ public class ShootScript2 implements Script {
         this.entity = entity;
         this.target = target;
         this.offset = offset;
-        t = new Timer(2000, ()->{}); // starting delay
+        t = new Timer(0, ()->{});
     }
 
     public ShootScript2(GameEntity entity, GameEntity target){
@@ -43,7 +43,8 @@ public class ShootScript2 implements Script {
     }
 
     @Override
-    public void update(int dt, GameEntity entity) {  if(t.isFinished()){
+    public void update(int dt, GameEntity entity) {
+        if(t.isFinished()){
             GameEntity bullet = new BulletEntity2(
                     entity.transform,
                     new Vector(target.getTransform().x + offset.x, target.getTransform().y + offset.y),
