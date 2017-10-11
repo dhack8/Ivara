@@ -26,7 +26,6 @@ public class SpriteComponent extends Component<GameEntity> {
 
     /**
      * Constructor for a sprite component that has no sprites.
-     * This sprite has a dimension.
      * @param entity parent entity
      */
     public SpriteComponent(GameEntity entity) {
@@ -35,7 +34,6 @@ public class SpriteComponent extends Component<GameEntity> {
 
     /**
      * Constructor for a sprite component that takes one animated sprite.
-     * This sprite has a dimension.
      * @param entity parent entity
      * @param animatedSprite animated sprite to add
      */
@@ -47,7 +45,6 @@ public class SpriteComponent extends Component<GameEntity> {
 
     /**
      * Constructor for a sprite component that takes one sprite.
-     * This sprite has a dimension.
      * @param entity parent entity
      * @param sprite sprite to add
      */

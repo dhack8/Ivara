@@ -4,6 +4,7 @@ package ivara.scenes;
 import core.entity.GameEntity;
 import core.scene.Scene;
 import core.struct.Camera;
+import core.struct.Text;
 import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.*;
@@ -18,6 +19,8 @@ import maths.Vector;
  */
 public class TestLevel1 extends Scene{
     public void startScene(){
+        addEntity(new BasicTextEntity(new Vector(0, -4), new Text(25, "This is a \ntest entity")));
+
         addEntity(new BackgroundEntity());
         addEntity(new DeathLineEntity(8));
 
