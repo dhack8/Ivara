@@ -24,11 +24,13 @@ public class ChaseScript implements Script {
     private final Vector homePos;
 
     private final float DISTANCE = 8f;
-    private final float SPEED = 2f; // in ms^-1
+
+    private final float CHASE_SPEED = 1.2f; // in ms^-1
+    private final float RETREAT_SPEED = 1.2f; // in ms^-1
+    private final float PATROL_SPEED = 1.2f; // in ms^-1
 
     private Vector p1; // the patrol positions
     private Vector p2;
-
 
     /**
      * This script chases a target and patrols a "home" location when not chasing
@@ -44,7 +46,6 @@ public class ChaseScript implements Script {
         homePos = new Vector(entity.getTransform());
         p1 = new Vector(homePos.x -2.5f, homePos.y); // temporarily, the patrol positions are +-2.5f on the x plane in relation to the home location
         p2 = new Vector(homePos.x +2.5f, homePos.y);
-
     }
 
     @Override
@@ -91,27 +92,24 @@ public class ChaseScript implements Script {
      * Sets the entity's velocity such that it seeks out the target entity
      */
     private void chase(){
-        //System.out.println("Chasing");
         VelocityComponent vComp = entity.get(VelocityComponent.class).get();
         Vector target = toChase.getTransform();
         Vector from = entity.getTransform();
-        vComp.set(getV(target, from));
+        vComp.set(getV(target, from, CHASE_SPEED));
     }
 
     /**
      * Moves the entity to a home location
      */
     private void home(){
-        //System.out.println("Retreating");
         VelocityComponent vComp = entity.get(VelocityComponent.class).get();
-        vComp.set(getV(homePos, entity.getTransform()));
+        vComp.set(getV(homePos, entity.getTransform(),RETREAT_SPEED));
     }
 
     /**
      * Moves the entity between two specified points once it reaches home
      */
     private void patrol(){
-        //System.out.println("patrol");
         VelocityComponent vComp = entity.get(VelocityComponent.class).get();
 
         if(nearPoint(p1)){ // cheeky swap for now
@@ -120,7 +118,7 @@ public class ChaseScript implements Script {
             p2 = temp;
         }
 
-        vComp.set(getV(p1, entity.getTransform()));
+        vComp.set(getV(p1, entity.getTransform(),PATROL_SPEED));
     }
 
     /**
@@ -130,12 +128,12 @@ public class ChaseScript implements Script {
      * @param from The start position
      * @return A vector representing velocity
      */
-    private Vector getV(Vector target, Vector from){
+    private Vector getV(Vector target, Vector from, float Speed){
         float dx = target.x - from.x;
         float dy = target.y - from.y;
         double angle = Math.atan(dx/dy);
-        float xVel = (float)(SPEED * Math.sin(angle));
-        float yVel = (float)(SPEED * Math.cos(angle));
+        float xVel = (float)(Speed * Math.sin(angle));
+        float yVel = (float)(Speed * Math.cos(angle));
 
         if(dy <0){xVel *= -1; yVel *= -1;}
         return new Vector(xVel,yVel);

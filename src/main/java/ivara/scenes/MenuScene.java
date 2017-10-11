@@ -18,7 +18,7 @@ import util.Debug;
 public class MenuScene extends Scene{
 
     private final float BUTTON_WIDTH = 6f;
-    private final float BUTTON_HEIGHT = 3f;
+    private final float BUTTON_HEIGHT = 1.7f;
 
     private final int NUM_BUTTONS = 4; // Spacing is defined by the number of buttons within the scene
     
@@ -36,7 +36,7 @@ public class MenuScene extends Scene{
 
         //--- New game button
         UIEntity start = new UIEntity(new Vector((cDimensions.x/2) - BUTTON_WIDTH/2,(btnSpace + (btnCount++*(BUTTON_HEIGHT + btnSpace)))),
-                new Sprite(new ResourceID("start"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
+                new Sprite(new ResourceID("play"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
                 new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
         start.addListener(new UIListener() {
             @Override
