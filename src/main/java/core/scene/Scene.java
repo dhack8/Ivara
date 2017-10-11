@@ -87,7 +87,7 @@ public abstract class Scene {
      * @param name The name of the entity
      * @return The entity, if it exists
      */
-    protected GameEntity getEntity(String name){
+    public GameEntity getEntity(String name){
         return nameEntityMap.get(name);
     }
 

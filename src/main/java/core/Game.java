@@ -20,8 +20,7 @@ public abstract class Game {
     /**
      * The current scene of the game.
      */
-    //private Scene currentScene;
-    private LevelManager levelManager;
+     private LevelManager levelManager;
 
     /**
      * Backend Dependent Renderer

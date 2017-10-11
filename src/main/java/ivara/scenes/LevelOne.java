@@ -32,7 +32,7 @@ public class LevelOne extends Scene {
         //addEntity(new NPlatformEntity(13,6, 1, false));
 
         //vertical platforms
-        addEntity(new NPlatformEntity(15,1, 4, true));
+        addEntity(new NPlatformEntity(15Integration,1, 4, true));
         addEntity(new NPlatformEntity(12,0  , 2, true));
         addEntity(new NPlatformEntity(15,-3  , 2, true));
         addEntity(new NPlatformEntity(12,-7  , 3, true));
@@ -58,7 +58,6 @@ public class LevelOne extends Scene {
         addEntity(new PlatformEntity(new Vector(-1, 7),new Vector(-1, 3), 3));
         addEntity(new PlatformEntity(new Vector(-5, 2),7,true));
         addEntity(new PlatformEntity(new Vector(-4, 8),4,false));
-
 
         //todo added
         addEntity(new LevelEndEntity(1,2));
