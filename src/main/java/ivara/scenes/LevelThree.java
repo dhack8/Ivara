@@ -11,7 +11,7 @@ import maths.Vector;
  */
 public class LevelThree extends Scene{
     public void startScene(){
-        addEntity(new BackgroundEntity(0f,0f));
+        addEntity(new BackgroundEntity());
 
         addEntity(new PlayerEntity(-1, 0));
 

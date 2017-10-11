@@ -16,7 +16,8 @@ public class LevelFour extends Scene{
         setCamera(new Camera());
         PlayerEntity p = new PlayerEntity(0,3);
         addEntity(p);
-        addEntity(new BackgroundEntity(0,0,new Vector(-100,20)));
+        addEntity(new BackgroundEntity());
+        addEntity(new DeathLineEntity(100));
 
         addEntities(LinePlatformFactory.line(0,4, 4,4));
 

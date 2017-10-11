@@ -85,7 +85,7 @@ public class MenuScene extends Scene{
         });
         addEntity(load);
 
-        addEntity(new BackgroundEntity(0,0));
+        addEntity(new BackgroundEntity());
 
 
     }

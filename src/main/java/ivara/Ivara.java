@@ -47,6 +47,7 @@ public class Ivara extends Game {
      */
     private static List<Scene> getLevels(){
         List<Scene> levels = new ArrayList<>();
+        levels.add(new TestLevel1());
         levels.add(new LevelOne());
         levels.add(new LevelThree());
         levels.add(new LevelFour());

@@ -18,10 +18,18 @@ import maths.Vector;
  */
 public class TestLevel1 extends Scene{
     public void startScene(){
+        addEntity(new BackgroundEntity());
+        addEntity(new DeathLineEntity(8));
+
         addEntity(new PlatformEntity(new Vector(0,1)));
         addEntity(new PlatformEntity(new Vector(1,2),3, false));
         addEntity(new PlatformEntity(new Vector(4, 2.1f)));
         addEntity(new PlatformEntity(new Vector(-8, 3f), 7, false));
+        addEntity(new PlatformEntity(new Vector(5,1), 4, true, new Vector(7,3 ), 3f));
+        addEntity(new PlatformEntity(new Vector(4,-4), 4, true));
+        addEntities(LinePlatformFactory.line(-1, -1, -4,-7));
+
+        addEntity(new LevelEndEntity(-8, 2));
 
         GameEntity player = new PlayerEntity(0,0);
         addEntity(player);
@@ -32,13 +40,6 @@ public class TestLevel1 extends Scene{
         addEntity(new BeeEntity(new Vector(7,-8), player));
         addEntity(new BarnacleEntity(new Vector(-6, 2.3f)));
 
-        addEntity(new PlatformEntity(new Vector(5,1), 4, true, new Vector(7,3 ), 3f));
-        addEntity(new PlatformEntity(new Vector(4,-4), 4, true));
-
-        addEntities(LinePlatformFactory.line(-1, -1, -4,-7));
-
-
-        addEntity(new BackgroundEntity(0,0, new Vector(-20,20)));
         setCamera(new Camera());
     }
 }
