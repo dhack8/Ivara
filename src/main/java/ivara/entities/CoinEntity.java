@@ -8,6 +8,7 @@ import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Sprite;
 import core.struct.Timer;
+import ivara.entities.sprites.CoinSprite;
 import maths.Vector;
 import physics.AABBCollider;
 import util.Debug;
@@ -23,16 +24,16 @@ public class CoinEntity extends GameEntity {
 
         addComponent(new SpriteComponent(
                 this,
-                new Sprite(
-                        new ResourceID("player"),
+                new CoinSprite(
                         new Vector(0, 0),
-                        new Vector(1, 1.5f)
+                        new Vector(0.8f, 0.8f),
+                        50
                 )
                 )
         );
 
         Sensor coinSesnor = new Sensor(
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(1, 1.5f))
+                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(0.8f, 0.8f))
         );
 
         addComponent(new SensorComponent(
@@ -57,7 +58,7 @@ public class CoinEntity extends GameEntity {
                                 player.coinsCollected += 1;
                                 getScene().removeEntity(coinEntity);
 
-                                getScene().addTimer(new Timer(1000, () -> getScene().addEntity(new CoinEntity(coinEntity.transform, player))));
+                                //getScene().addTimer(new Timer(1000, () -> getScene().addEntity(new CoinEntity(coinEntity.transform, player))));
                             }
                         }
                     }

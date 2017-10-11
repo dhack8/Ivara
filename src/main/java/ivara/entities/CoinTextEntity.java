@@ -1,6 +1,7 @@
 package ivara.entities;
 
 import core.Script;
+import core.components.RenderComponent;
 import core.components.ScriptComponent;
 import core.components.TextComponent;
 import core.entity.GameEntity;
@@ -30,5 +31,7 @@ public class CoinTextEntity extends GameEntity {
                         score.add(Integer.toString(player.coinsCollected), 16);
                     }
                 }));
+
+        addComponent(new RenderComponent(this, 10000, RenderComponent.Mode.NO_TRANS));
     }
 }

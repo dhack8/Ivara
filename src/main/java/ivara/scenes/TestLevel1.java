@@ -45,7 +45,7 @@ public class TestLevel1 extends Scene{
         addEntity(new BarnacleEntity(new Vector(-6, 2.3f)));
 
         addEntity(new CoinEntity(new Vector(1, 1), player));
-        addEntity(new CoinTextEntity(new Vector(-4, -4), player));
+        addEntity(new CoinTextEntity(new Vector(2, 2z), player));
 
         setCamera(new Camera());
     }

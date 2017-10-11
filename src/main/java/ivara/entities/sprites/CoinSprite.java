@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @author DAvid Hack
  */
 public class CoinSprite extends AnimatedSprite{
-    private CoinSprite(Vector transform, Vector dimensions, int frameTick){
+    public CoinSprite(Vector transform, Vector dimensions, int frameTick){
         super(transform, dimensions, frameTick);
 
         String state = "normal";
