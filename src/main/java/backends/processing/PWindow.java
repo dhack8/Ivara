@@ -4,6 +4,7 @@ import backends.InputBroadcaster;
 import backends.Renderer;
 import core.AssetHandler;
 import core.components.*;
+import core.components.TextComponent;
 import core.entity.GameEntity;
 import core.input.KeyListener;
 import core.input.MouseListener;
@@ -11,13 +12,16 @@ import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.Sensor;
 import core.struct.Sprite;
+import core.struct.Text;
 import maths.Vector;
 import physics.AABBCollider;
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -106,58 +110,24 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void setup(){
-        AssetHandler.loadImage("./assets/background.png", "background", this);
-        AssetHandler.loadImage("./assets/barnacle.png", "barnacle", this);
-        AssetHandler.loadImage("./assets/barnacle2.png", "barnacle2", this);
-        AssetHandler.loadImage("./assets/barnacle-dead.png", "barnacle-dead", this);
-        AssetHandler.loadImage("./assets/bee.png", "bee", this);
-        AssetHandler.loadImage("./assets/bee2.png", "bee2", this);
-        AssetHandler.loadImage("./assets/bee-dead.png", "bee-dead", this);
-        AssetHandler.loadImage("./assets/black-box.png", "black-box", this);
-        AssetHandler.loadImage("./assets/dirt.png", "dirt", this);
-        AssetHandler.loadImage("./assets/dirt-bottom.png", "dirt-bottom", this);
-        AssetHandler.loadImage("./assets/fake-block.png", "fake-block", this);
-        AssetHandler.loadImage("./assets/fake-block-dead.png", "fake-block-dead", this);
-        AssetHandler.loadImage("./assets/flag-green.png", "flag-green", this);
-        AssetHandler.loadImage("./assets/flag-orange.png", "flag-orange", this);
-        AssetHandler.loadImage("./assets/ghost.png", "ghost", this);
-        AssetHandler.loadImage("./assets/ghost2.png", "ghost2", this);
-        AssetHandler.loadImage("./assets/ghost-dead.png", "ghost-dead", this);
-        AssetHandler.loadImage("./assets/grass-bottom.png", "grass-bottom", this);
-        AssetHandler.loadImage("./assets/grass-bottom-left.png", "grass-bottom-left", this);
-        AssetHandler.loadImage("./assets/grass-bottom-right.png", "grass-bottom-right", this);
-        AssetHandler.loadImage("./assets/grass-left.png", "grass-left", this);
-        AssetHandler.loadImage("./assets/grass-right.png", "grass-right", this);
-        AssetHandler.loadImage("./assets/grass-top.png", "grass-top", this);
-        AssetHandler.loadImage("./assets/grass-top-left.png", "grass-top-left", this);
-        AssetHandler.loadImage("./assets/grass-top-right.png", "grass-top-right", this);
-        AssetHandler.loadImage("./assets/long-slime.png", "long-slime", this);
-        AssetHandler.loadImage("./assets/long-slime2.png", "long-slime2", this);
-        AssetHandler.loadImage("./assets/long-slime-dead.png", "long-slime-dead", this);
-        AssetHandler.loadImage("./assets/player.png", "player", this);
-        AssetHandler.loadImage("./assets/player-dead.png", "player-dead", this);
-        AssetHandler.loadImage("./assets/player-duck-left.png", "player-duck-left", this);
-        AssetHandler.loadImage("./assets/player-duck-right.png", "player-duck-right", this);
-        AssetHandler.loadImage("./assets/player-jump-left.png", "player-jump-left", this);
-        AssetHandler.loadImage("./assets/player-jump-right.png", "player-jump-right", this);
-        AssetHandler.loadImage("./assets/player-left.png", "player-left", this);
-        AssetHandler.loadImage("./assets/player-right.png", "player-right", this);
-        AssetHandler.loadImage("./assets/player-walk-left.png", "player-walk-left", this);
-        AssetHandler.loadImage("./assets/player-walk-right.png", "player-walk-right", this);
-        AssetHandler.loadImage("./assets/player-walk2-left.png", "player-walk2-left", this);
-        AssetHandler.loadImage("./assets/player-walk2-right.png", "player-walk2-right", this);
-        AssetHandler.loadImage("./assets/slimeball.png", "slimeball", this);
-        AssetHandler.loadImage("./assets/slime.png", "slime", this);
-        AssetHandler.loadImage("./assets/slime-dead.png", "slime-dead", this);
-
-        //Todo: Change these to be nicer buttons
-        AssetHandler.loadImage("./assets/start.png", "start", this);
-        AssetHandler.loadImage("./assets/resume.png", "resume", this);
-        AssetHandler.loadImage("./assets/save.png", "save", this);
-        AssetHandler.loadImage("./assets/load.png", "load", this);
+        //Code taken from here: https://stackoverflow.com/questions/5694385/getting-the-filenames-of-all-files-in-a-folder
+        File folder = new File("./assets");
+        File[] listOfFiles = folder.listFiles();
+        //Loads assets automatically
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                //System.out.println("Loaded File: " + listOfFiles[i].getName() + " AS: " + listOfFiles[i].getName().split("\\.")[0]);
+                AssetHandler.loadImage("./assets/" + listOfFiles[i].getName(), listOfFiles[i].getName().split("\\.")[0], this);
+            } else if (listOfFiles[i].isDirectory()) {
+                //System.out.println("Directory " + listOfFiles[i].getName());
+            }
+        }
 
         // limited framerate
         frameRate(200);
+
+        PFont font = createFont("Arial", 50);
+        textFont(font);
     }
 
     /**
@@ -201,6 +171,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                 }).forEach((e) -> {
 
                     drawSprites(e);
+                    drawTexts(e);
 
                     if (mask == 2) {
                         drawCollider(e);
@@ -228,6 +199,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
     }
 
     private void drawFramerate() {
+        textSize(10);
         text(frameRate, 20, 20);
     }
 
@@ -268,19 +240,30 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
         if(!osc.isPresent()) return;
 
         for(Sprite s : osc.get().getSprites()){
-            drawSprite(e, s, e.getTransform());
+            drawSprite(e, s);
+        }
+    }
+
+    private void drawTexts(GameEntity e){
+        Optional<TextComponent> otc = e.get(TextComponent.class);
+
+        if(!otc.isPresent()) return;
+
+        for(Text t : otc.get().getTexts()){
+            drawText(e, t);
         }
     }
 
     //EFFECTED BY RENDER COMPONENT
-    private void drawSprite(GameEntity e, Sprite sprite, Vector entityTransform){
+    private void drawSprite(GameEntity e, Sprite sprite){
         RenderComponent rc = e.get(RenderComponent.class).orElse(new RenderComponent(e));
+        Vector entityTransform = e.getTransform();
 
         if(!rc.getMode().equals(RenderComponent.Mode.FULLSCREEN)) {
             Vector loc;
-            if (rc.getMode().equals(RenderComponent.Mode.NORMAL)) {
+            if (rc.getMode().equals(RenderComponent.Mode.NORMAL)) { //NORMAL GETS TRANSFORM
                 loc = getPixelLoc(entityTransform, sprite.transform);
-            }else{
+            }else{ //ELSE IS TRANSFORM LESS
                 loc = new Vector((entityTransform.x + sprite.transform.x) * s + b.x, (entityTransform.y + sprite.transform.y) * s + b.y);
             }
 
@@ -291,9 +274,26 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
                 image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y);
             }
 
-        }else{
+        }else{ //FULLSCREEN
             image(AssetHandler.getImage(sprite.resourceID.id), b.x, b.y, width-2*b.x, height-2*b.y);
         }
+    }
+
+    //EFFECTED BY RENDER COMPONENT
+    private void drawText(GameEntity e, Text text){
+        RenderComponent rc = e.get(RenderComponent.class).orElse(new RenderComponent(e));
+        Vector entityTransform = e.getTransform();
+
+        Vector loc;
+        if (rc.getMode().equals(RenderComponent.Mode.NORMAL) || rc.getMode().equals(RenderComponent.Mode.FULLSCREEN)) {
+            loc = getPixelLoc(entityTransform, text.transform); //FULLSCREEN IS THE SAME AS NORMAL
+        }else{
+            //NO TRANS
+            loc = new Vector((entityTransform.x + text.transform.x) * s + b.x, (entityTransform.y + text.transform.y) * s + b.y);
+        }
+
+        textSize(text.fontSize);
+        text(text.text, loc.x, loc.y);
     }
 
     private Vector getPixelLoc(Vector meters){
