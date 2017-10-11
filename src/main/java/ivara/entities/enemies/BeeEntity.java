@@ -4,6 +4,7 @@ import core.components.*;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
 import ivara.entities.PlayerEntity;
+import ivara.entities.scripts.PatrolScript;
 import ivara.entities.scripts.ShootScript;
 import ivara.entities.scripts.ShootScript2;
 import maths.Vector;
@@ -37,6 +38,7 @@ public class BeeEntity extends GameEntity implements Enemy{
 
         //Script---
         addComponent(new ScriptComponent(this, new ShootScript2(this, target, new Vector(PlayerEntity.WIDTH/2f, PlayerEntity.HEIGHT/2f))));
+        //addComponent(new ScriptComponent(this, new PatrolScript(this, new Vector(2f, 2f))));
 
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);
