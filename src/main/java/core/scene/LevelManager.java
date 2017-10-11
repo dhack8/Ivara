@@ -120,6 +120,15 @@ public class LevelManager {
     }
 
     /**
+     * Returns the current level number, regardless of whether the game is paused or not
+     * @return The integer corresponding to the level number
+     */
+    public int getLevelNum(){
+        return currentScene;
+    }
+
+
+    /**
      * Changes the current scene to the next scene
      * Upon reaching the last scene, the next scene becomes the first scene
      *
