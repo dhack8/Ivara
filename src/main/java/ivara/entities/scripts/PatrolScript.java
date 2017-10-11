@@ -14,22 +14,24 @@ public class PatrolScript implements Script{
     private Vector home;
     private Vector pos1;
     private Vector pos2;
-
-    private final float SPEED = 3f;
+    private float speed;
 
     /**
      * Creates a Script that causes the entity to patrol their initial spawn location
      * @param entity The game entity
      * @param deviance The x and y deviance from the origin
      */
-    public PatrolScript(GameEntity entity, Vector deviance){
+    public PatrolScript(GameEntity entity, Vector deviance, float speed){
         home = new Vector(entity.getTransform());
         pos1 = new Vector(home.x - deviance.x, home.y - deviance.y);
         pos2 = new Vector(home.x + deviance.x, home.y + deviance.y);
+        this.speed = speed;
     }
 
     @Override
     public void update(int dt, GameEntity entity) {
+        if(pos1.equals(home))return;
+
         VelocityComponent vComp = entity.get(VelocityComponent.class).get();
         
         if(nearPoint(pos1, entity.getTransform())){ // cheeky swap for now
@@ -52,8 +54,8 @@ public class PatrolScript implements Script{
         float dx = target.x - from.x;
         float dy = target.y - from.y;
         double angle = Math.atan(dx/dy);
-        float xVel = (float)(SPEED * Math.sin(angle));
-        float yVel = (float)(SPEED * Math.cos(angle));
+        float xVel = (float)(speed * Math.sin(angle));
+        float yVel = (float)(speed * Math.cos(angle));
 
         if(dy <0){xVel *= -1; yVel *= -1;}
         return new Vector(xVel,yVel);

@@ -1,5 +1,6 @@
 package ivara.entities.enemies;
 
+import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
@@ -11,6 +12,7 @@ import maths.Vector;
 import physics.AABBCollider;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Created by David Hack Local on 10-Oct-17.
@@ -22,8 +24,17 @@ public class BeeEntity extends GameEntity implements Enemy{
 
     private final static int ANIMATION_RATE = 150;
 
+    public BeeEntity(Vector transform, GameEntity target, Vector deviance){
+        super(transform);
+        setup(transform,target,Optional.of(deviance));
+    }
+
     public BeeEntity(Vector transform, GameEntity target){
         super(transform);
+        setup(transform,target,Optional.empty());
+    }
+
+    private void setup(Vector transform, GameEntity target, Optional<Vector> deviance){
         Vector dimension = new Vector(WIDTH, HEIGHT);
 
         //Velocity---
@@ -37,8 +48,9 @@ public class BeeEntity extends GameEntity implements Enemy{
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension)));
 
         //Script---
-        addComponent(new ScriptComponent(this, new ShootScript2(this, target, new Vector(PlayerEntity.WIDTH/2f, PlayerEntity.HEIGHT/2f))));
-        //addComponent(new ScriptComponent(this, new PatrolScript(this, new Vector(2f, 2f))));
+        ScriptComponent sComp = new ScriptComponent(this, new ShootScript2(this, target, new Vector(PlayerEntity.WIDTH/2f, PlayerEntity.HEIGHT/2f)));
+        if(deviance.isPresent())sComp.add(new PatrolScript(this, deviance.get(), 1f));
+        addComponent(sComp);
 
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);
