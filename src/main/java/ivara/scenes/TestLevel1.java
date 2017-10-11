@@ -20,6 +20,7 @@ import maths.Vector;
 public class TestLevel1 extends Scene{
     public void startScene(){
         addEntity(new BasicTextEntity(new Vector(0, -4), new Text(25, "This is a \ntest entity")));
+        addEntity(new TimerEntity(new Vector(1,1), 0, 25));
 
         addEntity(new BackgroundEntity());
         addEntity(new DeathLineEntity(8));
