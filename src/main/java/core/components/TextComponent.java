@@ -73,4 +73,10 @@ public class TextComponent extends Component<GameEntity>{
         return texts;
     }
 
+    /**
+     * Clears the stored texts.
+     */
+    public void clear() {
+        texts.clear();
+    }
 }

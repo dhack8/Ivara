@@ -20,6 +20,7 @@ import maths.Vector;
 public class TestLevel1 extends Scene{
     public void startScene(){
         addEntity(new BasicTextEntity(new Vector(0, -4), new Text(25, "This is a \ntest entity")));
+        addEntity(new TimerEntity(new Vector(1,1), 0, 25));
 
         addEntity(new BackgroundEntity());
         addEntity(new DeathLineEntity(8));
@@ -34,7 +35,7 @@ public class TestLevel1 extends Scene{
 
         addEntity(new LevelEndEntity(-8, 2));
 
-        GameEntity player = new PlayerEntity(0,0);
+        PlayerEntity player = new PlayerEntity(0,0);
         addEntity(player);
         addEntity(new SnakeEntity(new Vector(2, 0.5f)));
 
@@ -42,6 +43,9 @@ public class TestLevel1 extends Scene{
         addEntity(new GhostEntity(new Vector(8,-2), player));
         addEntity(new BeeEntity(new Vector(7,-8), player, new Vector(2,0)));
         addEntity(new BarnacleEntity(new Vector(-6, 2.3f)));
+
+        addEntity(new CoinEntity(new Vector(1, 1), player));
+        addEntity(new CoinTextEntity(new Vector(2, 2), player));
 
         setCamera(new Camera());
     }

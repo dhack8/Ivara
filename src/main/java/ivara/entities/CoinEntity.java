@@ -7,6 +7,8 @@ import core.input.SensorHandler;
 import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Sprite;
+import core.struct.Timer;
+import ivara.entities.sprites.CoinSprite;
 import maths.Vector;
 import physics.AABBCollider;
 import util.Debug;
@@ -15,21 +17,23 @@ import util.Debug;
  * Created by Callum Li on 10/12/17.
  */
 public class CoinEntity extends GameEntity {
-    public CoinEntity(Vector transform) {
+    public CoinEntity(Vector transform, PlayerEntity player) {
         super(transform);
+
+        CoinEntity coinEntity = this;
 
         addComponent(new SpriteComponent(
                 this,
-                new Sprite(
-                        new ResourceID("player"),
+                new CoinSprite(
                         new Vector(0, 0),
-                        new Vector(1, 1.5f)
+                        new Vector(0.8f, 0.8f),
+                        50
                 )
                 )
         );
 
         Sensor coinSesnor = new Sensor(
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(1, 1.5f))
+                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(0.8f, 0.8f))
         );
 
         addComponent(new SensorComponent(
@@ -46,7 +50,16 @@ public class CoinEntity extends GameEntity {
                     @Override
                     public void update(int dt, GameEntity entity) {
                         if (sensorHandler.getSensorHandler().isActive(coinSesnor)) {
-                            Debug.log("Coin Sensor Activated");
+                            if (sensorHandler.getSensorHandler().
+                                    getActivatingEntities(coinSesnor)
+                                    .stream()
+                                    .anyMatch((e) -> e.equals(player))) {
+                                Debug.log("Coin Sensor Activated");
+                                player.coinsCollected += 1;
+                                getScene().removeEntity(coinEntity);
+
+                                //getScene().addTimer(new Timer(1000, () -> getScene().addEntity(new CoinEntity(coinEntity.transform, player))));
+                            }
                         }
                     }
                 })

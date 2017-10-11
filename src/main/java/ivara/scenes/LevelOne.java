@@ -59,7 +59,6 @@ public class LevelOne extends Scene {
         addEntity(new PlatformEntity(new Vector(-5, 2),7,true));
         addEntity(new PlatformEntity(new Vector(-4, 8),4,false));
 
-
         //todo added
         addEntity(new LevelEndEntity(1,2));
 
