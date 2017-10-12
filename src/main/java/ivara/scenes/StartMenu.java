@@ -63,7 +63,7 @@ public class StartMenu extends Scene{
 
         //--- Quit button
         UIEntity quit = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount++*(BUTTON_WIDTH + btnSpaceX)),YPOS),
-                new Sprite(new ResourceID("resume"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
+                new Sprite(new ResourceID("quit"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
                 new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
         quit.addListener(new UIListener() {
             @Override
