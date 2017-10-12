@@ -111,20 +111,13 @@ public class PlatformEntity extends GameEntity {
         sc.add(new ResourceID(startSectionID), dimensions);
 
         // Add middle platform sprite/s
-        for (int i = 1; i < numBlocks - 1; i++) {
+        int i;
+        for (i = 1; i < numBlocks - 1; i++) {
             sc.add(new ResourceID(middleSectionID), new Vector(i * direction.x, i * direction.y), dimensions);
         }
 
-        // Calculate transform for end sprite
-        Vector transform;
-        if (isVertical) {
-            transform = new Vector(numBlocks - numBlocks * direction.y, numBlocks - 1);
-        } else {
-            transform = new Vector(numBlocks - 1, 0);
-        }
-
         // Add end sprite
-        if(numBlocks > 1)sc.add(new ResourceID(endSectionID), transform, dimensions);
+        if(numBlocks > 1)sc.add(new ResourceID(endSectionID), new Vector(i * direction.x, i * direction.y), dimensions);
 
         // Add collider component
         if (isVertical) {
