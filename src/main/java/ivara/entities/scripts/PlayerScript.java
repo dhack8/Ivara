@@ -93,7 +93,7 @@ public class PlayerScript implements Script{//}, SensorListener {
          **/
 
         //Pause menu---
-        if(input.isKeyReleased(Constants.SPACE)) entity.getScene().getGame().pause();
+        if(input.isKeyReleased(Constants.ESC)) entity.getScene().getGame().pause();
     }
 
     private void handleEnemy(SensorHandler sensorHandler, GameEntity player){ // Todo: fix when colliding with multiple things
