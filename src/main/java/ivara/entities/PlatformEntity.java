@@ -11,6 +11,8 @@ import ivara.entities.scripts.BasicMoveScript;
 import maths.Vector;
 import physics.AABBCollider;
 
+import java.io.File;
+
 /**
  * Class that handles a platform of any specified size n, in a specified direction (horizontal/vertical) decided by the
  * boolean passed in.
@@ -27,7 +29,27 @@ public class PlatformEntity extends GameEntity {
     private String endSectionID;
     private Vector dimensions = new Vector(1,1);
 
-    private static final int ADD_VEGE_CHANCE = 4; // 1 in 2 chance for there to be a vege added
+    private static final int ADD_VEGE_CHANCE = 4; // 1 in 4 chance for there to be a vege added
+    private static final float LARGE_CHANCE = 2; //IE 1 in 2
+    private static final Vector LARGE_MAX = new Vector(2.5f, 3); //Max and Min dimensions of vegetation
+    private static final Vector LARGE_MIN = new Vector(1.2f, 1.5f);
+    private static final Vector SMALL_MAX = new Vector(1, 1);
+    private static final Vector SMALL_MIN = new Vector(0.3f, 0.3f);
+    private boolean addVege = true; //Whether or not to add vegetation
+
+    private static final int NUM_LARGE;
+    private static final int NUM_SMALL;
+
+    static{
+        File folder = new File("./assets/vegetation/large");
+        File[] listOfFiles = folder.listFiles();
+
+        File folder2 = new File("./assets/vegetation/small");
+        File[] listOfFiles2 = folder.listFiles();
+
+        NUM_LARGE = listOfFiles.length;
+        NUM_SMALL = listOfFiles2.length;
+    }
 
     /**
      * Constructs a Platform at the specified coordinates (x,y), with n amount of tiles. Is created vertically or
@@ -114,11 +136,14 @@ public class PlatformEntity extends GameEntity {
 
         // Add start of platform sprite
         sc.add(new ResourceID(startSectionID), dimensions);
+        if(addVege) sc.add(getVege(new Vector(0,0), dimensions));
 
         // Add middle platform sprite/s
         int i;
         for (i = 1; i < numBlocks - 1; i++) {
-            sc.add(new ResourceID(middleSectionID), new Vector(i * direction.x, i * direction.y), dimensions);
+            Vector loc = new Vector(i * direction.x, i * direction.y);
+            sc.add(new ResourceID(middleSectionID), loc, dimensions);
+            if(!isVertical && addVege) sc.add(getVege(loc, dimensions));
         }
 
         // Add end sprite
@@ -135,13 +160,6 @@ public class PlatformEntity extends GameEntity {
                     new Vector(direction.x * numBlocks, 1))));
         }
         addComponent(sc);
-    }
-
-    private Sprite getVege(Vector locationOfBlock){
-        double vegeType = Math.round(Math.random() * largeChance) + 1;
-        if(vegeType <= 1){
-            //....
-        }
     }
 
     /**
@@ -177,5 +195,38 @@ public class PlatformEntity extends GameEntity {
     private  boolean willAddVege(){
         int result = ((int)(Math.random() * ADD_VEGE_CHANCE)) + 1;
         return result == 1;
+    }
+
+    /**
+     * Will return a vegetation sprite positioned on the block that you give the location of.
+     * @param locationOfBlock location of block to place vegetation on.
+     * @return Sprite of vegetation.
+     */
+    private Sprite getVege(Vector locationOfBlock, Vector dimensionsOfBlock){
+        int vegeType = ((int)(Math.random() * LARGE_CHANCE)) + 1;
+
+        Vector dimension;
+        ResourceID id;
+        if(vegeType == 1){ //Make large
+            int number = ((int)(Math.random() * NUM_LARGE)) + 1;
+            id = new ResourceID("vegeL" + number);
+            dimension = getVegeDimen(LARGE_MAX, LARGE_MIN);
+
+        }else{ //Make small
+            int number = ((int)(Math.random() * NUM_SMALL)) + 1;
+            id = new ResourceID("vege" + number);
+            dimension = getVegeDimen(SMALL_MAX, SMALL_MIN);
+        }
+
+        float xLoc = (locationOfBlock.x + dimensionsOfBlock.x/2) - dimension.x/2;
+        float yLoc = - dimension.y;
+
+        return new Sprite(id,new Vector(xLoc, yLoc), dimension);
+    }
+
+    private Vector getVegeDimen(Vector max, Vector min){
+        float x = (float) ((Math.random() * (max.x - min.x)) + min.x);
+        float y = (float) ((Math.random() * (max.y - min.y)) + min.x);
+        return new Vector(x,y);
     }
 }
