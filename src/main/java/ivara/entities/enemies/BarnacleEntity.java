@@ -31,9 +31,12 @@ public class BarnacleEntity extends GameEntity implements ImortalEnemy{
         WEST
     }
 
-    public BarnacleEntity(Vector transform) {
+    public BarnacleEntity(Vector transform, boolean snapToGrid) {
         super(transform);
         Vector dimension = new Vector(width, height);
+
+        if (snapToGrid)
+            snapToGrid(transform, NORTH);
 
         //Layer---
         addComponent(new RenderComponent(this, 1100));
@@ -48,7 +51,7 @@ public class BarnacleEntity extends GameEntity implements ImortalEnemy{
         addComponent(sc);
     }
 
-    public BarnacleEntity(Vector transform, Direction direction){
+    public BarnacleEntity(Vector transform, Direction direction, boolean snapToGrid){
         super(transform);
         if (direction == null)
             throw new IllegalArgumentException("Must provide a direction (NORTH, EAST, SOUTH, WEST)");
@@ -59,6 +62,9 @@ public class BarnacleEntity extends GameEntity implements ImortalEnemy{
             height = tmp;
         }
         Vector dimension = new Vector(width, height);
+
+        if (snapToGrid)
+            snapToGrid(transform, direction);
 
         //Layer---
         addComponent(new RenderComponent(this, 1100));
@@ -72,6 +78,27 @@ public class BarnacleEntity extends GameEntity implements ImortalEnemy{
         SpriteComponent sc = new SpriteComponent(this);
         sc.add(new BarnacleSprite(dimension, ANIMATION_RATE));
         addComponent(sc);
+    }
+
+    private void snapToGrid(Vector transform, Direction dir) {
+        switch (dir) {
+            case NORTH:
+                transform.x = ((int) transform.x) + 0.5f - width / 2;
+                transform.y = ((int) transform.y)+ 1 - height;
+                break;
+            case SOUTH:
+                transform.x = ((int) transform.x) + 0.5f - width / 2;
+                transform.y = ((int) transform.y);
+                break;
+            case EAST:
+                transform.x = ((int) transform.x);
+                transform.y = ((int) transform.y) + 0.5f - height / 2;
+                break;
+            case WEST:
+                transform.x = ((int) transform.x) + 1 - width;
+                transform.y = ((int) transform.y) + 0.5f - height / 2;
+                break;
+        }
     }
 
     private class BarnacleSprite extends AnimatedSprite {

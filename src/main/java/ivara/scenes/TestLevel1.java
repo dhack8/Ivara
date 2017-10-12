@@ -43,7 +43,11 @@ public class TestLevel1 extends Scene{
         //addEntity(new GhostEntity(new Vector(4,0), new Vector(8,0), 5));
         addEntity(new GhostEntity(new Vector(8,-2), player));
         addEntity(new BeeEntity(new Vector(7,-8), player, new Vector(2,0)));
-        addEntity(new BarnacleEntity(new Vector(-6, 2.3f)));
+        addEntity(new BarnacleEntity(new Vector(-5, 2.3f), false));
+        addEntity(new BarnacleEntity(new Vector(3, -1f), BarnacleEntity.Direction.WEST, true));
+        addEntity(new BarnacleEntity(new Vector(4, 0f), BarnacleEntity.Direction.SOUTH, true));
+        addEntity(new BarnacleEntity(new Vector(5, -1f), BarnacleEntity.Direction.EAST, true));
+        addEntity(new BarnacleEntity(new Vector(4, -5f), BarnacleEntity.Direction.NORTH, true));
 
         addEntity(new CoinEntity(new Vector(1, 1), player));
         addEntity(new CoinTextEntity(new Vector(2, 2), player));
