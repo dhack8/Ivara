@@ -96,8 +96,8 @@ public class PlatformEntity extends GameEntity {
     public PlatformEntity(Vector start, int numBlocks, boolean isVertical, boolean veges) throws IllegalArgumentException{
         super(start);
         if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
-        setupMulti(numBlocks, isVertical);
         vegesOn = veges;
+        setupMulti(numBlocks, isVertical);
     }
 
     /**
@@ -115,9 +115,9 @@ public class PlatformEntity extends GameEntity {
     public PlatformEntity(Vector start, int numBlocks, boolean isVertical, Vector end, float time, boolean veges) throws IllegalArgumentException{
         super(start);
         if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
+        vegesOn = veges;
         setupMulti(numBlocks, isVertical);
         setupScripts(end, time);
-        vegesOn = veges;
     }
 
     /**
@@ -126,6 +126,17 @@ public class PlatformEntity extends GameEntity {
      */
     public PlatformEntity(Vector start){
         super(start);
+        setupSingle();
+    }
+
+    /**
+     * Creates a Platform at the specified coordinates with a single tile.
+     * @param start The position to construct the Platform
+     * @param veges to draw vegetation or not
+     */
+    public PlatformEntity(Vector start, boolean veges){
+        super(start);
+        vegesOn = veges;
         setupSingle();
     }
 

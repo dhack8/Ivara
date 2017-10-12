@@ -17,6 +17,9 @@ import util.Debug;
  * Created by Callum Li on 10/12/17.
  */
 public class CoinEntity extends GameEntity {
+
+    private final static int ANIMATION_RATE = 100;
+
     public CoinEntity(Vector transform, PlayerEntity player) {
         super(transform);
 
@@ -27,7 +30,7 @@ public class CoinEntity extends GameEntity {
                 new CoinSprite(
                         new Vector(0, 0),
                         new Vector(0.8f, 0.8f),
-                        50
+                        ANIMATION_RATE
                 )
                 )
         );

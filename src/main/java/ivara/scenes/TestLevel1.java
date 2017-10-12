@@ -52,7 +52,10 @@ public class TestLevel1 extends DefaultScene{
         addEntity(new SnakeEntity(new Vector(2, 0.5f)));
 
         //COINS---
-        addEntity(new CoinEntity(new Vector(1, 1), player));
+        addEntity(new CoinEntity(new Vector(1.1f, 1.1f), player));
+        addEntity(new CoinEntity(new Vector(3.1f, -2.1f), player));
+        addEntity(new CoinEntity(new Vector(-4.9f, -5.9f), player));
+        addEntity(new CoinEntity(new Vector(-9.9f, -4.9f), player));
 
         //CAMERA---
         setCamera(new Camera());

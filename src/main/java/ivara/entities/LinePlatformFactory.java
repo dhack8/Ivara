@@ -18,10 +18,20 @@ import java.util.*;
  */
 public final class LinePlatformFactory {
 
+    private static boolean vege = true;
+
 //    public static Collection<GameEntity> linePlatforms(int x0, int y0, int x1, int y1) {
 
     public static Collection<GameEntity> line(int x0, int y0, int x1, int y1) {
+        return plotLine(x0,y0,x1,y1);
+    }
 
+    public static Collection<GameEntity> line(int x0, int y0, int x1, int y1, boolean veg) {
+        vege = veg;
+        return plotLine(x0,y0,x1,y1);
+    }
+
+    private static Collection<GameEntity> plotLine(int x0, int y0, int x1, int y1){
         int dx = x1 - x0;
         int dy = y1 - y0;
         if (dx >= 0) {
@@ -66,11 +76,11 @@ public final class LinePlatformFactory {
         private static GameEntity platformType(int x, int y, int n, boolean isVertical) {
         assert(n > 0);
         if (n == 1)
-            return new PlatformEntity(new Vector(x, y));
+            return new PlatformEntity(new Vector(x, y), vege);
         else if (isVertical)
-            return new PlatformEntity(new Vector(x,y), n, true);
+            return new PlatformEntity(new Vector(x,y), n, true, vege);
         else
-            return new PlatformEntity(new Vector(x,y), n, false);
+            return new PlatformEntity(new Vector(x,y), n, false, vege);
     }
 
 
