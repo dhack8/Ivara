@@ -74,6 +74,51 @@ public class Vector {
         this.y *= s;
     }
 
+    /**
+     * Returns the distance between two vectors without modifying them.
+     * @param other the other vector to measure between
+     * @return distance between the two vectors
+     */
+    public float dist(Vector other){
+        return (float) Math.sqrt((x-other.x)*(x-other.x) + (y-other.y)*(y-other.y));
+    }
+
+    /**
+     * Returns the magnitude of this vector without modifying it.
+     * @return magnitude ie length of vector
+     */
+    public float magnitude(){
+        return (float) Math.sqrt(x*x + y*y);
+    }
+
+    /**
+     * Returns a vector in normalized form of this one, without modifying it.
+     * @return normalized vector
+     */
+    public Vector norm(){
+        float m = magnitude();
+        return new Vector(x/m, y/m);
+    }
+
+    /**
+     * Adds this and the other vector together without modifying them.
+     * @param other other vector to add
+     * @return sum of the two vectors
+     */
+    public Vector add(Vector other){
+        return new Vector(x+other.x, y+other.y);
+    }
+
+    /**
+     * Subtracts this and the other vector together without modifying them.
+     * ORDER MATTERS
+     * @param other other vector to sub
+     * @return sub of the two vectors
+     */
+    public Vector sub(Vector other){
+        return new Vector(x-other.x, y-other.y);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Vector) {
@@ -86,9 +131,5 @@ public class Vector {
     @Override
     public String toString() {
         return "Vector {" + x + ", " + y + "}";
-    }
-
-    public float dist(Vector other){
-        return (float) Math.sqrt((x-other.x)*(x-other.x) + (y-other.y)*(y-other.y));
     }
 }
