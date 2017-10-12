@@ -44,9 +44,10 @@ public class AssetHandlerTest {
      */
     @Test
     public void loadImage() throws RuntimeException { //TODO runtime exception
+        int prevSize = AssetHandler.getImageMap().size();
         try {
             AssetHandler.loadImage(filePath, "Player", renderer);
-            assertTrue(AssetHandler.getImageMap().size() == 1);
+            assertTrue(AssetHandler.getImageMap().size() == prevSize + 1);
         }catch(Exception e){
             throw new RuntimeException(e.getMessage() + e.getCause());
         }
