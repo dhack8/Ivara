@@ -35,7 +35,7 @@ public class PlatformEntity extends GameEntity {
     private static final Vector LARGE_MIN = new Vector(1.2f, 1.5f);
     private static final Vector SMALL_MAX = new Vector(1, 1);
     private static final Vector SMALL_MIN = new Vector(0.3f, 0.3f);
-    private boolean addVege = true; //Whether or not to add vegetation
+    private boolean vegesOn = true; //Whether or not to add vegetation
 
     private static final int NUM_LARGE;
     private static final int NUM_SMALL;
@@ -137,14 +137,14 @@ public class PlatformEntity extends GameEntity {
 
         // Add start of platform sprite
         sc.add(new ResourceID(startSectionID), dimensions);
-        if(addVege) sc.add(getVege(new Vector(0,0), dimensions));
+        if(vegesOn && willAddVege()) sc.add(getVege(new Vector(0,0), dimensions));
 
         // Add middle platform sprite/s
         int i;
         for (i = 1; i < numBlocks - 1; i++) {
             Vector loc = new Vector(i * direction.x, i * direction.y);
             sc.add(new ResourceID(middleSectionID), loc, dimensions);
-            if(!isVertical && addVege) sc.add(getVege(loc, dimensions));
+            if(!isVertical && vegesOn && willAddVege()) sc.add(getVege(loc, dimensions));
         }
 
         // Add end sprite
