@@ -66,7 +66,7 @@ public class GhostEntity extends GameEntity implements Enemy{
         addComponent(new VelocityComponent(this));
 
         //Layer---
-        addComponent(new RenderComponent(this, 1000));
+        addComponent(new RenderComponent(this, 999999));
 
         //Collider--
         Vector topLeft = new Vector(0,0);
