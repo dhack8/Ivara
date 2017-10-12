@@ -200,7 +200,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
 
     private void drawFramerate() {
         textSize(10);
-        text(frameRate, 20, 20);
+        text("FPS: " + frameRate, 20, 20);
     }
 
     private void drawSensors(GameEntity e){
