@@ -1,12 +1,12 @@
 package ivara.entities.scripts;
 
 import core.Script;
-import core.components.PhysicsComponent;
-import core.components.SensorHandlerComponent;
-import core.components.VelocityComponent;
+import core.components.*;
 import core.entity.GameEntity;
 import core.input.SensorHandler;
 import core.struct.Sensor;
+import core.struct.Sprite;
+import core.struct.Timer;
 import maths.Vector;
 import physics.PhysicProperties;
 
@@ -15,13 +15,20 @@ import physics.PhysicProperties;
  */
 public class FakeBlockScript implements Script{
 
+    private static final int FALL_DELAY = 500;
+    private static final int REMOVE_DELAY = 4000;
+
     Sensor top;
     Sensor bot;
+    SpriteComponent sc;
+    Sprite s;
     boolean alive;
 
-    public FakeBlockScript(Sensor top, Sensor bot){
+    public FakeBlockScript(Sensor top, Sensor bot, SpriteComponent sc, Sprite s){
         this.top = top;
         this.bot = bot;
+        this.sc = sc;
+        this.s = s;
         alive = true;
     }
 
@@ -30,8 +37,18 @@ public class FakeBlockScript implements Script{
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
 
         if(sensorHandler.isActive(top) && alive){
-            entity.addComponent(new PhysicsComponent(entity, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
             alive = false;
+
+            sc.clearSprites();
+            sc.add(s);
+
+            entity.getScene().addTimer(new Timer(FALL_DELAY, () -> {
+                entity.addComponent(new PhysicsComponent(entity, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
+            }));
+
+            entity.getScene().addTimer(new Timer(REMOVE_DELAY, () -> {
+                entity.getScene().removeEntity(entity);
+            }));
         }
 
         if(sensorHandler.isActive(bot) && !alive){

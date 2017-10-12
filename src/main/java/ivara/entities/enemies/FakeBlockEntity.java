@@ -43,12 +43,12 @@ public class FakeBlockEntity extends GameEntity{
         addComponent(sc);
 
         //Sensors---
-        topLeft = new Vector(sensorPadding, 0);
+        Vector SensorTopLeft = new Vector(sensorPadding, 0);
         Vector sensorDimension = new Vector(dimension.x-sensorPadding*2, sensorHeight);
-        Sensor top = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, topLeft, sensorDimension));
+        Sensor top = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, SensorTopLeft, sensorDimension));
 
-        topLeft = new Vector(sensorPadding, dimension.y-sensorHeight);
-        Sensor bot = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, topLeft, sensorDimension));
+        SensorTopLeft = new Vector(sensorPadding, dimension.y-sensorHeight);
+        Sensor bot = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, SensorTopLeft, sensorDimension));
 
         addComponent(new SensorComponent(this, new Sensor[]{top, bot}));
 
@@ -56,6 +56,6 @@ public class FakeBlockEntity extends GameEntity{
         addComponent(new SensorHandlerComponent(this));
 
         //Scripts---
-        addComponent(new ScriptComponent(this, new FakeBlockScript(top, bot)));
+        addComponent(new ScriptComponent(this, new FakeBlockScript(top, bot, sc, new Sprite(new ResourceID("fake-block-dead"), topLeft, dimension))));
     }
 }
