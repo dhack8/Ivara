@@ -2,6 +2,7 @@ package ivara.scenes;
 
 import core.scene.Scene;
 import core.struct.Camera;
+import core.struct.ResourceID;
 import ivara.entities.*;
 import ivara.entities.PlatformEntity;
 import ivara.entities.enemies.BeeEntity;
@@ -16,7 +17,7 @@ public class LevelFour extends Scene{
         setCamera(new Camera());
         PlayerEntity p = new PlayerEntity(0,3);
         addEntity(p);
-        addEntity(new BackgroundEntity());
+        addEntity(new BackgroundEntity(new ResourceID("background")));
         addEntity(new DeathLineEntity(100));
 
         addEntities(LinePlatformFactory.line(0,4, 4,4));

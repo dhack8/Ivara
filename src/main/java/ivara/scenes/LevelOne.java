@@ -42,7 +42,7 @@ public class LevelOne extends Scene {
         //addEntity(new MovingBlockEntity(0f,-9f, 2f,-9f, "dirt_bottom", 2f));
 
         */
-        addEntity(new BackgroundEntity());
+        addEntity(new BackgroundEntity(new ResourceID("background")));
         addEntity(new PlayerEntity(0, 1.5f));
 
         addEntity(new PlatformEntity(new Vector(0,3),2,false));

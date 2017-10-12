@@ -85,7 +85,7 @@ public class MenuScene extends Scene{
         });
         addEntity(load);
 
-        addEntity(new BackgroundEntity());
+        addEntity(new BackgroundEntity(new ResourceID("menuscreen1")));
 
 
     }

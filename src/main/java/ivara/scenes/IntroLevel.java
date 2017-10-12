@@ -2,6 +2,7 @@ package ivara.scenes;
 
 import core.scene.Scene;
 import core.struct.Camera;
+import core.struct.ResourceID;
 import ivara.entities.*;
 import ivara.entities.PlatformEntity;
 import maths.Vector;
@@ -14,7 +15,7 @@ import maths.Vector;
 public class IntroLevel extends Scene{
     public void startScene() {
         addEntity(new PlayerEntity(2, 3.5f));
-        addEntity(new BackgroundEntity());
+        addEntity(new BackgroundEntity(new ResourceID("background")));
 
         //TODO make it a nplatform witih transparent image so they collide but dont do anything
         //wall off screen blocking movement to the left

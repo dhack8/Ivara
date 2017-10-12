@@ -4,6 +4,7 @@ package ivara.scenes;
 import core.entity.GameEntity;
 import core.scene.Scene;
 import core.struct.Camera;
+import core.struct.ResourceID;
 import core.struct.Text;
 import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
@@ -22,7 +23,7 @@ public class TestLevel1 extends Scene{
         addEntity(new BasicTextEntity(new Vector(0, -4), new Text(25, "This is a \ntest entity")));
         addEntity(new TimerEntity(new Vector(1,1), 0, 25));
 
-        addEntity(new BackgroundEntity());
+        addEntity(new BackgroundEntity(new ResourceID("background")));
         addEntity(new DeathLineEntity(8));
 
         addEntity(new PlatformEntity(new Vector(0,1)));

@@ -19,11 +19,11 @@ public class BackgroundEntity extends GameEntity {
     /**
      * Creates a background entity which also has a death line.
      */
-    public BackgroundEntity(){
+    public BackgroundEntity(ResourceID id){
         super(new Vector(0,0));
 
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new Sprite(new ResourceID("background"), new Vector(0f, 0f), null));
+        sc.add(new Sprite(id, new Vector(0f, 0f), null));
         addComponent(sc);
 
         addComponent(new RenderComponent(this, -1, RenderComponent.Mode.FULLSCREEN));

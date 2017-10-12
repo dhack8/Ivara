@@ -2,6 +2,7 @@ package ivara.scenes;
 
 import core.scene.Scene;
 import core.struct.Camera;
+import core.struct.ResourceID;
 import ivara.entities.*;
 import maths.Vector;
 
@@ -11,7 +12,7 @@ import maths.Vector;
  */
 public class LevelThree extends Scene{
     public void startScene(){
-        addEntity(new BackgroundEntity());
+        addEntity(new BackgroundEntity(new ResourceID("background")));
 
         addEntity(new PlayerEntity(-1, 0));
 
