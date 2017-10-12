@@ -29,12 +29,12 @@ public class PlatformEntity extends GameEntity {
     private String endSectionID;
     private Vector dimensions = new Vector(1,1);
 
-    private static final int ADD_VEGE_CHANCE = 4; // 1 in 4 chance for there to be a vege added
-    private static final float LARGE_CHANCE = 2; //IE 1 in 2
-    private static final Vector LARGE_MAX = new Vector(2.5f, 3); //Max and Min dimensions of vegetation
+    private static final int ADD_VEGE_CHANCE = 3; // 1 in 4 chance for there to be a vege added
+    private static final float LARGE_CHANCE = 3; //IE 1 in 2
+    private static final Vector LARGE_MAX = new Vector(2f, 3); //Max and Min dimensions of vegetation
     private static final Vector LARGE_MIN = new Vector(1.2f, 1.5f);
-    private static final Vector SMALL_MAX = new Vector(1, 1);
-    private static final Vector SMALL_MIN = new Vector(0.3f, 0.3f);
+    private static final Vector SMALL_MAX = new Vector(0.8f, 0.7f);
+    private static final Vector SMALL_MIN = new Vector(0.6f, 0.4f);
     private boolean vegesOn = true; //Whether or not to add vegetation
 
     private static final int NUM_LARGE;
@@ -49,7 +49,6 @@ public class PlatformEntity extends GameEntity {
 
         NUM_LARGE = listOfFiles.length;
         NUM_SMALL = listOfFiles2.length;
-        System.out.println("LArge number: " + NUM_LARGE + " small num: " + NUM_SMALL);
     }
 
     /**

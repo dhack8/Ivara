@@ -35,7 +35,7 @@ public class TestLevel1 extends DefaultScene{
         addEntity(new PlatformEntity(new Vector(4,-4), 4, true));
         addEntities(LinePlatformFactory.line(-1, -1, -4,-7));
         addEntities(LinePlatformFactory.line(-6, -7, -15,0));
-        addEntities(LinePlatformFactory.line(-30, 4, -7,3));
+        addEntities(LinePlatformFactory.line(-30, 4, -9,3));
 
         //PLAYER---
         PlayerEntity player = new PlayerEntity(0,0);

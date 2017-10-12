@@ -32,7 +32,7 @@ public class LevelEndEntity extends GameEntity {
         sc.add(new FlagSprite(new Vector(width, height), ANIMATION_RATE));
         addComponent(sc);
 
-        addComponent(new RenderComponent(this, 0));
+        addComponent(new RenderComponent(this, 9999999));
 
         //Sensors---
         //AABB for the sensor
