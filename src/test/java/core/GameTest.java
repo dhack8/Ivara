@@ -19,15 +19,15 @@ import static org.junit.Assert.*;
 public class GameTest {
     @Test
     public void getCurrentScene() throws Exception {
-        Scene s = new Scene() {};
+        Scene s = new TestScene();
         Game testGame = new testGame(new LevelManager(s), new testRenderer(), new testBroadcaster());
         assertEquals(s, testGame.getCurrentScene());
     }
 
     @Test
     public void setCurrentScene() throws Exception {
-        Scene s = new Scene() {};
-        Scene s2 = new Scene() {};
+        Scene s = new TestScene();
+        Scene s2 = new TestScene();
 
         List<Scene> scenes = new ArrayList<>();
         scenes.add(s);
@@ -44,8 +44,8 @@ public class GameTest {
 
     @Test
     public void nextScene() throws Exception {
-        Scene s = new Scene() {};
-        Scene s2 = new Scene() {};
+        Scene s = new TestScene();
+        Scene s2 = new TestScene();
 
         List<Scene> scenes = new ArrayList<>();
         scenes.add(s);
@@ -60,8 +60,8 @@ public class GameTest {
 
     @Test
     public void pause() throws Exception {
-        Scene s = new Scene() {};
-        Scene s2 = new Scene() {};
+        Scene s = new TestScene();
+        Scene s2 = new TestScene();
 
         LevelManager lm = new LevelManager(s);
         lm.setPauseMenu(s2);
@@ -78,7 +78,7 @@ public class GameTest {
 
     @Test
     public void getInputFrame() throws Exception {
-        Scene s = new Scene() {};
+        Scene s = new TestScene();
         Game testGame = new testGame(new LevelManager(s), new testRenderer(), new testBroadcaster());
         testGame.getInputFrame();
     }
@@ -97,5 +97,12 @@ public class GameTest {
     class testBroadcaster implements InputBroadcaster{
         public void addKeyListener(KeyListener listener){}
         public void addMouseListener(MouseListener listener){}
+    }
+
+    private class TestScene extends Scene{
+        @Override
+        public void startScene() {
+
+        }
     }
 }

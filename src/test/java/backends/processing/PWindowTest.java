@@ -3,7 +3,7 @@ package backends.processing;
 import com.jogamp.opengl.GLException;
 import core.scene.Scene;
 import core.struct.Camera;
-import ivara.entities.NPlatformEntity;
+import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
 import org.junit.Test;
@@ -120,12 +120,12 @@ public class PWindowTest {
 
     public class TestScene extends Scene{
         TestEntity tE;
-
-        public TestScene(){
+        @Override
+        public void startScene() {
             tE = new TestEntity(2, 1.5f);
 
             addEntity(tE);
-            addEntity(new NPlatformEntity(2,3, 10, false));
+            addEntity(new PlatformEntity(new Vector(2,3), 10, false));
             setCamera(new Camera(new Vector(0,0), new Vector(32,18)));
         }
 

@@ -1,5 +1,11 @@
 package core.scene;
 
+import backends.InputBroadcaster;
+import backends.Renderer;
+import backends.processing.PWindow;
+import core.Game;
+import core.input.KeyListener;
+import core.input.MouseListener;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -72,10 +78,26 @@ public class LevelManagerTest {
 
     @Test
     /**
+     * Testing that a LevelManager cannot be have actions called on when there is no reference to a game
+     */
+    public void testNoGame1(){
+        Scene s = new TestScene();
+        try{
+            lm = new LevelManager(s);
+            lm.nextScene();
+            fail("Should not have been able to call actions on the LevelManager.");
+        }catch(IllegalArgumentException e){
+
+        }
+    }
+
+    @Test
+    /**
      * Tests whether the pause menu is correctly set in the simple case
      */
     public void testPause1(){
         setUpScenes(1);
+        setupGame();
         Scene pauseMenu = new TestScene();
         lm.setPauseMenu(pauseMenu);
         assertTrue("The pause menu did not equal the provided pause menu.", pauseMenu.equals(lm.getPauseMenu()));
@@ -89,6 +111,7 @@ public class LevelManagerTest {
      */
     public void testPause2(){
         setUpScenes(1);
+        setupGame();
         Scene pauseMenu = null;
         try{
             lm.setPauseMenu(pauseMenu);
@@ -104,6 +127,7 @@ public class LevelManagerTest {
      */
     public void testPause3(){
         setUpScenes(1);
+        setupGame();
         try{
             lm.pause();
             fail("Should not have been able to pause.");
@@ -117,7 +141,9 @@ public class LevelManagerTest {
      * Testing to see if the nextScene changes between scenes for the simple case
      */
     public void testNextScene1(){
+        
         List<Scene> scenes = setUpScenes(5);
+        setupGame();
         for(int i = 0; i < scenes.size(); i++){
             assertTrue("Wrong current scene.",lm.getCurrentScene().equals(scenes.get(i)));
             lm.nextScene();
@@ -131,6 +157,7 @@ public class LevelManagerTest {
      */
     public void testNextScene2(){
         List<Scene> scenes = setUpScenes(5);
+        setupGame();
         lm.setPauseMenu(new TestScene());
         lm.pause();
         try{
@@ -148,6 +175,7 @@ public class LevelManagerTest {
     public void testAddScene1(){
         int initialSize = 1;
         setUpScenes(initialSize);
+        setupGame();
         Scene s = new TestScene();
         lm.addScene(s);
         assertTrue("New Scene should be at index: " + initialSize + 1, lm.getScene(initialSize).equals(s));
@@ -160,6 +188,7 @@ public class LevelManagerTest {
     public void testAddScene2(){
         int initialSize = 1;
         setUpScenes(initialSize);
+        setupGame();
         try{
             Scene s1 = null;
             lm.addScene(s1);
@@ -176,6 +205,7 @@ public class LevelManagerTest {
     public void testAddScene3(){
         int initialSize = 2;
         setUpScenes(initialSize);
+        setupGame();
         Scene s = new TestScene();
         Scene s1 = new TestScene();
         Scene s2 = new TestScene();
@@ -195,6 +225,7 @@ public class LevelManagerTest {
     public void testAddScene4(){
         int initialSize = 2;
         setUpScenes(initialSize);
+        setupGame();
         Scene s = new TestScene();
         try{
             lm.addScene(s, -1);
@@ -212,6 +243,7 @@ public class LevelManagerTest {
     public void testAddScene5(){
         int initialSize = 2;
         setUpScenes(initialSize);
+        setupGame();
         List<Scene> scenes = new ArrayList<>();
         Scene s = new TestScene();
         scenes.add(s);
@@ -226,6 +258,7 @@ public class LevelManagerTest {
     public void testAddScene6(){
         int initialSize = 2;
         setUpScenes(initialSize);
+        setupGame();
         List<Scene> scenes = null;
         try{
             lm.addScenes(scenes);
@@ -242,6 +275,7 @@ public class LevelManagerTest {
     public void testAddScene7(){
         int initialSize = 2;
         setUpScenes(initialSize);
+        setupGame();
         List<Scene> scenes = new ArrayList<>();
         try{
             lm.addScenes(scenes);
@@ -251,10 +285,42 @@ public class LevelManagerTest {
         }
     }
 
+    private void setupGame(){
+        Game g = new TestGame();
+        lm.setGame(g);
+    }
+    
     private class TestScene extends Scene{
         @Override
         public void startScene() {
 
+        }
+    }
+
+    private class TestGame extends Game{
+        public TestGame(){
+            super(lm,
+                    new Renderer() {
+                @Override
+                public void setMask(int mask) {
+
+                }
+
+                @Override
+                public void render(Scene scene) {
+
+                }
+            }, new InputBroadcaster() {
+                @Override
+                public void addKeyListener(KeyListener listener) {
+
+                }
+
+                @Override
+                public void addMouseListener(MouseListener listener) {
+
+                }
+            });
         }
     }
 
