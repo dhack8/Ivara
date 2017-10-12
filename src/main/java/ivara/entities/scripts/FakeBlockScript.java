@@ -16,7 +16,7 @@ import physics.PhysicProperties;
 public class FakeBlockScript implements Script{
 
     private static final int FALL_DELAY = 500;
-    private static final int REMOVE_DELAY = 4000;
+    private static final int REMOVE_DELAY = 3000;
 
     Sensor top;
     Sensor bot;

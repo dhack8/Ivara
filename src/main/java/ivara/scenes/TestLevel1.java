@@ -50,10 +50,10 @@ public class TestLevel1 extends DefaultScene{
         addEntity(new FakeBlockEntity(new Vector(-5, -7)));
 
         //COINS---
-        addEntity(new CoinEntity(new Vector(1.1f, 1.1f), player));
-        addEntity(new CoinEntity(new Vector(3.1f, -2.1f), player));
-        addEntity(new CoinEntity(new Vector(-4.9f, -5.9f), player));
-        addEntity(new CoinEntity(new Vector(-9.9f, -4.9f), player));
+        addEntity(new CoinEntity(player, new Vector(1f, 1f), true));
+        addEntity(new CoinEntity(player, new Vector(3f, -2f), true));
+        addEntity(new CoinEntity(player, new Vector(-5f, -6f), true));
+        addEntity(new CoinEntity(player, new Vector(-10f, -5f), true));
 
         //CAMERA---
         setCamera(new Camera());

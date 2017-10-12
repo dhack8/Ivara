@@ -19,9 +19,12 @@ import util.Debug;
 public class CoinEntity extends GameEntity {
 
     private final static int ANIMATION_RATE = 100;
+    private final static float SIZE = 0.6f;
 
-    public CoinEntity(Vector transform, PlayerEntity player) {
+    public CoinEntity(PlayerEntity player, Vector transform, boolean snapToGrid) {
         super(transform);
+        if (snapToGrid)
+            snapToGrid(transform);
 
         CoinEntity coinEntity = this;
 
@@ -29,14 +32,14 @@ public class CoinEntity extends GameEntity {
                 this,
                 new CoinSprite(
                         new Vector(0, 0),
-                        new Vector(0.8f, 0.8f),
+                        new Vector(SIZE, SIZE),
                         ANIMATION_RATE
                 )
                 )
         );
 
         Sensor coinSesnor = new Sensor(
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(0.8f, 0.8f))
+                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(SIZE, SIZE))
         );
 
         addComponent(new SensorComponent(
@@ -67,5 +70,10 @@ public class CoinEntity extends GameEntity {
                     }
                 })
         );
+    }
+
+    private void snapToGrid(Vector transform){
+        transform.x = transform.x + (1f - SIZE)/2f;
+        transform.y = transform.y + (1f - SIZE)/2f;
     }
 }
