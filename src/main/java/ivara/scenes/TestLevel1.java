@@ -42,7 +42,7 @@ public class TestLevel1 extends Scene{
 
         //addEntity(new GhostEntity(new Vector(4,0), new Vector(8,0), 5));
         addEntity(new GhostEntity(new Vector(8,-2), player));
-        addEntity(new BeeEntity(new Vector(7,-8), player));
+        addEntity(new BeeEntity(new Vector(7,-8), player, new Vector(2,0)));
         addEntity(new BarnacleEntity(new Vector(-6, 2.3f)));
 
         addEntity(new CoinEntity(new Vector(1, 1), player));

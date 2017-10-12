@@ -30,6 +30,6 @@ public class LevelFour extends Scene{
         addEntities(LinePlatformFactory.line(24, 3, 35, 3));
         addEntity(new BeeEntity(new Vector(29, -2), p));
 
-        addEntity(new LevelEndEntity(35, 2));
+        addEntity(new LevelEndEntity(35, 15));
     }
 }
