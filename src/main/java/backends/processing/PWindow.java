@@ -110,24 +110,29 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void setup(){
-        //Code taken from here: https://stackoverflow.com/questions/5694385/getting-the-filenames-of-all-files-in-a-folder
-        File folder = new File("./assets");
-        File[] listOfFiles = folder.listFiles();
-        //Loads assets automatically
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile()) {
-                //System.out.println("Loaded File: " + listOfFiles[i].getName() + " AS: " + listOfFiles[i].getName().split("\\.")[0]);
-                AssetHandler.loadImage("./assets/" + listOfFiles[i].getName(), listOfFiles[i].getName().split("\\.")[0], this);
-            } else if (listOfFiles[i].isDirectory()) {
-                //System.out.println("Directory " + listOfFiles[i].getName());
-            }
-        }
+        loadAssets("./assets");
 
         // limited framerate
         frameRate(200);
 
         PFont font = createFont("Arial", 50);
         textFont(font);
+    }
+
+    private void loadAssets(String root){
+        //Code taken from here: https://stackoverflow.com/questions/5694385/getting-the-filenames-of-all-files-in-a-folder
+        File folder = new File(root);
+        File[] listOfFiles = folder.listFiles();
+        //Loads assets automatically
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                //System.out.println("Loaded File: " + listOfFiles[i].getName() + " AS: " + listOfFiles[i].getName().split("\\.")[0]);
+                AssetHandler.loadImage(root + "/" + listOfFiles[i].getName(), listOfFiles[i].getName().split("\\.")[0], this);
+            } else if (listOfFiles[i].isDirectory()) {
+                //System.out.println("Directory " + listOfFiles[i].getName());
+                loadAssets(root + "/" + listOfFiles[i].getName());
+            }
+        }
     }
 
     /**
