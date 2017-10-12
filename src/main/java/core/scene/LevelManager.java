@@ -80,7 +80,7 @@ public class LevelManager {
         currentScene = 0;
         if(menu.isPresent()){
             this.menu = menu.get();
-            paused = true;
+            //paused = true;
         }
     }
 
@@ -200,7 +200,7 @@ public class LevelManager {
     public void setPauseMenu(Scene pause){
         //if(game == null) throw new IllegalArgumentException("Must give the level manager a game before calling actions on it.");
         if(pause == null) throw new IllegalArgumentException("Cannot set a null pause menu.");
-        paused = true; // will pause on add of pause menu
+        //paused = true; // will pause on add of pause menu
         menu = pause;
         menu.setGame(game);
     }

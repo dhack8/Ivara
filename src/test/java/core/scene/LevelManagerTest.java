@@ -22,7 +22,7 @@ public class LevelManagerTest {
     private List<Scene> setUpScenes(int numLevels){
         List<Scene> levels = new ArrayList<>();
         for(int i = 0; i < numLevels; i++){
-            levels.add(new Scene(){});
+            levels.add(new TestScene());
         }
         lm = new LevelManager(levels);
         return new ArrayList<>(levels);
@@ -76,7 +76,7 @@ public class LevelManagerTest {
      */
     public void testPause1(){
         setUpScenes(1);
-        Scene pauseMenu = new Scene(){};
+        Scene pauseMenu = new TestScene();
         lm.setPauseMenu(pauseMenu);
         assertTrue("The pause menu did not equal the provided pause menu.", pauseMenu.equals(lm.getPauseMenu()));
         lm.pause();
@@ -131,7 +131,7 @@ public class LevelManagerTest {
      */
     public void testNextScene2(){
         List<Scene> scenes = setUpScenes(5);
-        lm.setPauseMenu(new Scene() {});
+        lm.setPauseMenu(new TestScene());
         lm.pause();
         try{
             lm.nextScene();
@@ -148,7 +148,7 @@ public class LevelManagerTest {
     public void testAddScene1(){
         int initialSize = 1;
         setUpScenes(initialSize);
-        Scene s = new Scene(){};
+        Scene s = new TestScene();
         lm.addScene(s);
         assertTrue("New Scene should be at index: " + initialSize + 1, lm.getScene(initialSize).equals(s));
     }
@@ -176,9 +176,9 @@ public class LevelManagerTest {
     public void testAddScene3(){
         int initialSize = 2;
         setUpScenes(initialSize);
-        Scene s = new Scene(){};
-        Scene s1 = new Scene(){};
-        Scene s2 = new Scene(){};
+        Scene s = new TestScene();
+        Scene s1 = new TestScene();
+        Scene s2 = new TestScene();
 
         lm.addScene(s, 0); // adding to the front
         assertTrue("The scene should be in position 0.", lm.getScene(0).equals(s));
@@ -195,7 +195,7 @@ public class LevelManagerTest {
     public void testAddScene4(){
         int initialSize = 2;
         setUpScenes(initialSize);
-        Scene s = new Scene(){};
+        Scene s = new TestScene();
         try{
             lm.addScene(s, -1);
             lm.addScene(s, initialSize + 2);
@@ -213,7 +213,7 @@ public class LevelManagerTest {
         int initialSize = 2;
         setUpScenes(initialSize);
         List<Scene> scenes = new ArrayList<>();
-        Scene s = new Scene(){};
+        Scene s = new TestScene();
         scenes.add(s);
         lm.addScenes(scenes);
         assertTrue("The LevelManager should contain the new scene added with a list.", lm.getScene(2).equals(s));
@@ -247,6 +247,13 @@ public class LevelManagerTest {
             lm.addScenes(scenes);
             fail("Should not be able to add an empty collection.");
         }catch(IllegalArgumentException e){
+
+        }
+    }
+
+    private class TestScene extends Scene{
+        @Override
+        public void startScene() {
 
         }
     }
