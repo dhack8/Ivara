@@ -45,10 +45,11 @@ public class PlatformEntity extends GameEntity {
         File[] listOfFiles = folder.listFiles();
 
         File folder2 = new File("./assets/vegetation/small");
-        File[] listOfFiles2 = folder.listFiles();
+        File[] listOfFiles2 = folder2.listFiles();
 
         NUM_LARGE = listOfFiles.length;
         NUM_SMALL = listOfFiles2.length;
+        System.out.println("LArge number: " + NUM_LARGE + " small num: " + NUM_SMALL);
     }
 
     /**
@@ -200,6 +201,7 @@ public class PlatformEntity extends GameEntity {
     /**
      * Will return a vegetation sprite positioned on the block that you give the location of.
      * @param locationOfBlock location of block to place vegetation on.
+     * @param dimensionsOfBlock dimensions of block to place on.
      * @return Sprite of vegetation.
      */
     private Sprite getVege(Vector locationOfBlock, Vector dimensionsOfBlock){
