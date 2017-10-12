@@ -68,7 +68,8 @@ public class StartMenu extends Scene{
         quit.addListener(new UIListener() {
             @Override
             public void onClick() {
-                Debug.log("Have not implemented Quit.");
+                //Debug.log("Have not implemented Quit.");
+                System.exit(0);
             }
         });
         addEntity(quit);

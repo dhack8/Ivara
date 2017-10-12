@@ -84,8 +84,9 @@ public class PauseMenu extends Scene{
         quit.addListener(new UIListener() {
             @Override
             public void onClick() {
-                Debug.log("Have not implemented Quit.");
+                //Debug.log("Have not implemented Quit.");
                 //Todo: Set scene to scene 0 ?
+                quit.getScene().getGame().setCurrentScene(0);
             }
         });
         addEntity(quit);
