@@ -61,6 +61,8 @@ public abstract class Game {
         levelManager.pause();
     }
 
+    public LevelManager getLevelManager() {return levelManager;}
+
     /**
      * Retrieves the current input frame.
      * @return
