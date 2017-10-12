@@ -21,7 +21,7 @@ import maths.Vector;
 public class TestLevel1 extends Scene{
     public void startScene(){
         addEntity(new BasicTextEntity(new Vector(0, -4), new Text(25, "This is a \ntest entity")));
-        addEntity(new TimerEntity(new Vector(1,1), 0, 25));
+        addEntity(new TimerEntity(new Vector(1.5f,1.5f), 0));
 
         addEntity(new BackgroundEntity(new ResourceID("background")));
         addEntity(new DeathLineEntity(8));
@@ -50,7 +50,7 @@ public class TestLevel1 extends Scene{
         addEntity(new BarnacleEntity(new Vector(4, -5f), BarnacleEntity.Direction.NORTH, true));
 
         addEntity(new CoinEntity(new Vector(1, 1), player));
-        addEntity(new CoinTextEntity(new Vector(2, 2), player));
+        addEntity(new CoinTextEntity(new Vector(2.1f, 2.3f), player));
 
         setCamera(new Camera());
     }
