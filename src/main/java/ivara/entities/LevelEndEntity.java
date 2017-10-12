@@ -2,11 +2,14 @@ package ivara.entities;
 
 import core.components.*;
 import core.entity.GameEntity;
+import core.struct.AnimatedSprite;
 import core.struct.ResourceID;
 import core.struct.Sensor;
 import ivara.entities.scripts.LevelChangeScript;
 import maths.Vector;
 import physics.AABBCollider;
+
+import java.util.Arrays;
 
 /**
  * Created by Alex Mitchell on 3/10/2017.
@@ -20,11 +23,13 @@ public class LevelEndEntity extends GameEntity {
 
     private float yOffset = 0.01f;
 
+    private final static int ANIMATION_RATE = 1000;
+
     public LevelEndEntity(float x, float y){
         super(new Vector(x,y));
 
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new ResourceID("flag-orange"), new Vector(width, height));
+        sc.add(new FlagSprite(new Vector(width, height), ANIMATION_RATE));
         addComponent(sc);
 
         addComponent(new RenderComponent(this, 0));
@@ -47,5 +52,20 @@ public class LevelEndEntity extends GameEntity {
 
         addComponent(sComp);
 
+    }
+
+    private class FlagSprite extends AnimatedSprite {
+        private FlagSprite(Vector dimensions, int frameTick){
+            super(new Vector(0,0), dimensions, frameTick);
+
+            String state = "normal";
+            String[] resources = new String[]{
+                    "flag-orange",
+                    "flag-orange2"
+            };
+            addResources(state, Arrays.asList(resources));
+
+            setState("normal");
+        }
     }
 }
