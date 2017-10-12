@@ -27,6 +27,8 @@ public class PlatformEntity extends GameEntity {
     private String endSectionID;
     private Vector dimensions = new Vector(1,1);
 
+    private static final int ADD_VEGE_CHANCE = 4; // 1 in 2 chance for there to be a vege added
+
     /**
      * Constructs a Platform at the specified coordinates (x,y), with n amount of tiles. Is created vertically or
      * horizontally, whichever is specified in the constructor of the level the Platform is used in.
@@ -166,5 +168,14 @@ public class PlatformEntity extends GameEntity {
         ScriptComponent sComp = new ScriptComponent(this);
         sComp.add(new BasicMoveScript(this, end, time));
         addComponent(sComp);
+    }
+
+    /**
+     * Checks whether a block will have a vegetation sprite drawn above it
+     * @return If a block will be drawn on it
+     */
+    private  boolean willAddVege(){
+        int result = ((int)(Math.random() * ADD_VEGE_CHANCE)) + 1;
+        return result == 1;
     }
 }
