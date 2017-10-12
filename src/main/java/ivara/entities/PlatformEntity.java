@@ -12,6 +12,7 @@ import maths.Vector;
 import physics.AABBCollider;
 
 import java.io.File;
+import java.util.Optional;
 
 /**
  * Class that handles a platform of any specified size n, in a specified direction (horizontal/vertical) decided by the
@@ -29,8 +30,8 @@ public class PlatformEntity extends GameEntity {
     private String endSectionID;
     private Vector dimensions = new Vector(1,1);
 
-    private static final int ADD_VEGE_CHANCE = 3; // 1 in 4 chance for there to be a vege added
-    private static final float LARGE_CHANCE = 3; //IE 1 in 2
+    private static final int ADD_VEGE_CHANCE = 3; // 1 in 3 chance for there to be a vege added
+    private static final float LARGE_CHANCE = 3; //IE 1 in 3
     private static final Vector LARGE_MAX = new Vector(2f, 3); //Max and Min dimensions of vegetation
     private static final Vector LARGE_MIN = new Vector(1.2f, 1.5f);
     private static final Vector SMALL_MAX = new Vector(0.8f, 0.7f);
@@ -81,6 +82,42 @@ public class PlatformEntity extends GameEntity {
         if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
         setupMulti(numBlocks, isVertical);
         setupScripts(end, time);
+    }
+
+    /**
+     * Constructs a Platform at the specified coordinates (x,y), with n amount of tiles. Is created vertically or
+     * horizontally, whichever is specified in the constructor of the level the Platform is used in.
+     * @param start The start position
+     * @param numBlocks amount of tiles that makes up the platform, assuming n >= 2
+     * @param isVertical boolean symbolising if the platform is vertical or horizontal
+     * @param veges to draw vegetation or not
+     * @throws IllegalArgumentException if the user tries to call the creation of an Platform of size less than 2
+     */
+    public PlatformEntity(Vector start, int numBlocks, boolean isVertical, boolean veges) throws IllegalArgumentException{
+        super(start);
+        if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
+        setupMulti(numBlocks, isVertical);
+        vegesOn = veges;
+    }
+
+    /**
+     * Constructs a Platform at the specified coordinates (x,y), with n amount of tiles. Is created vertically or
+     * horizontally, whichever is specified in the constructor of the level the Platform is used in.
+     * This constructor also takes information to make the platform move
+     * @param start The start position
+     * @param numBlocks amount of tiles that makes up the platform, assuming n >= 2
+     * @param isVertical boolean symbolising if the platform is vertical or horizontal
+     * @param end The position that the platform moves to from the starting position
+     * @param time The time taken for it to move from start to end
+     * @param veges to draw vegetation or not
+     * @throws IllegalArgumentException if the user tries to call the creation of an Platform of size less than 2
+     */
+    public PlatformEntity(Vector start, int numBlocks, boolean isVertical, Vector end, float time, boolean veges) throws IllegalArgumentException{
+        super(start);
+        if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
+        setupMulti(numBlocks, isVertical);
+        setupScripts(end, time);
+        vegesOn = veges;
     }
 
     /**
@@ -172,6 +209,8 @@ public class PlatformEntity extends GameEntity {
 
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM,
                 new Vector(0, 0),dimensions)));
+
+        if(vegesOn && willAddVege()) sc.add(getVege(new Vector(0,0), dimensions));
     }
 
     /**
