@@ -359,6 +359,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void keyPressed(KeyEvent event) {
+        key = keyCode == ESC ? 0 : key;
         keyListeners.forEach((keyListener -> keyListener.keyPressed(event.getKeyCode())));
     }
 
@@ -367,6 +368,7 @@ public class PWindow extends PApplet implements InputBroadcaster, Renderer{
      */
     @Override
     public void keyReleased(KeyEvent event) {
+        key = keyCode == ESC ? 0 : key;
         keyListeners.forEach((keyListener -> keyListener.keyReleased(event.getKeyCode())));
     }
 
