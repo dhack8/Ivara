@@ -15,7 +15,7 @@ import util.Debug;
  * This scene acts as a pause menu for the game
  * @author Alex Mitchell 
  */
-public class PauseMenu extends Scene{
+public class PauseMenu extends DefaultScene{
 
     private final float BUTTON_WIDTH = 4.5f;
     private final float BUTTON_HEIGHT = 1.275f;
