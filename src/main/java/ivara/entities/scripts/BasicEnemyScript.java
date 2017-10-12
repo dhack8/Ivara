@@ -33,6 +33,7 @@ public class BasicEnemyScript implements Script{
         goingLeft = entity.get(VelocityComponent.class).get().getVelocity().x < 0;
     }
 
+
     public BasicEnemyScript(GameEntity entity, Sensor left, Sensor right, Sensor bottom, Sensor bLeft, Sensor bRight){
         this.left = left;
         this.right = right;

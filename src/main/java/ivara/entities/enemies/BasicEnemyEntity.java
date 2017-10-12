@@ -80,16 +80,15 @@ abstract public class BasicEnemyEntity extends GameEntity{
         Sensor bRSensor = new Sensor(bRCol);
 
         //Add sensors to sensor component
-        SensorComponent sComp = new SensorComponent(this, new Sensor[]{leftSensor, rightSensor, groundSensor, bLSensor, bRSensor});
-        addComponent(sComp);
+        addComponent(new SensorComponent(this, new Sensor[]{leftSensor, rightSensor, groundSensor, bLSensor, bRSensor}));
+
         //Enable Listening for Sensor Events
         addComponent(new SensorHandlerComponent(this));
 
         //Scripts---
         //BasicEnemyScript s = new BasicEnemyScript(this, leftSensor, rightSensor, groundSensor);
         BasicEnemyScript s = new BasicEnemyScript(this, leftSensor, rightSensor, groundSensor, bLSensor, bRSensor);
-        ScriptComponent scriptComp = new ScriptComponent(this, s);
-        addComponent(scriptComp);
+        addComponent(new ScriptComponent(this, s));
     }
 
     public void setSprite(Sprite s){

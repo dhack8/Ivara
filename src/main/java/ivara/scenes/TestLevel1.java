@@ -9,10 +9,7 @@ import core.struct.Text;
 import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.*;
-import ivara.entities.enemies.BarnacleEntity;
-import ivara.entities.enemies.BeeEntity;
-import ivara.entities.enemies.GhostEntity;
-import ivara.entities.enemies.SnakeEntity;
+import ivara.entities.enemies.*;
 import maths.Vector;
 
 /**
@@ -50,6 +47,7 @@ public class TestLevel1 extends DefaultScene{
         addEntity(new BarnacleEntity(new Vector(5, -1f), BarnacleEntity.Direction.EAST, true));
         addEntity(new BarnacleEntity(new Vector(4, -5f), BarnacleEntity.Direction.NORTH, true));
         addEntity(new SnakeEntity(new Vector(2, 0.5f)));
+        addEntity(new FakeBlockEntity(new Vector(-5, -7)));
 
         //COINS---
         addEntity(new CoinEntity(new Vector(1.1f, 1.1f), player));
