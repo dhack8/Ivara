@@ -20,29 +20,6 @@ public class Vector {
         this.y = y;
     }
 
-    public void set(Vector vector) {
-        set(vector.x, vector.y);
-    }
-
-    public void set(float x, float y){
-        this.x = x;
-        this.y = y;
-    }
-
-    public void incrementBy(float dx, float dy) {
-        this.x += dx;
-        this.y += dy;
-    }
-
-    public void incrementBy(Vector vector) {
-        incrementBy(vector.x, vector.y);
-    }
-
-    public void scale(float s) {
-        this.x *= s;
-        this.y *= s;
-    }
-
     /**
      * Creates a new Vector class from another.
      * @param other another vector
@@ -50,6 +27,51 @@ public class Vector {
     public Vector(Vector other){
         this.x = other.x;
         this.y = other.y;
+    }
+
+    /**
+     * Sets this vector to the provided one.
+     * @param vector vector to set to
+     */
+    public void setAs(Vector vector) {
+        setAs(vector.x, vector.y);
+    }
+
+    /**
+     * Sets this vector to the provided values.
+     * @param x value
+     * @param y value
+     */
+    public void setAs(float x, float y){
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Increments this vector by anothers values.
+     * @param vector vector to increment by
+     */
+    public void incrementBy(Vector vector) {
+        incrementBy(vector.x, vector.y);
+    }
+
+    /**
+     * Increments this vector by the provided values.
+     * @param dx change in x
+     * @param dy change in y
+     */
+    public void incrementBy(float dx, float dy) {
+        this.x += dx;
+        this.y += dy;
+    }
+
+    /**
+     * Scales this vector be the provided value
+     * @param s scale factor
+     */
+    public void scaleBy(float s) {
+        this.x *= s;
+        this.y *= s;
     }
 
     @Override

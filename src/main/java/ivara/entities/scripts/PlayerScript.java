@@ -7,17 +7,11 @@ import core.entity.GameEntity;
 import core.input.Constants;
 import core.input.InputHandler;
 import core.input.SensorHandler;
-import core.struct.ResourceID;
 import core.struct.Sensor;
-import core.struct.Timer;
-import ivara.entities.BulletEntity;
 import ivara.entities.enemies.Enemy;
-import ivara.entities.PlayerEntity;
 import ivara.entities.enemies.ImortalEnemy;
 import ivara.entities.sprites.PlayerSprite;
 import maths.Vector;
-
-import java.util.Arrays;
 
 /**
  * Script to control the player entity. Relies on the current input
@@ -114,7 +108,7 @@ public class PlayerScript implements Script{//}, SensorListener {
     }
 
     private void handleAirborne(){
-        relative.set(0f,0f); // Todo Relative velocity reset to 0 when there is no contact with a block
+        relative.setAs(0f,0f); // Todo Relative velocity reset to 0 when there is no contact with a block
         updateState(State.JUMP);
     }
 
@@ -158,7 +152,7 @@ public class PlayerScript implements Script{//}, SensorListener {
                 .map(VelocityComponent::getVelocity)
                 .orElse(new Vector(0, 0));
 
-        relative.set(c); // todo relative speed is set
+        relative.setAs(c); // todo relative speed is set
     }
 
     private void updateState(Orientation o, State s){

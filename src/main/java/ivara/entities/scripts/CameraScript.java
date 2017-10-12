@@ -25,6 +25,6 @@ public class CameraScript implements Script {
         camera = tracking.getScene().getCamera();
         float x = tracking.getTransform().x + offset.x - camera.dimensions.x/2.5f;
         float y = tracking.getTransform().y + offset.y - camera.dimensions.y/2;
-        camera.transform.set(x,y);
+        camera.transform.setAs(x,y);
     }
 }

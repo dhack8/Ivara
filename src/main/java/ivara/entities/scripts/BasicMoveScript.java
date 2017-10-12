@@ -25,7 +25,7 @@ public class BasicMoveScript implements Script {
         if ((outOfBoundsX || outOfBoundsY)) {
             VelocityComponent velocityComp = entity.get(VelocityComponent.class).get();
             Vector velocity = velocityComp.getVelocity();
-            velocity.scale(-1);
+            velocity.scaleBy(-1);
         }
 
     }
@@ -37,7 +37,7 @@ public class BasicMoveScript implements Script {
 
         VelocityComponent velocityComp = e.get(VelocityComponent.class).get();
         Vector velocity = velocityComp.getVelocity();
-        velocity.set((end.x - start.x) / time, (end.y - start.y) / time);
+        velocity.setAs((end.x - start.x) / time, (end.y - start.y) / time);
     }
 
 

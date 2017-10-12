@@ -20,7 +20,7 @@ public class VectorTest {
         float test2 = 2.46436f;
 
         Vector testVector = new Vector(0,0);
-        testVector.set(test1, test2);
+        testVector.setAs(test1, test2);
         assertEquals(testVector.x, test1, 0.000001f);
         assertEquals(testVector.y, test2, 0.000001f);
 
@@ -28,7 +28,7 @@ public class VectorTest {
         test2 = -6.4754f;
 
         testVector = new Vector(0,0);
-        testVector.set(test1, test2);
+        testVector.setAs(test1, test2);
         assertEquals(testVector.x, test1, 0.000001f);
         assertEquals(testVector.y, test2, 0.000001f);
 
@@ -36,7 +36,7 @@ public class VectorTest {
         test2 = -6.4754f;
 
         testVector = new Vector(0,0);
-        testVector.set(test1, test2);
+        testVector.setAs(test1, test2);
         assertEquals(testVector.x, test1, 0.000001f);
         assertEquals(testVector.y, test2, 0.000001f);
     }
@@ -83,7 +83,7 @@ public class VectorTest {
         float test2 = -6.4754f;
 
         Vector testVector = new Vector(test1,test2);
-        testVector.scale(2.0f);
+        testVector.scaleBy(2.0f);
         assertEquals(testVector.x, test1 * 2.0f, 0.000001f);
         assertEquals(testVector.y, test2 * 2.0f, 0.000001f);
     }
