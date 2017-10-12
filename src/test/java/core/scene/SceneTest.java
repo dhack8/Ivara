@@ -24,7 +24,7 @@ public class SceneTest {
 
     @Before
     public void setUp() throws Exception {
-        testScene = new Scene() {}; // Creating a general scene for testing purposes
+        testScene = new TestScene(); // Creating a general scene for testing purposes
     }
 
     @Test
@@ -117,6 +117,13 @@ public class SceneTest {
     public void testRemove1(){
         GameEntity e = new GameEntity(new Vector(0,0)) {};
         testScene.removeEntity(e); // no error thrown
+    }
+
+    private class TestScene extends Scene{
+        @Override
+        public void startScene() {
+
+        }
     }
 
 }
