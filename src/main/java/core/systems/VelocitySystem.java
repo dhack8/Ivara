@@ -18,7 +18,7 @@ public class VelocitySystem extends System<GameEntity> {
                 .filter((c) -> !c.isPaused())
                 .forEach((c) -> c.getEntity()
                         .getTransform()
-                        .add(
+                        .incrementBy(
                                 c.getVelocity().x * (dt/1000f),
                                 c.getVelocity().y * (dt/1000f)
                         ));

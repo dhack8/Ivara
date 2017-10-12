@@ -6,7 +6,6 @@ import core.entity.GameEntity;
 import scew.System;
 import scew.World;
 import maths.Vector;
-import util.Debug;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,6 +29,6 @@ public class GravitySystem extends System<GameEntity> {
                 .collect(Collectors.toSet());
         world.get(VelocityComponent.class).stream()
                 .filter(velocityComponent -> physicEntities.contains(velocityComponent.getEntity()))
-                .forEach((velocityComponent -> velocityComponent.getVelocity().add(gravity.x * (dt/1000f), gravity.y * (dt/1000f))));
+                .forEach((velocityComponent -> velocityComponent.getVelocity().incrementBy(gravity.x * (dt/1000f), gravity.y * (dt/1000f))));
     }
 }

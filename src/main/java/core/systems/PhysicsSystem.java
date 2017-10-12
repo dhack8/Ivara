@@ -65,10 +65,10 @@ public class PhysicsSystem extends System<GameEntity> {
             Vector v = CollisionUtil.minimumDistanceVector((AABBCollider) c1, (AABBCollider) c2);
 
             if (p2.getType() != PhysicProperties.Type.STATIC ) {
-                cc2.getEntity().getTransform().add(v.x, v.y);
+                cc2.getEntity().getTransform().incrementBy(v.x, v.y);
             }
             if (p1.getType() != PhysicProperties.Type.STATIC) {
-                cc1.getEntity().getTransform().add(-v.x, -v.y);
+                cc1.getEntity().getTransform().incrementBy(-v.x, -v.y);
             }
         }
     }

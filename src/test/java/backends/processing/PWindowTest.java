@@ -11,8 +11,6 @@ import processing.core.PApplet;
 
 import javax.swing.*;
 
-import java.util.concurrent.CountDownLatch;
-
 import static org.junit.Assert.*;
 
 /**
@@ -140,7 +138,7 @@ public class PWindowTest {
         }
 
         public void moveSprite(){
-            getTransform().add(9,0);
+            getTransform().incrementBy(9,0);
         }
     }
 }

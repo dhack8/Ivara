@@ -52,7 +52,7 @@ public class VectorTest {
         float test2 = 2.46436f;
 
         Vector testVector = new Vector(0,0);
-        testVector.add(test1, test2);
+        testVector.incrementBy(test1, test2);
         assertEquals(testVector.x, test1, 0.000001f);
         assertEquals(testVector.y, test2, 0.000001f);
     }
@@ -67,7 +67,7 @@ public class VectorTest {
         float test2 = 2.46436f;
 
         Vector testVector = new Vector(0,0);
-        testVector.add(new Vector(test1, test2));
+        testVector.incrementBy(new Vector(test1, test2));
         assertEquals(testVector.x, test1, 0.000001f);
         assertEquals(testVector.y, test2, 0.000001f);
     }

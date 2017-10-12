@@ -30,7 +30,7 @@ public class VelocityComponent extends Component<GameEntity> {
      * @param dy deltay
      */
     public void add(float dx, float dy) {
-        velocity.add(dx, dy);
+        velocity.incrementBy(dx, dy);
     }
 
     /**

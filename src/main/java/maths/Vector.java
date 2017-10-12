@@ -1,7 +1,5 @@
 package maths;
 
-import processing.core.PVector;
-
 /**
  * Class to store 2D vectors with floats.
  *
@@ -31,13 +29,13 @@ public class Vector {
         this.y = y;
     }
 
-    public void add(float dx, float dy) {
+    public void incrementBy(float dx, float dy) {
         this.x += dx;
         this.y += dy;
     }
 
-    public void add(Vector vector) {
-        add(vector.x, vector.y);
+    public void incrementBy(Vector vector) {
+        incrementBy(vector.x, vector.y);
     }
 
     public void scale(float s) {
