@@ -6,6 +6,7 @@ import core.components.SpriteComponent;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
+import core.struct.Sprite;
 import ivara.entities.scripts.BasicMoveScript;
 import maths.Vector;
 import physics.AABBCollider;
@@ -17,6 +18,8 @@ import physics.AABBCollider;
  * @author Alex Mitchell
  */
 public class PlatformEntity extends GameEntity {
+
+    private static final float largeChance = 2; //IE 1 in 2
 
     private Vector direction;
     private String startSectionID;
@@ -130,6 +133,13 @@ public class PlatformEntity extends GameEntity {
                     new Vector(direction.x * numBlocks, 1))));
         }
         addComponent(sc);
+    }
+
+    private Sprite getVege(Vector locationOfBlock){
+        double vegeType = Math.round(Math.random() * largeChance) + 1;
+        if(vegeType <= 1){
+            //....
+        }
     }
 
     /**
