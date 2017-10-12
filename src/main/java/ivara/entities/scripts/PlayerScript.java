@@ -87,8 +87,10 @@ public class PlayerScript implements Script{//}, SensorListener {
         else if (input.isKeyPressed(Constants.D)) handleWalk(vComp, sensorHandler, Orientation.RIGHT);
         else stopWalk(vComp, sensorHandler);
 
+        /**
         //Fire more Pablos---
         if (input.isMousePressed(Constants.LEFT_MOUSE)) fireBullet(entity, input);
+         **/
 
         //Pause menu---
         if(input.isKeyReleased(Constants.SPACE)) entity.getScene().getGame().pause();
@@ -134,12 +136,14 @@ public class PlayerScript implements Script{//}, SensorListener {
         if(sensorHandler.isActive(bottomSensor)) updateState(State.IDLE);
     }
 
+    /**
     private void fireBullet(GameEntity entity, InputHandler.InputFrame input){
         GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(),new ResourceID("slimeball"), 1000, Arrays.asList(PlayerEntity.class));
 
         entity.getScene().addEntity(bullet);
         entity.getScene().addTimer(new Timer(1000, () -> entity.getScene().removeEntity(bullet)));
     }
+     **/
 
     /**
      * Does the necessary actions for when a player comes into contact with the ground
