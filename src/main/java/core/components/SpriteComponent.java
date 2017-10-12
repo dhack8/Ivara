@@ -106,4 +106,11 @@ public class SpriteComponent extends Component<GameEntity> {
     public List<AnimatedSprite> getAnimatedSprites() {
         return animatedSprites;
     }
+
+    /**
+     * Clears the sprites.
+     */
+    public void clearSprites(){
+        sprites.clear();
+    }
 }
