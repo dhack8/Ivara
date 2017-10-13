@@ -27,22 +27,58 @@ public class LevelGenerator {
 
     public static String imgToLevel(String filename) throws IOException{
         // Read image
-        BufferedImage img = ImageIO.read(new File(ROOT + "/tmp.png")); //TODO file selection
-        if (img.getWidth() > MAX_SIZE || img.getHeight() > MAX_SIZE)
-            throw new IllegalArgumentException("Image too large (" + MAX_SIZE + "x" + MAX_SIZE + ")");
+        BufferedImage img = readImage(filename);
 
         // Convert to 2D Color array
         Color[][] rgbTable = convertToArray(img);
 
-        // Convert to level declaration
+        // Convert to level class string
         StringBuilder level = new StringBuilder();
-        level.append(header(filename));
+        level.append(levelHeader(filename));
+        level.append(player(img));
+        level.append(levelDefaults(img.getHeight()));
+        level.append(levelFooter());
 
 
         return null;
     }
 
-    private static String header(String levelName) {
+    private static String player(BufferedImage img) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(codeLine("//PLAYER---"));
+        sb.append(codeLine("PlayerEntity player = "));
+        if 
+    }
+
+    private static String levelFooter() {
+        return "\t}\n}\n";
+    }
+
+    private static String levelDefaults(int levelHeight) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(codeLine("DEFAULT---"));
+        sb.append(codeLine("addEntity(new BackgroundEntity(new ResourceID(\"background\")));"));
+        int deathHeight = levelHeight + 10;
+        sb.append(codeLine("addEntity(new DeathLineEntity("+deathHeight+"));"));
+        sb.append(codeLine("setCamera(new Camera());"));
+        sb.append(codeLine("super.startScene(player);"));
+        return sb.toString();
+    }
+
+    private static String codeLine(String s) {
+        return "\t\t" + s + "\n";
+    }
+
+    private static BufferedImage readImage(String filename) throws IOException{
+        BufferedImage img = ImageIO.read(new File(ROOT + "/tmp.png")); //TODO file selection
+        if (img.getType() != 6) //png type
+            throw new IllegalArgumentException("Image not a png");
+        if (img.getWidth() > MAX_SIZE || img.getHeight() > MAX_SIZE)
+            throw new IllegalArgumentException("Image too large (" + MAX_SIZE + "x" + MAX_SIZE + ")");
+        return img;
+    }
+
+    private static String levelHeader(String levelName) {
         return "package ivara.scenes;\n\n\n"
                 + "import core.struct.Camera;\n"
                 + "import core.struct.ResourceID;\n"
