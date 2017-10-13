@@ -16,6 +16,7 @@ public class LevelGenerator {
     private static final int MAX_SIZE = 100; // Max level grid size
 
     // GameEntity colours
+    private static final Color EMPTY = new Color(0,0,1);
     private static final Color PLAYER = new Color(255,255,255);
     private static final Color PLATFORM = new Color(0,0,0);
     private static final Color FAKEPLATFORM = new Color(57,57,57);
@@ -56,7 +57,7 @@ public class LevelGenerator {
                     continue;
 
                 Color tile = grid[y][x];
-                if (tile == null)
+                if (tile.equals(EMPTY))
                     continue;
 
                 checked[y][x] = true;
@@ -92,11 +93,11 @@ public class LevelGenerator {
     }
 
     private static String slime(int x, int y) {
-        return codeLine("addEntity(new SlimeEntity(new Vector("+x+","+y+"));");
+        return codeLine("addEntity(new SlimeEntity(new Vector("+x+","+y+")));");
     }
 
     private static String snake(int x, int y) {
-        return codeLine("addEntity(new SnakeEntity(new Vector("+x+","+((float)y-0.5f)+"f));");
+        return codeLine("addEntity(new SnakeEntity(new Vector("+x+","+((float)y-0.5f)+"f)));");
     }
 
     private static String barnacle(int x, int y, Color[][] grid) {
@@ -130,7 +131,7 @@ public class LevelGenerator {
     }
 
     private static String bee(int x, int y) {
-        return codeLine("addEntity(new BeeEntity(new Vector("+x+","+y+"), player, null)); // TODO: Fill in deviance");
+        return codeLine("addEntity(new BeeEntity(new Vector("+x+","+y+"), player, new Vector("+x+","+y+"))); // TODO: Fill in deviance");
     }
 
     private static String ghost(int x, int y) {
@@ -166,7 +167,7 @@ public class LevelGenerator {
         }
 
         if (moving)
-            res += ",null,0f)); // TODO: Fill in end position and duration";
+            res += ",new Vector("+x+","+y+"),1)); // TODO: Fill in end position and duration";
         else
             res += "));";
 
@@ -176,13 +177,13 @@ public class LevelGenerator {
         int height = grid.length;
         int width = grid[y].length;
 
-        if (x+1 < width && grid[y][x+1] != null && grid[y][x+1].equals(platformType)) {// horizontal multi
-            while (x < width && grid[y][x].equals(platformType)) {
+        if (x+1 < width && grid[y][x+1].equals(platformType)) {// horizontal multi
+            while (x+1 < width && grid[y][x].equals(platformType)) {
                 checked[y][x] = true;
                 x++;
             }
-        } else if (y+1 < height && grid[y+1][x] != null && grid[y+1][x].equals(platformType)) {// vertical multi
-            while (y < height && grid[y][x].equals(platformType)) {
+        } else if (y+1 < height && grid[y+1][x].equals(platformType)) {// vertical multi
+            while (y+1 < height && grid[y][x].equals(platformType)) {
                 checked[y][x] = true;
                 y++;
             }
@@ -211,8 +212,8 @@ public class LevelGenerator {
     }
 
     private static BufferedImage readImage(String filename) throws IOException{
-        BufferedImage img = ImageIO.read(new File(ROOT + "/tmp2.png")); //TODO file selection
-        if (img.getType() != 6) //png type
+        BufferedImage img = ImageIO.read(new File(ROOT + "/mountain_fun_time_of_doom.png")); //TODO file selection
+        if (img.getType() != 6) //png typetmp
             throw new IllegalArgumentException("Image not a png");
         if (img.getWidth() > MAX_SIZE || img.getHeight() > MAX_SIZE)
             throw new IllegalArgumentException("Image too large (" + MAX_SIZE + "x" + MAX_SIZE + ")");
@@ -220,6 +221,7 @@ public class LevelGenerator {
     }
 
     private static String levelHeader(String levelName) {
+        levelName = levelName.substring(0,levelName.length()-4); // remove .png
         return "package ivara.scenes;\n\n\n"
                 + "import core.struct.Camera;\n"
                 + "import core.struct.ResourceID;\n"
@@ -241,14 +243,14 @@ public class LevelGenerator {
         for (int y = 0; y < arr.length; y++)
             for (int x = 0; x < arr[0].length; x++) {
                 Color col = new Color(img.getRGB(x, y), true);
-                arr[y][x] = col.getAlpha() == 0 ? null : col; // transparent pixels treated as invisible
+                arr[y][x] = col.getAlpha() == 0 ? EMPTY : col; // transparent pixels treated as invisible
             }
         return arr;
     }
 
     public static void main(String[] args) {
         try {
-            String level = imgToLevel("tmp2.png");
+            String level = imgToLevel("mountain_fun_time_of_doom.png");
             System.out.println(level);
         } catch (IOException e) {e.printStackTrace();}
 
