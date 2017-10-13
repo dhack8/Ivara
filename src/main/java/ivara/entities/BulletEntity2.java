@@ -18,7 +18,7 @@ import java.util.Collection;
  */
 public class BulletEntity2 extends GameEntity{
     private Vector dimensions = new Vector(0.4f, 0.4f);
-/**
+
     public BulletEntity2(Vector transform, Vector end, float speed, ResourceID id, Class<? extends GameEntity> target, Collection<Class<? extends GameEntity>> nonColliders) {
         super(new Vector(transform.x, transform.y));
 
@@ -27,43 +27,7 @@ public class BulletEntity2 extends GameEntity{
         velocity.scaleBy(speed);
 
         addComponent(new VelocityComponent(this, velocity));
-        addComponent(new SensorComponent(this,
-                new Sensor(
-                        new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), dimensions),
-                        new SensorListener() {
-                            @Override
-                            public void onEnter(Sensor sensor, GameEntity entity) {
 
-                            }
-
-                            @Override
-                            public void onActive(Sensor sensor, GameEntity entity) {
-                                if(!nonColliders.contains(entity.getClass())){
-                                    get(VelocityComponent.class).get().set(new Vector(0, 0));
-                                    getScene().removeEntity(BulletEntity2.this);
-                                    if(entity.getClass() == target) getScene().resetScene();
-                                }
-
-                            }
-
-                            @Override
-                            public void onExit(Sensor sensor, GameEntity entity) {
-
-                            }
-                        }
-                )));
-        addComponent(new SpriteComponent(this, new Sprite(id, new Vector(0,0), dimensions)));
-    }
-**/
-    public BulletEntity2(Vector transform, Vector end, float speed, ResourceID id, Class<? extends GameEntity> target, Collection<Class<? extends GameEntity>> nonColliders) {
-        super(new Vector(transform.x, transform.y));
-
-
-        Vector velocity = end.sub(transform).norm();
-        velocity.scaleBy(speed);
-
-        addComponent(new VelocityComponent(this, velocity));
-        
         Sensor sensor = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), dimensions));
         addComponent(new SensorComponent(this, sensor));
         addComponent(new SensorHandlerComponent(this));
@@ -73,11 +37,14 @@ public class BulletEntity2 extends GameEntity{
             public void update(int dt, GameEntity entity) {
                 SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
                 if(sensorHandler.isActive(sensor)){
-                    if(!nonColliders.contains(entity.getClass())){
-                        get(VelocityComponent.class).get().set(new Vector(0, 0));
-                        getScene().removeEntity(entity);
-                        if(entity.getClass() == target) getScene().resetScene();
-                    }
+                    sensorHandler.getActivatingEntities(sensor).stream().filter((e) ->
+                            !nonColliders.contains(e.getClass())).forEach((e) -> {
+                                get(VelocityComponent.class).get().set(new Vector(0, 0));
+                                getScene().removeEntity(entity);
+                                if(e.getClass() == target) getScene().resetScene();
+                            }
+
+                    );
                 }
             }
         };
