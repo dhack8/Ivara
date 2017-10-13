@@ -17,14 +17,14 @@ import util.Debug;
  */
 public class PauseMenu extends DefaultScene{
 
-    private final float BUTTON_WIDTH = 4.5f;
-    private final float BUTTON_HEIGHT = 1.275f;
+    private static final float BUTTON_WIDTH = 4.5f;
+    private static final float BUTTON_HEIGHT = 1.275f;
 
-    private final int NUM_BUTTONS = 4; // Spacing is defined by the number of buttons within the scene
+    private static final int NUM_BUTTONS = 4; // Spacing is defined by the number of buttons within the scene
 
-    private final float YPOS = 13.5f;
-    private final float XMARGIN_LEFT = 4.5f;
-    private final float XMARGIN_RIGHT = 6f;
+    private static final float YPOS = 13.5f;
+    private static final float XMARGIN_LEFT = 4.5f;
+    private static final float XMARGIN_RIGHT = 6f;
 
     @Override
     public void startScene() {
@@ -39,60 +39,49 @@ public class PauseMenu extends DefaultScene{
         int btnCount = 0;
 
         //--- Resume button
-        UIEntity resume = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount++*(BUTTON_WIDTH + btnSpaceX)),YPOS),
-                new Sprite(new ResourceID("resume"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
-        resume.addListener(new UIListener() {
+        addButton("resume", new UIListener() {
             @Override
             public void onClick() {
-                resume.getScene().getGame().pause();
+                getGame().pause();
             }
-        });
-        addEntity(resume);
+        },btnSpaceX, btnCount++);
 
         //--- Save button
-
-        UIEntity save = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount++*(BUTTON_WIDTH + btnSpaceX)),YPOS),
-                new Sprite(new ResourceID("save"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
-        save.addListener(new UIListener() {
+        addButton("save", new UIListener() {
             @Override
             public void onClick() {
                 Debug.log("Have not implemented Save.");
             }
-        });
-        addEntity(save);
+        },btnSpaceX, btnCount++);
 
         //--- Load button
 
-        UIEntity load = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount++*(BUTTON_WIDTH + btnSpaceX)),YPOS),
-                new Sprite(new ResourceID("load"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
-        load.addListener(new UIListener() {
+        addButton("load", new UIListener() {
             @Override
             public void onClick() {
                 Debug.log("Have not implemented Load.");
             }
-        });
-        addEntity(load);
+        },btnSpaceX, btnCount++);
 
-        //--- Quit button
+        //--- restart/quit/menu button
 
-        UIEntity quit = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount++*(BUTTON_WIDTH + btnSpaceX)),YPOS),
-                new Sprite(new ResourceID("resume"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
-        quit.addListener(new UIListener() {
+        addButton("restart", new UIListener() {
             @Override
             public void onClick() {
-                //Debug.log("Have not implemented Quit.");
-                //Todo: Set scene to scene 0 ?
-                quit.getScene().getGame().setCurrentScene(0);
+                getGame().setCurrentScene(0);
             }
-        });
-        addEntity(quit);
+        },btnSpaceX, btnCount++);
 
         addEntity(new BackgroundEntity(new ResourceID("menuscreen1")));
 
 
+    }
+
+    private void addButton(String resourceID, UIListener buttonEvent, float btnSpaceX, int btnCount){
+        UIEntity button = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)),YPOS),
+                new Sprite(new ResourceID(resourceID), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
+                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
+        button.addListener(buttonEvent);
+        addEntity(button);
     }
 }

@@ -38,44 +38,39 @@ public class StartMenu extends Scene{
         int btnCount = 0;
 
         //--- New game button
-        UIEntity start = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount++*(BUTTON_WIDTH + btnSpaceX)),YPOS),
-                new Sprite(new ResourceID("play"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
-        start.addListener(new UIListener() {
+        addButton("play", new UIListener() {
             @Override
             public void onClick() {
-                start.getScene().getGame().nextScene();
+                getGame().nextScene();
             }
-        });
-        addEntity(start);
+        },btnSpaceX, btnCount++);
 
         //--- Load button
-        UIEntity load = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount++*(BUTTON_WIDTH + btnSpaceX)),YPOS),
-                new Sprite(new ResourceID("load"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
-        load.addListener(new UIListener() {
+        addButton("load", new UIListener() {
             @Override
             public void onClick() {
                 Debug.log("Have not implemented Load.");
             }
-        });
-        addEntity(load);
+        },btnSpaceX, btnCount++);
 
         //--- Quit button
-        UIEntity quit = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount++*(BUTTON_WIDTH + btnSpaceX)),YPOS),
-                new Sprite(new ResourceID("quit"), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
-        quit.addListener(new UIListener() {
+        addButton("quit", new UIListener() {
             @Override
             public void onClick() {
-                //Debug.log("Have not implemented Quit.");
                 System.exit(0);
             }
-        });
-        addEntity(quit);
+        },btnSpaceX, btnCount++);
 
         addEntity(new BackgroundEntity(new ResourceID("menuscreen1")));
 
 
+    }
+
+    private void addButton(String resourceID, UIListener buttonEvent, float btnSpaceX, int btnCount){
+        UIEntity button = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)),YPOS),
+                new Sprite(new ResourceID(resourceID), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
+                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
+        button.addListener(buttonEvent);
+        addEntity(button);
     }
 }
