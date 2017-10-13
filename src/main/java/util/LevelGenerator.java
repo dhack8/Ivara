@@ -1,10 +1,14 @@
 package util;
 
+import maths.Vector;
+
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
+import java.util.List;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class LevelGenerator {
 
@@ -12,17 +16,17 @@ public class LevelGenerator {
     private static final int MAX_SIZE = 100; // Max level grid size
 
     // GameEntity colours
-    private static final Color PLAYER = new Color(100,0,0);
+    private static final Color PLAYER = new Color(255,255,255);
     private static final Color PLATFORM = new Color(0,0,0);
-    private static final Color FAKEPLATFORM = new Color(0,0,0);
-    private static final Color MOVINGPLATFORM = new Color(0,0,0);
-    private static final Color FLAG = new Color(0,0,0);
-    private static final Color COIN = new Color(0,0,0);
-    private static final Color GHOST = new Color(0,0,0);
-    private static final Color BEE = new Color(0,0,0);
-    private static final Color BARNACLE = new Color(0,0,0);
-    private static final Color SNAKE = new Color(0,0,0);
-    private static final Color SLIME = new Color(0,0,0);
+    private static final Color FAKEPLATFORM = new Color(57,57,57);
+    private static final Color MOVINGPLATFORM = new Color(255,0,0);
+    private static final Color FLAG = new Color(0,255,249);
+    private static final Color COIN = new Color(21,0,255);
+    private static final Color GHOST = new Color(177,177,177);
+    private static final Color BEE = new Color(246,255,0);
+    private static final Color BARNACLE = new Color(223,0,255);
+    private static final Color SNAKE = new Color(32,108,0);
+    private static final Color SLIME = new Color(77,255,0);
 
 
     public static String imgToLevel(String filename) throws IOException{
@@ -34,20 +38,157 @@ public class LevelGenerator {
 
         // Convert to level class string
         StringBuilder level = new StringBuilder();
-        level.append(levelHeader(filename));
-        level.append(player(img));
-        level.append(levelDefaults(img.getHeight()));
+        level.append(levelHeader(filename) + "\n");
+        level.append(levelEntities(rgbTable) + "\n");
+        level.append(levelDefaults(img.getHeight()) + "\n");
         level.append(levelFooter());
 
 
-        return null;
+        return level.toString();
     }
 
-    private static String player(BufferedImage img) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(codeLine("//PLAYER---"));
-        sb.append(codeLine("PlayerEntity player = "));
-        if 
+    private static String levelEntities(Color[][] grid) {
+        boolean[][] checked = new boolean[grid.length][grid[0].length];
+        StringBuilder sb = new StringBuilder(codeLine("//ENTITIES---"));
+        for (int y = 0; y < grid.length; y++) {
+            for (int x = 0; x < grid[0].length; x++) {
+                if (checked[y][x])
+                    continue;
+
+                Color tile = grid[y][x];
+                if (tile == null)
+                    continue;
+
+                checked[y][x] = true;
+
+                if (tile.equals(PLATFORM)) {
+                    sb.append(platform(x, y, platformFill(x, y, grid, checked, PLATFORM), false));
+                } else if (tile.equals(MOVINGPLATFORM)) {
+                    sb.append(platform(x, y, platformFill(x, y, grid, checked, MOVINGPLATFORM), true));
+                } else if (tile.equals(FAKEPLATFORM))
+                    sb.append(fakePlatform(x,y));
+                else if (tile.equals(COIN))
+                    sb.append(coin(x,y));
+                else if (tile.equals(PLAYER))
+                    sb.append(player(x,y));
+                else if (tile.equals(FLAG))
+                    sb.append(flag(x,y));
+                else if (tile.equals(GHOST))
+                    sb.append(ghost(x,y));
+                else if (tile.equals(BEE))
+                    sb.append(bee(x,y));
+                else if (tile.equals(BARNACLE))
+                    sb.append(barnacle(x,y, grid));
+                else if (tile.equals(SNAKE))
+                    sb.append(snake(x,y));
+                else if (tile.equals(SLIME))
+                    sb.append(slime(x,y));
+                else
+                    System.err.println("Unknown tile colour: " + tile.toString());
+
+            }
+        }
+        return sb.toString();
+    }
+
+    private static String slime(int x, int y) {
+        return codeLine("addEntity(new SlimeEntity(new Vector("+x+","+y+"));");
+    }
+
+    private static String snake(int x, int y) {
+        return codeLine("addEntity(new SnakeEntity(new Vector("+x+","+((float)y-0.5f)+"f));");
+    }
+
+    private static String barnacle(int x, int y, Color[][] grid) {
+        List<Vector> adjacentPlatforms = new ArrayList<>();
+        int width = grid[0].length;
+        int height = grid.length;
+        if (y+1 < height && grid[y+1][x].equals(PLATFORM))
+            adjacentPlatforms.add(new Vector(x,y+1));
+        if (y-1 >= 0 && grid[y-1][x].equals(PLATFORM))
+            adjacentPlatforms.add(new Vector(x,y-1));
+        if (x+1 < width && grid[y][x+1].equals(PLATFORM))
+            adjacentPlatforms.add(new Vector(x+1,y));
+        if (x-1 >= 0 && grid[y][x-1].equals(PLATFORM))
+            adjacentPlatforms.add(new Vector(x-1,y));
+
+        if (adjacentPlatforms.isEmpty())
+            return codeLine("addEntity(new BarnacleEntity(new Vector("+x+", "+y+"), true));");
+        else {
+            Vector platform = adjacentPlatforms.get(0);
+            String dir = "NORTH";
+            if (y < platform.y)
+                dir = "NORTH";
+            else if (y > platform.y)
+                dir = "SOUTH";
+            else if (x < platform.x)
+                dir = "EAST";
+            else if (x > platform.x)
+                dir = "WEST";
+            return codeLine("addEntity(new BarnacleEntity(new Vector("+x+","+y+"), BarnacleEntity.Direction."+dir+", true));");
+        }
+    }
+
+    private static String bee(int x, int y) {
+        return codeLine("addEntity(new BeeEntity(new Vector("+x+","+y+"), player, null)); // TODO: Fill in deviance");
+    }
+
+    private static String ghost(int x, int y) {
+        return codeLine("addEntity(new GhostEntity(new Vector("+x+","+y+"), player));");
+    }
+
+    private static String flag(int x, int y) {
+        return codeLine("addEntity(new LevelEndEntity("+x+", "+y+"));");
+    }
+
+    private static String player(int x, int y) {
+        return codeLine("PlayerEntity player = new PlayerEntity("+x+","+y+");")
+                + codeLine("addEntity(player);");
+    }
+
+    private static String coin(int x, int y) {
+        return codeLine("addEntity(new CoinEntity(player, new Vector("+x+", "+y+"), true));");
+    }
+
+    private static String fakePlatform(int x, int y) {
+        return codeLine("addEntity(new FakeBlockEntity(new Vector("+x+", "+y+")));");
+    }
+
+    private static String platform(int x, int y, Vector end, boolean moving) {
+        String res = "addEntity(new PlatformEntity(new Vector("+x+","+y+")";
+
+        if (end.x != x) { // horizontal
+            int n = (int)end.x - x;
+            res += ","+n+",false";
+        } else if (end.y != y){ // vertical
+            int n = (int)end.y - y;
+            res += ","+n+",true";
+        }
+
+        if (moving)
+            res += ",null,0f)); // TODO: Fill in end position and duration";
+        else
+            res += "));";
+
+        return codeLine(res);
+    }
+    private static Vector platformFill(int x, int y, Color[][] grid, boolean[][] checked, Color platformType) {
+        int height = grid.length;
+        int width = grid[y].length;
+
+        if (x+1 < width && grid[y][x+1] != null && grid[y][x+1].equals(platformType)) {// horizontal multi
+            while (x < width && grid[y][x].equals(platformType)) {
+                checked[y][x] = true;
+                x++;
+            }
+        } else if (y+1 < height && grid[y+1][x] != null && grid[y+1][x].equals(platformType)) {// vertical multi
+            while (y < height && grid[y][x].equals(platformType)) {
+                checked[y][x] = true;
+                y++;
+            }
+        }
+
+        return new Vector(x,y);
     }
 
     private static String levelFooter() {
@@ -56,7 +197,7 @@ public class LevelGenerator {
 
     private static String levelDefaults(int levelHeight) {
         StringBuilder sb = new StringBuilder();
-        sb.append(codeLine("DEFAULT---"));
+        sb.append(codeLine("//DEFAULT---"));
         sb.append(codeLine("addEntity(new BackgroundEntity(new ResourceID(\"background\")));"));
         int deathHeight = levelHeight + 10;
         sb.append(codeLine("addEntity(new DeathLineEntity("+deathHeight+"));"));
@@ -107,8 +248,9 @@ public class LevelGenerator {
 
     public static void main(String[] args) {
         try {
-            imgToLevel("tmp.png");
-        } catch (IOException e) {}
+            String level = imgToLevel("tmp.png");
+            System.out.println(level);
+        } catch (IOException e) {e.printStackTrace();}
 
     }
 }
