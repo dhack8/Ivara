@@ -18,8 +18,8 @@ import java.util.List;
  */
 public class Ivara extends Game {
 
-    public Ivara(LevelManager lm, Renderer renderer, InputBroadcaster inputBroadcaster) {
-        super(lm, renderer, inputBroadcaster);
+    public Ivara(LevelManager lm, Renderer renderer, PWindow window) {
+        super(lm, renderer, window);
     }
 
     public static void main(String[] args) {

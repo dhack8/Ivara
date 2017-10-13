@@ -57,7 +57,7 @@ public class StartMenu extends Scene{
         addButton("quit", new UIListener() {
             @Override
             public void onClick() {
-                System.exit(0);
+                getGame().getWindow().exit();
             }
         },btnSpaceX, btnCount++);
 
