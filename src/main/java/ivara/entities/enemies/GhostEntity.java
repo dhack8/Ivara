@@ -6,8 +6,6 @@ import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
 import ivara.entities.enemies.Enemy;
 import ivara.entities.scripts.BasicMoveScript;
-import ivara.entities.scripts.ChargeScript;
-import ivara.entities.scripts.ChaseScript;
 import maths.Vector;
 import physics.AABBCollider;
 
