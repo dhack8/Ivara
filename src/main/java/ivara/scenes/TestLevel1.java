@@ -1,8 +1,6 @@
 package ivara.scenes;
 
 
-import core.entity.GameEntity;
-import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Text;
