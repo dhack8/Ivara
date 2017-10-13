@@ -3,6 +3,7 @@ package core;
 
 import backends.InputBroadcaster;
 import backends.Renderer;
+import backends.processing.PWindow;
 import core.input.InputHandler;
 import core.scene.Scene;
 import core.scene.LevelManager;
@@ -27,22 +28,26 @@ public abstract class Game {
      */
     private final Renderer renderer;
 
-    private final InputBroadcaster inputBroadcaster;
+    private final PWindow window;
 
     private final InputHandler inputHandler;
     private InputHandler.InputFrame inputFrame = new InputHandler.InputFrame();
 
-    public Game(LevelManager lm, Renderer renderer, final InputBroadcaster inputBroadcaster) {
+    public Game(LevelManager lm, Renderer renderer, final PWindow window) {
         this.renderer = renderer;
-        this.inputBroadcaster = inputBroadcaster;
-        this.inputHandler = new InputHandler(inputBroadcaster);
+        this.window = window;
+        this.inputHandler = new InputHandler(window);
         this.levelManager = lm;
 
         //renderer.setMask(1);
 
         lm.setGame(this);
 
-        assert inputBroadcaster != null;
+        assert window != null;
+    }
+
+    public PWindow getWindow() {
+        return window;
     }
 
     public Scene getCurrentScene() {

@@ -24,7 +24,7 @@ public class AssetHandlerTest {
 
     @Before
     public void setUp() throws Exception {
-        filePath = "./assets/player.png";
+        filePath = "./assets/player/player.png";
         try {
             img = new PImage(ImageIO.read(new File(filePath)));
         } catch (IOException e) {
