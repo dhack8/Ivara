@@ -1,10 +1,10 @@
 package ivara.entities;
 
+import core.Script;
 import core.SensorListener;
-import core.components.SensorComponent;
-import core.components.SpriteComponent;
-import core.components.VelocityComponent;
+import core.components.*;
 import core.entity.GameEntity;
+import core.input.SensorHandler;
 import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Sprite;
@@ -18,11 +18,13 @@ import java.util.Collection;
  */
 public class BulletEntity2 extends GameEntity{
     private Vector dimensions = new Vector(0.4f, 0.4f);
-
+/**
     public BulletEntity2(Vector transform, Vector end, float speed, ResourceID id, Class<? extends GameEntity> target, Collection<Class<? extends GameEntity>> nonColliders) {
         super(new Vector(transform.x, transform.y));
 
-        Vector velocity = getV(end, transform, speed);
+
+        Vector velocity = end.sub(transform).norm();
+        velocity.scaleBy(speed);
 
         addComponent(new VelocityComponent(this, velocity));
         addComponent(new SensorComponent(this,
@@ -52,22 +54,35 @@ public class BulletEntity2 extends GameEntity{
                 )));
         addComponent(new SpriteComponent(this, new Sprite(id, new Vector(0,0), dimensions)));
     }
+**/
+    public BulletEntity2(Vector transform, Vector end, float speed, ResourceID id, Class<? extends GameEntity> target, Collection<Class<? extends GameEntity>> nonColliders) {
+        super(new Vector(transform.x, transform.y));
 
-    /**
-     * Calculates and returns a vector representing the x and y velocities.
-     * These are used to move the entity towards a target
-     * @param target The target position
-     * @param from The start position
-     * @return A vector representing velocity
-     */
-    private Vector getV(Vector target, Vector from, float velocity){
-        float dx = target.x - from.x;
-        float dy = target.y - from.y;
-        double angle = Math.atan(dx/dy);
-        float xVel = (float)(velocity * Math.sin(angle));
-        float yVel = (float)(velocity * Math.cos(angle));
 
-        if(dy <0){xVel *= -1; yVel *= -1;}
-        return new Vector(xVel,yVel);
+        Vector velocity = end.sub(transform).norm();
+        velocity.scaleBy(speed);
+
+        addComponent(new VelocityComponent(this, velocity));
+        
+        Sensor sensor = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), dimensions));
+        addComponent(new SensorComponent(this, sensor));
+        addComponent(new SensorHandlerComponent(this));
+
+        Script script = new Script() {
+            @Override
+            public void update(int dt, GameEntity entity) {
+                SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
+                if(sensorHandler.isActive(sensor)){
+                    if(!nonColliders.contains(entity.getClass())){
+                        get(VelocityComponent.class).get().set(new Vector(0, 0));
+                        getScene().removeEntity(entity);
+                        if(entity.getClass() == target) getScene().resetScene();
+                    }
+                }
+            }
+        };
+        addComponent(new ScriptComponent(this, script));
+
+        addComponent(new SpriteComponent(this, new Sprite(id, new Vector(0,0), dimensions)));
     }
 }
