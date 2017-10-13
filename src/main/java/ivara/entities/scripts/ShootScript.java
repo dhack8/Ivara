@@ -2,27 +2,30 @@ package ivara.entities.scripts;
 
 import core.Script;
 import core.entity.GameEntity;
-import core.input.InputHandler;
 import core.struct.ResourceID;
 import core.struct.Timer;
-import ivara.entities.BulletEntity;
+import ivara.entities.BulletEntity2;
+import ivara.entities.PlayerEntity;
 import maths.Vector;
 
 import java.util.Arrays;
 
 /**
- * Created by Alex Mitchell on 10/10/2017.
+ * A shooting script that shoots at a target.
+ * This script uses the updated bullet entity that utilizes velocity rather than time.
+ * If a projectile collides with an instance of the target, the game resets
  */
-public class ShootScript implements Script{
+public class ShootScript implements Script {
+
     private GameEntity entity;
     private GameEntity target;
 
     private Timer t; // delay timer
-    private final int DELAY = 2000; // how long between each shot
-    private final int DURATION = 1000; // how long till the bullet resets
-    private final int TIME_TO_TARGET = 1000; // how long it takes to reach the player position
-    private final float SPEED = 1f; // in ms^-1
+    private final int DELAY = 2000; // delay after shot
+    private final int DURATION = 2000; // how long till the bullet resets
+    private final float SPEED = 3f; // in ms^-1
     private Vector offset; //vector offsetting aim
+
 
     public ShootScript(GameEntity entity, GameEntity target, Vector offset){
         this.entity = entity;
@@ -40,27 +43,26 @@ public class ShootScript implements Script{
 
     @Override
     public void update(int dt, GameEntity entity) {
-
-
         if(t.isFinished()){
+            GameEntity bullet = new BulletEntity2(
+                    entity.transform,
+                    new Vector(target.getTransform().x + offset.x, target.getTransform().y + offset.y),
+                    SPEED,new ResourceID("slimeball"),
+                    target.getClass(),
+                    Arrays.asList(entity.getClass())
+            );
 
+            entity.getScene().addEntity(bullet);
+            entity.getScene().addTimer(new Timer(DURATION, ()->entity.getScene().removeEntity(bullet)));
+            //reset delay timer
             t = new Timer(
                     DELAY,
-                    ()->{
-                        GameEntity bullet = new BulletEntity(
-                                entity.transform,
-                                new Vector(target.getTransform().x + offset.x, target.getTransform().y + offset.y),
-                                new ResourceID("slimeball"),
-                                TIME_TO_TARGET,
-                                Arrays.asList(entity.getClass())
-                        ); // Todo change this as speed won't be constant
-
-                        entity.getScene().addEntity(bullet);
-                        entity.getScene().addTimer(new Timer(DURATION, ()->entity.getScene().removeEntity(bullet))); //Todo: make unkillable?
-                    }
+                    ()->{}
             );
             entity.getScene().addTimer(t);
         }
+
     }
+
 
 }

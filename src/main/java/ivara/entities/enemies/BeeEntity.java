@@ -7,7 +7,6 @@ import core.struct.AnimatedSprite;
 import ivara.entities.PlayerEntity;
 import ivara.entities.scripts.PatrolScript;
 import ivara.entities.scripts.ShootScript;
-import ivara.entities.scripts.ShootScript2;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -48,7 +47,7 @@ public class BeeEntity extends GameEntity implements Enemy{
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension)));
 
         //Script---
-        ScriptComponent sComp = new ScriptComponent(this, new ShootScript2(this, target, new Vector(PlayerEntity.WIDTH/2f, PlayerEntity.HEIGHT/2f)));
+        ScriptComponent sComp = new ScriptComponent(this, new ShootScript(this, target, new Vector(PlayerEntity.WIDTH/2f, PlayerEntity.HEIGHT/2f)));
         if(deviance.isPresent())sComp.add(new PatrolScript(this, deviance.get(), 1f));
         addComponent(sComp);
 

@@ -81,11 +81,6 @@ public class PlayerScript implements Script{//}, SensorListener {
         else if (input.isKeyPressed(Constants.D)) handleWalk(vComp, sensorHandler, Orientation.RIGHT);
         else stopWalk(vComp, sensorHandler);
 
-        /**
-        //Fire more Pablos---
-        if (input.isMousePressed(Constants.LEFT_MOUSE)) fireBullet(entity, input);
-         **/
-
         //Pause menu---
         if(input.isKeyReleased(Constants.ESC)) entity.getScene().getGame().pause();
     }
