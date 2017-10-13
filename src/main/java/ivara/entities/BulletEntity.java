@@ -16,10 +16,10 @@ import java.util.Collection;
 /**
  * Creates a bullet entity that moves based on a specific velocity
  */
-public class BulletEntity2 extends GameEntity{
+public class BulletEntity extends GameEntity{
     private Vector dimensions = new Vector(0.4f, 0.4f);
 
-    public BulletEntity2(Vector transform, Vector end, float speed, ResourceID id, Class<? extends GameEntity> target, Collection<Class<? extends GameEntity>> nonColliders) {
+    public BulletEntity(Vector transform, Vector end, float speed, ResourceID id, Class<? extends GameEntity> target, Collection<Class<? extends GameEntity>> nonColliders) {
         super(new Vector(transform.x, transform.y));
 
 
