@@ -211,7 +211,7 @@ public class LevelGenerator {
     }
 
     private static BufferedImage readImage(String filename) throws IOException{
-        BufferedImage img = ImageIO.read(new File(ROOT + "/tmp.png")); //TODO file selection
+        BufferedImage img = ImageIO.read(new File(ROOT + "/tmp2.png")); //TODO file selection
         if (img.getType() != 6) //png type
             throw new IllegalArgumentException("Image not a png");
         if (img.getWidth() > MAX_SIZE || img.getHeight() > MAX_SIZE)
@@ -248,7 +248,7 @@ public class LevelGenerator {
 
     public static void main(String[] args) {
         try {
-            String level = imgToLevel("tmp.png");
+            String level = imgToLevel("tmp2.png");
             System.out.println(level);
         } catch (IOException e) {e.printStackTrace();}
 
