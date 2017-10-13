@@ -10,6 +10,8 @@ import core.struct.Sensor;
 import maths.Vector;
 import physics.AABBCollider;
 
+import java.util.Collection;
+
 /**
  * Created by David Hack Local on 11-Oct-17.
  */
@@ -33,6 +35,11 @@ public class DeathLineEntity extends GameEntity{
                 SensorHandler s = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
                 if(s.isActive(sensor)){
                     entity.getScene().resetScene();
+                    Collection<GameEntity> activating = s.getActivatingEntities(sensor);
+                    for(GameEntity e : activating){
+                        System.out.println(e.getClass());
+                        System.out.println(e.getTransform());
+                    }
                     System.out.println("RESETING SCNE");
                 }
             }

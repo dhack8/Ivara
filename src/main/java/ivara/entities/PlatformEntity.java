@@ -79,6 +79,7 @@ public class PlatformEntity extends GameEntity {
      */
     public PlatformEntity(Vector start, int numBlocks, boolean isVertical, Vector end, float time) throws IllegalArgumentException{
         super(start);
+        if(time <= 0) throw new IllegalArgumentException("Time must be a strictly positive value.");
         if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
         setupMulti(numBlocks, isVertical);
         setupScripts(end, time);
@@ -114,6 +115,7 @@ public class PlatformEntity extends GameEntity {
      */
     public PlatformEntity(Vector start, int numBlocks, boolean isVertical, Vector end, float time, boolean veges) throws IllegalArgumentException{
         super(start);
+        if(time <= 0) throw new IllegalArgumentException("Time must be a strictly positive value.");
         if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
         vegesOn = veges;
         setupMulti(numBlocks, isVertical);
@@ -149,6 +151,7 @@ public class PlatformEntity extends GameEntity {
      */
     public PlatformEntity(Vector start, Vector end, float time){
         super(start);
+        if(time <= 0) throw new IllegalArgumentException("Time must be a strictly positive value.");
         setupSingle();
         setupScripts(end, time);
     }

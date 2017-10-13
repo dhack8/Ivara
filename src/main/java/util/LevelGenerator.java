@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class LevelGenerator {
 
-    private static final String ROOT = "./tmp"; // Root folder for level images
+    private static final String ROOT = "./levelLoader"; // Root folder for level images
     private static final int MAX_SIZE = 100; // Max level grid size
 
     // GameEntity colours
