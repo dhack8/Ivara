@@ -12,16 +12,20 @@ import physics.Collider;
 import physics.CollisionUtil;
 import physics.PhysicProperties;
 
+import java.util.HashMap;
+
 /**
  * Created by Callum Li on 9/29/17.
  */
 public class PhysicsSystem extends System<GameEntity> {
 
+    private HashMap<ColliderComponent, PhysicProperties> memo;
 
     @Override
     public void update(int dt, World<GameEntity> world) {
         ColliderComponent[] colliders = world.get(ColliderComponent.class).toArray(new ColliderComponent[0]);
 
+        memo = new HashMap<>();
 
         for (int i = 0; i < colliders.length; i++) {
             for (int j = i+1; j < colliders.length; j++) {
@@ -43,15 +47,23 @@ public class PhysicsSystem extends System<GameEntity> {
     }
 
     private void resolveCollision(ColliderComponent cc1, ColliderComponent cc2) {
-        PhysicProperties p1 = cc1.getEntity()
-                .get(PhysicsComponent.class)
-                .map((c) -> c.getProperties())
-                .orElse(PhysicProperties.DEFAULT);
+        if (!memo.containsKey(cc1)) {
+            memo.put(cc1,
+                    cc1.getEntity()
+                            .get(PhysicsComponent.class)
+                            .map((c) -> c.getProperties())
+                            .orElse(PhysicProperties.DEFAULT))
+        }
+        if (!memo.containsKey(cc2)) {
+            memo.put(cc2,
+                    cc2.getEntity()
+                            .get(PhysicsComponent.class)
+                            .map((c) -> c.getProperties())
+                            .orElse(PhysicProperties.DEFAULT));
+        }
 
-        PhysicProperties p2 = cc2.getEntity()
-                .get(PhysicsComponent.class)
-                .map((c) -> c.getProperties())
-                .orElse(PhysicProperties.DEFAULT);
+        PhysicProperties p1 = memo.get(cc1);
+        PhysicProperties p2 = memo.get(cc2);
 
         if (p1.type == PhysicProperties.Type.STATIC &&
                 p2.type == PhysicProperties.Type.STATIC) {
