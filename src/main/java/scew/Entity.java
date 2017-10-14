@@ -34,6 +34,15 @@ public abstract class Entity {
     }
 
     /**
+     * Removes a component from the entity.
+     * @param component The component to remove.
+     * @return True if a component was removed, false otherwise.
+     */
+    final public boolean removeComponent(Component component) {
+        return components.remove(component);
+    }
+
+    /**
      * Retrieves a component of the given type if one exists.
      * @param type The type of component to find.
      * @param <T> The type of component to find.
