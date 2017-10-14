@@ -67,8 +67,10 @@ public class PlayerEntity extends GameEntity {
         //Sensors---
         //AABB for the sensor
         //FOR WALL RUNNING THIS SENSOR NEEDS TO BE THE SAME WIDTH AS THE COLLIDER, BIT SMALLER FOR NO WALL RUNNING
-        Vector sTopLeft = new Vector(widthOff/2, HEIGHT -jumpSensorHeight);
-        Vector sDimensions = new Vector(WIDTH -widthOff, jumpSensorHeight);
+        //Vector sTopLeft = new Vector(widthOff/2, HEIGHT -jumpSensorHeight);
+        //Vector sDimensions = new Vector(WIDTH -widthOff, jumpSensorHeight);
+        Vector sTopLeft = new Vector(widthOff/2 + 0.05f, HEIGHT -jumpSensorHeight);
+        Vector sDimensions = new Vector(WIDTH -widthOff - 0.1f, jumpSensorHeight);
         AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
         Sensor bottomSensor = new Sensor(ab);
 
