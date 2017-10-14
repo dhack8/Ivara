@@ -13,11 +13,19 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Level Generator takes a pixel image and converts it in to a level file. Run the main method
+ * to generate a level. Takes png files from /levelLoader directory and saves to the /scenes folder.
+ * This is purely used as a developer tool at this stage as it doesn't make checks to ensure the level is
+ * correct. I.e. Possible to have more than one player and end flag.
+ *
+ * @author Will Pearson
+ */
 public class LevelGenerator {
 
     private static final String ROOT = "./levelLoader"; // Root folder for level images
     private static final String LEVELFOLDER = "./src/main/java/ivara/scenes"; // Save .java files here
-    private static final int MAX_SIZE = 100; // Max level grid size
+    public static final int MAX_SIZE = 100; // Max level grid size
 
     // GameEntity colours
     private static final Color EMPTY = new Color(0,0,1);
@@ -34,6 +42,11 @@ public class LevelGenerator {
     private static final Color SNAKE = new Color(32,108,0);
     private static final Color SLIME = new Color(77,255,0);
 
+    /**
+     * Generates the level file.
+     * @return The whole string representing the level.
+     * @throws IOException Occurs when the selected file isn't found or saving issues occur.
+     */
     public static String generateLevel() throws IOException{
         // Select image
         String filename = selectImage();
@@ -56,6 +69,10 @@ public class LevelGenerator {
 
     // Utility methods -----------------------------------------------------------------------
 
+    /**
+     * Selects the png image that the user wants to generate.
+     * @return The name of the file.
+     */
     private static String selectImage() {
         JFileChooser fileChooser = new JFileChooser(ROOT);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG Filter", "png");
@@ -67,15 +84,28 @@ public class LevelGenerator {
         return fileChooser.getName(file);
     }
 
+    /**
+     * Attempts to read the given filename as an image. The image's dimensions must be less than the
+     * MAX_SIZE field. the image must also be a png.
+     * @param filename The name of the file.
+     * @return The image object.
+     * @throws IOException Thrown if an error occurs reading the file.
+     */
     private static BufferedImage readImage(String filename) throws IOException{
         BufferedImage img = ImageIO.read(new File(ROOT + "/" + filename)); //TODO file selection
-        if (img.getType() != 6) //png typetmp
+        if (img.getType() != 6) //png type
             throw new IllegalArgumentException("Image not a png");
         if (img.getWidth() > MAX_SIZE || img.getHeight() > MAX_SIZE)
             throw new IllegalArgumentException("Image too large (" + MAX_SIZE + "x" + MAX_SIZE + ")");
         return img;
     }
 
+    /**
+     * Converts an image to a 2D-array of colours. In the png file, transparent pixels are treated as
+     * empty, and so are stored as the EMPTY Color constant stored locally.
+     * @param img The image to process
+     * @return The 2D array of colours.
+     */
     private static Color[][] convertToArray(BufferedImage img) {
         Color[][] arr = new Color[img.getWidth()][img.getHeight()];
         for (int y = 0; y < arr.length; y++)
@@ -86,6 +116,14 @@ public class LevelGenerator {
         return arr;
     }
 
+    /**
+     * Turns a 2D array of Colors representing a level to it's string representation.
+     * The string version is suitable for use in a java file.
+     * @param rgbTable The 2D array.
+     * @param levelName The level name.
+     * @param height The level's maximum height.
+     * @return The string representation of the level.
+     */
     private static String colorToLevel(Color[][] rgbTable, String levelName, int height){
         StringBuilder level = new StringBuilder();
         level.append(levelHeader(levelName));
@@ -97,14 +135,30 @@ public class LevelGenerator {
         return level.toString();
     }
 
+    /**
+     * Converts an image file name to it's level name. Assumes there is only one dot in the file name.
+     * @param fileName The file name.
+     * @return The level name.
+     */
     private static String fileToLevelName(String fileName) {
-        return Character.toUpperCase(fileName.charAt(0)) + fileName.substring(1,fileName.length()-4);
+        return Character.toUpperCase(fileName.charAt(0)) + fileName.substring(1,fileName.indexOf('.'));
     }
 
+    /**
+     * Formats a regular string to a proper line of code. Used for ease of use within this class.
+     * @param s The string.
+     * @return The formatted string.
+     */
     private static String codeLine(String s) {
         return "\t\t" + s + "\n";
     }
 
+    /**
+     * Saves a level to a file. If the file already exists it overwrites it.
+     * @param level The string representation of the level.
+     * @param levelName The level name.
+     * @throws IOException Thrown if an error occurs while saving.
+     */
     private static void saveToFile(String level, String levelName) throws IOException {
         String fileName = LEVELFOLDER + "/" + levelName + ".java";
         FileWriter fileWriter = new FileWriter(fileName, false);
@@ -114,6 +168,11 @@ public class LevelGenerator {
 
     // Text output -------------------------------------------------------------------------
 
+    /**
+     * Returns the level file's header information.
+     * @param levelName The level name.
+     * @return The level file's header information.
+     */
     private static String levelHeader(String levelName) {
 
         return "package ivara.scenes;\n\n\n"
@@ -133,9 +192,15 @@ public class LevelGenerator {
                 + "\tpublic void startScene(){\n";
     }
 
+    /**
+     * Generates the entity section of the level file. It iterates the color grid
+     * using the colors to determine what entity it should create.
+     * @param grid The color grid.
+     * @return A string representing all the entities in the level.
+     */
     private static String levelEntities(Color[][] grid) {
-        boolean[][] checked = new boolean[grid.length][grid[0].length];
-        Map<Integer, StringBuilder> entityStrings = new TreeMap<>();
+        boolean[][] checked = new boolean[grid.length][grid[0].length]; // Records if the tile has been checked
+        Map<Integer, StringBuilder> entityStrings = new TreeMap<>(); // Used to group the strings by category so that all platforms are together etc.
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[0].length; x++) {
                 if (checked[y][x])
@@ -147,6 +212,7 @@ public class LevelGenerator {
 
                 checked[y][x] = true;
 
+                // Determine entity type and add to map
                 if (tile.equals(PLATFORM)) {
                     addToMap(entityStrings,3, platform(x, y, platformFill(x, y, grid, checked, PLATFORM), false));
                 } else if (tile.equals(MOVINGPLATFORM)) {
@@ -179,17 +245,27 @@ public class LevelGenerator {
         return collect(entityStrings);
     }
 
+    /**
+     * Returns the default scripts that are added to every level.
+     * @param levelHeight The max height of the level
+     * @return The default scripts.
+     */
     private static String levelDefaults(int levelHeight) {
         StringBuilder sb = new StringBuilder();
         sb.append(codeLine("//DEFAULT---"));
         sb.append(codeLine("addEntity(new BackgroundEntity(new ResourceID(\"background\")));"));
-        int deathHeight = levelHeight + 10;
+        int deathHeight = levelHeight + 10; // place death line slighty lower than the level's depth
         sb.append(codeLine("addEntity(new DeathLineEntity("+deathHeight+"));"));
         sb.append(codeLine("setCamera(new Camera());"));
         sb.append(codeLine("super.startScene(player);"));
         return sb.toString();
     }
 
+    /**
+     * Returns the level footer.
+     * @param levelName The level name.
+     * @return The level footer.
+     */
     private static String levelFooter(String levelName) {
         return "\t}\n\n" +
                 "\tpublic Scene hardReset() {\n" +
@@ -199,6 +275,12 @@ public class LevelGenerator {
 
     // levelEntites() helpers ---------------------------------------------------------------
 
+    /**
+     * Adds a command to the map of commands.
+     * @param commands The map of commands.
+     * @param category The category to add the command to.
+     * @param command The command.
+     */
     private static void addToMap(Map<Integer,StringBuilder> commands, int category, String command) {
         if (!commands.containsKey(category)) {
             commands.put(category, new StringBuilder(initialString(category)));
@@ -206,6 +288,12 @@ public class LevelGenerator {
         commands.get(category).append(command);
     }
 
+    /**
+     * Determines the initial string to use for the map of commands based on the category. Current
+     * category codes used are 0-11 inclusive. Anything else returns an "UNKNOWN CATEGORY".
+     * @param category The category code.
+     * @return The initial string.
+     */
     private static String initialString(int category) {
         switch (category) {
             case 0: return "\n\t\t// Player\n";
@@ -220,10 +308,16 @@ public class LevelGenerator {
             case 9: return "\n\t\t// Barnacles\n";
             case 10: return "\n\t\t// Snakes\n";
             case 11: return "\n\t\t// Slimes\n";
-            default: return "\n";
+            default: return "\n\t\t// UNKNOWN CATEGORY: "+category+"\n";
         }
     }
 
+    /**
+     * Collects every StringBuilder in the map in to a single string. Built by
+     * ordering of the map.
+     * @param stringMap The map to collect.
+     * @return The whole string.
+     */
     private static String collect(Map<Integer, StringBuilder> stringMap) {
         StringBuilder collatedString = new StringBuilder();
         for (StringBuilder sb : stringMap.values()) {
