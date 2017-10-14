@@ -28,7 +28,6 @@ public class LoadGame {
     public static boolean load(Game game){
         LevelManager lm = game.getLevelManager();
         File file = new File(fileName);
-
         try{
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
@@ -70,10 +69,12 @@ public class LoadGame {
             startScene.getEntities(CoinEntity.class).stream().filter((e) ->
                     coins.contains(e.getTransform())).forEach((e)->startScene.removeEntity(e)); // remove the coin entities from the scene
 
+            fr.close();
         }catch(Exception e){
             System.err.println(e);
             return false;
         }
+
         return true;
     }
 }
