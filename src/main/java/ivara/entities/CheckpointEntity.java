@@ -6,17 +6,18 @@ import core.entity.GameEntity;
 import core.input.SensorHandler;
 import core.scene.Scene;
 import core.struct.AnimatedSprite;
-import core.struct.ResourceID;
 import core.struct.Sensor;
+import ivara.scenes.DefaultScene;
 import maths.Vector;
 import physics.AABBCollider;
 
 import java.util.Arrays;
 
 /**
- * Created by Alex Mitchell on 3/10/2017.
+ * Created by David Hack Local on 14-Oct-17.
  */
-public class LevelEndEntity extends GameEntity {
+public class CheckpointEntity extends GameEntity{
+
     //Dimensions
     private float width = 1f;
     private float height = 1f;
@@ -27,7 +28,7 @@ public class LevelEndEntity extends GameEntity {
 
     private final static int ANIMATION_RATE = 1000;
 
-    public LevelEndEntity(float x, float y){
+    public CheckpointEntity(float x, float y){
         super(new Vector(x,y));
 
         SpriteComponent sc = new SpriteComponent(this);
@@ -48,12 +49,11 @@ public class LevelEndEntity extends GameEntity {
         //Enable Listening for Sensor Events
         addComponent(new SensorHandlerComponent(this));
 
-        LevelChangeScript l = new LevelChangeScript(leftSensor);
+        CheckpointScript c = new CheckpointScript(leftSensor);
         ScriptComponent sComp = new ScriptComponent(this);
-        sComp.add(l);
+        sComp.add(c);
 
         addComponent(sComp);
-
     }
 
     private class FlagSprite extends AnimatedSprite {
@@ -62,8 +62,8 @@ public class LevelEndEntity extends GameEntity {
 
             String state = "normal";
             String[] resources = new String[]{
-                    "flag-orange",
-                    "flag-orange2"
+                    "flag-green",
+                    "flag-green2"
             };
             addResources(state, Arrays.asList(resources));
 
@@ -71,14 +71,15 @@ public class LevelEndEntity extends GameEntity {
         }
     }
 
-    private class LevelChangeScript implements Script {
+    private class CheckpointScript implements Script {
         private final Sensor sensor;
 
         private boolean entered = false; // Todo sort out a way to reset a scene
+
         /**
          * Create a LevelChangeScript
          */
-        public LevelChangeScript(Sensor s){
+        public CheckpointScript(Sensor s){
             this.sensor = s;
         }
 
@@ -91,7 +92,11 @@ public class LevelEndEntity extends GameEntity {
 
                 if(!entered && playerCollision) {
                     entered = true;
-                    entity.getScene().getGame().nextScene();
+                    Scene current = entity.getScene();
+                    if(current instanceof DefaultScene){
+                        DefaultScene currentDefault = (DefaultScene) current;
+                        currentDefault.setSpawn(entity.getTransform());
+                    }
                 }
             }
         }

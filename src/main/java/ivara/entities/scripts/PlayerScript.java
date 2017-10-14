@@ -7,10 +7,13 @@ import core.entity.GameEntity;
 import core.input.Constants;
 import core.input.InputHandler;
 import core.input.SensorHandler;
+import core.scene.Scene;
 import core.struct.Sensor;
+import ivara.entities.PlayerEntity;
 import ivara.entities.enemies.Enemy;
 import ivara.entities.enemies.ImmortalEnemy;
 import ivara.entities.sprites.PlayerSprite;
+import ivara.scenes.DefaultScene;
 import maths.Vector;
 
 /**
@@ -87,7 +90,11 @@ public class PlayerScript implements Script{//}, SensorListener {
 
     private void handleEnemy(SensorHandler sensorHandler, GameEntity player){ // Todo: fix when colliding with multiple things
         GameEntity collided = sensorHandler.getActivatingEntities(enemySensor).stream().findAny().get();
+<<<<<<< HEAD
         if(collided instanceof Enemy || collided instanceof ImmortalEnemy) player.getScene().resetScene();
+=======
+        if(collided instanceof Enemy || collided instanceof ImortalEnemy) respawnPlayer(player);
+>>>>>>> Checkpoints-branch
     }
 
     private void handleOnGround(VelocityComponent vComp, SensorHandler sensorHandler, GameEntity player){
@@ -97,8 +104,26 @@ public class PlayerScript implements Script{//}, SensorListener {
 
         if(collided instanceof Enemy && !sensorHandler.isActive(enemySensor)){
             player.getScene().removeEntity(collided);
+<<<<<<< HEAD
         }else if(collided instanceof ImmortalEnemy){
             player.getScene().resetScene();
+=======
+        }else if(collided instanceof ImortalEnemy){
+            respawnPlayer(player);
+        }
+    }
+
+    private void respawnPlayer(GameEntity player){
+        if(player instanceof PlayerEntity){
+            PlayerEntity p = (PlayerEntity) player;
+            Scene current = p.getScene();
+            if(current instanceof DefaultScene){
+                DefaultScene currentDefault = (DefaultScene) current;
+                currentDefault.respawnPlayer(p);
+            }
+        }else{
+            throw new IllegalArgumentException("Player script should be on a player entity");
+>>>>>>> Checkpoints-branch
         }
     }
 

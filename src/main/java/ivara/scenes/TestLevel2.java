@@ -39,4 +39,8 @@ public class TestLevel2 extends DefaultScene{
         //SUPER CALL---
         super.startScene(player);
     }
+
+    public Scene hardReset(){
+        return new TestLevel2();
+    }
 }
