@@ -3,16 +3,16 @@ package ivara;
 import core.Game;
 import core.components.TextComponent;
 import core.entity.GameEntity;
-import core.scene.LevelManager;
-import core.scene.Scene;
-import core.struct.Timer;
-import ivara.entities.CoinEntity;
+import core.struct.Text;
 import ivara.entities.TimerEntity;
 import ivara.scenes.DefaultScene;
 
 import java.io.*;
 import java.util.Collection;
+import java.util.List;
+
 import maths.Vector;
+import scew.Component;
 
 /**
  * Created by james on 12/10/2017.
@@ -20,13 +20,11 @@ import maths.Vector;
 public class SaveScene {
 
     private static Game game;
-    private static LevelManager levelManager;
     private static DefaultScene scene;
     private static File savefile = new File("./savefile.sav");
 
     public static void save(Game g){
         game = g;
-        levelManager = game.getLevelManager();
 
         //level number
         int sceneNumToSave = game.getCurrentSceneNum();
@@ -45,15 +43,25 @@ public class SaveScene {
             bw.write(sceneNumToSave + " ");
             bw.write(Float.toString(spawn.x) + " ");
             bw.write(Float.toString(spawn.y) + " ");
-            bw.write(timerToSave.get(TextComponent.class). + " ");
 
-            bw.write("//coins now//");
+            Collection<Component> col = timerToSave.getComponents();
+            TextComponent tc = null;
+            for(Component c : col){
+                if(c instanceof TextComponent){
+                    tc = (TextComponent) c;
+                }
+            }
+
+            List<Text> textList = tc.getTexts();
+            bw.write(textList.get(0).text + " ");
+
             for(GameEntity ge : coinCollection){
-                bw.write(ge.toString());
+                Vector transformVector = ge.getTransform();
+                bw.write(Float.toString(transformVector.x) + " ");
+                bw.write(Float.toString(transformVector.y) + " ");
             }
 
             bw.close();
-
         }catch(Exception e){
 
         }
