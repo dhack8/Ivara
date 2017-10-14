@@ -1,6 +1,5 @@
 package ivara;
 
-import backends.InputBroadcaster;
 import backends.Renderer;
 import backends.processing.PWindow;
 import com.jogamp.opengl.GLException;
@@ -49,7 +48,7 @@ public class Ivara extends Game {
         List<Scene> levels = new ArrayList<>();
 
         levels.add(new StartMenu());
-        levels.add(new TestLevel3());
+        levels.add(new Level1());
         levels.add(new TestLevel1());
         levels.add(new TestLevel2());
         return levels;
