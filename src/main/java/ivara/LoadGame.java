@@ -36,14 +36,18 @@ public class LoadGame {
                 coins.add(new Vector(Float.parseFloat(i.next()), Float.parseFloat(i.next())));
             }
 
-
+            //Set spawn point
             DefaultScene startScene = (DefaultScene) lm.getScene(levelNum);
             startScene.setSpawn(spawnPos);
 
-            GameEntity p = startScene.getEntity(PlayerEntity.class);
-           // if(){
+            //Set
 
-            //}
+            //Set coins of the player
+            GameEntity p = startScene.getEntity(PlayerEntity.class);
+            if(p != null){
+                PlayerEntity player = (PlayerEntity)p;
+                player.coinsCollected = coins.size();
+            }
 
         }catch(IOException e){
             System.err.println(e);

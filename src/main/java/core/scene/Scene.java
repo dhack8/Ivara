@@ -110,7 +110,7 @@ public abstract class Scene {
      * @return The entity, otherwise null
      */
     public GameEntity getEntity(Class<? extends GameEntity> type){
-        Optional<GameEntity> entity = world.getEntities().stream().findAny();
+        Optional<GameEntity> entity = world.getEntities().stream().filter((e) -> e.getClass() == type).findAny();
         return entity.isPresent()?entity.get():null;
     }
 
