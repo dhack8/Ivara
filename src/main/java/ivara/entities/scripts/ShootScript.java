@@ -4,7 +4,7 @@ import core.Script;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Timer;
-import ivara.entities.BulletEntity2;
+import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
 import maths.Vector;
 
@@ -44,7 +44,7 @@ public class ShootScript implements Script {
     @Override
     public void update(int dt, GameEntity entity) {
         if(t.isFinished()){
-            GameEntity bullet = new BulletEntity2(
+            GameEntity bullet = new BulletEntity(
                     entity.transform,
                     new Vector(target.getTransform().x + offset.x, target.getTransform().y + offset.y),
                     SPEED,new ResourceID("slimeball"),

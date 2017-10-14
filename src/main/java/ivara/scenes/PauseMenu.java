@@ -65,7 +65,7 @@ public class PauseMenu extends DefaultScene{
 
         //--- restart/quit/menu button
 
-        addButton("menu", new UIListener() {
+        addButton("restart", new UIListener() {
             @Override
             public void onClick() {
                 getGame().setCurrentScene(0);
