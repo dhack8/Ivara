@@ -52,6 +52,7 @@ public abstract class Game {
     }
 
 
+    public Scene getScene(int sceneNum){return levelManager.getScene(sceneNum);}
 
     // --- LevelManager methods
     public Scene getCurrentScene() {
