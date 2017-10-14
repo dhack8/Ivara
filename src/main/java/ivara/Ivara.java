@@ -1,5 +1,6 @@
 package ivara;
 
+import backends.InputBroadcaster;
 import backends.Renderer;
 import backends.processing.PWindow;
 import com.jogamp.opengl.GLException;
@@ -17,8 +18,8 @@ import java.util.List;
  */
 public class Ivara extends Game {
 
-    public Ivara(LevelManager lm, Renderer renderer, PWindow window) {
-        super(lm, renderer, window);
+    public Ivara(LevelManager lm, Renderer renderer, InputBroadcaster broadcaster) {
+        super(lm, renderer, broadcaster);
     }
 
     public static void main(String[] args) {
