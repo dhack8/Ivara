@@ -42,6 +42,10 @@ public abstract class Entity {
         return components.remove(component);
     }
 
+    final public boolean removeComponent(Class<? extends Component> type) {
+        return removeComponent(get(type).orElse(null));
+    }
+
     /**
      * Retrieves a component of the given type if one exists.
      * @param type The type of component to find.
