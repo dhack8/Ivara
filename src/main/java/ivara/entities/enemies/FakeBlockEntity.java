@@ -4,15 +4,14 @@ import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
 import core.input.SensorHandler;
-import core.struct.ResourceID;
-import core.struct.Sensor;
-import core.struct.Sprite;
-import core.struct.Timer;
+import core.struct.*;
 import ivara.entities.PlayerEntity;
 import ivara.entities.scripts.BasicEnemyScript;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
+
+import java.util.Arrays;
 
 /**
  * Created by David Hack Local on 12-Oct-17.
@@ -25,8 +24,13 @@ public class FakeBlockEntity extends GameEntity{
     private float sensorPadding = 0.05f;
     private float sensorHeight = 0.1f;
 
+    private Vector intialLoc;
+
+    private AnimatedSprite fbs;
+
     public FakeBlockEntity(Vector transform){
         super(transform);
+        intialLoc = new Vector(transform);
         Vector dimension = new Vector(WIDTH, HEIGHT);
 
         //Velocity---
@@ -43,7 +47,8 @@ public class FakeBlockEntity extends GameEntity{
 
         //Sprite---
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new Sprite(new ResourceID("fake-block"), topLeft, dimension));
+        fbs = new FakeBlockSprite(dimension);
+        sc.add(fbs);
         addComponent(sc);
 
         //Sensors---
@@ -60,7 +65,26 @@ public class FakeBlockEntity extends GameEntity{
         addComponent(new SensorHandlerComponent(this));
 
         //Scripts---
-        addComponent(new ScriptComponent(this, new FakeBlockScript(top, bot, sc, new Sprite(new ResourceID("fake-block-dead"), topLeft, dimension))));
+        addComponent(new ScriptComponent(this, new FakeBlockScript(top, bot)));
+    }
+
+    private class FakeBlockSprite extends AnimatedSprite {
+        private FakeBlockSprite(Vector dimensions){
+            super(new Vector(0,0), dimensions, 10000);
+
+            String state = "normal";
+            String[] resources = new String[]{
+                    "fake-block"
+            };
+            addResources(state, Arrays.asList(resources));
+            state = "dead";
+            resources = new String[]{
+                    "fake-block-dead"
+            };
+            addResources(state, Arrays.asList(resources));
+
+            setState("normal");
+        }
     }
 
     private class FakeBlockScript implements Script {
@@ -70,15 +94,11 @@ public class FakeBlockEntity extends GameEntity{
 
         Sensor top;
         Sensor bot;
-        SpriteComponent sc;
-        Sprite s;
         boolean alive;
 
-        public FakeBlockScript(Sensor top, Sensor bot, SpriteComponent sc, Sprite s){
+        public FakeBlockScript(Sensor top, Sensor bot){
             this.top = top;
             this.bot = bot;
-            this.sc = sc;
-            this.s = s;
             alive = true;
         }
 
@@ -90,8 +110,7 @@ public class FakeBlockEntity extends GameEntity{
                 if(sensorHandler.getActivatingEntities(top).stream().anyMatch((e) -> e instanceof PlayerEntity)) {
                     alive = false;
 
-                    sc.clearSprites();
-                    sc.add(s);
+                    fbs.setState("dead");
 
                     entity.getScene().addTimer(new Timer(FALL_DELAY, () -> {
                         entity.addComponent(new PhysicsComponent(entity, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
@@ -99,6 +118,10 @@ public class FakeBlockEntity extends GameEntity{
 
                     entity.getScene().addTimer(new Timer(REMOVE_DELAY, () -> {
                         entity.getScene().removeEntity(entity);
+                        entity.removeComponent(PhysicsComponent.class);
+                        entity.getTransform().setAs(intialLoc);
+                        fbs.setState("normal");
+                        alive = true;
                     }));
                 }
             }
