@@ -64,4 +64,16 @@ abstract public class DefaultScene extends Scene {
         if(e instanceof CoinEntity || e instanceof Enemy) playerProgress.add(e);
         super.removeEntity(e);
     }
+
+    /**
+     * Only to be used on rebuilding of scenes
+     * @param e
+     */
+    public void removeEntityRegardless(GameEntity e){
+        super.removeEntity(e);
+    }
+
+    public void bankCoins(Collection<GameEntity> coins){
+        collectedCoins.addAll(coins);
+    }
 }
