@@ -3,10 +3,7 @@ package ivara.scenes;
 import core.Game;
 import core.entity.GameEntity;
 import core.scene.Scene;
-import ivara.entities.CoinEntity;
-import ivara.entities.CoinTextEntity;
-import ivara.entities.PlayerEntity;
-import ivara.entities.TimerEntity;
+import ivara.entities.*;
 import ivara.entities.enemies.Enemy;
 import ivara.entities.enemies.FakeBlockEntity;
 import maths.Vector;
@@ -51,7 +48,7 @@ abstract public class DefaultScene extends Scene {
 
     @Override
     public void removeEntity(GameEntity e){
-        if(e instanceof CoinEntity || e instanceof Enemy || e instanceof FakeBlockEntity) playerProgress.add(e);
+        if(e instanceof CoinEntity || e instanceof Enemy || e instanceof FakeBlockEntity || e instanceof PushableBlockEntity) playerProgress.add(e);
         super.removeEntity(e);
     }
 }
