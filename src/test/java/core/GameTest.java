@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
  * Created by David Hack Local on 06-Oct-17.
  */
 public class GameTest {
+    /*
     @Test
     public void getCurrentScene() throws Exception {
         Scene s = new TestScene();
@@ -83,11 +84,13 @@ public class GameTest {
         testGame.getInputFrame();
     }
 
+
     class testGame extends Game{
         public testGame(LevelManager lm, Renderer renderer, InputBroadcaster inputBroadcaster) {
             super(lm, renderer, inputBroadcaster);
         }
     }
+
 
     class testRenderer implements Renderer{
         public void render(Scene scene){}
@@ -105,4 +108,5 @@ public class GameTest {
 
         }
     }
+    */
 }
