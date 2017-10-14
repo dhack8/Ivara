@@ -23,6 +23,12 @@ public class SaveScene {
     private static DefaultScene scene;
     private static File savefile = new File("./savefile.sav");
 
+    /**
+     * Saving method that exports the number of the level the player is currently on, the position where they would
+     * spawn (taking into account checkpoints), the amount of time the timer has been going for, and the position of
+     * the coins the player has collected.
+     * @param g The current game instance
+     */
     public static void save(Game g){
         game = g;
 
@@ -44,9 +50,9 @@ public class SaveScene {
             bw.write(Float.toString(spawn.x) + " ");
             bw.write(Float.toString(spawn.y) + " ");
 
-            Collection<Component> col = timerToSave.getComponents();
+            Collection<Component> timerComponents = timerToSave.getComponents();
             TextComponent tc = null;
-            for(Component c : col){
+            for(Component c : timerComponents){
                 if(c instanceof TextComponent){
                     tc = (TextComponent) c;
                 }
@@ -55,17 +61,15 @@ public class SaveScene {
             List<Text> textList = tc.getTexts();
             bw.write(textList.get(0).text + " ");
 
-            for(GameEntity ge : coinCollection){
-                Vector transformVector = ge.getTransform();
+            for(GameEntity coin : coinCollection){
+                Vector transformVector = coin.getTransform();
                 bw.write(Float.toString(transformVector.x) + " ");
                 bw.write(Float.toString(transformVector.y) + " ");
             }
 
             bw.close();
         }catch(Exception e){
-
+            System.out.println(e.getMessage() + e.getCause());
         }
-
-
     }
 }
