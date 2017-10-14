@@ -17,7 +17,7 @@ public class PhysicProperties {
     public float inverseMass = 0;
     private Vector netForce = new Vector(0, 0);
 
-    public PhysicProperties() {
+    private PhysicProperties() {
     }
 
     public PhysicProperties(float mass) {
