@@ -42,7 +42,7 @@ abstract public class DefaultScene extends Scene {
         collectedCoins.addAll(playerProgress.stream().filter((e) -> e instanceof CoinEntity).collect(Collectors.toSet()));
         playerProgress = new ArrayList<>();
     }
-    
+
     public Collection<GameEntity> getCollectedCoins(){return collectedCoins;}
 
     public Vector getSpawnVector(){ return spawn;}
