@@ -26,6 +26,8 @@ public class CoinEntity extends GameEntity {
         if (snapToGrid)
             snapToGrid(transform);
 
+        addComponent(new RenderComponent(this, 999999999));
+
         CoinEntity coinEntity = this;
 
         addComponent(new SpriteComponent(

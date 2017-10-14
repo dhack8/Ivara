@@ -212,7 +212,7 @@ public class LevelGenerator {
     }
 
     private static BufferedImage readImage(String filename) throws IOException{
-        BufferedImage img = ImageIO.read(new File(ROOT + "/mountain_fun_time_of_doom.png")); //TODO file selection
+        BufferedImage img = ImageIO.read(new File(ROOT + "/Level1.png")); //TODO file selection
         if (img.getType() != 6) //png typetmp
             throw new IllegalArgumentException("Image not a png");
         if (img.getWidth() > MAX_SIZE || img.getHeight() > MAX_SIZE)
@@ -239,7 +239,7 @@ public class LevelGenerator {
     }
 
     private static Color[][] convertToArray(BufferedImage img) {
-        Color[][] arr = new Color[img.getWidth()][img.getHeight()];
+        Color[][] arr = new Color[img.getHeight()][img.getWidth()];
         for (int y = 0; y < arr.length; y++)
             for (int x = 0; x < arr[0].length; x++) {
                 Color col = new Color(img.getRGB(x, y), true);
@@ -250,7 +250,7 @@ public class LevelGenerator {
 
     public static void main(String[] args) {
         try {
-            String level = imgToLevel("mountain_fun_time_of_doom.png");
+            String level = imgToLevel("Level1.png");
             System.out.println(level);
         } catch (IOException e) {e.printStackTrace();}
 
