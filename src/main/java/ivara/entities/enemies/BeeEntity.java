@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * Created by David Hack Local on 10-Oct-17.
+ * Bee entity that patrols back and forth across a certain area and shoots a projectile at the player.
  */
 public class BeeEntity extends GameEntity implements Enemy{
 

@@ -13,9 +13,9 @@ import java.util.Arrays;
 import static ivara.entities.enemies.BarnacleEntity.Direction.*;
 
 /**
- * Created by David Hack Local on 10-Oct-17.
+ * Barnacle entity that remains stationary and damages the player if they come in contact with it.
  */
-public class BarnacleEntity extends GameEntity implements ImortalEnemy{
+public class BarnacleEntity extends GameEntity implements ImmortalEnemy {
 
     private float width = 0.5f;
     private float height = 0.7f;

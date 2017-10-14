@@ -7,7 +7,8 @@ import ivara.entities.enemies.Enemy;
 import maths.Vector;
 
 /**
- * Created by David Hack Local on 08-Oct-17.
+ * Slime entity that patrols back and forth between two points. The slime is able to be killed by the player if player
+ * jumps on the slime's head. Damages player if it comes in contact with.
  */
 public class SlimeEntity extends BasicEnemyEntity implements Enemy {
 

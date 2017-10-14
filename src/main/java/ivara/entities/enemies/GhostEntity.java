@@ -12,7 +12,8 @@ import physics.AABBCollider;
 import java.util.Arrays;
 
 /**
- * Created by David Hack Local on 08-Oct-17.
+ * Ghost entity that roams around a certain area, moving through walls if needed, and damages the player if the player
+ * comes in contact with the ghost.
  */
 public class GhostEntity extends GameEntity implements Enemy{
     private static final float SPEED = 0.7f;
