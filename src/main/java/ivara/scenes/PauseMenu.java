@@ -84,4 +84,8 @@ public class PauseMenu extends DefaultScene{
         button.addListener(buttonEvent);
         addEntity(button);
     }
+
+    public Scene hardReset(){
+        return new PauseMenu();
+    }
 }

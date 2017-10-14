@@ -1,6 +1,7 @@
 package ivara.scenes;
 
 
+import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Text;
@@ -73,5 +74,9 @@ public class Level1 extends DefaultScene {
         setCamera(new Camera());
         super.startScene(player);
 
+    }
+
+    public Scene hardReset(){
+        return new Level1();
     }
 }
