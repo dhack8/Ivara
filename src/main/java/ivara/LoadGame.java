@@ -1,5 +1,6 @@
 package ivara;
 
+import core.Game;
 import core.components.TextComponent;
 import core.entity.GameEntity;
 import core.scene.LevelManager;
@@ -24,7 +25,8 @@ import java.util.*;
 public class LoadGame {
     public static final String fileName = "./savefile.sav";
 
-    public static boolean load(LevelManager lm){
+    public static boolean load(Game game){
+        LevelManager lm = game.getLevelManager();
         File file = new File(fileName);
 
         try{
@@ -65,7 +67,8 @@ public class LoadGame {
             }else throw new RuntimeException("Could not find a player entity.");
 
             //Remove the coins from the scene
-            //startScene.getEntities(CoinEntity.class).stream().filter((e) -> e.) // todo still on here
+            startScene.getEntities(CoinEntity.class).stream().filter((e) ->
+                    coins.contains(e.getTransform())).forEach((e)->startScene.removeEntity(e)); // remove the coin entities from the scene
 
         }catch(Exception e){
             System.err.println(e);

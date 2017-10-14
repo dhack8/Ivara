@@ -4,6 +4,7 @@ import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
+import ivara.LoadGame;
 import ivara.SaveScene;
 import ivara.entities.BackgroundEntity;
 import ivara.entities.UIEntity;
@@ -61,7 +62,7 @@ public class PauseMenu extends Scene{
         addButton("load", new UIListener() {
             @Override
             public void onClick() {
-                Debug.log("Have not implemented Load.");
+                LoadGame.load(getGame());
             }
         },btnSpaceX, btnCount++);
 
