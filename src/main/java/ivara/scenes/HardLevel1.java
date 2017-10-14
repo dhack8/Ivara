@@ -21,6 +21,8 @@ public class HardLevel1 extends DefaultScene {
 		PlayerEntity player = new PlayerEntity(0,26.5f);
 		addEntity(player);
 
+		addEntity(new FakeBlockEntity(new Vector(-1,28)));
+
 		// Checkpoints
 		addEntity(new CheckpointEntity(2, 9));
 		addEntity(new CheckpointEntity(2, 21));
