@@ -7,8 +7,8 @@ import core.struct.Text;
 
 public class TimerScript implements Script {
 
-    private long start;
-    private long currentTime;
+    public long start;
+    public long currentTime;
     private float textSize;
 
     public TimerScript(int t, float s) {

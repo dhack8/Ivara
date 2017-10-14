@@ -1,6 +1,8 @@
 package ivara;
 
 import core.Game;
+import core.Script;
+import core.components.ScriptComponent;
 import core.components.TextComponent;
 import core.entity.GameEntity;
 import core.scene.LevelManager;
@@ -10,6 +12,7 @@ import core.struct.Timer;
 import ivara.entities.CoinEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.TimerEntity;
+import ivara.entities.scripts.TimerScript;
 import ivara.scenes.DefaultScene;
 import maths.Vector;
 
@@ -38,7 +41,8 @@ public class LoadGame {
             Iterator<String> i = strings.iterator();
             int levelNum = Integer.parseInt(i.next());
             Vector spawnPos = new Vector(Float.parseFloat(i.next()), Float.parseFloat(i.next()));
-            String time = i.next();
+            long start = Long.parseLong(i.next());
+            long currentTime = Long.parseLong(i.next());
             List<Vector> coins = new ArrayList<Vector>();
             while(i.hasNext()){
                 coins.add(new Vector(Float.parseFloat(i.next()), Float.parseFloat(i.next())));
@@ -55,14 +59,12 @@ public class LoadGame {
             GameEntity t = startScene.getEntity(TimerEntity.class);
             if(t != null){
                 TimerEntity timer = (TimerEntity) t;
-                TextComponent textComponent = timer.get(TextComponent.class).get(); // timer entity should have a text component
-                Optional<Text> opText = textComponent.getTexts().stream().findFirst();
-                Text text;
-                if(opText.isPresent())text = opText.get();
-                else throw new RuntimeException("Could not find text in the timer when saving.");
-                textComponent.clear(); // clear the current texts
-                System.out.println("Prev time: " + text.text + " New time: "+ time );
-                textComponent.add(text.transform, time, text.fontSize);
+                ScriptComponent textComponent = timer.get(ScriptComponent.class).get(); // timer entity should have a script component
+                TimerScript ts = (TimerScript)textComponent.getScripts().stream().findFirst().get();// Assume the timer script exists
+
+                ts.currentTime = currentTime;
+                ts.start = start;
+
             } else throw new RuntimeException("Could not find the textComponent.");
 
             //Set coins of the player

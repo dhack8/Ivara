@@ -1,10 +1,12 @@
 package ivara;
 
 import core.Game;
+import core.components.ScriptComponent;
 import core.components.TextComponent;
 import core.entity.GameEntity;
 import core.struct.Text;
 import ivara.entities.TimerEntity;
+import ivara.entities.scripts.TimerScript;
 import ivara.scenes.DefaultScene;
 
 import java.io.*;
@@ -51,16 +53,24 @@ public class SaveScene {
             bw.write(Float.toString(spawn.x) + " ");
             bw.write(Float.toString(spawn.y) + " ");
 
+            /**
             Collection<Component> timerComponents = timerToSave.getComponents();
             TextComponent tc = null;
-            for(Component c : timerComponents){
+            for(Component c :   timerComponents){
                 if(c instanceof TextComponent){
                     tc = (TextComponent) c;
                 }
             }
 
+
             List<Text> textList = tc.getTexts();
             bw.write(textList.get(0).text + " ");
+            **/
+
+            ScriptComponent scriptComp = timerToSave.get(ScriptComponent.class).get(); // We assume the timer has a script
+            TimerScript ts = (TimerScript) scriptComp.getScripts().stream().findFirst().get(); // We assume the timer has a TimerScript
+
+            bw.write(ts.start + " " + ts.currentTime+ " "); // writing the necessary info for the time
 
             for(GameEntity coin : coinCollection){
                 Vector transformVector = coin.getTransform();
