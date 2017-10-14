@@ -367,7 +367,7 @@ public class LevelGenerator {
     }
 
     private static String bee(int x, int y) {
-        return codeLine("addEntity(new BeeEntity(new Vector("+x+","+y+"), player, new Vector("+x+","+y+"))); // TODO: Fill in deviance");
+        return codeLine("addEntity(new BeeEntity(new Vector("+x+","+y+"), player, new Vector(0,0))); // TODO: Fill in deviance");
     }
 
     private static String ghost(int x, int y) {
