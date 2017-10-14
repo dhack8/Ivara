@@ -51,12 +51,19 @@ public abstract class Game {
         return renderer;
     }
 
+
+
+    // --- LevelManager methods
     public Scene getCurrentScene() {
         return levelManager.getCurrentScene();
     }
 
     public void setCurrentScene(int level) {
         levelManager.setScene(level);
+    }
+
+    public int getCurrentSceneNum(){
+        return levelManager.getLevelNum();
     }
 
     public void nextScene(){
@@ -66,6 +73,9 @@ public abstract class Game {
     public void pause(){
         levelManager.pause();
     }
+
+
+
 
     public LevelManager getLevelManager() {return levelManager;}
 
