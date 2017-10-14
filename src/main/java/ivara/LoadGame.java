@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -31,8 +32,9 @@ public class LoadGame {
         try{
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
-            Iterator<String> i = br.lines().iterator();
+            List<String> strings = Arrays.asList(br.readLine().split(" "));
 
+            Iterator<String> i = strings.iterator();
             int levelNum = Integer.parseInt(i.next());
             Vector spawnPos = new Vector(Float.parseFloat(i.next()), Float.parseFloat(i.next()));
             String time = i.next();
