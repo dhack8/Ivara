@@ -137,7 +137,10 @@ public class LevelManager {
         if(game == null) throw new IllegalArgumentException("Must give the level manager a game before calling actions on it.");
         if(paused) throw new RuntimeException("Cannot change to the next scene while the menu is open.");
 
-        getCurrentScene().resetScene(); // reset the current scene on exit
+        //getCurrentScene().resetScene(); // reset the current scene on exit
+        Scene resetGame = getCurrentScene().hardReset();
+        resetGame.setGame(game);
+        scenes.set(currentScene, resetGame);
 
         if(currentScene == scenes.size()-1)currentScene = 0;
         else currentScene++;
@@ -152,7 +155,10 @@ public class LevelManager {
         if(level >= scenes.size()) throw new NoSuchElementException("The scene does not exist.");
         paused = false;
 
-        getCurrentScene().resetScene(); // reset the current scene on exit
+        //getCurrentScene().resetScene(); // reset the current scene on exit
+        Scene resetGame = getCurrentScene().hardReset();
+        resetGame.setGame(game);
+        scenes.set(currentScene, resetGame);
 
         currentScene = level;
     }

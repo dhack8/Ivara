@@ -20,7 +20,7 @@ abstract public class DefaultScene extends Scene {
         addEntity(new TimerEntity(timerLoc, 0));
         addEntity(new CoinTextEntity(coinLoc, player));
 
-        if(spawn.x != 0 && spawn.y != 0){
+        if(spawn != null && spawn.x != 0 && spawn.y != 0){
             player.getTransform().setAs(spawn);
         }
     }
