@@ -73,4 +73,8 @@ public class StartMenu extends Scene{
         button.addListener(buttonEvent);
         addEntity(button);
     }
+
+    public Scene hardReset(){
+        return new StartMenu();
+    }
 }

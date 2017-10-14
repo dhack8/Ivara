@@ -6,15 +6,17 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Color;
+import java.io.*;
 import java.util.List;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class LevelGenerator {
 
     private static final String ROOT = "./levelLoader"; // Root folder for level images
+    private static final String LEVELFOLDER = "./src/main/java/ivara/scenes"; // Save .java files here
     private static final int MAX_SIZE = 100; // Max level grid size
 
     // GameEntity colours
@@ -23,7 +25,8 @@ public class LevelGenerator {
     private static final Color PLATFORM = new Color(0,0,0);
     private static final Color FAKEPLATFORM = new Color(57,57,57);
     private static final Color MOVINGPLATFORM = new Color(255,0,0);
-    private static final Color FLAG = new Color(0,255,249);
+    private static final Color ENDFLAG = new Color(0,255,249);
+    private static final Color CHECKPOINT = new Color(70,0,70);
     private static final Color COIN = new Color(21,0,255);
     private static final Color GHOST = new Color(177,177,177);
     private static final Color BEE = new Color(246,255,0);
@@ -31,10 +34,10 @@ public class LevelGenerator {
     private static final Color SNAKE = new Color(32,108,0);
     private static final Color SLIME = new Color(77,255,0);
 
-
-    public static String imgToLevel() throws IOException{
+    public static String generateLevel() throws IOException{
         // Select image
         String filename = selectImage();
+        String levelName = fileToLevelName(filename);
 
         // Read image
         BufferedImage img = readImage(filename);
@@ -42,14 +45,13 @@ public class LevelGenerator {
         // Convert to 2D Color array
         Color[][] rgbTable = convertToArray(img);
 
-        // Convert to level class string
-        StringBuilder level = new StringBuilder();
-        level.append(levelHeader(filename) + "\n");
-        level.append(levelEntities(rgbTable) + "\n");
-        level.append(levelDefaults(img.getHeight()) + "\n");
-        level.append(levelFooter());
+        // Convert to level string
+        String level = colorToLevel(rgbTable, levelName, img.getHeight());
 
-        return level.toString();
+        // Save as .java
+        saveToFile(level, levelName);
+
+        return level;
     }
 
     // Utility methods -----------------------------------------------------------------------
@@ -66,7 +68,7 @@ public class LevelGenerator {
     }
 
     private static BufferedImage readImage(String filename) throws IOException{
-        BufferedImage img = ImageIO.read(new File(ROOT + "/mountain_fun_time_of_doom.png")); //TODO file selection
+        BufferedImage img = ImageIO.read(new File(ROOT + "/" + filename)); //TODO file selection
         if (img.getType() != 6) //png typetmp
             throw new IllegalArgumentException("Image not a png");
         if (img.getWidth() > MAX_SIZE || img.getHeight() > MAX_SIZE)
@@ -84,15 +86,38 @@ public class LevelGenerator {
         return arr;
     }
 
+    private static String colorToLevel(Color[][] rgbTable, String levelName, int height){
+        StringBuilder level = new StringBuilder();
+        level.append(levelHeader(levelName));
+        level.append(levelEntities(rgbTable));
+        level.append('\n');
+        level.append(levelDefaults(height));
+        level.append(levelFooter(levelName));
+
+        return level.toString();
+    }
+
+    private static String fileToLevelName(String fileName) {
+        return Character.toUpperCase(fileName.charAt(0)) + fileName.substring(1,fileName.length()-4);
+    }
+
     private static String codeLine(String s) {
         return "\t\t" + s + "\n";
+    }
+
+    private static void saveToFile(String level, String levelName) throws IOException {
+        String fileName = LEVELFOLDER + "/" + levelName + ".java";
+        FileWriter fileWriter = new FileWriter(fileName, false);
+        fileWriter.write(level);
+        fileWriter.close();
     }
 
     // Text output -------------------------------------------------------------------------
 
     private static String levelHeader(String levelName) {
-        levelName = levelName.substring(0,levelName.length()-4); // remove .png
+
         return "package ivara.scenes;\n\n\n"
+                + "import core.scene.Scene;\n"
                 + "import core.struct.Camera;\n"
                 + "import core.struct.ResourceID;\n"
                 + "import core.struct.Text;\n"
@@ -110,7 +135,7 @@ public class LevelGenerator {
 
     private static String levelEntities(Color[][] grid) {
         boolean[][] checked = new boolean[grid.length][grid[0].length];
-        StringBuilder sb = new StringBuilder(codeLine("//ENTITIES---"));
+        Map<Integer, StringBuilder> entityStrings = new TreeMap<>();
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[0].length; x++) {
                 if (checked[y][x])
@@ -123,33 +148,35 @@ public class LevelGenerator {
                 checked[y][x] = true;
 
                 if (tile.equals(PLATFORM)) {
-                    sb.append(platform(x, y, platformFill(x, y, grid, checked, PLATFORM), false));
+                    addToMap(entityStrings,3, platform(x, y, platformFill(x, y, grid, checked, PLATFORM), false));
                 } else if (tile.equals(MOVINGPLATFORM)) {
-                    sb.append(platform(x, y, platformFill(x, y, grid, checked, MOVINGPLATFORM), true));
+                    addToMap(entityStrings, 4,platform(x, y, platformFill(x, y, grid, checked, MOVINGPLATFORM), true));
                 } else if (tile.equals(FAKEPLATFORM))
-                    sb.append(fakePlatform(x,y));
+                    addToMap(entityStrings, 5,fakePlatform(x,y));
                 else if (tile.equals(COIN))
-                    sb.append(coin(x,y));
+                    addToMap(entityStrings, 6,coin(x,y));
                 else if (tile.equals(PLAYER))
-                    sb.append(player(x,y));
-                else if (tile.equals(FLAG))
-                    sb.append(flag(x,y));
+                    addToMap(entityStrings, 0,player(x,y));
+                else if (tile.equals(ENDFLAG))
+                    addToMap(entityStrings, 2,endFlag(x,y));
                 else if (tile.equals(GHOST))
-                    sb.append(ghost(x,y));
+                    addToMap(entityStrings, 7,ghost(x,y));
                 else if (tile.equals(BEE))
-                    sb.append(bee(x,y));
+                    addToMap(entityStrings, 8,bee(x,y));
                 else if (tile.equals(BARNACLE))
-                    sb.append(barnacle(x,y, grid));
+                    addToMap(entityStrings, 9,barnacle(x,y,grid));
                 else if (tile.equals(SNAKE))
-                    sb.append(snake(x,y));
+                    addToMap(entityStrings, 10,snake(x,y));
                 else if (tile.equals(SLIME))
-                    sb.append(slime(x,y));
+                    addToMap(entityStrings, 11,slime(x,y));
+                else if (tile.equals(CHECKPOINT))
+                    addToMap(entityStrings, 1,checkPoint(x,y));
                 else
                     System.err.println("Unknown tile colour: " + tile.toString());
-
             }
         }
-        return sb.toString();
+
+        return collect(entityStrings);
     }
 
     private static String levelDefaults(int levelHeight) {
@@ -163,8 +190,46 @@ public class LevelGenerator {
         return sb.toString();
     }
 
-    private static String levelFooter() {
-        return "\t}\n}\n";
+    private static String levelFooter(String levelName) {
+        return "\t}\n\n" +
+                "\tpublic Scene hardReset() {\n" +
+                "\t\treturn new "+levelName+"();\n" +
+                "\t}\n}\n";
+    }
+
+    // levelEntites() helpers ---------------------------------------------------------------
+
+    private static void addToMap(Map<Integer,StringBuilder> commands, int category, String command) {
+        if (!commands.containsKey(category)) {
+            commands.put(category, new StringBuilder(initialString(category)));
+        }
+        commands.get(category).append(command);
+    }
+
+    private static String initialString(int category) {
+        switch (category) {
+            case 0: return "\n\t\t// Player\n";
+            case 1: return "\n\t\t// Checkpoints\n";
+            case 2: return "\n\t\t// Flag\n";
+            case 3: return "\n\t\t// Platforms\n";
+            case 4: return "\n\t\t// Moving Platforms\n";
+            case 5: return "\n\t\t// Fake Platforms\n";
+            case 6: return "\n\t\t// Coins\n";
+            case 7: return "\n\t\t// Ghosts\n";
+            case 8: return "\n\t\t// Bees\n";
+            case 9: return "\n\t\t// Barnacles\n";
+            case 10: return "\n\t\t// Snakes\n";
+            case 11: return "\n\t\t// Slimes\n";
+            default: return "\n";
+        }
+    }
+
+    private static String collect(Map<Integer, StringBuilder> stringMap) {
+        StringBuilder collatedString = new StringBuilder();
+        for (StringBuilder sb : stringMap.values()) {
+            collatedString.append(sb);
+        }
+        return collatedString.toString();
     }
 
     // Entity text --------------------------------------------------------------------------
@@ -215,12 +280,16 @@ public class LevelGenerator {
         return codeLine("addEntity(new GhostEntity(new Vector("+x+","+y+"), player));");
     }
 
-    private static String flag(int x, int y) {
+    private static String checkPoint(int x, int y) {
+        return codeLine("addEntity(new CheckpointEntity("+x+", "+y+"));");
+    }
+
+    private static String endFlag(int x, int y) {
         return codeLine("addEntity(new LevelEndEntity("+x+", "+y+"));");
     }
 
     private static String player(int x, int y) {
-        return codeLine("PlayerEntity player = new PlayerEntity("+x+","+y+");")
+        return codeLine("PlayerEntity player = new PlayerEntity("+x+","+((float)y-0.5f)+"f);")
                 + codeLine("addEntity(player);");
     }
 
@@ -272,7 +341,7 @@ public class LevelGenerator {
 
     public static void main(String[] args) {
         try {
-            String level = imgToLevel();
+            String level = generateLevel();
             System.out.println(level);
         } catch (IOException e) {e.printStackTrace();}
 

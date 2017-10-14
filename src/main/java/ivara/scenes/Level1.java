@@ -1,6 +1,7 @@
 package ivara.scenes;
 
 
+import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Text;
@@ -21,6 +22,7 @@ public class Level1 extends DefaultScene {
 
         //ENTITIES---
         addEntity(new LevelEndEntity(70, 4));
+        addEntity(new CheckpointEntity(40, 15));
         addEntity(new PlatformEntity(new Vector(62,5),3,false));
         addEntity(new PlatformEntity(new Vector(67,5),5,false));
         addEntity(new PlatformEntity(new Vector(35,16),9,false));
@@ -73,5 +75,9 @@ public class Level1 extends DefaultScene {
         setCamera(new Camera());
         super.startScene(player);
 
+    }
+
+    public Scene hardReset(){
+        return new Level1();
     }
 }

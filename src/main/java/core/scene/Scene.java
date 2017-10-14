@@ -35,6 +35,8 @@ public abstract class Scene {
 
     abstract public void startScene();
 
+    abstract public Scene hardReset();
+
     public void resetScene(){
         world = new World<>();
         addSystems();

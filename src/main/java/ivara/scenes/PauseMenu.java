@@ -15,7 +15,7 @@ import util.Debug;
  * This scene acts as a pause menu for the game
  * @author Alex Mitchell 
  */
-public class PauseMenu extends DefaultScene{
+public class PauseMenu extends Scene{
 
     private static final float BUTTON_WIDTH = 4.5f;
     private static final float BUTTON_HEIGHT = 1.275f;
@@ -83,5 +83,9 @@ public class PauseMenu extends DefaultScene{
                 new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
         button.addListener(buttonEvent);
         addEntity(button);
+    }
+
+    public Scene hardReset(){
+        return new PauseMenu();
     }
 }
