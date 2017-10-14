@@ -18,59 +18,75 @@ public class HardLevel2 extends DefaultScene {
 	public void startScene(){
 
 		// Player
-		PlayerEntity player = new PlayerEntity(0,5.5f);
+		PlayerEntity player = new PlayerEntity(0,-0.5f);
 		addEntity(player);
 
 		// Checkpoints
-		addEntity(new CheckpointEntity(39, 9));
-		addEntity(new CheckpointEntity(17, 14));
+		addEntity(new CheckpointEntity(39, 3));
+		addEntity(new CheckpointEntity(17, 8));
 
 		// Flag
-		addEntity(new LevelEndEntity(32, 32));
+		addEntity(new LevelEndEntity(51, 22));
+		addEntity(new LevelEndEntity(73, 22));
 
 		// Platforms
-		addEntity(new PlatformEntity(new Vector(0,7),3,false));
-		addEntity(new PlatformEntity(new Vector(7,7),6,true));
-		addEntity(new PlatformEntity(new Vector(27,7),2,false));
-		addEntity(new PlatformEntity(new Vector(2,8),14,true));
-		addEntity(new PlatformEntity(new Vector(27,8)));
-		addEntity(new PlatformEntity(new Vector(31,8)));
-		addEntity(new PlatformEntity(new Vector(25,9),2,false));
-		addEntity(new PlatformEntity(new Vector(34,9)));
-		addEntity(new PlatformEntity(new Vector(9,10),5,false));
-		addEntity(new PlatformEntity(new Vector(25,10)));
-		addEntity(new PlatformEntity(new Vector(37,10),20,true));
-		addEntity(new PlatformEntity(new Vector(39,10),20,true));
-		addEntity(new PlatformEntity(new Vector(9,11),2,true));
-		addEntity(new PlatformEntity(new Vector(13,11),2,true));
-		addEntity(new PlatformEntity(new Vector(23,11),2,false));
-		addEntity(new PlatformEntity(new Vector(8,12),2,false));
-		addEntity(new PlatformEntity(new Vector(14,12),4,false));
-		addEntity(new PlatformEntity(new Vector(23,12)));
-		addEntity(new PlatformEntity(new Vector(21,13),2,false));
-		addEntity(new PlatformEntity(new Vector(20,14),2,false));
-		addEntity(new PlatformEntity(new Vector(7,15),3,false));
-		addEntity(new PlatformEntity(new Vector(11,15)));
-		addEntity(new PlatformEntity(new Vector(13,15),25,false));
-		addEntity(new PlatformEntity(new Vector(7,16),6,true));
-		addEntity(new PlatformEntity(new Vector(9,16),6,true));
-		addEntity(new PlatformEntity(new Vector(13,16),6,true));
-		addEntity(new PlatformEntity(new Vector(3,21),32,false));
-		addEntity(new PlatformEntity(new Vector(2,25)));
-		addEntity(new PlatformEntity(new Vector(3,28),14,false));
-		addEntity(new PlatformEntity(new Vector(20,28),14,false));
-		addEntity(new PlatformEntity(new Vector(3,29),5,true));
-		addEntity(new PlatformEntity(new Vector(33,29),5,true));
-		addEntity(new PlatformEntity(new Vector(4,33),30,false));
-		addEntity(new PlatformEntity(new Vector(2,38)));
-		addEntity(new PlatformEntity(new Vector(38,38)));
+		addEntity(new PlatformEntity(new Vector(0,1),3,false));
+		addEntity(new PlatformEntity(new Vector(7,1),6,true));
+		addEntity(new PlatformEntity(new Vector(27,1),2,false));
+		addEntity(new PlatformEntity(new Vector(2,2),14,true));
+		addEntity(new PlatformEntity(new Vector(31,2)));
+		addEntity(new PlatformEntity(new Vector(25,3),2,false));
+		addEntity(new PlatformEntity(new Vector(34,3)));
+		addEntity(new PlatformEntity(new Vector(9,4),5,false));
+		addEntity(new PlatformEntity(new Vector(37,4),10,true));
+		addEntity(new PlatformEntity(new Vector(39,4),10,true));
+		addEntity(new PlatformEntity(new Vector(9,5),2,true));
+		addEntity(new PlatformEntity(new Vector(13,5),2,true));
+		addEntity(new PlatformEntity(new Vector(23,5),2,false));
+		addEntity(new PlatformEntity(new Vector(8,6),2,false));
+		addEntity(new PlatformEntity(new Vector(14,6),4,false));
+		addEntity(new PlatformEntity(new Vector(21,7),2,false));
+		addEntity(new PlatformEntity(new Vector(20,8)));
+		addEntity(new PlatformEntity(new Vector(7,9),3,false));
+		addEntity(new PlatformEntity(new Vector(11,9)));
+		addEntity(new PlatformEntity(new Vector(13,9),7,false));
+		addEntity(new PlatformEntity(new Vector(7,10),6,true));
+		addEntity(new PlatformEntity(new Vector(9,10),6,true));
+		addEntity(new PlatformEntity(new Vector(13,10),6,true));
+		addEntity(new PlatformEntity(new Vector(50,11),25,false));
+		addEntity(new PlatformEntity(new Vector(3,15),11,false));
+		addEntity(new PlatformEntity(new Vector(50,16)));
+		addEntity(new PlatformEntity(new Vector(60,16),3,true));
+		addEntity(new PlatformEntity(new Vector(64,16),3,true));
+		addEntity(new PlatformEntity(new Vector(74,16)));
+		addEntity(new PlatformEntity(new Vector(51,17),2,true));
+		addEntity(new PlatformEntity(new Vector(73,17),2,true));
+		addEntity(new PlatformEntity(new Vector(50,18),11,false));
+		addEntity(new PlatformEntity(new Vector(65,18),10,false));
+		addEntity(new PlatformEntity(new Vector(50,19),5,true));
+		addEntity(new PlatformEntity(new Vector(74,19),5,true));
+		addEntity(new PlatformEntity(new Vector(51,23),24,false));
+		addEntity(new PlatformEntity(new Vector(50,28)));
+		addEntity(new PlatformEntity(new Vector(74,28)));
 
 		// Moving Platforms
-		addEntity(new PlatformEntity(new Vector(3,25),new Vector(3,25),1)); // TODO: Fill in end position and duration
-		addEntity(new PlatformEntity(new Vector(1,38),new Vector(1,38),1)); // TODO: Fill in end position and duration
-		addEntity(new PlatformEntity(new Vector(37,38),new Vector(37,38),1)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(73,15),new Vector(51,15),5));
+		addEntity(new PlatformEntity(new Vector(51,28),new Vector(73,28),5));
+		addEntity(new PlatformEntity(new Vector(75,28),new Vector(75,15),5));
 
 		// Fake Platforms
+		addEntity(new FakeBlockEntity(new Vector(3, 1)));
+		addEntity(new FakeBlockEntity(new Vector(5, 1)));
+		addEntity(new FakeBlockEntity(new Vector(4, 2)));
+		addEntity(new FakeBlockEntity(new Vector(6, 2)));
+		addEntity(new FakeBlockEntity(new Vector(3, 3)));
+		addEntity(new FakeBlockEntity(new Vector(5, 3)));
+		addEntity(new FakeBlockEntity(new Vector(4, 4)));
+		addEntity(new FakeBlockEntity(new Vector(6, 4)));
+		addEntity(new FakeBlockEntity(new Vector(3, 5)));
+		addEntity(new FakeBlockEntity(new Vector(5, 5)));
+		addEntity(new FakeBlockEntity(new Vector(4, 6)));
+		addEntity(new FakeBlockEntity(new Vector(6, 6)));
 		addEntity(new FakeBlockEntity(new Vector(3, 7)));
 		addEntity(new FakeBlockEntity(new Vector(5, 7)));
 		addEntity(new FakeBlockEntity(new Vector(4, 8)));
@@ -83,218 +99,116 @@ public class HardLevel2 extends DefaultScene {
 		addEntity(new FakeBlockEntity(new Vector(5, 11)));
 		addEntity(new FakeBlockEntity(new Vector(4, 12)));
 		addEntity(new FakeBlockEntity(new Vector(6, 12)));
-		addEntity(new FakeBlockEntity(new Vector(3, 13)));
-		addEntity(new FakeBlockEntity(new Vector(5, 13)));
-		addEntity(new FakeBlockEntity(new Vector(4, 14)));
-		addEntity(new FakeBlockEntity(new Vector(6, 14)));
-		addEntity(new FakeBlockEntity(new Vector(3, 15)));
-		addEntity(new FakeBlockEntity(new Vector(5, 15)));
-		addEntity(new FakeBlockEntity(new Vector(4, 16)));
-		addEntity(new FakeBlockEntity(new Vector(6, 16)));
-		addEntity(new FakeBlockEntity(new Vector(3, 17)));
-		addEntity(new FakeBlockEntity(new Vector(5, 17)));
-		addEntity(new FakeBlockEntity(new Vector(4, 18)));
-		addEntity(new FakeBlockEntity(new Vector(6, 18)));
+		addEntity(new FakeBlockEntity(new Vector(47, 29)));
+		addEntity(new FakeBlockEntity(new Vector(44, 30)));
+		addEntity(new FakeBlockEntity(new Vector(41, 31)));
+		addEntity(new FakeBlockEntity(new Vector(38, 32)));
 
 		// Coins
-		addEntity(new CoinEntity(player, new Vector(9, 6), true));
-		addEntity(new CoinEntity(player, new Vector(10, 6), true));
-		addEntity(new CoinEntity(player, new Vector(11, 6), true));
-		addEntity(new CoinEntity(player, new Vector(12, 6), true));
-		addEntity(new CoinEntity(player, new Vector(13, 6), true));
-		addEntity(new CoinEntity(player, new Vector(26, 6), true));
+		addEntity(new CoinEntity(player, new Vector(9, 0), true));
+		addEntity(new CoinEntity(player, new Vector(11, 0), true));
+		addEntity(new CoinEntity(player, new Vector(13, 0), true));
+		addEntity(new CoinEntity(player, new Vector(26, 0), true));
+		addEntity(new CoinEntity(player, new Vector(4, 1), true));
+		addEntity(new CoinEntity(player, new Vector(6, 1), true));
+		addEntity(new CoinEntity(player, new Vector(3, 2), true));
+		addEntity(new CoinEntity(player, new Vector(5, 2), true));
+		addEntity(new CoinEntity(player, new Vector(24, 2), true));
+		addEntity(new CoinEntity(player, new Vector(4, 3), true));
+		addEntity(new CoinEntity(player, new Vector(6, 3), true));
+		addEntity(new CoinEntity(player, new Vector(29, 3), true));
+		addEntity(new CoinEntity(player, new Vector(30, 3), true));
+		addEntity(new CoinEntity(player, new Vector(3, 4), true));
+		addEntity(new CoinEntity(player, new Vector(5, 4), true));
+		addEntity(new CoinEntity(player, new Vector(22, 4), true));
+		addEntity(new CoinEntity(player, new Vector(32, 4), true));
+		addEntity(new CoinEntity(player, new Vector(33, 4), true));
+		addEntity(new CoinEntity(player, new Vector(4, 5), true));
+		addEntity(new CoinEntity(player, new Vector(6, 5), true));
+		addEntity(new CoinEntity(player, new Vector(35, 5), true));
+		addEntity(new CoinEntity(player, new Vector(36, 5), true));
+		addEntity(new CoinEntity(player, new Vector(38, 5), true));
+		addEntity(new CoinEntity(player, new Vector(3, 6), true));
+		addEntity(new CoinEntity(player, new Vector(5, 6), true));
 		addEntity(new CoinEntity(player, new Vector(4, 7), true));
 		addEntity(new CoinEntity(player, new Vector(6, 7), true));
 		addEntity(new CoinEntity(player, new Vector(3, 8), true));
 		addEntity(new CoinEntity(player, new Vector(5, 8), true));
-		addEntity(new CoinEntity(player, new Vector(24, 8), true));
+		addEntity(new CoinEntity(player, new Vector(38, 8), true));
 		addEntity(new CoinEntity(player, new Vector(4, 9), true));
 		addEntity(new CoinEntity(player, new Vector(6, 9), true));
-		addEntity(new CoinEntity(player, new Vector(29, 9), true));
-		addEntity(new CoinEntity(player, new Vector(30, 9), true));
 		addEntity(new CoinEntity(player, new Vector(3, 10), true));
 		addEntity(new CoinEntity(player, new Vector(5, 10), true));
-		addEntity(new CoinEntity(player, new Vector(22, 10), true));
-		addEntity(new CoinEntity(player, new Vector(29, 10), true));
-		addEntity(new CoinEntity(player, new Vector(30, 10), true));
-		addEntity(new CoinEntity(player, new Vector(32, 10), true));
-		addEntity(new CoinEntity(player, new Vector(33, 10), true));
 		addEntity(new CoinEntity(player, new Vector(4, 11), true));
 		addEntity(new CoinEntity(player, new Vector(6, 11), true));
-		addEntity(new CoinEntity(player, new Vector(32, 11), true));
-		addEntity(new CoinEntity(player, new Vector(33, 11), true));
-		addEntity(new CoinEntity(player, new Vector(35, 11), true));
-		addEntity(new CoinEntity(player, new Vector(36, 11), true));
 		addEntity(new CoinEntity(player, new Vector(38, 11), true));
 		addEntity(new CoinEntity(player, new Vector(3, 12), true));
 		addEntity(new CoinEntity(player, new Vector(5, 12), true));
-		addEntity(new CoinEntity(player, new Vector(35, 12), true));
-		addEntity(new CoinEntity(player, new Vector(36, 12), true));
-		addEntity(new CoinEntity(player, new Vector(4, 13), true));
-		addEntity(new CoinEntity(player, new Vector(6, 13), true));
-		addEntity(new CoinEntity(player, new Vector(3, 14), true));
-		addEntity(new CoinEntity(player, new Vector(5, 14), true));
+		addEntity(new CoinEntity(player, new Vector(54, 13), true));
+		addEntity(new CoinEntity(player, new Vector(58, 13), true));
+		addEntity(new CoinEntity(player, new Vector(62, 13), true));
+		addEntity(new CoinEntity(player, new Vector(66, 13), true));
+		addEntity(new CoinEntity(player, new Vector(70, 13), true));
 		addEntity(new CoinEntity(player, new Vector(38, 14), true));
-		addEntity(new CoinEntity(player, new Vector(4, 15), true));
-		addEntity(new CoinEntity(player, new Vector(6, 15), true));
-		addEntity(new CoinEntity(player, new Vector(3, 16), true));
-		addEntity(new CoinEntity(player, new Vector(5, 16), true));
-		addEntity(new CoinEntity(player, new Vector(4, 17), true));
-		addEntity(new CoinEntity(player, new Vector(6, 17), true));
-		addEntity(new CoinEntity(player, new Vector(38, 17), true));
-		addEntity(new CoinEntity(player, new Vector(3, 18), true));
-		addEntity(new CoinEntity(player, new Vector(5, 18), true));
-		addEntity(new CoinEntity(player, new Vector(38, 20), true));
-		addEntity(new CoinEntity(player, new Vector(6, 23), true));
-		addEntity(new CoinEntity(player, new Vector(10, 23), true));
-		addEntity(new CoinEntity(player, new Vector(14, 23), true));
-		addEntity(new CoinEntity(player, new Vector(18, 23), true));
-		addEntity(new CoinEntity(player, new Vector(22, 23), true));
-		addEntity(new CoinEntity(player, new Vector(26, 23), true));
-		addEntity(new CoinEntity(player, new Vector(30, 23), true));
-		addEntity(new CoinEntity(player, new Vector(33, 23), true));
-		addEntity(new CoinEntity(player, new Vector(34, 23), true));
-		addEntity(new CoinEntity(player, new Vector(38, 23), true));
-		addEntity(new CoinEntity(player, new Vector(33, 24), true));
-		addEntity(new CoinEntity(player, new Vector(34, 24), true));
-		addEntity(new CoinEntity(player, new Vector(38, 26), true));
-		addEntity(new CoinEntity(player, new Vector(38, 29), true));
-		addEntity(new CoinEntity(player, new Vector(38, 32), true));
-		addEntity(new CoinEntity(player, new Vector(38, 35), true));
-		addEntity(new CoinEntity(player, new Vector(6, 36), true));
-		addEntity(new CoinEntity(player, new Vector(10, 36), true));
-		addEntity(new CoinEntity(player, new Vector(14, 36), true));
-		addEntity(new CoinEntity(player, new Vector(18, 36), true));
-		addEntity(new CoinEntity(player, new Vector(22, 36), true));
-		addEntity(new CoinEntity(player, new Vector(26, 36), true));
-		addEntity(new CoinEntity(player, new Vector(30, 36), true));
-		addEntity(new CoinEntity(player, new Vector(34, 36), true));
+		addEntity(new CoinEntity(player, new Vector(59, 17), true));
+		addEntity(new CoinEntity(player, new Vector(65, 17), true));
+		addEntity(new CoinEntity(player, new Vector(54, 25), true));
+		addEntity(new CoinEntity(player, new Vector(58, 25), true));
+		addEntity(new CoinEntity(player, new Vector(62, 25), true));
+		addEntity(new CoinEntity(player, new Vector(66, 25), true));
+		addEntity(new CoinEntity(player, new Vector(70, 25), true));
+		addEntity(new CoinEntity(player, new Vector(50, 27), true));
+		addEntity(new CoinEntity(player, new Vector(47, 28), true));
+		addEntity(new CoinEntity(player, new Vector(44, 29), true));
+		addEntity(new CoinEntity(player, new Vector(41, 30), true));
+		addEntity(new CoinEntity(player, new Vector(38, 31), true));
 
 		// Bees
-		addEntity(new BeeEntity(new Vector(11,11), player, new Vector(1,0))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(13,29), player, new Vector(0,0))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(23,29), player, new Vector(0,0))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(6,31), player, new Vector(0,0))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(30,31), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(11,5), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(55,19), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(69,19), player, new Vector(0,0))); // TODO: Fill in deviance
 
 		// Barnacles
-		addEntity(new BarnacleEntity(new Vector(29,7), BarnacleEntity.Direction.WEST, true));
-		addEntity(new BarnacleEntity(new Vector(30,8), BarnacleEntity.Direction.EAST, true));
-		addEntity(new BarnacleEntity(new Vector(32,8), BarnacleEntity.Direction.WEST, true));
-		addEntity(new BarnacleEntity(new Vector(9,9), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(10,9), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(11,9), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(12,9), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(13,9), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(33,9), BarnacleEntity.Direction.EAST, true));
-		addEntity(new BarnacleEntity(new Vector(35,9), BarnacleEntity.Direction.WEST, true));
-		addEntity(new BarnacleEntity(new Vector(8,10), BarnacleEntity.Direction.EAST, true));
-		addEntity(new BarnacleEntity(new Vector(14,10), BarnacleEntity.Direction.WEST, true));
-		addEntity(new BarnacleEntity(new Vector(36,10), BarnacleEntity.Direction.EAST, true));
-		addEntity(new BarnacleEntity(new Vector(8,11), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(14,11), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(15,11), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(16,11), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(17,11), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(22,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(23,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(24,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(25,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(26,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(27,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(28,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(29,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(30,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(31,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(32,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(33,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(34,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(35,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(36,14), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(3,20), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(4,20), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(5,20), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(6,20), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(10,20), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(11,20), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(12,20), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(2,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(3,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(4,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(5,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(6,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(7,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(8,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(9,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(10,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(11,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(12,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(13,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(14,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(15,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(16,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(17,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(18,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(19,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(20,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(21,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(22,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(23,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(24,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(25,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(26,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(27,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(28,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(29,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(30,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(31,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(32,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(33,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(34,22), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(3,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(4,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(5,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(6,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(7,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(8,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(9,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(10,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(11,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(12,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(13,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(14,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(15,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(16,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(20,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(21,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(22,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(23,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(24,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(25,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(26,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(27,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(28,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(29,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(30,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(31,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(32,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(33,27), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(17,28), BarnacleEntity.Direction.WEST, true));
-		addEntity(new BarnacleEntity(new Vector(19,28), BarnacleEntity.Direction.EAST, true));
+		addEntity(new BarnacleEntity(new Vector(9,3), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(10,3), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(11,3), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(12,3), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(13,3), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(8,5), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(54,12), BarnacleEntity.Direction.SOUTH, true));
+		addEntity(new BarnacleEntity(new Vector(58,12), BarnacleEntity.Direction.SOUTH, true));
+		addEntity(new BarnacleEntity(new Vector(62,12), BarnacleEntity.Direction.SOUTH, true));
+		addEntity(new BarnacleEntity(new Vector(66,12), BarnacleEntity.Direction.SOUTH, true));
+		addEntity(new BarnacleEntity(new Vector(70,12), BarnacleEntity.Direction.SOUTH, true));
+		addEntity(new BarnacleEntity(new Vector(3,14), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(4,14), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(5,14), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(6,14), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(10,14), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(11,14), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(12,14), BarnacleEntity.Direction.NORTH, true));
+		addEntity(new BarnacleEntity(new Vector(61,18), BarnacleEntity.Direction.WEST, true));
+		addEntity(new BarnacleEntity(new Vector(63,18), BarnacleEntity.Direction.EAST, true));
+		addEntity(new BarnacleEntity(new Vector(54,24), BarnacleEntity.Direction.SOUTH, true));
+		addEntity(new BarnacleEntity(new Vector(58,24), BarnacleEntity.Direction.SOUTH, true));
+		addEntity(new BarnacleEntity(new Vector(62,24), BarnacleEntity.Direction.SOUTH, true));
+		addEntity(new BarnacleEntity(new Vector(66,24), BarnacleEntity.Direction.SOUTH, true));
+		addEntity(new BarnacleEntity(new Vector(70,24), BarnacleEntity.Direction.SOUTH, true));
 
 		// Snakes
-		addEntity(new SnakeEntity(new Vector(26,7.5f)));
-		addEntity(new SnakeEntity(new Vector(24,9.5f)));
-		addEntity(new SnakeEntity(new Vector(22,11.5f)));
+		addEntity(new SnakeEntity(new Vector(26,1.5f)));
+		addEntity(new SnakeEntity(new Vector(24,3.5f)));
+		addEntity(new SnakeEntity(new Vector(22,5.5f)));
 
-		// Markers
-		//new Vector(1,25)
-		//new Vector(34,25)
-		//new Vector(3,38)
+		// Slimes
+		addEntity(new SlimeEntity(new Vector(54,17)));
+		addEntity(new SlimeEntity(new Vector(57,17)));
+		addEntity(new SlimeEntity(new Vector(67,17)));
+		addEntity(new SlimeEntity(new Vector(70,17)));
 
 		// Default Scripts
 		addEntity(new BackgroundEntity(new ResourceID("background")));
-		addEntity(new DeathLineEntity(50));
+		addEntity(new DeathLineEntity(43));
 		setCamera(new Camera());
 		super.startScene(player);
 	}
