@@ -42,6 +42,8 @@ public class LevelGenerator {
     private static final Color SNAKE = new Color(32,108,0);
     private static final Color SLIME = new Color(77,255,0);
 
+    private static final Color MARKER = new Color(255,174,0);
+
     /**
      * Generates the level file.
      * @return The whole string representing the level.
@@ -107,7 +109,7 @@ public class LevelGenerator {
      * @return The 2D array of colours.
      */
     private static Color[][] convertToArray(BufferedImage img) {
-        Color[][] arr = new Color[img.getWidth()][img.getHeight()];
+        Color[][] arr = new Color[img.getHeight()][img.getWidth()];
         for (int y = 0; y < arr.length; y++)
             for (int x = 0; x < arr[0].length; x++) {
                 Color col = new Color(img.getRGB(x, y), true);
@@ -130,7 +132,7 @@ public class LevelGenerator {
         level.append(levelEntities(rgbTable));
         level.append('\n');
         level.append(levelDefaults(height));
-        level.append(levelFooter(levelName));
+        level.append(levelFooter());
 
         return level.toString();
     }
@@ -237,6 +239,8 @@ public class LevelGenerator {
                     addToMap(entityStrings, 11,slime(x,y));
                 else if (tile.equals(CHECKPOINT))
                     addToMap(entityStrings, 1,checkPoint(x,y));
+                else if (tile.equals(MARKER))
+                    addToMap(entityStrings,12,marker(x,y,platformFill(x,y,grid,checked,MARKER)));
                 else
                     System.err.println("Unknown tile colour: " + tile.toString());
             }
@@ -252,9 +256,9 @@ public class LevelGenerator {
      */
     private static String levelDefaults(int levelHeight) {
         StringBuilder sb = new StringBuilder();
-        sb.append(codeLine("//DEFAULT---"));
+        sb.append(codeLine("// Default Scripts"));
         sb.append(codeLine("addEntity(new BackgroundEntity(new ResourceID(\"background\")));"));
-        int deathHeight = levelHeight + 10; // place death line slighty lower than the level's depth
+        int deathHeight = levelHeight + 10; // place death line slightly lower than the level's depth
         sb.append(codeLine("addEntity(new DeathLineEntity("+deathHeight+"));"));
         sb.append(codeLine("setCamera(new Camera());"));
         sb.append(codeLine("super.startScene(player);"));
@@ -263,14 +267,10 @@ public class LevelGenerator {
 
     /**
      * Returns the level footer.
-     * @param levelName The level name.
      * @return The level footer.
      */
-    private static String levelFooter(String levelName) {
-        return "\t}\n\n" +
-                "\tpublic Scene hardReset() {\n" +
-                "\t\treturn new "+levelName+"();\n" +
-                "\t}\n}\n";
+    private static String levelFooter() {
+        return "\t}\n}\n";
     }
 
     // levelEntites() helpers ---------------------------------------------------------------
@@ -290,7 +290,7 @@ public class LevelGenerator {
 
     /**
      * Determines the initial string to use for the map of commands based on the category. Current
-     * category codes used are 0-11 inclusive. Anything else returns an "UNKNOWN CATEGORY".
+     * category codes used are 0-12 inclusive. Anything else returns an "UNKNOWN CATEGORY".
      * @param category The category code.
      * @return The initial string.
      */
@@ -308,6 +308,7 @@ public class LevelGenerator {
             case 9: return "\n\t\t// Barnacles\n";
             case 10: return "\n\t\t// Snakes\n";
             case 11: return "\n\t\t// Slimes\n";
+            case 12: return "\n\t\t// Markers\n";
             default: return "\n\t\t// UNKNOWN CATEGORY: "+category+"\n";
         }
     }
@@ -430,6 +431,10 @@ public class LevelGenerator {
         }
 
         return new Vector(x,y);
+    }
+
+    private static String marker(int x, int y, Vector end) {
+        return codeLine("//new Vector("+x+","+y+")");
     }
 
 

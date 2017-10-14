@@ -22,7 +22,7 @@ public class PlayerEntity extends GameEntity {
     public static final float WIDTH = 1f;
     public static final float HEIGHT = 1.5f;
 
-    private float widthOff = 0.4f;
+    private float widthOff = 0.35f;
     private float heightOff = 0.3f;
 
     private float jumpSensorHeight = 0.15f;
@@ -59,7 +59,7 @@ public class PlayerEntity extends GameEntity {
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, cTopLeft, cDimensions))); //Todo Change the Collider component
 
         //Layer---
-        addComponent(new RenderComponent(this, 999));
+        addComponent(new RenderComponent(this, 999999999));
 
         //Physics---
         addComponent(new PhysicsComponent(this, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
@@ -67,8 +67,10 @@ public class PlayerEntity extends GameEntity {
         //Sensors---
         //AABB for the sensor
         //FOR WALL RUNNING THIS SENSOR NEEDS TO BE THE SAME WIDTH AS THE COLLIDER, BIT SMALLER FOR NO WALL RUNNING
-        Vector sTopLeft = new Vector(widthOff/2, HEIGHT -jumpSensorHeight);
-        Vector sDimensions = new Vector(WIDTH -widthOff, jumpSensorHeight);
+        //Vector sTopLeft = new Vector(widthOff/2, HEIGHT -jumpSensorHeight);
+        //Vector sDimensions = new Vector(WIDTH -widthOff, jumpSensorHeight);
+        Vector sTopLeft = new Vector(widthOff/2 + 0.04f, HEIGHT -jumpSensorHeight);
+        Vector sDimensions = new Vector(WIDTH -widthOff - 0.08f, jumpSensorHeight);
         AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
         Sensor bottomSensor = new Sensor(ab);
 

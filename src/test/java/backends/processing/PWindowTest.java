@@ -127,6 +127,11 @@ public class PWindowTest {
             setCamera(new Camera(new Vector(0,0), new Vector(32,18)));
         }
 
+        @Override
+        public Scene hardReset() { //todo need to test hardreset
+            return null;
+        }
+
         public void moveSprite(){
             tE.moveSprite();
         }
