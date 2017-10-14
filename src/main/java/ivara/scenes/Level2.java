@@ -21,6 +21,9 @@ public class Level2 extends DefaultScene {
 		PlayerEntity player = new PlayerEntity(2,0.5f);
 		addEntity(player);
 
+		// Checkpoints
+		addEntity(new CheckpointEntity(27, 21));
+
 		// Flag
 		addEntity(new LevelEndEntity(61, 18));
 
@@ -48,12 +51,13 @@ public class Level2 extends DefaultScene {
 		addEntity(new PlatformEntity(new Vector(31,19)));
 		addEntity(new PlatformEntity(new Vector(55,19),8,false));
 		addEntity(new PlatformEntity(new Vector(30,20)));
+		addEntity(new PlatformEntity(new Vector(13,21),3,false));
 		addEntity(new PlatformEntity(new Vector(29,21)));
 		addEntity(new PlatformEntity(new Vector(26,22),3,false));
 		addEntity(new PlatformEntity(new Vector(10,25),9,false));
 
 		// Moving Platforms
-		addEntity(new PlatformEntity(new Vector(19,25),3,false,new Vector(23,22),2)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(19,25),3,false,new Vector(23,22),1)); // TODO: Fill in end position and duration
 
 		// Coins
 		addEntity(new CoinEntity(player, new Vector(6, 1), true));
@@ -67,7 +71,8 @@ public class Level2 extends DefaultScene {
 		addEntity(new CoinEntity(player, new Vector(54, 15), true));
 		addEntity(new CoinEntity(player, new Vector(55, 18), true));
 		addEntity(new CoinEntity(player, new Vector(57, 18), true));
-		addEntity(new CoinEntity(player, new Vector(14, 21), true));
+		addEntity(new CoinEntity(player, new Vector(13, 20), true));
+		addEntity(new CoinEntity(player, new Vector(15, 20), true));
 
 		// Snakes
 		addEntity(new SnakeEntity(new Vector(46,6.5f)));
