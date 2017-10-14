@@ -8,7 +8,7 @@ import maths.Vector;
 import java.util.Arrays;
 
 /**
- * Snake entity that damages the player if ran into. Can be stationary or patrol back and forth between two points. 
+ * Snake entity that damages the player if ran into. Can be stationary or patrol back and forth between two points.
  */
 public class SnakeEntity extends BasicEnemyEntity implements Enemy {
 
