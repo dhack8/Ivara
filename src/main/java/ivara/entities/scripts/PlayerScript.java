@@ -90,11 +90,7 @@ public class PlayerScript implements Script{//}, SensorListener {
 
     private void handleEnemy(SensorHandler sensorHandler, GameEntity player){ // Todo: fix when colliding with multiple things
         GameEntity collided = sensorHandler.getActivatingEntities(enemySensor).stream().findAny().get();
-<<<<<<< HEAD
-        if(collided instanceof Enemy || collided instanceof ImmortalEnemy) player.getScene().resetScene();
-=======
-        if(collided instanceof Enemy || collided instanceof ImortalEnemy) respawnPlayer(player);
->>>>>>> Checkpoints-branch
+        if(collided instanceof Enemy || collided instanceof ImmortalEnemy) respawnPlayer(player);
     }
 
     private void handleOnGround(VelocityComponent vComp, SensorHandler sensorHandler, GameEntity player){
@@ -104,11 +100,7 @@ public class PlayerScript implements Script{//}, SensorListener {
 
         if(collided instanceof Enemy && !sensorHandler.isActive(enemySensor)){
             player.getScene().removeEntity(collided);
-<<<<<<< HEAD
         }else if(collided instanceof ImmortalEnemy){
-            player.getScene().resetScene();
-=======
-        }else if(collided instanceof ImortalEnemy){
             respawnPlayer(player);
         }
     }
@@ -123,7 +115,6 @@ public class PlayerScript implements Script{//}, SensorListener {
             }
         }else{
             throw new IllegalArgumentException("Player script should be on a player entity");
->>>>>>> Checkpoints-branch
         }
     }
 
