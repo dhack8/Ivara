@@ -12,6 +12,8 @@ import maths.Vector;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by David Hack Local on 12-Oct-17.
@@ -25,17 +27,23 @@ abstract public class DefaultScene extends Scene {
 
     private Collection<GameEntity> playerProgress;
 
+    private Collection<GameEntity> collectedCoins;
+
     public void startScene(PlayerEntity player){
         addEntity(new TimerEntity(timerLoc, 0));
         addEntity(new CoinTextEntity(coinLoc, player));
         spawn = new Vector(player.getTransform());
         playerProgress = new ArrayList<>();
+        collectedCoins = new ArrayList<>();
     }
 
     public void setSpawn(Vector v){
         spawn = new Vector(v);
+        collectedCoins.addAll(playerProgress.stream().filter((e) -> e instanceof CoinEntity).collect(Collectors.toSet()));
         playerProgress = new ArrayList<>();
     }
+    
+    public Collection<GameEntity> getCollectedCoins(){return collectedCoins;}
 
     public void respawnPlayer(PlayerEntity player){
         player.getTransform().setAs(spawn);
