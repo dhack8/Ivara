@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * This class represents a Scene within the game
@@ -91,6 +92,10 @@ public abstract class Scene {
      */
     public GameEntity getEntity(String name){
         return nameEntityMap.get(name);
+    }
+
+    public Collection<GameEntity> getEntities(Class<? extends GameEntity> entity){
+        return world.getEntities().stream().filter((e) -> e.getClass()==entity).collect(Collectors.toSet());
     }
 
     /**
