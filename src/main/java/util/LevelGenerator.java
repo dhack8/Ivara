@@ -92,7 +92,7 @@ public class LevelGenerator {
      * @throws IOException Thrown if an error occurs reading the file.
      */
     private static BufferedImage readImage(String filename) throws IOException{
-        BufferedImage img = ImageIO.read(new File(ROOT + "/" + filename)); //TODO file selection
+        BufferedImage img = ImageIO.read(new File(ROOT + "/" + filename));
         if (img.getType() != 6) //png type
             throw new IllegalArgumentException("Image not a png");
         if (img.getWidth() > MAX_SIZE || img.getHeight() > MAX_SIZE)
