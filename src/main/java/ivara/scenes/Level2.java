@@ -21,6 +21,9 @@ public class Level2 extends DefaultScene {
 		PlayerEntity player = new PlayerEntity(2,0.5f);
 		addEntity(player);
 
+		// Text
+		addEntity(new BasicTextEntity(new Vector(3,-0.5f), new Text(20, "These slimes look aggressive!\nMaybe a airborne assault will work...")));
+
 		// Checkpoints
 		addEntity(new CheckpointEntity(27, 21));
 

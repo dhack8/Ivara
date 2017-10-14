@@ -20,6 +20,7 @@ public class Level1 extends DefaultScene {
         PlayerEntity player = new PlayerEntity(2,27);
         addEntity(player);
 
+        //Texts---
         addEntity(new BasicTextEntity(new Vector(3,26), new Text(20, "Hello there oh brave Pablo!\nUse WASD to move around!")));
         addEntity(new BasicTextEntity(new Vector(41,14), new Text(20, "Those barnacles look painful!")));
 

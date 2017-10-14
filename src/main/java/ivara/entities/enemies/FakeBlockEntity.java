@@ -113,7 +113,6 @@ public class FakeBlockEntity extends GameEntity{
                                     fbs.setState("dead");
 
                     entity.getScene().addTimer(new Timer(FALL_DELAY, () -> {
-                        System.out.println("Adding Physics comp");
                         entity.addComponent(new PhysicsComponent(entity, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
                     }));
                 }
@@ -121,7 +120,6 @@ public class FakeBlockEntity extends GameEntity{
 
             if(sensorHandler.isActive(bot) && !alive){
                 entity.getScene().removeEntity(entity);
-                System.out.println("REMOVING Physics comp");
                 entity.removeComponent(PhysicsComponent.class);
                 entity.getTransform().setAs(intialLoc);
                 entity.get(VelocityComponent.class).get().getVelocity().setAs(0f,0f);
