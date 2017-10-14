@@ -45,6 +45,8 @@ abstract public class DefaultScene extends Scene {
     
     public Collection<GameEntity> getCollectedCoins(){return collectedCoins;}
 
+    public Vector getSpawnVector(){ return spawn;}
+
     public void respawnPlayer(PlayerEntity player){
         player.getTransform().setAs(spawn);
         for(GameEntity e : playerProgress){
