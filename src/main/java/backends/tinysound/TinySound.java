@@ -24,7 +24,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package kuusisto.tinysound;
+package backends.tinysound;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -44,14 +44,14 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import kuusisto.tinysound.internal.ByteList;
-import kuusisto.tinysound.internal.MemMusic;
-import kuusisto.tinysound.internal.MemSound;
-import kuusisto.tinysound.internal.Mixer;
-import kuusisto.tinysound.internal.StreamInfo;
-import kuusisto.tinysound.internal.StreamMusic;
-import kuusisto.tinysound.internal.StreamSound;
-import kuusisto.tinysound.internal.UpdateRunner;
+import backends.tinysound.internal.ByteList;
+import backends.tinysound.internal.MemMusic;
+import backends.tinysound.internal.MemSound;
+import backends.tinysound.internal.Mixer;
+import backends.tinysound.internal.StreamInfo;
+import backends.tinysound.internal.StreamMusic;
+import backends.tinysound.internal.StreamSound;
+import backends.tinysound.internal.UpdateRunner;
 
 /**
  * TinySound is the main class of the TinySound system.  In order to use the
@@ -62,7 +62,11 @@ import kuusisto.tinysound.internal.UpdateRunner;
  * @author Finn Kuusisto
  */
 public class TinySound {
-	
+
+	static {
+		init();
+	}
+
 	public static final String VERSION = "1.1.1";
 
 	/**

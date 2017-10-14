@@ -24,58 +24,47 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package kuusisto.tinysound.internal;
+package backends.tinysound;
 
 /**
- * The SoundReference interface is the Mixer's interface to the audio data of a
- * Sound object.  SoundReference is an internal interface of the TinySound
- * system and should be of no real concern to the average user of TinySound.
+ * The Sound interface  is an abstraction for sound effects.  Sound objects
+ * should only be loaded via the TinySound <code>loadSound()</code> functions.
+ * Sounds can be played repeatedly in an overlapping fashion.
  * 
  * @author Finn Kuusisto
  */
-public interface SoundReference {
+public interface Sound {
 
 	/**
-	 * Get the ID of the Sound that produced this SoundReference.
-	 * @return the ID of this SoundReference's parent Sound
+	 * Plays this Sound.
 	 */
-	public int getSoundID();
+	public void play();
 	
 	/**
-	 * Gets the volume of this SoundReference.
-	 * @return volume of this SoundReference
+	 * Plays this Sound with a specified volume.
+	 * @param volume the volume at which to play this Sound
 	 */
-	public double getVolume();
+	public void play(double volume);
 	
 	/**
-	 * Gets the pan of this SoundReference.
-	 * @return pan of this SoundReference
+	 * Plays this Sound with a specified volume and pan.
+	 * @param volume the volume at which to play this Sound
+	 * @param pan the pan value to play this Sound [-1.0,1.0], values outside
+	 * the valid range will assume no panning (0.0)
 	 */
-	public double getPan();
+	public void play(double volume, double pan);
 	
 	/**
-	 * Get the number of bytes remaining for each channel.
-	 * @return number of bytes remaining for each channel
+	 * Stops this Sound from playing.  Note that if this Sound was played
+	 * repeatedly in an overlapping fashion, all instances of this Sound still
+	 * playing will be stopped.
 	 */
-	public long bytesAvailable();
+	public void stop();
 	
 	/**
-	 * Skip a specified number of bytes of the audio data.
-	 * @param num number of bytes to skip
+	 * Unloads this Sound from the system.  Attempts to use this Sound after
+	 * unloading will result in error.
 	 */
-	public void skipBytes(long num);
-	
-	/**
-	 * Get the next two bytes from the sound data in the specified endianness.
-	 * @param data length-2 array to write in next two bytes from each channel
-	 * @param bigEndian true if the bytes should be read big-endian
-	 */
-	public void nextTwoBytes(int[] data, boolean bigEndian);
-	
-	/**
-	 * Does any cleanup necessary to dispose of resources in use by this
-	 * SoundReference.
-	 */
-	public void dispose();
+	public void unload();
 	
 }

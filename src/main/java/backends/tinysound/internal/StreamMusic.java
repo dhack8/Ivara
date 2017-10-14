@@ -24,14 +24,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package kuusisto.tinysound.internal;
+package backends.tinysound.internal;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import kuusisto.tinysound.Music;
-import kuusisto.tinysound.TinySound;
+import backends.tinysound.Music;
+import backends.tinysound.TinySound;
 
 /**
  * The StreamMusic class is an implementation of the Music interface that

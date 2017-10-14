@@ -24,9 +24,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package kuusisto.tinysound.internal;
+package backends.tinysound.internal;
 
-import kuusisto.tinysound.Sound;
+import backends.tinysound.Sound;
 
 /**
  * The MemSound class is an implementation of the Sound interface that stores
