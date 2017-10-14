@@ -78,10 +78,9 @@ public class LevelGenerator {
     private static String selectImage() {
         JFileChooser fileChooser = new JFileChooser(ROOT);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG Filter", "png");
-        int option;
-        do {
-            option = fileChooser.showOpenDialog(null);
-        } while (option != JFileChooser.APPROVE_OPTION);
+        int option = fileChooser.showOpenDialog(null);
+        if (option != JFileChooser.APPROVE_OPTION)
+            System.exit(0);
         File file = fileChooser.getSelectedFile();
         return fileChooser.getName(file);
     }
@@ -94,7 +93,7 @@ public class LevelGenerator {
      * @throws IOException Thrown if an error occurs reading the file.
      */
     private static BufferedImage readImage(String filename) throws IOException{
-        BufferedImage img = ImageIO.read(new File(ROOT + "/" + filename)); //TODO file selection
+        BufferedImage img = ImageIO.read(new File(ROOT + "/" + filename));
         if (img.getType() != 6) //png type
             throw new IllegalArgumentException("Image not a png");
         if (img.getWidth() > MAX_SIZE || img.getHeight() > MAX_SIZE)
@@ -419,12 +418,12 @@ public class LevelGenerator {
         int width = grid[y].length;
 
         if (x+1 < width && grid[y][x+1].equals(platformType)) {// horizontal multi
-            while (x+1 < width && grid[y][x].equals(platformType)) {
+            while (x < width && grid[y][x].equals(platformType)) {
                 checked[y][x] = true;
                 x++;
             }
         } else if (y+1 < height && grid[y+1][x].equals(platformType)) {// vertical multi
-            while (y+1 < height && grid[y][x].equals(platformType)) {
+            while (y < height && grid[y][x].equals(platformType)) {
                 checked[y][x] = true;
                 y++;
             }
