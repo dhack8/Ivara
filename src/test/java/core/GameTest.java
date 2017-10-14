@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  * Created by David Hack Local on 06-Oct-17.
  */
 public class GameTest {
-    /*
+
     @Test
     public void getCurrentScene() throws Exception {
         Scene s = new TestScene();
@@ -108,5 +108,5 @@ public class GameTest {
 
         }
     }
-    */
+
 }

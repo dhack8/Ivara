@@ -295,34 +295,39 @@ public class LevelManagerTest {
         public void startScene() {
 
         }
+
+        @Override
+        public Scene hardReset() {
+            return null;
+        }
+
+
     }
 
-    /*
+
     private class TestGame extends Game{
         public TestGame(){
             super(lm,
                     new Renderer() {
-                @Override
-                public void setMask(int mask) {
 
-                }
+                    @Override
+                    public void setMask(int mask) {
+                    }
 
-                @Override
-                public void render(Scene scene) {
-
-                }
-            }, new InputBroadcaster() {
-                @Override
-                public void addKeyListener(KeyListener listener) {
-
-                }
-
-                @Override
-                public void addMouseListener(MouseListener listener) {
-
-                }
+                    @Override
+                    public void render(Scene scene) {
+                    }
+                }, new PWindow(true) {
+//                  new InputBroadcaster(){
+//                @Override
+//                public void addKeyListener(KeyListener listener) {
+//                }
+//
+//
+//                @Override
+//                public void addMouseListener(MouseListener listener) {
+//                }
             });
         }
     }
-    */
 }
