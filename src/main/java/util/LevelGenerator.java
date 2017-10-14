@@ -107,7 +107,7 @@ public class LevelGenerator {
      * @return The 2D array of colours.
      */
     private static Color[][] convertToArray(BufferedImage img) {
-        Color[][] arr = new Color[img.getWidth()][img.getHeight()];
+        Color[][] arr = new Color[img.getHeight()][img.getWidth()];
         for (int y = 0; y < arr.length; y++)
             for (int x = 0; x < arr[0].length; x++) {
                 Color col = new Color(img.getRGB(x, y), true);

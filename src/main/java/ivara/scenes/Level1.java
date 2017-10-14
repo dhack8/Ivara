@@ -21,6 +21,7 @@ public class Level1 extends DefaultScene {
         addEntity(player);
 
         addEntity(new BasicTextEntity(new Vector(3,26), new Text(20, "Hello there oh brave Pablo!\nUse WASD to move around!")));
+        addEntity(new BasicTextEntity(new Vector(41,14), new Text(20, "Those barnacles look painful!")));
 
         //ENTITIES---
         addEntity(new LevelEndEntity(70, 4));
@@ -77,9 +78,5 @@ public class Level1 extends DefaultScene {
         setCamera(new Camera());
         super.startScene(player);
 
-    }
-
-    public Scene hardReset(){
-        return new Level1();
     }
 }
