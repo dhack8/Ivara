@@ -1,10 +1,17 @@
 package ivara.scenes;
 
+import core.Game;
+import core.entity.GameEntity;
 import core.scene.Scene;
+import ivara.entities.CoinEntity;
 import ivara.entities.CoinTextEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.TimerEntity;
+import ivara.entities.enemies.Enemy;
 import maths.Vector;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by David Hack Local on 12-Oct-17.
@@ -14,18 +21,37 @@ abstract public class DefaultScene extends Scene {
     private static final Vector timerLoc = new Vector(1.5f,1.5f);
     private static final Vector coinLoc = new Vector(2.1f, 2.3f);
 
-    private Vector spawn = new Vector(0,0);
+    private Vector spawn;
+
+    private Collection<GameEntity> playerProgress;
 
     public void startScene(PlayerEntity player){
         addEntity(new TimerEntity(timerLoc, 0));
         addEntity(new CoinTextEntity(coinLoc, player));
-
-        if(spawn != null && spawn.x != 0 && spawn.y != 0){
-            player.getTransform().setAs(spawn);
-        }
+        spawn = new Vector(player.getTransform());
+        playerProgress = new ArrayList<>();
     }
 
     public void setSpawn(Vector v){
-        spawn = v;
+        spawn = new Vector(v);
+        playerProgress = new ArrayList<>();
+    }
+
+    public void respawnPlayer(PlayerEntity player){
+        player.getTransform().setAs(spawn);
+        for(GameEntity e : playerProgress){
+            addEntity(e);
+            if(e instanceof CoinEntity){
+                System.out.println("Adding coin back removing from player");
+                player.coinsCollected--;
+            }
+        }
+        playerProgress = new ArrayList<>();
+    }
+
+    @Override
+    public void removeEntity(GameEntity e){
+        if(e instanceof CoinEntity || e instanceof Enemy) playerProgress.add(e);
+        super.removeEntity(e);
     }
 }

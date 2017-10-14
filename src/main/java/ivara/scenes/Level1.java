@@ -22,6 +22,7 @@ public class Level1 extends DefaultScene {
 
         //ENTITIES---
         addEntity(new LevelEndEntity(70, 4));
+        addEntity(new CheckpointEntity(40, 15));
         addEntity(new PlatformEntity(new Vector(62,5),3,false));
         addEntity(new PlatformEntity(new Vector(67,5),5,false));
         addEntity(new PlatformEntity(new Vector(35,16),9,false));

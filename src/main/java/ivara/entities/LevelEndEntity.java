@@ -1,11 +1,13 @@
 package ivara.entities;
 
+import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
+import core.input.SensorHandler;
+import core.scene.Scene;
 import core.struct.AnimatedSprite;
 import core.struct.ResourceID;
 import core.struct.Sensor;
-import ivara.entities.scripts.LevelChangeScript;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -66,6 +68,32 @@ public class LevelEndEntity extends GameEntity {
             addResources(state, Arrays.asList(resources));
 
             setState("normal");
+        }
+    }
+
+    private class LevelChangeScript implements Script {
+        private final Sensor sensor;
+
+        private boolean entered = false; // Todo sort out a way to reset a scene
+        /**
+         * Create a LevelChangeScript
+         */
+        public LevelChangeScript(Sensor s){
+            this.sensor = s;
+        }
+
+        @Override
+        public void update(int dt, GameEntity entity) {
+            SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
+
+            if(sensorHandler.isActive(sensor)){
+                boolean playerCollision = sensorHandler.getActivatingEntities(sensor).stream().anyMatch((e) -> e instanceof PlayerEntity);
+
+                if(!entered && playerCollision) {
+                    entered = true;
+                    entity.getScene().getGame().nextScene();
+                }
+            }
         }
     }
 }

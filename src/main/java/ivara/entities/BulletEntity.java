@@ -5,9 +5,12 @@ import core.SensorListener;
 import core.components.*;
 import core.entity.GameEntity;
 import core.input.SensorHandler;
+import core.scene.Scene;
 import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Sprite;
+import ivara.entities.enemies.ImortalEnemy;
+import ivara.scenes.DefaultScene;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -16,7 +19,7 @@ import java.util.Collection;
 /**
  * Creates a bullet entity that moves based on a specific velocity
  */
-public class BulletEntity extends GameEntity{
+public class BulletEntity extends GameEntity implements ImortalEnemy{
     private Vector dimensions = new Vector(0.4f, 0.4f);
 
     public BulletEntity(Vector transform, Vector end, float speed, ResourceID id, Class<? extends GameEntity> target, Collection<Class<? extends GameEntity>> nonColliders) {
@@ -27,6 +30,8 @@ public class BulletEntity extends GameEntity{
         velocity.scaleBy(speed);
 
         addComponent(new VelocityComponent(this, velocity));
+
+        addComponent(new ColliderComponent(this, (new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), dimensions))));
 
         Sensor sensor = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), dimensions));
         addComponent(new SensorComponent(this, sensor));
@@ -41,7 +46,6 @@ public class BulletEntity extends GameEntity{
                             !nonColliders.contains(e.getClass())).forEach((e) -> {
                                 get(VelocityComponent.class).get().set(new Vector(0, 0));
                                 getScene().removeEntity(entity);
-                                if(e.getClass() == target) getScene().resetScene();
                             }
 
                     );
