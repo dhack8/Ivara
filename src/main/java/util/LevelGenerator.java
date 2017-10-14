@@ -6,10 +6,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Color;
+import java.io.*;
 import java.util.List;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,6 +16,7 @@ import java.util.TreeMap;
 public class LevelGenerator {
 
     private static final String ROOT = "./levelLoader"; // Root folder for level images
+    private static final String LEVELFOLDER = "./src/main/java/ivara/scenes"; // Save .java files here
     private static final int MAX_SIZE = 100; // Max level grid size
 
     // GameEntity colours
@@ -34,10 +34,10 @@ public class LevelGenerator {
     private static final Color SNAKE = new Color(32,108,0);
     private static final Color SLIME = new Color(77,255,0);
 
-
-    public static String imgToLevel() throws IOException{
+    public static String generateLevel() throws IOException{
         // Select image
         String filename = selectImage();
+        String levelName = fileToLevelName(filename);
 
         // Read image
         BufferedImage img = readImage(filename);
@@ -45,17 +45,13 @@ public class LevelGenerator {
         // Convert to 2D Color array
         Color[][] rgbTable = convertToArray(img);
 
-        // Convert to level class string
-        String levelName = filename.substring(0,filename.length()-4); // remove .png
-        levelName = Character.toUpperCase(levelName.charAt(0)) + levelName.substring(1);
-        StringBuilder level = new StringBuilder();
-        level.append(levelHeader(levelName));
-        level.append(levelEntities(rgbTable));
-        level.append('\n');
-        level.append(levelDefaults(img.getHeight()));
-        level.append(levelFooter(levelName));
+        // Convert to level string
+        String level = colorToLevel(rgbTable, levelName, img.getHeight());
 
-        return level.toString();
+        // Save as .java
+        saveToFile(level, levelName);
+
+        return level;
     }
 
     // Utility methods -----------------------------------------------------------------------
@@ -90,8 +86,30 @@ public class LevelGenerator {
         return arr;
     }
 
+    private static String colorToLevel(Color[][] rgbTable, String levelName, int height){
+        StringBuilder level = new StringBuilder();
+        level.append(levelHeader(levelName));
+        level.append(levelEntities(rgbTable));
+        level.append('\n');
+        level.append(levelDefaults(height));
+        level.append(levelFooter(levelName));
+
+        return level.toString();
+    }
+
+    private static String fileToLevelName(String fileName) {
+        return Character.toUpperCase(fileName.charAt(0)) + fileName.substring(1,fileName.length()-4);
+    }
+
     private static String codeLine(String s) {
         return "\t\t" + s + "\n";
+    }
+
+    private static void saveToFile(String level, String levelName) throws IOException {
+        String fileName = LEVELFOLDER + "/" + levelName + ".java";
+        FileWriter fileWriter = new FileWriter(fileName, false);
+        fileWriter.write(level);
+        fileWriter.close();
     }
 
     // Text output -------------------------------------------------------------------------
@@ -99,6 +117,7 @@ public class LevelGenerator {
     private static String levelHeader(String levelName) {
 
         return "package ivara.scenes;\n\n\n"
+                + "import core.scene.Scene;\n"
                 + "import core.struct.Camera;\n"
                 + "import core.struct.ResourceID;\n"
                 + "import core.struct.Text;\n"
@@ -270,7 +289,7 @@ public class LevelGenerator {
     }
 
     private static String player(int x, int y) {
-        return codeLine("PlayerEntity player = new PlayerEntity("+x+","+((float)y-0.5f)+");")
+        return codeLine("PlayerEntity player = new PlayerEntity("+x+","+((float)y-0.5f)+"f);")
                 + codeLine("addEntity(player);");
     }
 
@@ -322,7 +341,7 @@ public class LevelGenerator {
 
     public static void main(String[] args) {
         try {
-            String level = imgToLevel();
+            String level = generateLevel();
             System.out.println(level);
         } catch (IOException e) {e.printStackTrace();}
 
