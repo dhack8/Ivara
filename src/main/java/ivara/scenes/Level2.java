@@ -57,7 +57,7 @@ public class Level2 extends DefaultScene {
 		addEntity(new PlatformEntity(new Vector(10,25),9,false));
 
 		// Moving Platforms
-		addEntity(new PlatformEntity(new Vector(19,25),3,false,new Vector(23,22),1)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(19,25),3,false,new Vector(23,22),3)); // TODO: Fill in end position and duration
 
 		// Coins
 		addEntity(new CoinEntity(player, new Vector(6, 1), true));
