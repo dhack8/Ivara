@@ -22,10 +22,12 @@ public class PlayerEntity extends GameEntity {
     public static final float WIDTH = 1f;
     public static final float HEIGHT = 1.5f;
 
-    private float widthOff = 0.35f;
-    private float heightOff = 0.3f;
+    private static final float widthOff = 0.35f;
+    private static final float heightOff = 0.3f;
 
-    private float jumpSensorHeight = 0.15f;
+    private static final float jumpSensorHeight = 0.15f;
+    private static final float jumpSensorExtra = 0.0005f;
+    private static final float antiWallRun = 0.035f; //0 for wall running
 
     public int coinsCollected = 0;
 
@@ -67,10 +69,8 @@ public class PlayerEntity extends GameEntity {
         //Sensors---
         //AABB for the sensor
         //FOR WALL RUNNING THIS SENSOR NEEDS TO BE THE SAME WIDTH AS THE COLLIDER, BIT SMALLER FOR NO WALL RUNNING
-        //Vector sTopLeft = new Vector(widthOff/2, HEIGHT -jumpSensorHeight);
-        //Vector sDimensions = new Vector(WIDTH -widthOff, jumpSensorHeight);
-        Vector sTopLeft = new Vector(widthOff/2 + 0.04f, HEIGHT -jumpSensorHeight);
-        Vector sDimensions = new Vector(WIDTH -widthOff - 0.08f, jumpSensorHeight);
+        Vector sTopLeft = new Vector(widthOff/2 + antiWallRun, HEIGHT -jumpSensorHeight);
+        Vector sDimensions = new Vector(WIDTH -widthOff - antiWallRun*2, jumpSensorHeight + jumpSensorExtra);
         AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
         Sensor bottomSensor = new Sensor(ab);
 
