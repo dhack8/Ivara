@@ -8,7 +8,7 @@ import core.components.SensorHandlerComponent;
 import core.entity.GameEntity;
 import core.input.SensorHandler;
 import core.struct.Sensor;
-import ivara.entities.enemies.ImortalEnemy;
+import ivara.entities.enemies.ImmortalEnemy;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -17,7 +17,7 @@ import java.util.Collection;
 /**
  * Created by David Hack Local on 11-Oct-17.
  */
-public class DeathLineEntity extends GameEntity implements ImortalEnemy{
+public class DeathLineEntity extends GameEntity implements ImmortalEnemy{
 
     private static final float girth = 99999;
 
