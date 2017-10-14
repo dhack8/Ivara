@@ -94,8 +94,13 @@ public abstract class Scene {
         return nameEntityMap.get(name);
     }
 
-    public Collection<GameEntity> getEntities(Class<? extends GameEntity> entity){
-        return world.getEntities().stream().filter((e) -> e.getClass()==entity).collect(Collectors.toSet());
+    public Collection<GameEntity> getEntities(Class<? extends GameEntity> type){
+        return world.getEntities().stream().filter((e) -> e.getClass()==type).collect(Collectors.toSet());
+    }
+
+    public GameEntity getEntity(Class<? extends GameEntity> type){
+        Optional<GameEntity> entity = world.getEntities().stream().findAny();
+        return entity.isPresent()?entity.get():null;
     }
 
     /**
