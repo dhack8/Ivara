@@ -42,7 +42,6 @@ abstract public class DefaultScene extends Scene {
         for(GameEntity e : playerProgress){
             addEntity(e);
             if(e instanceof CoinEntity){
-                System.out.println("Adding coin back removing from player");
                 player.coinsCollected--;
             }
         }
