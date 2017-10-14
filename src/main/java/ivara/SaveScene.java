@@ -15,7 +15,9 @@ import maths.Vector;
 import scew.Component;
 
 /**
- * Created by james on 12/10/2017.
+ * Saving class that outputs the number of the level the player is currently on, the position where they would
+ * spawn (taking into account checkpoints), the amount of time the timer has been going for, and the position of
+ * the coins the player has collected.
  */
 public class SaveScene {
 
@@ -24,9 +26,8 @@ public class SaveScene {
     private static File savefile = new File("./savefile.sav");
 
     /**
-     * Saving method that exports the number of the level the player is currently on, the position where they would
-     * spawn (taking into account checkpoints), the amount of time the timer has been going for, and the position of
-     * the coins the player has collected.
+     * Save method that outputs the level number, the player's next spawn position, the timer and the collected coins to
+     * a .sav file
      * @param g The current game instance
      */
     public static void save(Game g){
