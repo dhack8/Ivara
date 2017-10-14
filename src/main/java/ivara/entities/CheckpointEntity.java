@@ -28,11 +28,14 @@ public class CheckpointEntity extends GameEntity{
 
     private final static int ANIMATION_RATE = 1000;
 
+    AnimatedSprite as;
+
     public CheckpointEntity(float x, float y){
         super(new Vector(x,y));
 
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new FlagSprite(new Vector(width, height), ANIMATION_RATE));
+        as = new FlagSprite(new Vector(width, height), ANIMATION_RATE);
+        sc.add(as);
         addComponent(sc);
 
         addComponent(new RenderComponent(this, 9999999));
@@ -62,8 +65,14 @@ public class CheckpointEntity extends GameEntity{
 
             String state = "normal";
             String[] resources = new String[]{
-                    "flag-green",
-                    "flag-green2"
+                    "flag-purple",
+                    "flag-purple2"
+            };
+            addResources(state, Arrays.asList(resources));
+            state = "down";
+            resources = new String[]{
+                    "flag-purple-down",
+                    "flag-purple-down2"
             };
             addResources(state, Arrays.asList(resources));
 
@@ -97,6 +106,8 @@ public class CheckpointEntity extends GameEntity{
                         DefaultScene currentDefault = (DefaultScene) current;
                         currentDefault.setSpawn(entity.getTransform());
                     }
+
+                    as.setState("down");
                 }
             }
         }
