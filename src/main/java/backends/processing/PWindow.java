@@ -30,7 +30,7 @@ import java.util.Optional;
  * Window that the game runs in. Extends the Processing window PApplet.
  * @author David Hack
  */
-public class PWindow extends PApplet implements InputBroadcaster, Renderer{
+public class PWindow extends Renderer implements InputBroadcaster{
 
     private Scene currentScene;
     private AssetHandler handler;

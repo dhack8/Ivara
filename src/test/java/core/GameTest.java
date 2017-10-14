@@ -92,7 +92,7 @@ public class GameTest {
     }
 
 
-    class testRenderer implements Renderer{
+    class testRenderer extends Renderer{
         public void render(Scene scene){}
         public void setMask(int i){}
     }
