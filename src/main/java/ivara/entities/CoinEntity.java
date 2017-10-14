@@ -62,7 +62,6 @@ public class CoinEntity extends GameEntity {
                                     getActivatingEntities(coinSesnor)
                                     .stream()
                                     .anyMatch((e) -> e.equals(player))) {
-                                Debug.log("Coin Sensor Activated");
                                 player.coinsCollected += 1;
                                 getScene().removeEntity(coinEntity);
 
