@@ -1,6 +1,7 @@
 package ivara;
 
 import core.Game;
+import core.components.TextComponent;
 import core.entity.GameEntity;
 import core.scene.LevelManager;
 import core.scene.Scene;
@@ -21,7 +22,7 @@ public class SaveScene {
     private static Game game;
     private static LevelManager levelManager;
     private static DefaultScene scene;
-    private static File file = new File("./savefile.sav");
+    private static File savefile = new File("./savefile.sav");
 
     public static void save(Game g){
         game = g;
@@ -35,22 +36,28 @@ public class SaveScene {
         //time
         TimerEntity timerToSave = (TimerEntity) scene.getEntity(TimerEntity.class);
         //coin positions - new method added to default scene
-        Collection<GameEntity> coinCollection = scene.getEntities(CoinEntity.class);
+        Collection<GameEntity> coinCollection = scene.getCollectedCoins();
 
         try {
-            Writer bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("./savefile.sav"), "utf-8"));
-            bw.write(sceneNumToSave);
-            bw.write(spawn.toString());
-            bw.write(timerToSave.toString());
+            FileWriter fw = new FileWriter(savefile);
+            Writer bw = new BufferedWriter(fw);
+
+            bw.write(sceneNumToSave + " ");
+            bw.write(Float.toString(spawn.x) + " ");
+            bw.write(Float.toString(spawn.y) + " ");
+            bw.write(timerToSave.get(TextComponent.class). + " ");
 
             bw.write("//coins now//");
             for(GameEntity ge : coinCollection){
                 bw.write(ge.toString());
             }
 
+            bw.close();
+
         }catch(Exception e){
 
         }
+
 
     }
 }
