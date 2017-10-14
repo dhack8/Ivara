@@ -124,6 +124,11 @@ public class SceneTest {
         public void startScene() {
 
         }
+
+        @Override
+        public Scene hardReset() {
+            return null;
+        }
     }
 
 }

@@ -7,6 +7,7 @@ import backends.processing.PWindow;
 import core.input.InputHandler;
 import core.scene.Scene;
 import core.scene.LevelManager;
+import processing.core.PApplet;
 
 /**
  * Created by Callum Li on 9/14/17.
@@ -28,26 +29,26 @@ public abstract class Game {
      */
     private final Renderer renderer;
 
-    private final PWindow window;
+    private final InputBroadcaster broadcaster;
 
     private final InputHandler inputHandler;
     private InputHandler.InputFrame inputFrame = new InputHandler.InputFrame();
 
-    public Game(LevelManager lm, Renderer renderer, final PWindow window) {
+    public Game(LevelManager lm, Renderer renderer, final InputBroadcaster broadcaster) {
         this.renderer = renderer;
-        this.window = window;
-        this.inputHandler = new InputHandler(window);
+        this.broadcaster = broadcaster;
+        this.inputHandler = new InputHandler(broadcaster);
         this.levelManager = lm;
 
         //renderer.setMask(1);
 
         lm.setGame(this);
 
-        assert window != null;
+        assert broadcaster != null;
     }
 
-    public PWindow getWindow() {
-        return window;
+    public PApplet getWindow() {
+        return renderer;
     }
 
     public Scene getCurrentScene() {
