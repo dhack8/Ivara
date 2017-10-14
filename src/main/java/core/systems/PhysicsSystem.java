@@ -52,7 +52,7 @@ public class PhysicsSystem extends System<GameEntity> {
                     cc1.getEntity()
                             .get(PhysicsComponent.class)
                             .map((c) -> c.getProperties())
-                            .orElse(PhysicProperties.DEFAULT))
+                            .orElse(PhysicProperties.DEFAULT));
         }
         if (!memo.containsKey(cc2)) {
             memo.put(cc2,
