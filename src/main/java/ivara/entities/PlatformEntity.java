@@ -157,6 +157,12 @@ public class PlatformEntity extends GameEntity {
         setupScripts(end, time);
     }
 
+    public void makeJumpPad(){
+        SpriteComponent sc = get(SpriteComponent.class).get();
+        sc.clearSprites();
+        sc.add(new Sprite(new ResourceID("jumppad"), new Vector(0,0), dimensions));
+    }
+
     /**
      * Sets up the sprites and collider of a multiple block platform
      * @param numBlocks The number of blocks
@@ -203,13 +209,15 @@ public class PlatformEntity extends GameEntity {
 
         // Add collider component
         if (isVertical) {
+            dimensions = new Vector(1, direction.y * numBlocks);
             addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM,
                     new Vector(0, 0),
-                    new Vector(1, direction.y * numBlocks))));
+                    dimensions)));
         } else {
+            dimensions = new Vector(direction.x * numBlocks, 1);
             addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM,
                     new Vector(0, 0),
-                    new Vector(direction.x * numBlocks, 1))));
+                    dimensions)));
         }
         addComponent(sc);
     }

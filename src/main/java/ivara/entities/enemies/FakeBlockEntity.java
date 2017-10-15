@@ -89,31 +89,29 @@ public class FakeBlockEntity extends GameEntity{
 
     private class FakeBlockScript implements Script {
 
-                        private static final int FALL_DELAY = 500;
-                        private static final int REMOVE_DELAY = 3000;
+        private static final int FALL_DELAY = 500;
+        private static final int REMOVE_DELAY = 3000;
 
-                        Sensor top;
-                        Sensor bot;
-                        boolean alive;
+        Sensor top;
+        Sensor bot;
+        boolean alive;
 
-                        public FakeBlockScript(Sensor top, Sensor bot){
-                            this.top = top;
-                            this.bot = bot;
-                            alive = true;
-                        }
+        public FakeBlockScript(Sensor top, Sensor bot){
+            this.top = top;
+            this.bot = bot;
+            alive = true;
+        }
 
-                        @Override
-                        public void update(int dt, GameEntity entity) {
-                            SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
+        @Override
+        public void update(int dt, GameEntity entity) {
+            SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
 
-                            if(sensorHandler.isActive(top) && alive){
-                                if(sensorHandler.getActivatingEntities(top).stream().anyMatch((e) -> e instanceof PlayerEntity)) {
-                                    alive = false;
+            if(sensorHandler.isActive(top) && alive){
+                if(sensorHandler.getActivatingEntities(top).stream().anyMatch((e) -> e instanceof PlayerEntity)) {
+                    alive = false;
 
-                                    fbs.setState("dead");
-
+                    fbs.setState("dead");
                     entity.getScene().addTimer(new Timer(FALL_DELAY, () -> {
-                        System.out.println("Adding Physics comp");
                         entity.addComponent(new PhysicsComponent(entity, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
                     }));
                 }
@@ -121,7 +119,6 @@ public class FakeBlockEntity extends GameEntity{
 
             if(sensorHandler.isActive(bot) && !alive){
                 entity.getScene().removeEntity(entity);
-                System.out.println("REMOVING Physics comp");
                 entity.removeComponent(PhysicsComponent.class);
                 entity.getTransform().setAs(intialLoc);
                 entity.get(VelocityComponent.class).get().getVelocity().setAs(0f,0f);
