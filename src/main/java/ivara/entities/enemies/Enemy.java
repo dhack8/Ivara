@@ -1,6 +1,9 @@
 package ivara.entities.enemies;
 
 /**
- * Created by David Hack Local on 08-Oct-17.
+ * This interface is used to assign an entity as an Enemy.
+ * @author David Hack
  */
-public interface Enemy {}
+public interface Enemy{
+
+}

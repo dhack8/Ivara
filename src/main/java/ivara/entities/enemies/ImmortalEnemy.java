@@ -1,6 +1,10 @@
 package ivara.entities.enemies;
 
 /**
- * Created by David Hack Local on 10-Oct-17.
+ * This interface is used to assign an entity as an ImmortalEnemy.
+ * An ImmortalEnemy cannot die from a player explicitly.
+ * @author David Hack
  */
-public interface ImmortalEnemy {}
+public interface ImmortalEnemy{
+
+}

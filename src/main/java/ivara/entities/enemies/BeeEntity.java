@@ -16,6 +16,7 @@ import java.util.Optional;
 /**
  * The BeeEntity constantly shoots BulletEntities at a target GameEntity.
  * The BeeEntity can be given a deviance of which it patrols back and forth between.
+ * @author David Hack
  */
 public class BeeEntity extends GameEntity implements Enemy{
 
