@@ -18,14 +18,19 @@ public class Level6 extends DefaultScene {
 	public void startScene(){
 
 		// Player
-		PlayerEntity player = new PlayerEntity(4,27.5f);
+		PlayerEntity player = new PlayerEntity(4,17.5f);
 		addEntity(player);
 
 		// Checkpoints
 		addEntity(new CheckpointEntity(44, 17));
+		addEntity(new CheckpointEntity(5, 21));
+
+		// Flag
+		addEntity(new LevelEndEntity(70, 9));
 
 		// Platforms
-		addEntity(new PlatformEntity(new Vector(25,10),4,false));
+		addEntity(new PlatformEntity(new Vector(24,10),5,false));
+		addEntity(new PlatformEntity(new Vector(64,10),9,false));
 		addEntity(new PlatformEntity(new Vector(24,11)));
 		addEntity(new PlatformEntity(new Vector(29,11),4,false));
 		addEntity(new PlatformEntity(new Vector(23,12),2,true));
@@ -37,7 +42,8 @@ public class Level6 extends DefaultScene {
 		addEntity(new PlatformEntity(new Vector(21,16),3,true));
 		addEntity(new PlatformEntity(new Vector(54,16)));
 		addEntity(new PlatformEntity(new Vector(55,17),2,true));
-		addEntity(new PlatformEntity(new Vector(17,18),5,false));
+		addEntity(new PlatformEntity(new Vector(17,18)));
+		addEntity(new PlatformEntity(new Vector(20,18),2,false));
 		addEntity(new PlatformEntity(new Vector(38,18),8,false));
 		addEntity(new PlatformEntity(new Vector(8,19),4,false));
 		addEntity(new PlatformEntity(new Vector(14,19),3,false));
@@ -49,15 +55,14 @@ public class Level6 extends DefaultScene {
 		addEntity(new PlatformEntity(new Vector(24,20),14,false));
 		addEntity(new PlatformEntity(new Vector(51,20)));
 		addEntity(new PlatformEntity(new Vector(18,21),6,false));
-		addEntity(new PlatformEntity(new Vector(50,21)));
+		addEntity(new PlatformEntity(new Vector(50,21),5,true));
 		addEntity(new PlatformEntity(new Vector(5,22),6,false));
 		addEntity(new PlatformEntity(new Vector(15,22),3,false));
-		addEntity(new PlatformEntity(new Vector(49,22),3,true));
 		addEntity(new PlatformEntity(new Vector(11,23),4,false));
 		addEntity(new PlatformEntity(new Vector(27,24),4,false));
+		addEntity(new PlatformEntity(new Vector(48,24),2,true));
 		addEntity(new PlatformEntity(new Vector(19,25),8,false));
 		addEntity(new PlatformEntity(new Vector(31,25)));
-		addEntity(new PlatformEntity(new Vector(48,25)));
 		addEntity(new PlatformEntity(new Vector(11,26),8,false));
 		addEntity(new PlatformEntity(new Vector(32,26),2,false));
 		addEntity(new PlatformEntity(new Vector(46,26),2,false));
@@ -72,16 +77,33 @@ public class Level6 extends DefaultScene {
 		addEntity(new PlatformEntity(new Vector(38,29),6,false));
 
 		// Moving Platforms
-		addEntity(new PlatformEntity(new Vector(54,17),2,true,new Vector(53.9f,17.1f),0.1f)); // TODO: Fill in end position and duration
-		addEntity(new PlatformEntity(new Vector(3,22),2,false,new Vector(3,19),3)); // TODO: Fill in end position and duration
-
-		// Markers
-		//new Vector(3,19)
+		addEntity(new PlatformEntity(new Vector(29,10),4,false,new Vector(60,10),7)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(18,18.3f),2,false,new Vector(20,10),0.5f)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(3,22),2,false,new Vector(3,18),3)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(49,25),new Vector(49,21),0.4f)); // TODO: Fill in end position and duration
 
 		// Pushable Blocks
 		addEntity(new PushableBlockEntity(41,17));
 
 		// Coins
+		addEntity(new CoinEntity(player, new Vector(25, 1), true));
+		addEntity(new CoinEntity(player, new Vector(28, 1), true));
+		addEntity(new CoinEntity(player, new Vector(24, 3), true));
+		addEntity(new CoinEntity(player, new Vector(29, 3), true));
+		addEntity(new CoinEntity(player, new Vector(23, 5), true));
+		addEntity(new CoinEntity(player, new Vector(30, 5), true));
+		addEntity(new CoinEntity(player, new Vector(22, 7), true));
+		addEntity(new CoinEntity(player, new Vector(31, 7), true));
+		addEntity(new CoinEntity(player, new Vector(33, 7), true));
+		addEntity(new CoinEntity(player, new Vector(36, 7), true));
+		addEntity(new CoinEntity(player, new Vector(39, 7), true));
+		addEntity(new CoinEntity(player, new Vector(42, 7), true));
+		addEntity(new CoinEntity(player, new Vector(45, 7), true));
+		addEntity(new CoinEntity(player, new Vector(48, 7), true));
+		addEntity(new CoinEntity(player, new Vector(51, 7), true));
+		addEntity(new CoinEntity(player, new Vector(54, 7), true));
+		addEntity(new CoinEntity(player, new Vector(57, 7), true));
+		addEntity(new CoinEntity(player, new Vector(60, 7), true));
 		addEntity(new CoinEntity(player, new Vector(25, 16), true));
 		addEntity(new CoinEntity(player, new Vector(27, 16), true));
 		addEntity(new CoinEntity(player, new Vector(29, 16), true));
@@ -91,30 +113,24 @@ public class Level6 extends DefaultScene {
 		addEntity(new CoinEntity(player, new Vector(36, 16), true));
 		addEntity(new CoinEntity(player, new Vector(37, 16), true));
 		addEntity(new CoinEntity(player, new Vector(33, 17), true));
-		addEntity(new CoinEntity(player, new Vector(48, 17), true));
-		addEntity(new CoinEntity(player, new Vector(49, 17), true));
-		addEntity(new CoinEntity(player, new Vector(50, 17), true));
-		addEntity(new CoinEntity(player, new Vector(51, 17), true));
 		addEntity(new CoinEntity(player, new Vector(33, 18), true));
-		addEntity(new CoinEntity(player, new Vector(47, 18), true));
-		addEntity(new CoinEntity(player, new Vector(52, 18), true));
+		addEntity(new CoinEntity(player, new Vector(28, 23), true));
 		addEntity(new CoinEntity(player, new Vector(41, 27), true));
 
 		// Ghosts
-		addEntity(new GhostEntity(new Vector(13,18), player));
+		addEntity(new GhostEntity(new Vector(19,27), player));
 		addEntity(new GhostEntity(new Vector(25,27), player));
+		addEntity(new GhostEntity(new Vector(31,27), player));
 
 		// Bees
+		addEntity(new BeeEntity(new Vector(52,17), player, new Vector(0,0))); // TODO: Fill in deviance
 		addEntity(new BeeEntity(new Vector(37,22), player, new Vector(0,0))); // TODO: Fill in deviance
 
 		// Barnacles
-		addEntity(new BarnacleEntity(new Vector(52,15), BarnacleEntity.Direction.SOUTH, true));
-		addEntity(new BarnacleEntity(new Vector(53,16), BarnacleEntity.Direction.SOUTH, true));
 		addEntity(new BarnacleEntity(new Vector(34,19), BarnacleEntity.Direction.NORTH, true));
 		addEntity(new BarnacleEntity(new Vector(35,19), BarnacleEntity.Direction.NORTH, true));
 		addEntity(new BarnacleEntity(new Vector(36,19), BarnacleEntity.Direction.NORTH, true));
 		addEntity(new BarnacleEntity(new Vector(37,19), BarnacleEntity.Direction.NORTH, true));
-		addEntity(new BarnacleEntity(new Vector(48,24), BarnacleEntity.Direction.NORTH, true));
 		addEntity(new BarnacleEntity(new Vector(38,28), BarnacleEntity.Direction.NORTH, true));
 		addEntity(new BarnacleEntity(new Vector(39,28), BarnacleEntity.Direction.NORTH, true));
 		addEntity(new BarnacleEntity(new Vector(40,28), BarnacleEntity.Direction.NORTH, true));
@@ -129,7 +145,6 @@ public class Level6 extends DefaultScene {
 		// Slimes
 		addEntity(new SlimeEntity(new Vector(29,19)));
 		addEntity(new SlimeEntity(new Vector(31,19)));
-		addEntity(new SlimeEntity(new Vector(48,23)));
 
 		// Default Scripts
 		addEntity(new BackgroundEntity(new ResourceID("background")));
