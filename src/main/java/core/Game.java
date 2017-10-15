@@ -89,7 +89,7 @@ public abstract class Game {
 
         while (true) {
             long delta = System.currentTimeMillis() - past;
-            System.out.println("Delta: " + delta);
+            //System.out.println("Delta: " + delta);
 
             accumulator += System.currentTimeMillis() - past;
             past = System.currentTimeMillis();
@@ -98,7 +98,7 @@ public abstract class Game {
             // of time needs to be processed.
             while (accumulator >= tickTime) {
                 // do Tick
-                System.out.println("Acc: " + accumulator);
+                //System.out.println("Acc: " + accumulator);
                 inputFrame = inputHandler.nextInputFrame();
                 levelManager.getCurrentScene().update(tickTime);
 
