@@ -11,7 +11,6 @@ import maths.Vector;
  */
 public class PatrolScript implements Script{
 
-    private Vector home;
     private Vector pos1;
     private Vector pos2;
     private float speed;
@@ -25,14 +24,14 @@ public class PatrolScript implements Script{
      * @param deviance The x and y deviance from the origin
      */
     public PatrolScript(GameEntity entity, Vector deviance, float speed){
-        home = new Vector(entity.getTransform());
+        Vector home = new Vector(entity.getTransform());
         pos1 = new Vector(home.x - deviance.x, home.y - deviance.y);
         pos2 = new Vector(home.x + deviance.x, home.y + deviance.y);
 
         target = pos2;
         this.speed = speed;
 
-        swapTarget(entity);
+        updateVelocity(entity);
     }
 
 
@@ -40,16 +39,20 @@ public class PatrolScript implements Script{
     public void update(int dt, GameEntity entity) {
         Vector current = entity.getTransform();
 
-        if(atPoint(current, target))swapTarget(entity);
+        if(atPoint(current, target)){swapTarget(entity);updateVelocity(entity);}
+    }
+
+    private void updateVelocity(GameEntity entity){
+        VelocityComponent velocityComponent = entity.get(VelocityComponent.class).get();
+        Vector velocity = target.sub(entity.getTransform()).norm();
+        velocity.scaleBy(speed);
+        velocityComponent.set(velocity);
     }
 
 
     private void swapTarget(GameEntity entity){
         target = (target.equals(pos1)? pos2 : pos1);
-        VelocityComponent velocityComponent = entity.get(VelocityComponent.class).get();
-        Vector velocity = target.sub(entity.getTransform()).norm();
-        velocity.scaleBy(speed);
-        velocityComponent.set(velocity);
+
     }
 
     private boolean atPoint(Vector location, Vector point){
