@@ -10,14 +10,26 @@ import physics.Collider;
 import scew.Entity;
 
 /**
- * Created by Callum Li on 9/29/17.
+ * Generic transform helpers.
+ * @author Callum Li
  */
 public class SceneUtils {
 
+    /**
+     * Returns a collider transformed by parent entity/
+     * @param collider collider to transform
+     * @param parent parent it belongs to
+     * @return transformed collider
+     */
     public static Collider colliderToWorld(Collider collider, GameEntity parent) {
         return collider.translate(parent.getTransform());
     }
 
+    /**
+     * Transforms a whole collider component.
+     * @param colliderComponent collider component to get collider is correct pos
+     * @return transformed collider
+     */
     public static Collider colliderToWorld(ColliderComponent colliderComponent) {
         Collider collider = colliderComponent.getCollider();
         Vector transform = colliderComponent.getEntity().getTransform();
@@ -25,6 +37,12 @@ public class SceneUtils {
         return collider.translate(transform);
     }
 
+    /**
+     * Returns a collider transformed by parent entity/
+     * @param sensor collider to transform (sensors are colliders)
+     * @param component parent it belongs to
+     * @return transformed collider
+     */
     public static Collider colliderToWorld(SensorComponent component, Sensor sensor) {
         Collider collider = sensor.collider;
         Vector transform = component.getEntity().getTransform();
