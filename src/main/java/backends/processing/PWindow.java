@@ -45,6 +45,11 @@ public class PWindow extends Renderer implements InputBroadcaster{
     private boolean useOpenGl;
     private boolean drawing = false;
 
+    /**
+     * Initializes the PWindow and tries to use open gl if specified however without the proper libraries this
+     * can fail.
+     * @param useOpenGl true to use open gl
+     */
     public PWindow(boolean useOpenGl){
         this.useOpenGl = useOpenGl;
     }
@@ -60,6 +65,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
 
     /**
      * Draws the scene that is passed in.
+     * Blocks thread
      * @param scene current scene
      */
     @Override
@@ -86,6 +92,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
 
     /**
      * Configures the width and height of the window.
+     * Can potentially do full screen, this is where open gl is specified.
      */
     @Override
     public void settings(){
@@ -106,6 +113,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
 
     /**
      * Processing's setup, for now loads the images to the asset handler.
+     * This goes into the asset folder and loads anything inside with the id of what was before the '.'.
      */
     @Override
     public void setup(){
@@ -118,6 +126,11 @@ public class PWindow extends Renderer implements InputBroadcaster{
         textFont(font);
     }
 
+    /**
+     * Loads assets in a certain folder regardless of sub directories.
+     * Sub directories recursive call with it appended.
+     * @param root where to start loading from, recursive.
+     */
     private void loadAssets(String root){
         //Code taken from here: https://stackoverflow.com/questions/5694385/getting-the-filenames-of-all-files-in-a-folder
         File folder = new File(root);
@@ -135,9 +148,13 @@ public class PWindow extends Renderer implements InputBroadcaster{
     }
 
     /**
-     * Draws all the entities, along with their assigned sprites within the scene. Calls the drawRect() method to
-     * visualise the bounding box of the colliding entities. Checks if the sprite is dimensionless or not, to call the
-     * correct draw function.
+     * Draws all the entities respecting layers from render component, default layer is 0.
+     * FULLSCREEN spans the whole screen stretching image as needed.
+     * PIXEL_NO_TRANS draws at exactly the co ords provided.
+     * NORMAL does all the transforms depending on the camera.
+     * Errors are indicated with a red screen.
+     * Also draws debugging boxes.
+     * Has lots of helper methods.
      */
     @Override
     public synchronized void draw(){
@@ -166,6 +183,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
 
         background(200);
 
+        //Sorting
         currentScene.getEntities().stream()
                 .sorted((e1, e2) -> {
                     int layer1 = e1.get(RenderComponent.class).orElse(new RenderComponent(e1, 0)).getLayer();
@@ -177,6 +195,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
                     drawSprites(e);
                     drawTexts(e);
 
+                    //Debugging
                     if (mask == 2) {
                         drawCollider(e);
                         drawSensors(e);
@@ -197,16 +216,23 @@ public class PWindow extends Renderer implements InputBroadcaster{
             rect(width - b.x, 0, b.x, height);
         }
 
+        //Blocking
         drawing = false;
-
         notifyAll();
     }
 
+    /**
+     * Draws the framerate in the left top corner.
+     */
     private void drawFramerate() {
         textSize(10);
         text("FPS: " + frameRate, 20 + b.x, 20 + b.y);
     }
 
+    /**
+     * Will draw all the sensors belonging to a game entity.
+     * @param e Entity to draw sensors from
+     */
     private void drawSensors(GameEntity e){
         Optional<SensorComponent> osc = e.get(SensorComponent.class);
 
@@ -220,6 +246,11 @@ public class PWindow extends Renderer implements InputBroadcaster{
         }
     }
 
+    /**
+     * Draws the Collider of a entity.
+     * entities only have one collider.
+     * @param e Entity to draw collider
+     */
     private void drawCollider(GameEntity e){
         Optional<ColliderComponent> occ = e.get(ColliderComponent.class);
 
@@ -229,7 +260,12 @@ public class PWindow extends Renderer implements InputBroadcaster{
         drawAABB(e, ab, new Color(255,0,0));
     }
 
-    //NOT AFFECTED BY RENDER COMPONENT
+    /**
+     * Draws a AABB in the correct position.
+     * @param e Entity it belongs to
+     * @param ab The AABB itself
+     * @param c The color to use
+     */
     private void drawAABB(GameEntity e, AABBCollider ab, Color c){
         Vector loc = getPixelLoc(e.getTransform(), ab.getMin());
 
@@ -238,6 +274,10 @@ public class PWindow extends Renderer implements InputBroadcaster{
         rect(loc.x, loc.y, ab.getDimension().x * s, ab.getDimension().y * s);
     }
 
+    /**
+     * Draws all the sprites of a Entity.
+     * @param e Entity to draw sprites from
+     */
     private void drawSprites(GameEntity e){
         Optional<SpriteComponent> osc = e.get(SpriteComponent.class);
 
@@ -248,6 +288,10 @@ public class PWindow extends Renderer implements InputBroadcaster{
         }
     }
 
+    /**
+     * Draws all the texts of a Entity
+     * @param e Entity to draw texts from
+     */
     private void drawTexts(GameEntity e){
         Optional<TextComponent> otc = e.get(TextComponent.class);
 
@@ -258,7 +302,12 @@ public class PWindow extends Renderer implements InputBroadcaster{
         }
     }
 
-    //EFFECTED BY RENDER COMPONENT
+    /**
+     * Draws a sprite, and respects the render component of the Entity.
+     * Uses asset handler and the sprites resourceID to source the image.
+     * @param e Entity that owns the sprite
+     * @param sprite Sprite to draw
+     */
     private void drawSprite(GameEntity e, Sprite sprite){
         RenderComponent rc = e.get(RenderComponent.class).orElse(new RenderComponent(e));
         Vector entityTransform = e.getTransform();
@@ -271,6 +320,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
                 loc = new Vector((entityTransform.x + sprite.transform.x) + b.x, (entityTransform.y + sprite.transform.y) + b.y);
             }
 
+            //Whether to draw with scaling or not.
             if(sprite.hasDimension()) {
                 Vector dimension = new Vector(sprite.dimensions.x * s, sprite.dimensions.y * s);
                 image(AssetHandler.getImage(sprite.resourceID.id), loc.x, loc.y, dimension.x, dimension.y);
@@ -283,7 +333,11 @@ public class PWindow extends Renderer implements InputBroadcaster{
         }
     }
 
-    //EFFECTED BY RENDER COMPONENT
+    /**
+     * Draws a text, and respects the render component of the Entity.
+     * @param e Entity that owns the text
+     * @param text The text to draw
+     */
     private void drawText(GameEntity e, Text text){
         RenderComponent rc = e.get(RenderComponent.class).orElse(new RenderComponent(e));
         Vector entityTransform = e.getTransform();
@@ -299,15 +353,34 @@ public class PWindow extends Renderer implements InputBroadcaster{
         text(text.text, loc.x, loc.y);
     }
 
+    /**
+     * Takes a location in meters and coverts it to pixel locations.
+     * s = SCALE this is how scaled meters are in relation to pixels.
+     * t = TRANSLATE this is how far everything is shifted, this is stored in pixels already.
+     * b = BORDER the black bars on the screen depending on aspect ratio.
+     * @param meters meter location to convert
+     * @return pixel location
+     */
     private Vector getPixelLoc(Vector meters){
         return new Vector(meters.x*s + t.x + b.x, meters.y*s + t.y + b.y);
     }
 
+    /**
+     * Same as above but combines two vector locations together before hand useful for combining transforms.
+     * @param entityTransform entity transform
+     * @param componentTransform component transform
+     * @return pixel location
+     */
     private Vector getPixelLoc(Vector entityTransform, Vector componentTransform){
         Vector meters = new Vector(entityTransform.x + componentTransform.x, entityTransform.y + componentTransform.y);
         return getPixelLoc(meters);
     }
 
+    /**
+     * Displays a red error screen when something goes wrong, simple as that.
+     * Text here will sometimes null pointer deep within the PApplet.
+     * @param text reason for error but not always displayed
+     */
     private void displayError(String text){
         textSize(40);
         background(255,0,0);
@@ -318,7 +391,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
     }
 
     /**
-     * Should return the world location in meters of a provided pixel co-ordinate.
+     * Returns the world location in meters of a provided pixel co-ordinate.
      * @param x x pixel location
      * @param y y pixel location
      * @return vector of game world position
@@ -391,12 +464,18 @@ public class PWindow extends Renderer implements InputBroadcaster{
         mouseListeners.forEach((mouseListener -> mouseListener.mouseReleased(button, position)));
     }
 
+    /**
+     * Passes the mouse moved event to all mouse listeners.
+     */
     @Override
     public void mouseMoved(MouseEvent event) {
         Vector position = pixelToWorld(event.getX(), event.getY());
         mouseListeners.forEach(mouseListener -> mouseListener.mouseMoved(position));
     }
 
+    /**
+     * Passes the mouse dragged event to all mouse listeners.
+     */
     @Override
     public void mouseDragged(MouseEvent event) {
         Vector position = pixelToWorld(event.getX(), event.getY());
