@@ -3,7 +3,6 @@ package ivara.entities.scripts;
 import core.Script;
 import core.components.VelocityComponent;
 import core.entity.GameEntity;
-import core.struct.Timer;
 import maths.Vector;
 
 /**
