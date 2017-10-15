@@ -45,7 +45,7 @@ public class VelocityComponent extends Component<GameEntity> {
         this.velocity.setAs(velocity);
     }
 
-    public void setX(float x) { // Todo change how this is done :)
+    public void setX(float x) { // Todo change how this is done
         velocity.setAs(x,velocity.y);
     }
 

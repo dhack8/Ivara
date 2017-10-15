@@ -77,6 +77,7 @@ public class PlayerSprite extends AnimatedSprite {
         };
         addResources(state, Arrays.asList(resources));
 
-        setState(IDLE_RIGHT); //TODO incorporate state changes by key
+        //TODO @will sprite animation: incorporate state changes by key
+        setState(IDLE_RIGHT);
     }
 }

@@ -50,7 +50,8 @@ abstract public class BasicEnemyEntity extends GameEntity{
         //Layer---
         addComponent(new RenderComponent(this, 999));
 
-        //Physics--- Todo: If there is a physics component, a sensor must be used to counter the increasing Y velocity
+        //TODO will/callum?
+        //Physics--- If there is a physics component, a sensor must be used to counter the increasing Y velocity
         //addComponent(new PhysicsComponent(this, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
 
         //Sensors---

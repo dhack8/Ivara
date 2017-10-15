@@ -108,7 +108,7 @@ public class GameTest {
 
         }
 
-        @Override
+        //@Override
         public Scene hardReset() {
             return null;
         }

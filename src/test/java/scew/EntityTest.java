@@ -64,7 +64,5 @@ public class EntityTest {
             super(e);
         }
     }
-
-    //Todo add more component checks
-
+    //TODO more component checks
 }
