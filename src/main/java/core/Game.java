@@ -15,6 +15,10 @@ import processing.core.PApplet;
  */
 public abstract class Game {
 
+    static {
+        TinySound.init();
+    }
+
     /**
      * The number of milliseconds per update tick.
      */
