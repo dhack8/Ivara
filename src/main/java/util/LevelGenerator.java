@@ -220,29 +220,29 @@ public class LevelGenerator {
                 } else if (tile.equals(MOVINGPLATFORM)) {
                     addToMap(entityStrings, 4,platform(x, y, platformFill(x, y, grid, checked, MOVINGPLATFORM), true));
                 } else if (tile.equals(FAKEPLATFORM))
-                    addToMap(entityStrings, 5,fakePlatform(x,y));
+                    addToMap(entityStrings, 6,fakePlatform(x,y));
                 else if (tile.equals(COIN))
-                    addToMap(entityStrings, 7,coin(x,y));
+                    addToMap(entityStrings, 8,coin(x,y));
                 else if (tile.equals(PLAYER))
                     addToMap(entityStrings, 0,player(x,y));
                 else if (tile.equals(ENDFLAG))
                     addToMap(entityStrings, 2,endFlag(x,y));
                 else if (tile.equals(GHOST))
-                    addToMap(entityStrings, 8,ghost(x,y));
+                    addToMap(entityStrings, 9,ghost(x,y));
                 else if (tile.equals(BEE))
-                    addToMap(entityStrings, 9,bee(x,y));
+                    addToMap(entityStrings, 10,bee(x,y));
                 else if (tile.equals(BARNACLE))
-                    addToMap(entityStrings, 10,barnacle(x,y,grid));
+                    addToMap(entityStrings, 11,barnacle(x,y,grid));
                 else if (tile.equals(SNAKE))
-                    addToMap(entityStrings, 11,snake(x,y));
+                    addToMap(entityStrings, 12,snake(x,y));
                 else if (tile.equals(SLIME))
-                    addToMap(entityStrings, 12,slime(x,y));
+                    addToMap(entityStrings, 13,slime(x,y));
                 else if (tile.equals(CHECKPOINT))
                     addToMap(entityStrings, 1,checkPoint(x,y));
                 else if (tile.equals(MARKER))
-                    addToMap(entityStrings,13,marker(x,y,platformFill(x,y,grid,checked,MARKER)));
+                    addToMap(entityStrings,5,marker(x,y,platformFill(x,y,grid,checked,MARKER)));
                 else if (tile.equals(PUSHBLOCK))
-                    addToMap(entityStrings,6,pushBlock(x,y));
+                    addToMap(entityStrings,7,pushBlock(x,y));
                 else
                     System.err.println("Unknown tile colour: " + tile.toString());
             }
@@ -292,7 +292,7 @@ public class LevelGenerator {
 
     /**
      * Determines the initial string to use for the map of commands based on the category. Current
-     * category codes used are 0-123inclusive. Anything else returns an "UNKNOWN CATEGORY".
+     * category codes used are 0-13 inclusive. Anything else returns an "UNKNOWN CATEGORY".
      * @param category The category code.
      * @return The initial string.
      */
@@ -303,15 +303,15 @@ public class LevelGenerator {
             case 2: return "\n\t\t// Flag\n";
             case 3: return "\n\t\t// Platforms\n";
             case 4: return "\n\t\t// Moving Platforms\n";
-            case 5: return "\n\t\t// Fake Platforms\n";
-            case 6: return "\n\t\t// Pushable Blocks\n";
-            case 7: return "\n\t\t// Coins\n";
-            case 8: return "\n\t\t// Ghosts\n";
-            case 9: return "\n\t\t// Bees\n";
-            case 10: return "\n\t\t// Barnacles\n";
-            case 11: return "\n\t\t// Snakes\n";
-            case 12: return "\n\t\t// Slimes\n";
-            case 13: return "\n\t\t// Markers\n";
+            case 5: return "\n\t\t// Markers\n";
+            case 6: return "\n\t\t// Fake Platforms\n";
+            case 7: return "\n\t\t// Pushable Blocks\n";
+            case 8: return "\n\t\t// Coins\n";
+            case 9: return "\n\t\t// Ghosts\n";
+            case 10: return "\n\t\t// Bees\n";
+            case 11: return "\n\t\t// Barnacles\n";
+            case 12: return "\n\t\t// Snakes\n";
+            case 13: return "\n\t\t// Slimes\n";
             default: return "\n\t\t// UNKNOWN CATEGORY: "+category+"\n";
         }
     }
@@ -363,9 +363,9 @@ public class LevelGenerator {
             else if (y > platform.y)
                 dir = "SOUTH";
             else if (x < platform.x)
-                dir = "EAST";
-            else if (x > platform.x)
                 dir = "WEST";
+            else if (x > platform.x)
+                dir = "EAST";
             return codeLine("addEntity(new BarnacleEntity(new Vector("+x+","+y+"), BarnacleEntity.Direction."+dir+", true));");
         }
     }
