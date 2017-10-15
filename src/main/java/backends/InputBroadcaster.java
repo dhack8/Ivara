@@ -4,7 +4,7 @@ import core.input.KeyListener;
 import core.input.MouseListener;
 
 /**
- * Created by Callum Li on 9/16/17.
+ * Input Broadcaster for key inputs.
  */
 public interface InputBroadcaster {
 

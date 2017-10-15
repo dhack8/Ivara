@@ -5,7 +5,8 @@ import scew.Component;
 import physics.PhysicProperties;
 
 /**
- * Created by Callum Li on 9/16/17.
+ * Adds physics to a entity, basically just gravity.
+ * @author Callum Li
  */
 public class PhysicsComponent extends Component<GameEntity> {
 
@@ -15,6 +16,11 @@ public class PhysicsComponent extends Component<GameEntity> {
         return properties;
     }
 
+    /**
+     * Constructs a physics component.
+     * @param entity Entity it belongs to
+     * @param properties Physics properties
+     */
     public PhysicsComponent(GameEntity entity, PhysicProperties properties) {
         super(entity);
         this.properties = properties;
