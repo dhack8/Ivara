@@ -209,7 +209,7 @@ public class HardLevel3 extends DefaultScene {
 		addEntity(new SlimeEntity(new Vector(34,29)));
 
 		// Default Scripts
-		addEntity(new BackgroundEntity(new ResourceID("background")));
+		addEntity(new BackgroundEntity(new ResourceID("background-sunrise")));
 		addEntity(new DeathLineEntity(55));
 		setCamera(new Camera());
 		super.startScene(player);

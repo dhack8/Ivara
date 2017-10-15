@@ -58,7 +58,9 @@ abstract public class DefaultScene extends Scene {
 
     @Override
     public void removeEntity(GameEntity e){
-        if((e instanceof CoinEntity || e instanceof Enemy || e instanceof FakeBlockEntity || e instanceof PushableBlockEntity) && !(e instanceof BulletEntity)) playerProgress.add(e);
+        if((e instanceof CoinEntity || e instanceof Enemy || e instanceof FakeBlockEntity || e instanceof PushableBlockEntity) && !(e instanceof BulletEntity)){
+            playerProgress.add(e);
+        }
         super.removeEntity(e);
     }
 

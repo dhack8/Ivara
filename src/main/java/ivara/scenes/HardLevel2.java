@@ -164,9 +164,11 @@ public class HardLevel2 extends DefaultScene {
 		addEntity(new CoinEntity(player, new Vector(38, 31), true));
 
 		// Bees
-		addEntity(new BeeEntity(new Vector(11,5), player, new Vector(0,0))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(55,19), player, new Vector(0,0))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(69,19), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(11,5), player, new Vector(0,0)));
+		addEntity(new BeeEntity(new Vector(55,19), player, new Vector(4,0)));
+		addEntity(new BeeEntity(new Vector(57,20), player, new Vector(-3,0)));
+		addEntity(new BeeEntity(new Vector(67,20), player, new Vector(3,0)));
+		addEntity(new BeeEntity(new Vector(69,19), player, new Vector(-4,0)));
 
 		// Barnacles
 		addEntity(new BarnacleEntity(new Vector(9,3), BarnacleEntity.Direction.NORTH, true));
@@ -207,7 +209,7 @@ public class HardLevel2 extends DefaultScene {
 		addEntity(new SlimeEntity(new Vector(70,17)));
 
 		// Default Scripts
-		addEntity(new BackgroundEntity(new ResourceID("background")));
+		addEntity(new BackgroundEntity(new ResourceID("background-dark")));
 		addEntity(new DeathLineEntity(43));
 		setCamera(new Camera());
 		super.startScene(player);

@@ -9,6 +9,7 @@ import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import core.struct.Text;
+import ivara.scenes.DefaultScene;
 import maths.Vector;
 
 /**
@@ -37,6 +38,10 @@ public class CoinTextEntity extends GameEntity {
                     public void update(int dt, GameEntity entity) {
                         if(!coinCountSet){
                             coinCount = getScene().getEntities().stream().filter((e) -> e instanceof CoinEntity).count();
+                            if(getScene() instanceof DefaultScene){
+                                DefaultScene ds = (DefaultScene) getScene();
+                                coinCount += ds.getCollectedCoins().size();
+                            }
                             coinCountSet = true;
                         }
                         score.clear();
