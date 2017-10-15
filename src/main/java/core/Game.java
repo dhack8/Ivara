@@ -43,8 +43,9 @@ public abstract class Game {
 
         //renderer.setMask(1);
 
-        lm.setGame(this);
+        TinySound.init();
 
+        lm.setGame(this);
         assert broadcaster != null;
     }
 
