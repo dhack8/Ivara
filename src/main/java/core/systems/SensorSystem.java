@@ -44,14 +44,6 @@ public class SensorSystem extends System<GameEntity> {
                     Collider c2 = SceneUtils.colliderToWorld(collider);
 
                     if (CollisionUtil.intersect(c1, c2)) {
-
-                        // Debug.log(component.getEntity().toString() + " activated by " + collider.getEntity().toString());
-                        /**
-                         * @deprecated Support for deprecated sensor listener functionality,
-                         * to be removed when appropriate.
-                         */
-                        sensor.sensorListener.onActive(sensor, collider.getEntity());
-
                         /**
                          * SensorHandler update system.
                          */
