@@ -48,8 +48,12 @@ public class Ivara extends Game {
         List<Scene> levels = new ArrayList<>();
 
         levels.add(new StartMenu());
+<<<<<<< HEAD
         //levels.add(new Mountain_fun_time_of_doom());
         levels.add(new TestLevel1());
+=======
+        levels.add(new HardLevel2());
+>>>>>>> cffda862b5f7c76e06421af6b4a3eee2f37a9fd0
         return levels;
     }
 
