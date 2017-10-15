@@ -41,6 +41,9 @@ public class LevelGenerator {
     private static final Color BARNACLE = new Color(223,0,255);
     private static final Color SNAKE = new Color(32,108,0);
     private static final Color SLIME = new Color(77,255,0);
+    private static final Color PUSHBLOCK = new Color(108,74,0);
+
+    private static final Color MARKER = new Color(255,174,0);
 
     /**
      * Generates the level file.
@@ -76,10 +79,9 @@ public class LevelGenerator {
     private static String selectImage() {
         JFileChooser fileChooser = new JFileChooser(ROOT);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG Filter", "png");
-        int option;
-        do {
-            option = fileChooser.showOpenDialog(null);
-        } while (option != JFileChooser.APPROVE_OPTION);
+        int option = fileChooser.showOpenDialog(null);
+        if (option != JFileChooser.APPROVE_OPTION)
+            System.exit(0);
         File file = fileChooser.getSelectedFile();
         return fileChooser.getName(file);
     }
@@ -92,7 +94,7 @@ public class LevelGenerator {
      * @throws IOException Thrown if an error occurs reading the file.
      */
     private static BufferedImage readImage(String filename) throws IOException{
-        BufferedImage img = ImageIO.read(new File(ROOT + "/" + filename)); //TODO file selection
+        BufferedImage img = ImageIO.read(new File(ROOT + "/" + filename));
         if (img.getType() != 6) //png type
             throw new IllegalArgumentException("Image not a png");
         if (img.getWidth() > MAX_SIZE || img.getHeight() > MAX_SIZE)
@@ -107,7 +109,7 @@ public class LevelGenerator {
      * @return The 2D array of colours.
      */
     private static Color[][] convertToArray(BufferedImage img) {
-        Color[][] arr = new Color[img.getWidth()][img.getHeight()];
+        Color[][] arr = new Color[img.getHeight()][img.getWidth()];
         for (int y = 0; y < arr.length; y++)
             for (int x = 0; x < arr[0].length; x++) {
                 Color col = new Color(img.getRGB(x, y), true);
@@ -130,7 +132,7 @@ public class LevelGenerator {
         level.append(levelEntities(rgbTable));
         level.append('\n');
         level.append(levelDefaults(height));
-        level.append(levelFooter(levelName));
+        level.append(levelFooter());
 
         return level.toString();
     }
@@ -218,25 +220,29 @@ public class LevelGenerator {
                 } else if (tile.equals(MOVINGPLATFORM)) {
                     addToMap(entityStrings, 4,platform(x, y, platformFill(x, y, grid, checked, MOVINGPLATFORM), true));
                 } else if (tile.equals(FAKEPLATFORM))
-                    addToMap(entityStrings, 5,fakePlatform(x,y));
+                    addToMap(entityStrings, 6,fakePlatform(x,y));
                 else if (tile.equals(COIN))
-                    addToMap(entityStrings, 6,coin(x,y));
+                    addToMap(entityStrings, 8,coin(x,y));
                 else if (tile.equals(PLAYER))
                     addToMap(entityStrings, 0,player(x,y));
                 else if (tile.equals(ENDFLAG))
                     addToMap(entityStrings, 2,endFlag(x,y));
                 else if (tile.equals(GHOST))
-                    addToMap(entityStrings, 7,ghost(x,y));
+                    addToMap(entityStrings, 9,ghost(x,y));
                 else if (tile.equals(BEE))
-                    addToMap(entityStrings, 8,bee(x,y));
+                    addToMap(entityStrings, 10,bee(x,y));
                 else if (tile.equals(BARNACLE))
-                    addToMap(entityStrings, 9,barnacle(x,y,grid));
+                    addToMap(entityStrings, 11,barnacle(x,y,grid));
                 else if (tile.equals(SNAKE))
-                    addToMap(entityStrings, 10,snake(x,y));
+                    addToMap(entityStrings, 12,snake(x,y));
                 else if (tile.equals(SLIME))
-                    addToMap(entityStrings, 11,slime(x,y));
+                    addToMap(entityStrings, 13,slime(x,y));
                 else if (tile.equals(CHECKPOINT))
                     addToMap(entityStrings, 1,checkPoint(x,y));
+                else if (tile.equals(MARKER))
+                    addToMap(entityStrings,5,marker(x,y,platformFill(x,y,grid,checked,MARKER)));
+                else if (tile.equals(PUSHBLOCK))
+                    addToMap(entityStrings,7,pushBlock(x,y));
                 else
                     System.err.println("Unknown tile colour: " + tile.toString());
             }
@@ -252,9 +258,9 @@ public class LevelGenerator {
      */
     private static String levelDefaults(int levelHeight) {
         StringBuilder sb = new StringBuilder();
-        sb.append(codeLine("//DEFAULT---"));
+        sb.append(codeLine("// Default Scripts"));
         sb.append(codeLine("addEntity(new BackgroundEntity(new ResourceID(\"background\")));"));
-        int deathHeight = levelHeight + 10; // place death line slighty lower than the level's depth
+        int deathHeight = levelHeight + 10; // place death line slightly lower than the level's depth
         sb.append(codeLine("addEntity(new DeathLineEntity("+deathHeight+"));"));
         sb.append(codeLine("setCamera(new Camera());"));
         sb.append(codeLine("super.startScene(player);"));
@@ -263,14 +269,10 @@ public class LevelGenerator {
 
     /**
      * Returns the level footer.
-     * @param levelName The level name.
      * @return The level footer.
      */
-    private static String levelFooter(String levelName) {
-        return "\t}\n\n" +
-                "\tpublic Scene hardReset() {\n" +
-                "\t\treturn new "+levelName+"();\n" +
-                "\t}\n}\n";
+    private static String levelFooter() {
+        return "\t}\n}\n";
     }
 
     // levelEntites() helpers ---------------------------------------------------------------
@@ -290,7 +292,7 @@ public class LevelGenerator {
 
     /**
      * Determines the initial string to use for the map of commands based on the category. Current
-     * category codes used are 0-11 inclusive. Anything else returns an "UNKNOWN CATEGORY".
+     * category codes used are 0-13 inclusive. Anything else returns an "UNKNOWN CATEGORY".
      * @param category The category code.
      * @return The initial string.
      */
@@ -301,13 +303,15 @@ public class LevelGenerator {
             case 2: return "\n\t\t// Flag\n";
             case 3: return "\n\t\t// Platforms\n";
             case 4: return "\n\t\t// Moving Platforms\n";
-            case 5: return "\n\t\t// Fake Platforms\n";
-            case 6: return "\n\t\t// Coins\n";
-            case 7: return "\n\t\t// Ghosts\n";
-            case 8: return "\n\t\t// Bees\n";
-            case 9: return "\n\t\t// Barnacles\n";
-            case 10: return "\n\t\t// Snakes\n";
-            case 11: return "\n\t\t// Slimes\n";
+            case 5: return "\n\t\t// Markers\n";
+            case 6: return "\n\t\t// Fake Platforms\n";
+            case 7: return "\n\t\t// Pushable Blocks\n";
+            case 8: return "\n\t\t// Coins\n";
+            case 9: return "\n\t\t// Ghosts\n";
+            case 10: return "\n\t\t// Bees\n";
+            case 11: return "\n\t\t// Barnacles\n";
+            case 12: return "\n\t\t// Snakes\n";
+            case 13: return "\n\t\t// Slimes\n";
             default: return "\n\t\t// UNKNOWN CATEGORY: "+category+"\n";
         }
     }
@@ -359,15 +363,15 @@ public class LevelGenerator {
             else if (y > platform.y)
                 dir = "SOUTH";
             else if (x < platform.x)
-                dir = "EAST";
-            else if (x > platform.x)
                 dir = "WEST";
+            else if (x > platform.x)
+                dir = "EAST";
             return codeLine("addEntity(new BarnacleEntity(new Vector("+x+","+y+"), BarnacleEntity.Direction."+dir+", true));");
         }
     }
 
     private static String bee(int x, int y) {
-        return codeLine("addEntity(new BeeEntity(new Vector("+x+","+y+"), player, new Vector("+x+","+y+"))); // TODO: Fill in deviance");
+        return codeLine("addEntity(new BeeEntity(new Vector("+x+","+y+"), player, new Vector(0,0))); // TODO: Fill in deviance");
     }
 
     private static String ghost(int x, int y) {
@@ -418,18 +422,26 @@ public class LevelGenerator {
         int width = grid[y].length;
 
         if (x+1 < width && grid[y][x+1].equals(platformType)) {// horizontal multi
-            while (x+1 < width && grid[y][x].equals(platformType)) {
+            while (x < width && grid[y][x].equals(platformType)) {
                 checked[y][x] = true;
                 x++;
             }
         } else if (y+1 < height && grid[y+1][x].equals(platformType)) {// vertical multi
-            while (y+1 < height && grid[y][x].equals(platformType)) {
+            while (y < height && grid[y][x].equals(platformType)) {
                 checked[y][x] = true;
                 y++;
             }
         }
 
         return new Vector(x,y);
+    }
+
+    private static String pushBlock(int x, int y) {
+        return codeLine("addEntity(new PushableBlockEntity("+x+","+y+"));");
+    }
+
+    private static String marker(int x, int y, Vector end) {
+        return codeLine("//new Vector("+x+","+y+")");
     }
 
 

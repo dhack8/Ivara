@@ -1,12 +1,14 @@
 package ivara.entities.enemies;
 
 import core.components.ColliderComponent;
+import core.components.PhysicsComponent;
 import core.components.RenderComponent;
 import core.components.SpriteComponent;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
 import maths.Vector;
 import physics.AABBCollider;
+import physics.PhysicProperties;
 
 import java.util.Arrays;
 

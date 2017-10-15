@@ -94,9 +94,10 @@ public class AnimatedSpriteTest {
             };
             testSprite.addResources(state, Arrays.asList(resources));
             testSprite.setState("a");
-            assertEquals("black-box", testSprite.resourceID.id); // all animated sprites start with black box until updated
+            //TODO this fails for some reason even tho shouldnt it be set to a, not a1?
+            assertEquals("a", testSprite.resourceID.id); // all animated sprites start with black box until updated
             testSprite.updateResource(31);
-            assertEquals("a4", testSprite.resourceID.id); // TODO should fail atm, needs to be fixed
+            assertEquals("a4", testSprite.resourceID.id);
         } catch (Exception e) {
             e.printStackTrace();
             assert false;

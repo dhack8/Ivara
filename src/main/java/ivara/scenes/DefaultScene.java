@@ -3,11 +3,9 @@ package ivara.scenes;
 import core.Game;
 import core.entity.GameEntity;
 import core.scene.Scene;
-import ivara.entities.CoinEntity;
-import ivara.entities.CoinTextEntity;
-import ivara.entities.PlayerEntity;
-import ivara.entities.TimerEntity;
+import ivara.entities.*;
 import ivara.entities.enemies.Enemy;
+import ivara.entities.enemies.FakeBlockEntity;
 import maths.Vector;
 
 import java.util.ArrayList;
@@ -52,7 +50,6 @@ abstract public class DefaultScene extends Scene {
         for(GameEntity e : playerProgress){
             addEntity(e);
             if(e instanceof CoinEntity){
-                System.out.println("Adding coin back removing from player");
                 player.coinsCollected--;
             }
         }
@@ -61,7 +58,7 @@ abstract public class DefaultScene extends Scene {
 
     @Override
     public void removeEntity(GameEntity e){
-        if(e instanceof CoinEntity || e instanceof Enemy) playerProgress.add(e);
+        if(e instanceof CoinEntity || e instanceof Enemy || e instanceof FakeBlockEntity || e instanceof PushableBlockEntity) playerProgress.add(e);
         super.removeEntity(e);
     }
 

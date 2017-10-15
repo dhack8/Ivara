@@ -68,7 +68,7 @@ public class AnimatedSprite extends Sprite{
         this.resources = resourceMap.get(state);
         this.frame = 0;
 
-        if (super.resourceID.id.equals("black-box") && !resources.isEmpty()){
+        if (!resources.isEmpty()){
             super.resourceID = new ResourceID(resources.get(frame));
         }
     }

@@ -4,6 +4,7 @@ package core;
 import backends.InputBroadcaster;
 import backends.Renderer;
 import backends.processing.PWindow;
+import backends.tinysound.TinySound;
 import core.input.InputHandler;
 import core.scene.Scene;
 import core.scene.LevelManager;
@@ -98,6 +99,9 @@ public abstract class Game {
         long accumulator = 0;
 
         while (true) {
+            long delta = System.currentTimeMillis() - past;
+            //System.out.println("Delta: " + delta);
+
             accumulator += System.currentTimeMillis() - past;
             past = System.currentTimeMillis();
 
@@ -105,6 +109,7 @@ public abstract class Game {
             // of time needs to be processed.
             while (accumulator >= tickTime) {
                 // do Tick
+                //System.out.println("Acc: " + accumulator);
                 inputFrame = inputHandler.nextInputFrame();
                 levelManager.getCurrentScene().update(tickTime);
 

@@ -20,6 +20,9 @@ public class Level1 extends DefaultScene {
         PlayerEntity player = new PlayerEntity(2,27);
         addEntity(player);
 
+        addEntity(new BasicTextEntity(new Vector(3,26), new Text(20, "Hello there oh brave Pablo!\nUse WASD to move around!")));
+        addEntity(new BasicTextEntity(new Vector(41,14), new Text(20, "Those barnacles look painful!")));
+
         //ENTITIES---
         addEntity(new LevelEndEntity(70, 4));
         addEntity(new CheckpointEntity(40, 15));
@@ -27,7 +30,7 @@ public class Level1 extends DefaultScene {
         addEntity(new PlatformEntity(new Vector(67,5),5,false));
         addEntity(new PlatformEntity(new Vector(35,16),9,false));
         addEntity(new PlatformEntity(new Vector(55,16)));
-        addEntity(new PlatformEntity(new Vector(56,16),6,false,new Vector(56,5),5)); // TODO: Fill in end position and duration
+        addEntity(new PlatformEntity(new Vector(56,16),6,false,new Vector(56,5),5));
         addEntity(new PlatformEntity(new Vector(44,17)));
         addEntity(new PlatformEntity(new Vector(54,17)));
         addEntity(new PlatformEntity(new Vector(45,18)));
@@ -38,7 +41,7 @@ public class Level1 extends DefaultScene {
         addEntity(new PlatformEntity(new Vector(47,20),2,false));
         addEntity(new PlatformEntity(new Vector(50,20),2,false));
         addEntity(new PlatformEntity(new Vector(33,21)));
-        addEntity(new PlatformEntity(new Vector(34,21),new Vector(34,16),3)); // TODO: Fill in end position and duration
+        addEntity(new PlatformEntity(new Vector(34,21),new Vector(34,16),3));
         addEntity(new PlatformEntity(new Vector(32,22)));
         addEntity(new PlatformEntity(new Vector(31,23)));
         addEntity(new PlatformEntity(new Vector(30,24)));
@@ -75,9 +78,5 @@ public class Level1 extends DefaultScene {
         setCamera(new Camera());
         super.startScene(player);
 
-    }
-
-    public Scene hardReset(){
-        return new Level1();
     }
 }
