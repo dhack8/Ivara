@@ -27,7 +27,7 @@ public class PlayerEntity extends GameEntity {
 
     private static final float jumpSensorHeight = 0.15f;
     private static final float jumpSensorExtra = 0.01f;
-    private static final float antiWallRun = 0.04f; //0 for wall running
+    private static final float antiWallRun = 0.05f; //0 for wall running
 
     public int coinsCollected = 0;
 

@@ -10,14 +10,11 @@ import java.util.*;
 
 /**
  * A sensor component, container for sensors.
- * @author Callum Li
+ * @author Callum Li & David Hack
  */
 public class SensorComponent extends Component<GameEntity> {
 
     private final List<Sensor>sensors = new ArrayList<>();
-
-    //TODO Callum colliding
-    //private final Set<GameEntity> colliding = new HashSet<>();
 
     //Constructors --------------------------------------------
 
@@ -48,7 +45,6 @@ public class SensorComponent extends Component<GameEntity> {
         super(entity);
         for(Sensor s : sensors) this.sensors.add(s);
     }
-
 
     //End of constructors----------------------------------------
 
