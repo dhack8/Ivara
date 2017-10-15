@@ -88,7 +88,7 @@ public class PlayerScript implements Script{//}, SensorListener {
         if(input.isKeyReleased(Constants.ESC)) entity.getScene().getGame().pause();
     }
 
-    private void handleEnemy(SensorHandler sensorHandler, GameEntity player){ // Todo: fix when colliding with multiple things
+    private void handleEnemy(SensorHandler sensorHandler, GameEntity player){
         GameEntity collided = sensorHandler.getActivatingEntities(enemySensor).stream().findAny().get();
         if(collided instanceof Enemy || collided instanceof ImmortalEnemy) respawnPlayer(player);
     }
@@ -96,7 +96,7 @@ public class PlayerScript implements Script{//}, SensorListener {
     private void handleOnGround(VelocityComponent vComp, SensorHandler sensorHandler, GameEntity player){
         GameEntity collided = sensorHandler.getActivatingEntities(bottomSensor).stream().findAny().get();
         groundCollision(player, collided);
-        vComp.setY(relative.y); // Todo regardless, when the sensor is triggered the y velocity is set to 0
+        vComp.setY(relative.y);
 
         if(collided instanceof Enemy && !sensorHandler.isActive(enemySensor)){
             player.getScene().removeEntity(collided);
@@ -119,13 +119,12 @@ public class PlayerScript implements Script{//}, SensorListener {
     }
 
     private void handleAirborne(){
-        relative.setAs(0f,0f); // Todo Relative velocity reset to 0 when there is no contact with a block
         updateState(State.JUMP);
     }
 
     private void performJump(VelocityComponent vComp){
         if (canJump) {
-            vComp.setY(jump + relative.y); // Todo, on a jump y velocity is set to relative y velocity + the jump velocity
+            vComp.setY(jump + relative.y);
             canJump = false;
         }
     }
@@ -142,15 +141,6 @@ public class PlayerScript implements Script{//}, SensorListener {
     }
 
     /**
-    private void fireBullet(GameEntity entity, InputHandler.InputFrame input){
-        GameEntity bullet = new BulletEntity(entity.transform, input.getMousePosition(),new ResourceID("slimeball"), 1000, Arrays.asList(PlayerEntity.class));
-
-        entity.getScene().addEntity(bullet);
-        entity.getScene().addTimer(new Timer(1000, () -> entity.getScene().removeEntity(bullet)));
-    }
-     **/
-
-    /**
      * Does the necessary actions for when a player comes into contact with the ground
      *
      * @param collided The player collided
@@ -163,7 +153,7 @@ public class PlayerScript implements Script{//}, SensorListener {
                 .map(VelocityComponent::getVelocity)
                 .orElse(new Vector(0, 0));
 
-        relative.setAs(c); // todo relative speed is set
+        relative.setAs(c);
     }
 
     private void updateState(Orientation o, State s){
