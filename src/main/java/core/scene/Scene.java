@@ -16,26 +16,35 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * This class represents a Scene within the game
+ * This class represents a Scene within the game.
+ * A Scene contains all the entities and "things" that exist within the current stage in the game.
  *
  * @author Alex Mitchell
  * @author Callum Li
  */
 public abstract class Scene {
-
     private Game game;
     private World<GameEntity> world                 = new World<>();
     private Map<String, GameEntity> nameEntityMap   = new HashMap<>();
     private Camera camera                           = null;
     private TimerSystem timerSystem                 = new TimerSystem();
 
+    /**
+     * By default, a Scene will add all the necessary systems to the scene, and then start the scene (constructing it).
+     */
     public Scene() {
         addSystems();
         startScene();
     }
 
+    /**
+     * This method adds all the entities into the scene.
+     */
     abstract public void startScene();
 
+    /**
+     * This method wipes and resets the entities and systems in the scene.
+     */
     public void resetScene(){
         world = new World<>();
         addSystems();
@@ -44,6 +53,9 @@ public abstract class Scene {
         startScene();
     }
 
+    /**
+     * Adds all the necessary systems to the scene in order for the game to operate the scene.
+     */
     private void addSystems(){
         world.addSystem(new GravitySystem(new Vector(0, 25f)));
         world.addSystem(new VelocitySystem());
@@ -54,6 +66,22 @@ public abstract class Scene {
         world.addSystem(timerSystem);
     }
 
+    /**
+     * Updates the scene by the delta milliseconds
+     * @param delta The milliseconds to update.
+     */
+    public void update(int delta) {
+        world.update(delta);
+    }
+
+    /**
+     * Adds a timer to the scene.
+     * @param timer The scene timer.
+     */
+    public void addTimer(Timer timer) {
+        timerSystem.addTimer(timer);
+    }
+
     public void setGame(Game game) {
         this.game = game;
     }
@@ -62,10 +90,6 @@ public abstract class Scene {
         return game;
     }
 
-    /**
-     * Returns the camera for this scene.
-     * @return
-     */
     public Camera getCamera(){
         return camera;
     }
@@ -73,6 +97,10 @@ public abstract class Scene {
     public void setCamera(Camera camera) {
         this.camera = camera;
     }
+
+
+
+    // Entity related methods
 
     /**
      * Gets all the entities in the Scene
@@ -92,20 +120,19 @@ public abstract class Scene {
         return nameEntityMap.get(name);
     }
 
-
     /**
-     * Gets a collection of entities of a certain class
-     * @param type The type of GameEntity
-     * @return A collection of the game entities
+     * Gets a collection of GameEntities that are of a certain class.
+     * @param type The type of GameEntity.
+     * @return A collection of the game entities.
      */
     public Collection<GameEntity> getEntities(Class<? extends GameEntity> type){
         return world.getEntities().stream().filter((e) -> e.getClass()==type).collect(Collectors.toSet());
     }
 
     /**
-     * Returns a game entity of a specific type if it exists
-     * @param type The class of the entity
-     * @return The entity, otherwise null
+     * Returns a game entity of a specific type if it exists.
+     * @param type The class of the entity.
+     * @return The entity, otherwise null.
      */
     public GameEntity getEntity(Class<? extends GameEntity> type){
         Optional<GameEntity> entity = world.getEntities().stream().filter((e) -> e.getClass() == type).findAny();
@@ -129,6 +156,15 @@ public abstract class Scene {
     }
 
     /**
+     * Adds an entity to the collection of the entities within the Scene
+     *
+     * @param entity The entity to add
+     */
+    public void addEntity(GameEntity entity) {
+        addEntity(entity, Optional.empty());
+    }
+
+    /**
      * Adds multiple entities to the Scene.
      * @param entites The collection of entities.
      */
@@ -144,28 +180,5 @@ public abstract class Scene {
      */
     public void removeEntity(GameEntity entity) {
         world.removeEntity(entity);
-        //entity.setScene(null);
-    }
-
-    /**
-     * Adds an entity to the collection of the entities within the Scene
-     *
-     * @param entity The entity to add
-     */
-    public void addEntity(GameEntity entity) {
-        addEntity(entity, Optional.empty());
-    }
-
-    public void addTimer(Timer timer) {
-        timerSystem.addTimer(timer);
-    }
-
-    /**
-     * Updates the scene by the delta milliseconds
-     * @param delta The milliseconds to update.
-     */
-    public void update(int delta) {
-        world.update(delta);
-
     }
 }

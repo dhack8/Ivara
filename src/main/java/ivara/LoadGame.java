@@ -3,12 +3,8 @@ package ivara;
 import core.Game;
 import core.Script;
 import core.components.ScriptComponent;
-import core.components.TextComponent;
 import core.entity.GameEntity;
-import core.scene.LevelManager;
 import core.scene.Scene;
-import core.struct.Text;
-import core.struct.Timer;
 import ivara.entities.CoinEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.TimerEntity;
@@ -25,11 +21,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Created by Alex Mitchell on 14/10/2017.
+ * This class handles the loading of a game from a file.
+ * @author Alex Mitchell
  */
 public class LoadGame {
-    public static final String fileName = "./savefile.sav";
+    private static final String fileName = "./savefile.sav";
 
+    /**
+     * This method takes a given game and builds it from a save file.
+     * @param game The game to load into.
+     * @return A boolean stating whether the load was successful.
+     */
     public static boolean load(Game game){
         File file = new File(fileName);
         try{
@@ -100,7 +102,7 @@ public class LoadGame {
             return false;
         }
 
-        Debug.log("Successfully loaded a the file.");
+        Debug.log("Successfully loaded the file.");
         return true;
     }
 }
