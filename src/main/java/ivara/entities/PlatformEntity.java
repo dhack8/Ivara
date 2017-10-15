@@ -294,37 +294,62 @@ public class PlatformEntity extends GameEntity {
     }
 
 
+    /**
+     * MoveScript enables an entity to move between two given locations over a given time.
+     */
     private class MoveScript implements Script{
 
         private Vector pos1;
         private Vector pos2;
-        private Vector target;
+        private Vector target; // Currently targeted position
 
-        private static final float THRESHOLD = 0.01f;
+        private final float time; // Time taken to move from one place to another
+        private static final float THRESHOLD = 0.01f; // The threshold used to check if the entity is at a target position
 
+        /**
+         * Constructs a MoveScript to give to an entity.
+         * @param end The end position.
+         * @param time The time taken to get to this position.
+         */
         public MoveScript(Vector end, float time){
             pos2 = end;
             pos1 = new Vector(PlatformEntity.this.getTransform());
             target = pos2;
-
-            VelocityComponent vComp = PlatformEntity.this.get(VelocityComponent.class).get();
-            vComp.set(new Vector((pos2.x - pos1.x) / time, (pos2.y - pos1.y)/time));
-
+            this.time = time;
+            updateVelocity(PlatformEntity.this);
         }
 
         @Override
         public void update(int dt, GameEntity entity) {
             Vector current = entity.getTransform();
-
-            if(atPoint(current, target)) swapTarget(entity);
+            if(atPoint(current, target)) {swapTarget();updateVelocity(entity);}
         }
 
-        private void swapTarget(GameEntity entity){
+        /**
+         * Swaps the target
+         */
+        private void swapTarget(){
             target = (target.equals(pos1)? pos2 : pos1);
-            VelocityComponent velocityComponent = entity.get(VelocityComponent.class).get();
-            velocityComponent.getVelocity().scaleBy(-1);
         }
 
+        /**
+         * Updates the velocity of the entity with the target position.
+         * @param entity The entity to update.
+         */
+        private void updateVelocity(GameEntity entity){
+            VelocityComponent velocityComponent = entity.get(VelocityComponent.class).get();
+            float speed = target.dist(entity.getTransform())/time;
+            Vector velocity = target.sub(entity.getTransform()).norm();
+            velocity.scaleBy(speed);
+            velocityComponent.set(velocity);
+        }
+
+        /**
+         * Checks whether two given points "equal" eachother with a given threshold for rounding issues.
+         * @param location The first location.
+         * @param point The second location.
+         * @return Whether the points are within a close enough proximity to consider as being equal.
+         */
         private boolean atPoint(Vector location, Vector point){
             return location.dist(point) <= THRESHOLD;
         }
