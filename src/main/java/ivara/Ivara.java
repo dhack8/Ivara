@@ -55,6 +55,9 @@ public class Ivara extends Game {
         levels.add(new Level4());
         levels.add(new Level5());
         levels.add(new Level6());
+        levels.add(new HardLevel1());
+        levels.add(new HardLevel2());
+        levels.add(new HardLevel3());
         return levels;
     }
 
