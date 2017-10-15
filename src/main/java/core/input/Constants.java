@@ -1,7 +1,8 @@
 package core.input;
 
 /**
- * Created by Callum Li on 10/1/17.
+ * Constants for user input
+ * @author Callum Li
  */
 public class Constants {
     public static final int W = 87;

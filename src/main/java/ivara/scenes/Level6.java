@@ -18,11 +18,12 @@ public class Level6 extends DefaultScene {
 	public void startScene(){
 
 		// Player
-		PlayerEntity player = new PlayerEntity(4,27.5f);
+		PlayerEntity player = new PlayerEntity(4,17.5f);
 		addEntity(player);
 
 		// Text
-		addEntity(new BasicTextEntity(new Vector(41,21), new Text(20, "Used platforms momentum to your advantage!")));
+		addEntity(new BasicTextEntity(new Vector(4,26), new Text(20, "This is your final practice level Pablo!")));
+		addEntity(new BasicTextEntity(new Vector(41,21), new Text(20, "Use the extra jump from the slime to scale higher walls!")));
 		addEntity(new BasicTextEntity(new Vector(35,15), new Text(20, "Push dirt around when needed!")));
 
 		// Checkpoints
@@ -84,7 +85,7 @@ public class Level6 extends DefaultScene {
 		addEntity(new PlatformEntity(new Vector(29,10),4,false,new Vector(60,10),7));
 		addEntity(new PlatformEntity(new Vector(18,18f),2,false,new Vector(20,10),4));
 		addEntity(new PlatformEntity(new Vector(3,22),2,false,new Vector(3,18),3));
-		addEntity(new PlatformEntity(new Vector(49,25),new Vector(49,21),0.5f));
+		addEntity(new PlatformEntity(new Vector(49,25),new Vector(49,20),0.5f));
 
 		// Pushable Blocks
 		addEntity(new PushableBlockEntity(41,17));

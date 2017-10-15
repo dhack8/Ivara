@@ -16,13 +16,16 @@ public class InputHandler {
     private InputFrame inputFrame = new InputFrame();
     private InputListener listener = new InputListener();
 
-    public InputHandler() {}
+    public InputHandler(){}
 
+    /**
+     * Constructs the input handler with a specific input broadcaster.
+     * @param broadcaster broadcaster
+     */
     public InputHandler(InputBroadcaster broadcaster) {
         broadcaster.addMouseListener(listener);
         broadcaster.addKeyListener(listener);
     }
-
 
     /**
      * Retrieves the an input frame for the current frame and performs
@@ -44,14 +47,27 @@ public class InputHandler {
     }
 
 
+    /**
+     * Listener class for user input.
+     */
     private class InputListener implements KeyListener, MouseListener {
 
+        /**
+         * Mouse pressed event updates input frame
+         * @param mouseButton mouse button
+         * @param position position on screen
+         */
         @Override
         public void mousePressed(int mouseButton, Vector position) {
             inputFrame.pressedMouse.set(mouseButton, true);
             inputFrame.mousePosition = new Vector(position.x, position.y);
         }
 
+        /**
+         * Mouse released event updates input frame
+         * @param mouseButton mouse button
+         * @param position position on screen
+         */
         @Override
         public void mouseReleased(int mouseButton, Vector position) {
             inputFrame.pressedMouse.set(mouseButton, false);
@@ -59,16 +75,28 @@ public class InputHandler {
             inputFrame.mousePosition = new Vector(position.x, position.y);
         }
 
+        /**
+         * Mouse moved event updates input frame
+         * @param position position on screen
+         */
         @Override
         public void mouseMoved(Vector position) {
             inputFrame.mousePosition = new Vector(position.x, position.y);
         }
 
+        /**
+         * Key pressed event
+         * @param keyCode specific key code
+         */
         @Override
         public void keyPressed(int keyCode) {
             inputFrame.pressedKeys.set(keyCode, true);
         }
 
+        /**
+         * Key released event
+         * @param keyCode specific key code
+         */
         @Override
         public void keyReleased(int keyCode) {
             inputFrame.pressedKeys.set(keyCode, false);
@@ -76,6 +104,9 @@ public class InputHandler {
         }
     }
 
+    /**
+     * Input frame holds details on input state.
+     */
     public static class InputFrame {
         private BitSet pressedKeys = new BitSet();
         private BitSet releasedKeys = new BitSet();
@@ -86,9 +117,7 @@ public class InputHandler {
         /**
          * Creates a clear input frame.
          */
-        public InputFrame() {
-
-        }
+        public InputFrame() {}
 
         /**
          * Creates an input frame based a preceeding input frame.

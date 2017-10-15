@@ -20,6 +20,7 @@ repositories {
 }
 
 dependencies {
+    runtime files('sounds/')
 
     runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-android-aarch64"
     runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-android-armv6"
