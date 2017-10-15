@@ -22,7 +22,8 @@ public class TestLevel3 extends DefaultScene {
 		addEntity(player);
 
 		// Platforms
-		addEntity(new PlatformEntity(new Vector(5,17)));
+		addEntity(new PlatformEntity(new Vector(4,17)));
+		addEntity(new PlatformEntity(new Vector(5,16)));
 		addEntity(new PlatformEntity(new Vector(2,18)));
 		addEntity(new PlatformEntity(new Vector(3,19)));
 		addEntity(new PlatformEntity(new Vector(10,19)));

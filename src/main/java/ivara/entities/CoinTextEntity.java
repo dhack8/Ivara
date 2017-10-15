@@ -44,6 +44,6 @@ public class CoinTextEntity extends GameEntity {
                     }
                 }));
 
-        addComponent(new RenderComponent(this, 10000, RenderComponent.Mode.NO_TRANS));
+        addComponent(new RenderComponent(this, 999999999, RenderComponent.Mode.NO_TRANS));
     }
 }

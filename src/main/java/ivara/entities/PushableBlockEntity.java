@@ -22,6 +22,7 @@ public class PushableBlockEntity extends GameEntity{
 
     private float sensorPadding = 0.05f;
     private float sensorHeight = 0.1f;
+    private float extraSensorHeight = 0.05f;
 
     private Vector intialLoc;
 
@@ -48,7 +49,7 @@ public class PushableBlockEntity extends GameEntity{
         addComponent(new SpriteComponent(this, new Sprite(new ResourceID("dirt"), new Vector(0,0), dimension)));
 
         //Sensor---
-        Vector sensorDimension = new Vector(dimension.x-sensorPadding*2, sensorHeight);
+        Vector sensorDimension = new Vector(dimension.x-sensorPadding*2, sensorHeight + extraSensorHeight);
         Vector SensorTopLeft = new Vector(sensorPadding, dimension.y-sensorHeight);
         bot = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, SensorTopLeft, sensorDimension));
 

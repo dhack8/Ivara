@@ -24,7 +24,7 @@ TimerEntity extends GameEntity {
 
         addComponent(new SpriteComponent(this, new Sprite(new ResourceID("timer"), new Vector(-1.4f,-0.88f), null)));
 
-        addComponent(new RenderComponent(this, 100, RenderComponent.Mode.NO_TRANS));
+        addComponent(new RenderComponent(this, 999999999, RenderComponent.Mode.NO_TRANS));
 
         addComponent(new ScriptComponent(this, new TimerScript(time, TEXTSIZE)));
     }
