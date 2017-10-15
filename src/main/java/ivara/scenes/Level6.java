@@ -18,7 +18,7 @@ public class Level6 extends DefaultScene {
 	public void startScene(){
 
 		// Player
-		PlayerEntity player = new PlayerEntity(4,17.5f);
+		PlayerEntity player = new PlayerEntity(4,27.5f);
 		addEntity(player);
 
 		// Checkpoints

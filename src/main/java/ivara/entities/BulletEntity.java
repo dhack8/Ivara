@@ -9,6 +9,7 @@ import core.scene.Scene;
 import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Sprite;
+import ivara.entities.enemies.Enemy;
 import ivara.entities.enemies.ImmortalEnemy;
 import ivara.entities.enemies.ImmortalEnemy;
 import ivara.scenes.DefaultScene;
@@ -20,7 +21,7 @@ import java.util.Collection;
 /**
  * Creates a bullet entity that moves based on a specific velocity
  */
-public class BulletEntity extends GameEntity implements ImmortalEnemy {
+public class BulletEntity extends GameEntity implements Enemy {
     private Vector dimensions = new Vector(0.4f, 0.4f);
 
     public BulletEntity(Vector transform, Vector end, float speed, ResourceID id, Class<? extends GameEntity> target, Collection<Class<? extends GameEntity>> nonColliders) {
