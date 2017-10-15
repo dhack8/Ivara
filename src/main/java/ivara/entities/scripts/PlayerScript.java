@@ -1,5 +1,7 @@
 package ivara.entities.scripts;
 
+import backends.tinysound.Sound;
+import backends.tinysound.TinySound;
 import core.Script;
 import core.components.SensorHandlerComponent;
 import core.components.VelocityComponent;
@@ -53,6 +55,8 @@ public class PlayerScript implements Script{
     private State state = State.IDLE; // Current player state
 
     private boolean canJump = true;
+
+    private Sound jumpSound = TinySound.loadSound("jumpsound.wav");
 
     /**
      * Constructs a PlayerScript that controls how a the player behaves.
@@ -150,7 +154,8 @@ public class PlayerScript implements Script{
      */
     private void performJump(VelocityComponent vComp){
         if (canJump) {
-            vComp.setY(jump);
+            jumpSound.play();
+            vComp.setY(jump + relative.y);
             canJump = false;
         }
     }
