@@ -8,7 +8,6 @@ import core.components.VelocityComponent;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sprite;
-import ivara.entities.scripts.BasicMoveScript;
 import maths.Vector;
 import physics.AABBCollider;
 
