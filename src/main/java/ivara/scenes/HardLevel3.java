@@ -52,6 +52,9 @@ public class HardLevel3 extends DefaultScene {
 		addEntity(new PlatformEntity(new Vector(22,23),5,false));
 		addEntity(new PlatformEntity(new Vector(28,23),5,false));
 		addEntity(new PlatformEntity(new Vector(34,23),7,false));
+		addEntity(new PlatformEntity(new Vector(22,24),3,true));
+		addEntity(new PlatformEntity(new Vector(28,24),3,true));
+		addEntity(new PlatformEntity(new Vector(34,24),3,true));
 		addEntity(new PlatformEntity(new Vector(40,24),9,true));
 		addEntity(new PlatformEntity(new Vector(10,27)));
 		addEntity(new PlatformEntity(new Vector(9,28)));
@@ -181,6 +184,9 @@ public class HardLevel3 extends DefaultScene {
 		addEntity(new BarnacleEntity(new Vector(5,21), BarnacleEntity.Direction.WEST, true));
 		addEntity(new BarnacleEntity(new Vector(4,23), BarnacleEntity.Direction.EAST, true));
 		addEntity(new BarnacleEntity(new Vector(5,25), BarnacleEntity.Direction.WEST, true));
+		addEntity(new BarnacleEntity(new Vector(22,27), BarnacleEntity.Direction.SOUTH, true));
+		addEntity(new BarnacleEntity(new Vector(28,27), BarnacleEntity.Direction.SOUTH, true));
+		addEntity(new BarnacleEntity(new Vector(34,27), BarnacleEntity.Direction.SOUTH, true));
 		addEntity(new BarnacleEntity(new Vector(4,28), BarnacleEntity.Direction.EAST, true));
 		addEntity(new BarnacleEntity(new Vector(11,28), BarnacleEntity.Direction.WEST, true));
 		addEntity(new BarnacleEntity(new Vector(1,31), BarnacleEntity.Direction.EAST, true));
