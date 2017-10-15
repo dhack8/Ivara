@@ -150,7 +150,7 @@ public class PlayerScript implements Script{
      */
     private void performJump(VelocityComponent vComp){
         if (canJump) {
-            vComp.setY(jump + relative.y);
+            vComp.setY(jump);
             canJump = false;
         }
     }
