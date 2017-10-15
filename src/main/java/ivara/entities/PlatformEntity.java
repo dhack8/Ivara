@@ -296,6 +296,7 @@ public class PlatformEntity extends GameEntity {
 
     /**
      * MoveScript enables an entity to move between two given locations over a given time.
+     * @author Alex Mitchell
      */
     private class MoveScript implements Script{
 
