@@ -18,55 +18,95 @@ public class Level4 extends DefaultScene {
 	public void startScene(){
 
 		// Player
-		PlayerEntity player = new PlayerEntity(3,13.5f);
+		PlayerEntity player = new PlayerEntity(4,0.5f);
 		addEntity(player);
 
+		// Text
+		addEntity(new BasicTextEntity(new Vector(5,-0.5f), new Text(20, "Something sinister lurks down below!\nMaybe they can be stopped...")));
+
 		// Checkpoints
-		addEntity(new CheckpointEntity(22, 14));
+		addEntity(new CheckpointEntity(45, 1));
 
 		// Flag
-		addEntity(new LevelEndEntity(50, 14));
+		addEntity(new LevelEndEntity(59, 29));
 
 		// Platforms
-		addEntity(new PlatformEntity(new Vector(2,15),4,false));
-		addEntity(new PlatformEntity(new Vector(20,15),5,false));
-		addEntity(new PlatformEntity(new Vector(30,15)));
-		addEntity(new PlatformEntity(new Vector(36,15)));
-		addEntity(new PlatformEntity(new Vector(42,15)));
-		addEntity(new PlatformEntity(new Vector(48,15),5,false));
-		addEntity(new PlatformEntity(new Vector(25,16)));
-		addEntity(new PlatformEntity(new Vector(29,16)));
-		addEntity(new PlatformEntity(new Vector(31,16)));
-		addEntity(new PlatformEntity(new Vector(35,16)));
-		addEntity(new PlatformEntity(new Vector(37,16)));
-		addEntity(new PlatformEntity(new Vector(41,16)));
-		addEntity(new PlatformEntity(new Vector(43,16)));
-		addEntity(new PlatformEntity(new Vector(47,16)));
-		addEntity(new PlatformEntity(new Vector(26,17)));
-		addEntity(new PlatformEntity(new Vector(28,17)));
-		addEntity(new PlatformEntity(new Vector(32,17)));
-		addEntity(new PlatformEntity(new Vector(34,17)));
-		addEntity(new PlatformEntity(new Vector(38,17)));
-		addEntity(new PlatformEntity(new Vector(40,17)));
-		addEntity(new PlatformEntity(new Vector(44,17)));
-		addEntity(new PlatformEntity(new Vector(46,17)));
-		addEntity(new PlatformEntity(new Vector(27,18)));
-		addEntity(new PlatformEntity(new Vector(33,18)));
-		addEntity(new PlatformEntity(new Vector(39,18)));
-		addEntity(new PlatformEntity(new Vector(45,18)));
+		addEntity(new PlatformEntity(new Vector(2,2),5,false));
+		addEntity(new PlatformEntity(new Vector(44,2),3,false));
+		addEntity(new PlatformEntity(new Vector(11,18),3,false));
+		addEntity(new PlatformEntity(new Vector(37,18),3,false));
+		addEntity(new PlatformEntity(new Vector(51,18),2,true));
+		addEntity(new PlatformEntity(new Vector(67,18),2,true));
+		addEntity(new PlatformEntity(new Vector(14,19)));
+		addEntity(new PlatformEntity(new Vector(36,19)));
+		addEntity(new PlatformEntity(new Vector(15,20)));
+		addEntity(new PlatformEntity(new Vector(35,20)));
+		addEntity(new PlatformEntity(new Vector(52,20),2,true));
+		addEntity(new PlatformEntity(new Vector(66,20),2,true));
+		addEntity(new PlatformEntity(new Vector(16,21)));
+		addEntity(new PlatformEntity(new Vector(34,21)));
+		addEntity(new PlatformEntity(new Vector(17,22)));
+		addEntity(new PlatformEntity(new Vector(33,22)));
+		addEntity(new PlatformEntity(new Vector(53,22),2,true));
+		addEntity(new PlatformEntity(new Vector(65,22),2,true));
+		addEntity(new PlatformEntity(new Vector(18,23),2,false));
+		addEntity(new PlatformEntity(new Vector(31,23),2,false));
+		addEntity(new PlatformEntity(new Vector(20,24)));
+		addEntity(new PlatformEntity(new Vector(30,24)));
+		addEntity(new PlatformEntity(new Vector(54,24),2,true));
+		addEntity(new PlatformEntity(new Vector(64,24),2,true));
+		addEntity(new PlatformEntity(new Vector(21,25)));
+		addEntity(new PlatformEntity(new Vector(29,25)));
+		addEntity(new PlatformEntity(new Vector(22,26),7,false));
+		addEntity(new PlatformEntity(new Vector(55,26),2,true));
+		addEntity(new PlatformEntity(new Vector(63,26),2,true));
+		addEntity(new PlatformEntity(new Vector(56,28),2,true));
+		addEntity(new PlatformEntity(new Vector(62,28),2,true));
+		addEntity(new PlatformEntity(new Vector(57,30),5,false));
 
 		// Moving Platforms
-		addEntity(new PlatformEntity(new Vector(6,15),3,false,new Vector(17,15),6)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(7,2),2,false,new Vector(9,18),5)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(47,2),2,false,new Vector(49,18),5)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(40,18),2,false,new Vector(42,2),5)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(53,19),new Vector(64,19),4)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(18,22),2,false,new Vector(31,22),4)); // TODO: Fill in end position and duration
+
+		// Markers
+		//new Vector(42,2)
+		//new Vector(9,18)
+		//new Vector(49,18)
+		//new Vector(64,19)
+		//new Vector(31,22)
+
+		// Coins
+		addEntity(new CoinEntity(player, new Vector(44, 1), true));
+		addEntity(new CoinEntity(player, new Vector(46, 1), true));
+		addEntity(new CoinEntity(player, new Vector(66, 18), true));
+		addEntity(new CoinEntity(player, new Vector(66, 19), true));
+		addEntity(new CoinEntity(player, new Vector(65, 20), true));
+		addEntity(new CoinEntity(player, new Vector(65, 21), true));
+		addEntity(new CoinEntity(player, new Vector(64, 22), true));
+		addEntity(new CoinEntity(player, new Vector(64, 23), true));
+		addEntity(new CoinEntity(player, new Vector(63, 24), true));
+		addEntity(new CoinEntity(player, new Vector(22, 25), true));
+		addEntity(new CoinEntity(player, new Vector(23, 25), true));
+		addEntity(new CoinEntity(player, new Vector(24, 25), true));
+		addEntity(new CoinEntity(player, new Vector(25, 25), true));
+		addEntity(new CoinEntity(player, new Vector(26, 25), true));
+		addEntity(new CoinEntity(player, new Vector(27, 25), true));
+		addEntity(new CoinEntity(player, new Vector(28, 25), true));
+		addEntity(new CoinEntity(player, new Vector(63, 25), true));
+		addEntity(new CoinEntity(player, new Vector(62, 26), true));
+		addEntity(new CoinEntity(player, new Vector(62, 27), true));
 
 		// Ghosts
-		addEntity(new GhostEntity(new Vector(27,16), player));
-		addEntity(new GhostEntity(new Vector(33,16), player));
-		addEntity(new GhostEntity(new Vector(39,16), player));
-		addEntity(new GhostEntity(new Vector(45,16), player));
-		addEntity(new GhostEntity(new Vector(13,18), player));
+		addEntity(new GhostEntity(new Vector(45,18), player));
+		addEntity(new GhostEntity(new Vector(59,23), player));
+		addEntity(new GhostEntity(new Vector(25,24), player));
+		addEntity(new GhostEntity(new Vector(59,26), player));
 
 		// Default Scripts
-		addEntity(new BackgroundEntity(new ResourceID("background")));
+		addEntity(new BackgroundEntity(new ResourceID("background-dark")));
 		addEntity(new DeathLineEntity(42));
 		setCamera(new Camera());
 		super.startScene(player);
