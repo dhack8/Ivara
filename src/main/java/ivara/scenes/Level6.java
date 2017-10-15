@@ -21,6 +21,10 @@ public class Level6 extends DefaultScene {
 		PlayerEntity player = new PlayerEntity(4,27.5f);
 		addEntity(player);
 
+		// Text
+		addEntity(new BasicTextEntity(new Vector(41,21), new Text(20, "Used platforms momentum to your advantage!")));
+		addEntity(new BasicTextEntity(new Vector(35,15), new Text(20, "Push dirt around when needed!")));
+
 		// Checkpoints
 		addEntity(new CheckpointEntity(44, 17));
 		addEntity(new CheckpointEntity(5, 21));
@@ -77,22 +81,15 @@ public class Level6 extends DefaultScene {
 		addEntity(new PlatformEntity(new Vector(38,29),6,false));
 
 		// Moving Platforms
-		addEntity(new PlatformEntity(new Vector(29,10),4,false,new Vector(60,10),7)); // TODO: Fill in end position and duration
-		addEntity(new PlatformEntity(new Vector(18,18.3f),2,false,new Vector(20,10),0.5f)); // TODO: Fill in end position and duration
-		addEntity(new PlatformEntity(new Vector(3,22),2,false,new Vector(3,18),3)); // TODO: Fill in end position and duration
-		addEntity(new PlatformEntity(new Vector(49,25),new Vector(49,21),0.4f)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(29,10),4,false,new Vector(60,10),7));
+		addEntity(new PlatformEntity(new Vector(18,18f),2,false,new Vector(20,10),4));
+		addEntity(new PlatformEntity(new Vector(3,22),2,false,new Vector(3,18),3));
+		addEntity(new PlatformEntity(new Vector(49,25),new Vector(49,21),0.5f));
 
 		// Pushable Blocks
 		addEntity(new PushableBlockEntity(41,17));
 
 		// Coins
-		addEntity(new CoinEntity(player, new Vector(25, 1), true));
-		addEntity(new CoinEntity(player, new Vector(28, 1), true));
-		addEntity(new CoinEntity(player, new Vector(24, 3), true));
-		addEntity(new CoinEntity(player, new Vector(29, 3), true));
-		addEntity(new CoinEntity(player, new Vector(23, 5), true));
-		addEntity(new CoinEntity(player, new Vector(30, 5), true));
-		addEntity(new CoinEntity(player, new Vector(22, 7), true));
 		addEntity(new CoinEntity(player, new Vector(31, 7), true));
 		addEntity(new CoinEntity(player, new Vector(33, 7), true));
 		addEntity(new CoinEntity(player, new Vector(36, 7), true));
@@ -104,6 +101,10 @@ public class Level6 extends DefaultScene {
 		addEntity(new CoinEntity(player, new Vector(54, 7), true));
 		addEntity(new CoinEntity(player, new Vector(57, 7), true));
 		addEntity(new CoinEntity(player, new Vector(60, 7), true));
+		addEntity(new CoinEntity(player, new Vector(51, 13), true));
+		addEntity(new CoinEntity(player, new Vector(52, 13), true));
+		addEntity(new CoinEntity(player, new Vector(53, 14), true));
+		addEntity(new CoinEntity(player, new Vector(54, 15), true));
 		addEntity(new CoinEntity(player, new Vector(25, 16), true));
 		addEntity(new CoinEntity(player, new Vector(27, 16), true));
 		addEntity(new CoinEntity(player, new Vector(29, 16), true));
@@ -112,6 +113,7 @@ public class Level6 extends DefaultScene {
 		addEntity(new CoinEntity(player, new Vector(35, 16), true));
 		addEntity(new CoinEntity(player, new Vector(36, 16), true));
 		addEntity(new CoinEntity(player, new Vector(37, 16), true));
+		addEntity(new CoinEntity(player, new Vector(55, 16), true));
 		addEntity(new CoinEntity(player, new Vector(33, 17), true));
 		addEntity(new CoinEntity(player, new Vector(33, 18), true));
 		addEntity(new CoinEntity(player, new Vector(28, 23), true));
@@ -123,7 +125,7 @@ public class Level6 extends DefaultScene {
 		addEntity(new GhostEntity(new Vector(31,27), player));
 
 		// Bees
-		addEntity(new BeeEntity(new Vector(52,17), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(54,17), player, new Vector(0,0))); // TODO: Fill in deviance
 		addEntity(new BeeEntity(new Vector(37,22), player, new Vector(0,0))); // TODO: Fill in deviance
 
 		// Barnacles
@@ -138,6 +140,15 @@ public class Level6 extends DefaultScene {
 		addEntity(new BarnacleEntity(new Vector(43,28), BarnacleEntity.Direction.NORTH, true));
 
 		// Snakes
+		addEntity(new SnakeEntity(new Vector(25,8.5f)));
+		addEntity(new SnakeEntity(new Vector(27,8.5f)));
+		addEntity(new SnakeEntity(new Vector(36,11.5f)));
+		addEntity(new SnakeEntity(new Vector(38,11.5f)));
+		addEntity(new SnakeEntity(new Vector(40,11.5f)));
+		addEntity(new SnakeEntity(new Vector(43,12.5f)));
+		addEntity(new SnakeEntity(new Vector(45,12.5f)));
+		addEntity(new SnakeEntity(new Vector(47,12.5f)));
+		addEntity(new SnakeEntity(new Vector(49,12.5f)));
 		addEntity(new SnakeEntity(new Vector(25,18.5f)));
 		addEntity(new SnakeEntity(new Vector(27,18.5f)));
 		addEntity(new SnakeEntity(new Vector(47,24.5f)));

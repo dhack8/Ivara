@@ -101,7 +101,7 @@ public class Level5 extends DefaultScene {
 		addEntity(new CoinEntity(player, new Vector(6, 28), true));
 
 		// Bees
-		addEntity(new BeeEntity(new Vector(13,14), player, new Vector(-2,0)));
+		addEntity(new BeeEntity(new Vector(14,14), player, new Vector(-3,0)));
 		addEntity(new BeeEntity(new Vector(36,0), player, new Vector(-3,0)));
 		addEntity(new BeeEntity(new Vector(39,0), player, new Vector(3,0)));
 		addEntity(new BeeEntity(new Vector(34,12), player, new Vector(0,-2)));
