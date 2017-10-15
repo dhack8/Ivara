@@ -18,7 +18,11 @@ import java.util.List;
 
 public class AnimationSystem extends System<GameEntity> {
 
-
+    /**
+     * Update tick as outlined above.
+     * @param dt time since last tick.
+     * @param world the game world.
+     */
     @Override
     public void update(int dt, World<GameEntity> world) {
         SpriteComponent[] scs = world.get(SpriteComponent.class).toArray(new SpriteComponent[0]);
