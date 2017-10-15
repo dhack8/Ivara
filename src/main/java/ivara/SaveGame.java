@@ -9,7 +9,6 @@ import core.scene.Scene;
 import core.struct.Text;
 import core.struct.Timer;
 import ivara.entities.TimerEntity;
-import ivara.entities.scripts.TimerScript;
 import ivara.scenes.DefaultScene;
 
 import java.io.*;
@@ -74,9 +73,9 @@ public class SaveGame {
             }else {Debug.log("Timer should have a script component, but doesn't.");return false;}
 
             // Get the TimerScript if it exists
-            Optional<Script> opScript = scriptComponent.getScripts().stream().filter((e) -> e.getClass() == TimerScript.class).findFirst();
-            TimerScript timerScript;
-            if(opScript.isPresent()) timerScript = (TimerScript) opScript.get();
+            Optional<Script> opScript = scriptComponent.getScripts().stream().filter((e) -> e.getClass() == TimerEntity.TimerScript.class).findFirst();
+            TimerEntity.TimerScript timerScript;
+            if(opScript.isPresent()) timerScript = (TimerEntity.TimerScript) opScript.get();
             else {Debug.log("The timer should have had a timer script, but doesn't.");return false;}
 
             // Timer information

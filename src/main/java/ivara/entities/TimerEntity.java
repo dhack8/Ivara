@@ -1,5 +1,6 @@
 package ivara.entities;
 
+import core.Script;
 import core.components.RenderComponent;
 import core.components.ScriptComponent;
 import core.components.SpriteComponent;
@@ -7,11 +8,9 @@ import core.components.TextComponent;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sprite;
-import ivara.entities.scripts.TimerScript;
 import maths.Vector;
 
-public class
-TimerEntity extends GameEntity {
+public class TimerEntity extends GameEntity {
 
     private static final float TEXTSIZE = 25;
     private static final Vector offset = new Vector(-67.5f,-44.5f);
@@ -28,5 +27,46 @@ TimerEntity extends GameEntity {
         addComponent(new RenderComponent(this, 999999999, RenderComponent.Mode.PIXEL_NO_TRANS));
 
         addComponent(new ScriptComponent(this, new TimerScript(time, TEXTSIZE)));
+    }
+
+    /**
+     * The TimerScript is used to add a running timer to the game.
+     * @author Will Pearson
+     * @author David Hack
+     */
+    public class TimerScript implements Script {
+        public long start;
+        public long currentTime;
+        private float textSize;
+
+        /**
+         * Constructs a TimerScript with an initial time and a text size.
+         * @param startTime The time of the system at creation of the TimerScript (when the level starts).
+         * @param textSize The size of the text being displayed.
+         */
+        public TimerScript(int startTime, float textSize) {
+            start = startTime;
+            this.textSize = textSize;
+        }
+
+        @Override
+        public void update(int dt, GameEntity entity) {
+            TextComponent tc = entity.get(TextComponent.class).get();
+            tc.clear();
+            currentTime += dt;
+            tc.add(timeString(), textSize);
+        }
+
+        /**
+         * Converts the time that the timer has been running into a string.
+         * @return A string representing the time.
+         */
+        private String timeString() {
+            long millis = currentTime - start;
+            long seconds = (millis / 1000) % 60 ;
+            long minutes = (millis / (1000*60)) % 60;
+            millis = (millis % 1000)/10;
+            return String.format("%02d:%02d.%02d", minutes, seconds, millis);
+        }
     }
 }

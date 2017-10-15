@@ -6,6 +6,7 @@ import core.struct.Camera;
 import maths.Vector;
 
 /**
+ * This Script causes the camera to follow a given entity.
  * @author David Hack
  */
 public class CameraScript implements Script {
@@ -17,7 +18,6 @@ public class CameraScript implements Script {
     public CameraScript(GameEntity toTrack, Vector offset){
         tracking = toTrack;
         this.offset = offset;
-        //camera = tracking.getScene().getCamera();
     }
 
     @Override

@@ -12,7 +12,6 @@ import core.struct.Timer;
 import ivara.entities.CoinEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.TimerEntity;
-import ivara.entities.scripts.TimerScript;
 import ivara.scenes.DefaultScene;
 import maths.Vector;
 import util.Debug;
@@ -72,9 +71,9 @@ public class LoadGame {
                 ScriptComponent scriptComp;
                 if(opScriptComp.isPresent()){ // Check that there is a script component
                     scriptComp = opScriptComp.get();
-                    Optional<Script> opScript = scriptComp.getScripts().stream().filter((e) -> e.getClass() == TimerScript.class).findFirst();
-                    TimerScript timerScript;
-                    if(opScript.isPresent())timerScript = (TimerScript) opScript.get(); // Check that there is a timer script
+                    Optional<Script> opScript = scriptComp.getScripts().stream().filter((e) -> e.getClass() == TimerEntity.TimerScript.class).findFirst();
+                    TimerEntity.TimerScript timerScript;
+                    if(opScript.isPresent())timerScript = (TimerEntity.TimerScript) opScript.get(); // Check that there is a timer script
                     else{Debug.log("Timer should have had a TimerScript but didn't.");return false;}
                     timerScript.currentTime = currentTime;
                     timerScript.start = start;
