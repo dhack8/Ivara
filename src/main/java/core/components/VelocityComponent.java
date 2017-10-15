@@ -37,8 +37,9 @@ public class VelocityComponent extends Component<GameEntity> {
      * Gets velocity.
      * @return velocity
      */
-    public Vector getVelocity() {
-        return velocity;
+    public Vector getVelocity() { // todo working on this
+        return  paused? new Vector(0,0) : velocity;
+//        return velocity;
     }
 
     public void set(Vector velocity) {

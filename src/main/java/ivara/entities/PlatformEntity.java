@@ -8,6 +8,7 @@ import core.components.VelocityComponent;
 import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sprite;
+import core.struct.Timer;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -306,6 +307,7 @@ public class PlatformEntity extends GameEntity {
 
         private final float time; // Time taken to move from one place to another
         private static final float THRESHOLD = 0.01f; // The threshold used to check if the entity is at a target position
+        private static final int PAUSE_TIME = 500;
 
         /**
          * Constructs a MoveScript to give to an entity.
@@ -343,6 +345,10 @@ public class PlatformEntity extends GameEntity {
             Vector velocity = target.sub(entity.getTransform()).norm();
             velocity.scaleBy(speed);
             velocityComponent.set(velocity);
+
+            if(entity.getScene() == null) return; // todo working on this
+            velocityComponent.pause();
+            entity.getScene().addTimer(new Timer(PAUSE_TIME, velocityComponent::unpause));
         }
 
         /**
