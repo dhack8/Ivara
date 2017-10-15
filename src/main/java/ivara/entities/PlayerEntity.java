@@ -51,10 +51,6 @@ public class PlayerEntity extends GameEntity {
         sc.add(playerSprite);
         addComponent(sc);
 
-
-        //Input---
-        addComponent(new InputHandlerComponent(this));
-
         //Collider---
         Vector cTopLeft = new Vector(widthOff/2, heightOff);
         Vector cDimensions = new Vector(WIDTH -widthOff, HEIGHT -heightOff);
