@@ -5,7 +5,7 @@ import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import ivara.LoadGame;
-import ivara.SaveScene;
+import ivara.SaveGame;
 import ivara.entities.BackgroundEntity;
 import ivara.entities.UIEntity;
 import ivara.entities.UIListener;
@@ -52,7 +52,7 @@ public class PauseMenu extends Scene{
         addButton("save", new UIListener() {
             @Override
             public void onClick() {
-                SaveScene.save(getGame());
+                SaveGame.save(getGame());
                 //Debug.log("Have not implemented Save.");
             }
         },btnSpaceX, btnCount++);
