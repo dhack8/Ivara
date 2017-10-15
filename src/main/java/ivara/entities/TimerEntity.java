@@ -14,6 +14,7 @@ public class
 TimerEntity extends GameEntity {
 
     private static final float TEXTSIZE = 25;
+    private static final Vector offset = new Vector(-67.5f,-44.5f);
 
     public TimerEntity(Vector transform, int time){
         super(transform);
@@ -22,9 +23,9 @@ TimerEntity extends GameEntity {
         tc.add("00:00.00", TEXTSIZE);
         addComponent(tc);
 
-        addComponent(new SpriteComponent(this, new Sprite(new ResourceID("timer"), new Vector(-1.4f,-0.88f), null)));
+        addComponent(new SpriteComponent(this, new Sprite(new ResourceID("timer"), offset, null)));
 
-        addComponent(new RenderComponent(this, 999999999, RenderComponent.Mode.NO_TRANS));
+        addComponent(new RenderComponent(this, 999999999, RenderComponent.Mode.PIXEL_NO_TRANS));
 
         addComponent(new ScriptComponent(this, new TimerScript(time, TEXTSIZE)));
     }

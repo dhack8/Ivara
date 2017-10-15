@@ -22,6 +22,8 @@ public class CoinTextEntity extends GameEntity {
     private long coinCount = 0;
     private boolean coinCountSet = false;
 
+    private static final Vector offset = new Vector(-45f,-31f);
+
     public CoinTextEntity(Vector transform, PlayerEntity player) {
         super(transform);
 
@@ -29,7 +31,7 @@ public class CoinTextEntity extends GameEntity {
 
         addComponent(score);
 
-        addComponent(new SpriteComponent(this, new Sprite(new ResourceID("coin"), new Vector(-0.95f,-0.63f), null)));
+        addComponent(new SpriteComponent(this, new Sprite(new ResourceID("coin"), offset, null)));
 
         addComponent(new ScriptComponent(
                 this,
@@ -49,6 +51,6 @@ public class CoinTextEntity extends GameEntity {
                     }
                 }));
 
-        addComponent(new RenderComponent(this, 999999999, RenderComponent.Mode.NO_TRANS));
+        addComponent(new RenderComponent(this, 999999999, RenderComponent.Mode.PIXEL_NO_TRANS));
     }
 }

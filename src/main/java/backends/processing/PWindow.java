@@ -9,10 +9,9 @@ import core.entity.GameEntity;
 import core.input.KeyListener;
 import core.input.MouseListener;
 import core.scene.Scene;
-import core.struct.Camera;
-import core.struct.Sensor;
-import core.struct.Sprite;
-import core.struct.Text;
+import core.struct.*;
+import ivara.entities.CoinTextEntity;
+import ivara.entities.TimerEntity;
 import maths.Vector;
 import physics.AABBCollider;
 import processing.core.PApplet;
@@ -92,8 +91,8 @@ public class PWindow extends Renderer implements InputBroadcaster{
     public void settings(){
 
         if(useOpenGl) {
-            size(1600, 900, P2D);
-            //fullScreen(P2D);
+            //size(1600, 900, P2D);
+            fullScreen(P2D);
             System.out.println("---USING OPENGL---");
         }else{
             size(1600, 900);
@@ -205,7 +204,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
 
     private void drawFramerate() {
         textSize(10);
-        text("FPS: " + frameRate, 20, 20);
+        text("FPS: " + frameRate, 20 + b.x, 20 + b.y);
     }
 
     private void drawSensors(GameEntity e){
@@ -269,7 +268,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
             if (rc.getMode().equals(RenderComponent.Mode.NORMAL)) { //NORMAL GETS TRANSFORM
                 loc = getPixelLoc(entityTransform, sprite.transform);
             }else{ //ELSE IS TRANSFORM LESS
-                loc = new Vector((entityTransform.x + sprite.transform.x) * s + b.x, (entityTransform.y + sprite.transform.y) * s + b.y);
+                loc = new Vector((entityTransform.x + sprite.transform.x) + b.x, (entityTransform.y + sprite.transform.y) + b.y);
             }
 
             if(sprite.hasDimension()) {
@@ -292,9 +291,8 @@ public class PWindow extends Renderer implements InputBroadcaster{
         Vector loc;
         if (rc.getMode().equals(RenderComponent.Mode.NORMAL) || rc.getMode().equals(RenderComponent.Mode.FULLSCREEN)) {
             loc = getPixelLoc(entityTransform, text.transform); //FULLSCREEN IS THE SAME AS NORMAL
-        }else{
-            //NO TRANS
-            loc = new Vector((entityTransform.x + text.transform.x) * s + b.x, (entityTransform.y + text.transform.y) * s + b.y);
+        }else{ //NO TRANS
+            loc = new Vector((entityTransform.x + text.transform.x) + b.x, (entityTransform.y + text.transform.y) + b.y);
         }
 
         textSize(text.fontSize);

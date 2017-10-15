@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
  */
 abstract public class DefaultScene extends Scene {
 
-    private static final Vector timerLoc = new Vector(1.5f,1.5f);
-    private static final Vector coinLoc = new Vector(2.1f, 2.3f);
+    private static final Vector timerLoc = new Vector(75f,75f);
+    private static final Vector coinLoc = new Vector(105f, 115f);
 
     private Vector spawn;
 

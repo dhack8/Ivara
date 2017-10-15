@@ -12,7 +12,7 @@ public class RenderComponent extends Component<GameEntity> {
 
     public enum Mode{
         NORMAL,
-        NO_TRANS,
+        PIXEL_NO_TRANS,
         FULLSCREEN
     }
 
