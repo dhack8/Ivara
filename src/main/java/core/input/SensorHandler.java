@@ -7,6 +7,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
+/**
+ * Allows querying of sensors status.
+ */
 public class SensorHandler {
 
     private HashMap<Sensor, Collection<GameEntity>> sensorMap = new HashMap<>();

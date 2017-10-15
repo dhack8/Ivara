@@ -14,7 +14,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
- * Created by David Hack Local on 12-Oct-17.
+ * Default scene provides common behavior for all implementation side scenes.
+ * @author David Hack
  */
 abstract public class DefaultScene extends Scene {
 

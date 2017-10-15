@@ -82,25 +82,39 @@ public abstract class Scene {
         timerSystem.addTimer(timer);
     }
 
+    /**
+     * Setter for the game.
+     * @param game game
+     */
     public void setGame(Game game) {
         this.game = game;
     }
 
+    /**
+     * Getter for the game.
+     * @return returns the game that owns this scene
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     * Getter for the camera, should work because scenes require cameras.
+     * @return scenes camera
+     */
     public Camera getCamera(){
         return camera;
     }
 
+    /**
+     * Sets the scenes camera, scenes require a camera to be set before rendering.
+     * @param camera
+     */
     public void setCamera(Camera camera) {
         this.camera = camera;
     }
 
-
-
-    // Entity related methods
+    // Entity related methods---------------------
 
     /**
      * Gets all the entities in the Scene
