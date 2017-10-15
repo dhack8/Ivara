@@ -90,7 +90,7 @@ public class FakeBlockEntity extends GameEntity{
     private class FakeBlockScript implements Script {
 
         private static final int FALL_DELAY = 500;
-        private static final int REMOVE_DELAY = 3000;
+        private static final int REMOVE_DELAY = 1000;
 
         Sensor top;
         Sensor bot;
@@ -114,17 +114,25 @@ public class FakeBlockEntity extends GameEntity{
                     entity.getScene().addTimer(new Timer(FALL_DELAY, () -> {
                         entity.addComponent(new PhysicsComponent(entity, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
                     }));
+
+                    entity.getScene().addTimer(new Timer(REMOVE_DELAY, () -> {
+                        doRemove();
+                    }));
                 }
             }
 
             if(sensorHandler.isActive(bot) && !alive){
-                entity.getScene().removeEntity(entity);
-                entity.removeComponent(PhysicsComponent.class);
-                entity.getTransform().setAs(intialLoc);
-                entity.get(VelocityComponent.class).get().getVelocity().setAs(0f,0f);
-                fbs.setState("normal");
-                alive = true;
+                doRemove();
             }
+        }
+
+        public void doRemove(){
+            getScene().removeEntity(FakeBlockEntity.this);
+            removeComponent(PhysicsComponent.class);
+            getTransform().setAs(intialLoc);
+            get(VelocityComponent.class).get().getVelocity().setAs(0f,0f);
+            fbs.setState("normal");
+            alive = true;
         }
     }
 }

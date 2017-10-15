@@ -49,6 +49,7 @@ public class Ivara extends Game {
         List<Scene> levels = new ArrayList<>();
 
         levels.add(new StartMenu());
+        levels.add(new HardLevel2());
         levels.add(new Level1());
         levels.add(new Level2());
         levels.add(new Level3());
@@ -56,7 +57,6 @@ public class Ivara extends Game {
         levels.add(new Level5());
         levels.add(new Level6());
         levels.add(new HardLevel1());
-        levels.add(new HardLevel2());
         levels.add(new HardLevel3());
         return levels;
     }
