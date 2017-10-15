@@ -127,6 +127,7 @@ public class FakeBlockEntity extends GameEntity{
         }
 
         public void doRemove(){
+            if(alive) return;
             getScene().removeEntity(FakeBlockEntity.this);
             removeComponent(PhysicsComponent.class);
             getTransform().setAs(intialLoc);
