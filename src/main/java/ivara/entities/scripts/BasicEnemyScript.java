@@ -1,5 +1,6 @@
 package ivara.entities.scripts;
 
+
 import core.Script;
 import core.components.SensorHandlerComponent;
 import core.components.VelocityComponent;
@@ -9,12 +10,13 @@ import core.struct.Sensor;
 import core.struct.Timer;
 
 /**
- * This script inverts the velocity of an enemy entity when there is a left/right collision or no floor tile
+ * This script inverts the velocity of an enemy entity when there is a left/right collision or no floor tile to it's left or right. *
+ * @author David Hack
  * @author Alex Mitchell
  */
-public class BasicEnemyScript implements Script{
+public class BasicEnemyScript implements Script {
 
-    private int pauseTime = 200;
+    private static final int pauseTime = 200; // Time spent before turning
 
     private Sensor left; // checking if the left is obstructed
     private Sensor right; // checking if the right is obstructed
@@ -23,17 +25,18 @@ public class BasicEnemyScript implements Script{
     private Sensor bLeft; // Checking if a block exists where the entity is about to walk (to the left)
     private Sensor bRight; // Checking if a block exists where the entity is about to walk (to the right)
 
-    private boolean goingLeft;
+    private boolean goingLeft; // Current movement direction
 
-    public BasicEnemyScript(GameEntity entity, int pauseTime, Sensor left, Sensor right, Sensor bottom){
-        this.left = left;
-        this.right = right;
-        this.bottom = bottom;
-
-        goingLeft = entity.get(VelocityComponent.class).get().getVelocity().x < 0;
-    }
-
-
+    /**
+     * Constructs a BasicEnemyScript that takes an entity and makes it move left and right, until there is a block obstructing or no block underneath.
+     * At this point, the entity reverses its velocity.
+     * @param entity The entity that has the script.
+     * @param left The sensor to the left of the entity.
+     * @param right The sensor to the right of the entity.
+     * @param bottom The sensor to the bottom of the entity.
+     * @param bLeft The sensor to the bottom left of the entity.
+     * @param bRight The sensor to the bottom right of the entity.
+     */
     public BasicEnemyScript(GameEntity entity, Sensor left, Sensor right, Sensor bottom, Sensor bLeft, Sensor bRight){
         this.left = left;
         this.right = right;
@@ -50,53 +53,38 @@ public class BasicEnemyScript implements Script{
         VelocityComponent vc = entity.get(VelocityComponent.class).get();
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
 
-        if (sensorHandler.isActive(right) && !goingLeft) { // if collision on either side
-            hitOnRight(vc, entity);
-        }else if (sensorHandler.isActive(left) && goingLeft) { // if collision on either side
-            hitOnLeft(vc, entity);
-        }else if(bLeft != null && bRight != null){ // Todo: Temporary
-            if(!sensorHandler.isActive(bLeft) && goingLeft){
-                hitOnLeft(vc, entity);
-            }else if(!sensorHandler.isActive(bRight) && !goingLeft){
-                hitOnRight(vc, entity);
-            }
+        if (sensorHandler.isActive(right) && !goingLeft){ // if collision on either side
+            collide(vc, entity);
+        }else if (sensorHandler.isActive(left) && goingLeft){ // if collision on either side
+            collide(vc, entity);
+        }else if(!sensorHandler.isActive(bLeft) && goingLeft){ // if no collision bottom left
+            collide(vc, entity);
+        }else if(!sensorHandler.isActive(bRight) && !goingLeft){ // if no collision bottom right
+            collide(vc, entity);
         }
-
-        /** Todo: If there is a physics component, a sensor must be used to counter the increasing Y velocity
-         if(sensorHandler.isActive(bottom)){
-            System.out.println("active");
-            VelocityComponent vComp = entity.get(VelocityComponent.class).get();
-            Vector velocity = vComp.getVelocity();
-            vComp.getVelocity().set(velocity.x, 0f);
-        }
-         **/
-
     }
 
-    public void setPauseTime(int time){
-        pauseTime = time;
-    }
-
-    private void hitOnLeft(VelocityComponent vc, GameEntity entity){
+    /**
+     * Changes the direction of the entity.
+     * @param vc The velocity component of the entity.
+     * @param entity The entity to adapt.
+     */
+    private void collide(VelocityComponent vc, GameEntity entity){
         vc.setX(vc.getVelocity().x*-1);
         pause(vc, entity);
-
-        goingLeft = false;
+        goingLeft = !goingLeft;
     }
 
-    private void hitOnRight(VelocityComponent vc, GameEntity entity){
-        vc.setX(vc.getVelocity().x*-1);
-        pause(vc, entity);
-
-        goingLeft = true;
-    }
-
+    /**
+     * Pauses the entity if it is at a turning point.
+     * @param vc The velocity component of the entity
+     * @param entity The entity
+     */
     private void pause(VelocityComponent vc, GameEntity entity){
         if(vc.isPaused()){return;}
         vc.pause();
         if(entity.getScene() == null) return;
         entity.getScene().addTimer(new Timer(pauseTime, () -> {
-            if(vc == null) System.out.println("vc null");
             vc.unpause();
         }));
     }
