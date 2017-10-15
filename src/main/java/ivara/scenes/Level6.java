@@ -125,8 +125,8 @@ public class Level6 extends DefaultScene {
 		addEntity(new GhostEntity(new Vector(31,27), player));
 
 		// Bees
-		addEntity(new BeeEntity(new Vector(54,17), player, new Vector(0,0))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(37,22), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(54,17), player, new Vector(0,0)));
+		addEntity(new BeeEntity(new Vector(37,22), player, new Vector(0,0)));
 
 		// Barnacles
 		addEntity(new BarnacleEntity(new Vector(34,19), BarnacleEntity.Direction.NORTH, true));
