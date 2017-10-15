@@ -7,7 +7,7 @@ import scew.Component;
 import java.util.*;
 
 /**
- * Script component belongs to an entity. Gets overridden with
+ * Script component belongs to an entity. Holds multiple scripts that get overridden with
  * proper implementation of a script. E.g. NPC1, NPC2, Player...
  *
  * @author David Hack & Others
