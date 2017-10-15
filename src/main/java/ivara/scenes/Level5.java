@@ -22,7 +22,7 @@ public class Level5 extends DefaultScene {
 		addEntity(player);
 
 		// Checkpoints
-		addEntity(new CheckpointEntity(34, 8));
+		addEntity(new CheckpointEntity(26, 12));
 
 		// Flag
 		addEntity(new LevelEndEntity(71, 28));
@@ -64,9 +64,14 @@ public class Level5 extends DefaultScene {
 		addEntity(new PlatformEntity(new Vector(69,29),4,false));
 
 		// Moving Platforms
-		addEntity(new PlatformEntity(new Vector(35,14),6,false,new Vector(35,4),4)); // TODO: Fill in end position and duration
-		addEntity(new PlatformEntity(new Vector(7,25),new Vector(7,20),4)); // TODO: Fill in end position and duration
-		addEntity(new PlatformEntity(new Vector(3,28),new Vector(6,25),4)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(35,14),6,false,new Vector(35,4),3)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(7,20),new Vector(7,25),2)); // TODO: Fill in end position and duration
+		addEntity(new PlatformEntity(new Vector(3,28),new Vector(6,25),2)); // TODO: Fill in end position and duration
+
+		// Markers
+		//new Vector(35,4)
+		//new Vector(7,20)
+		//new Vector(6,25)
 
 		// Coins
 		addEntity(new CoinEntity(player, new Vector(35, 8), true));
@@ -96,30 +101,20 @@ public class Level5 extends DefaultScene {
 		addEntity(new CoinEntity(player, new Vector(6, 28), true));
 
 		// Bees
-		addEntity(new BeeEntity(new Vector(36,0), player, new Vector(32,0))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(39,0), player, new Vector(43,0))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(24,9), player, new Vector(20,9))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(28,9), player, new Vector(24,9))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(21,10), player, new Vector(17,10))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(18,11), player, new Vector(14,11))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(34,12), player, new Vector(34,9))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(41,12), player, new Vector(41,9))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(14,13), player, new Vector(14,13))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(30,14), player, new Vector(33,14))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(45,14), player, new Vector(42,14))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(24,15), player, new Vector(24,15))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(21,16), player, new Vector(21,16))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(34,17), player, new Vector(34,17))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(41,17), player, new Vector(41,17))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(16,18), player, new Vector(16,18))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(14,20), player, new Vector(14,20))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(11,23), player, new Vector(11,23))); // TODO: Fill in deviance
-		addEntity(new BeeEntity(new Vector(10,27), player, new Vector(10,27))); // TODO: Fill in deviance
-
-		// Markers
-		//new Vector(35,4)
-		//new Vector(7,20)
-		//new Vector(6,25)
+		addEntity(new BeeEntity(new Vector(36,0), player, new Vector(-3,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(39,0), player, new Vector(3,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(34,12), player, new Vector(0,-2))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(41,12), player, new Vector(0,-2))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(30,14), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(45,14), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(24,15), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(21,16), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(34,17), player, new Vector(2,-2))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(41,17), player, new Vector(-2,-2))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(16,18), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(14,20), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(11,23), player, new Vector(0,0))); // TODO: Fill in deviance
+		addEntity(new BeeEntity(new Vector(10,27), player, new Vector(0,0))); // TODO: Fill in deviance
 
 		// Default Scripts
 		addEntity(new BackgroundEntity(new ResourceID("background")));
