@@ -108,7 +108,7 @@ public abstract class Scene {
 
     /**
      * Sets the scenes camera, scenes require a camera to be set before rendering.
-     * @param camera
+     * @param camera camera
      */
     public void setCamera(Camera camera) {
         this.camera = camera;

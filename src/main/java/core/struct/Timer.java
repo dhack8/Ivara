@@ -1,5 +1,9 @@
 package core.struct;
 
+/**
+ * Timer struct for the timer system.
+ * @author Callum Li
+ */
 public class Timer {
     /**
      * Current elapsed time in milliseconds

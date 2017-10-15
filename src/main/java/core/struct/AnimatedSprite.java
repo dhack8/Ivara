@@ -15,6 +15,9 @@ import java.util.Map;
  * it should take before it's image rolls over on update to adjust for
  * syncing issues that can arise from animations looking out of place.
  *
+ * This is a little bit of a misrepresentation of what a 'struct' should be and could
+ * be refactored in the future.
+ *
  * @author Will Pearson
  */
 public class AnimatedSprite extends Sprite{
