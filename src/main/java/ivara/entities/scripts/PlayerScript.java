@@ -37,7 +37,7 @@ public class PlayerScript implements Script{//}, SensorListener {
         JUMP
     }
 
-    private float metresPerSecond = 3f;
+    private float metresPerSecond = 3.5f;
     private float jump = -9f;
 
     private final Sensor bottomSensor;
