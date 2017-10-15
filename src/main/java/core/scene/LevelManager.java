@@ -24,57 +24,63 @@ public class LevelManager {
 
     /**
      * Creates a LevelManager with a single scene and no menu.
-     * @param level The initial scene in the game.
+     * @param scene The initial scene in the game.
+     * @throws NullPointerException On construction with a null Scene.
      */
-    public LevelManager(Scene level){
-        if(level == null) throw new IllegalArgumentException("Cannot add a null level.");
-        scenes = new ArrayList<Scene>();
-        scenes.add(level);
+    public LevelManager(Scene scene){
+        if(scene == null) throw new NullPointerException("Cannot construct a LevelManager with a null Scene.");
+        List<Scene>scenes = new ArrayList<Scene>();
+        scenes.add(scene);
         setup(scenes, Optional.empty());
     }
 
-    /**
+       /**
      * Creates a LevelManager with a single scene and a menu.
-     * @param level The initial scene in the game.
+     * @param scene The initial scene in the game.
      * @param menu The menu of the game.
+     * @throws NullPointerException On construction with a null Scene or null Menu
      */
-    public LevelManager(Scene level, Scene menu){
-        if(level == null || menu == null) throw new IllegalArgumentException("Cannot add a null level.");
-        scenes = new ArrayList<Scene>();
-        scenes.add(level);
+    public LevelManager(Scene scene, Scene menu){
+        if(scene == null || menu == null) throw new NullPointerException("Cannot construct a LevelManager with a null Scene.");
+        List<Scene>scenes = new ArrayList<Scene>();
+        scenes.add(scene);
         setup(scenes, Optional.of(menu));
     }
 
     /**
      * Creates a LevelManager with a collection of scenes.
      * The collection must contain at least a single scene.
-     * @param levels A list of levels in order of how they should be played.
+     * @param scenes A list of scenes in order of how they should be played.
+     * @throws NullPointerException On a null collection of Scenes.
+     * @throws IllegalArgumentException If there is not at least 1 Scene within the collection.
      */
-    public LevelManager(List<Scene> levels){
-        if(levels == null)throw new IllegalArgumentException("Cannot add a null collection of levels.");
-        if(!(levels.size()>0)) throw new IllegalArgumentException("There must be at least one level.");
-        setup(levels, Optional.empty());
+    public LevelManager(List<Scene> scenes){
+        if(scenes == null)throw new NullPointerException("Cannot add a null collection of Scenes.");
+        if(!(scenes.size()>0)) throw new IllegalArgumentException("There must be at least one Scene in the collection.");
+        setup(scenes, Optional.empty());
     }
 
     /**
      * Creates a LevelManager with a collection of scenes and a menu.
      * The collection must contain at least a single scene.
-     * @param levels A list of levels in order of how they should be played.
+     * @param scenes A list of scenes in order of how they should be played.
      * @param menu A menu of the game.
+     * @throws NullPointerException On a null scene.
+     * @throws IllegalArgumentException If there is not at least 1 Scene within the collection.
      */
-    public LevelManager(List<Scene> levels, Scene menu){
-        if(levels == null || menu == null)throw new IllegalArgumentException("Cannot add a null level.");
-        if(!(levels.size()>0)) throw new IllegalArgumentException("There must be at least one level.");
-        setup(levels, Optional.of(menu));
+    public LevelManager(List<Scene> scenes, Scene menu){
+        if(scenes == null || menu == null)throw new NullPointerException("Cannot construct a LevelManager with a null level.");
+        if(!(scenes.size()>0)) throw new IllegalArgumentException("There must be at least one level.");
+        setup(scenes, Optional.of(menu));
     }
 
     /**
      * Sets up the layout manager.
-     * @param levels The levels.
+     * @param scenes The scenes.
      * @param menu The menu that may or may not exist.
      */
-    private void setup(List<Scene> levels, Optional<Scene> menu){
-        scenes = levels;
+    private void setup(List<Scene> scenes, Optional<Scene> menu){
+        this.scenes = scenes;
         currentScene = 0;
         if(menu.isPresent()){
             this.menu = menu.get();
@@ -84,9 +90,10 @@ public class LevelManager {
     /**
      * Sets all the scenes in the LevelManager to reference the game.
      * @param g The game to reference.
+     * @throws NullPointerException On a null Game.
      */
     public void setGame(Game g){
-        if(g == null) throw new IllegalArgumentException("Game cannot be null.");
+        if(g == null) throw new NullPointerException("Game cannot be null.");
         game = g;
 
         //Give back reference to all scenes
@@ -98,21 +105,24 @@ public class LevelManager {
 
     /**
      * Gets a specified Scene object given the number of scene.
-     * @param level The level number.
-     * @return The scene corresponding to the level number.
+     * @param scene The scene number.
+     * @return The scene corresponding to the scene number.
+     * @throws NullPointerException When the game is null, preventing getting scenes that have null games.
+     * @throws IndexOutOfBoundsException When the given index is out of the range of the array of scenes.
      */
-    public Scene getScene(int level){
-        if(game == null) throw new IllegalArgumentException("Must give the level manager a game before calling actions on it.");
-        if(level >= scenes.size()) throw new NoSuchElementException("The scene does not exist.");
-        return scenes.get(level);
+    public Scene getScene(int scene){
+        if(game == null) throw new NullPointerException("Must give the LevelManager a game before calling actions on it.");
+        if(scene >= scenes.size() || scene < 0) throw new IndexOutOfBoundsException("The scene does not exist, out of bounds.");
+        return scenes.get(scene);
     }
 
     /**
      * Gets the current scene in the game.
      * @return The current scene.
+     * @throws NullPointerException When the game is null, preventing getting scenes that have null games.
      */
     public Scene getCurrentScene(){
-        if(game == null) throw new IllegalArgumentException("Must give the level manager a game before calling actions on it.");
+        if(game == null) throw new NullPointerException("Must give the level manager a game before calling actions on it.");
         return paused? menu : scenes.get(currentScene);
     }
 
@@ -128,9 +138,11 @@ public class LevelManager {
      * Changes the current scene to the next scene.
      * Upon reaching the last scene, the next scene becomes the first scene.
      * Cannot be called while the game is paused.
+     * @throws NullPointerException When the game is null, preventing getting scenes that have null games.
+     * @throws RuntimeException When changing scenes if the menu is open.
      */
     public void nextScene(){
-        if(game == null) throw new IllegalArgumentException("Must give the level manager a game before calling actions on it.");
+        if(game == null) throw new NullPointerException("Must give the level manager a game before calling actions on it.");
         if(paused) throw new RuntimeException("Cannot change to the next scene while the menu is open.");
 
         getCurrentScene().resetScene(); // Reset the current scene on exit
@@ -140,58 +152,67 @@ public class LevelManager {
     }
 
     /**
-     * Sets the current scene to a scene specified by the level number.
-     * @param level The number of the level.
+     * Sets the current scene to a scene specified by the scene number.
+     * @param scene The number of the scene.
+     * @throws NullPointerException When the game is null, preventing getting scenes that have null games.
+     * @throws IndexOutOfBoundsException When the scene number is out of the bounds of the current array.
      */
-    public void setScene(int level){
-        if(game == null) throw new IllegalArgumentException("Must give the level manager a game before calling actions on it.");
-        if(level >= scenes.size()) throw new NoSuchElementException("The scene does not exist.");
+    public void setScene(int scene){
+        if(game == null) throw new NullPointerException("Must give the scene manager a game before calling actions on it.");
+        if(scene >= scenes.size() || scene < 0) throw new IndexOutOfBoundsException("The scene does not exist, out of bounds.");
         paused = false;
 
         getCurrentScene().resetScene(); // reset the current scene on exit
 
-        currentScene = level;
+        currentScene = scene;
     }
 
     /**
-     * Adds a scene to the end of the collection.
-     * @param s The scene to add.
+     * Add a scene to the end of the collection.
+     * @param scene The scene to add.
+     * @throws NullPointerException When the game is null, preventing getting scenes that have null games.
      */
-    public void addScene(Scene s){
-        if(s == null) throw new IllegalArgumentException("Cannot add a null scene.");
-        scenes.add(s);
-        s.setGame(game);
+    public void addScene(Scene scene){
+        if(scene == null) throw new NullPointerException("Must give the LevelManager a game before calling actions on it.");
+        scenes.add(scene);
+        scene.setGame(game);
     }
 
     /**
      * Adds a scene at a specific position in the collection.
-     * @param s The scene to add.
-     * @param level The number of the level/scene.
+     * @param scene The scene to add.
+     * @param sceneNum The number of the scene.
+     * @throws NullPointerException When the game is null, preventing getting scenes that have null games.
+     * @throws IndexOutOfBoundsException When the scene number is out of the bounds of the current array.
+     *
      */
-    public void addScene(Scene s, int level){
-        if(s == null) throw new IllegalArgumentException("Cannot add a null scene.");
-        if(level < 0 || level > scenes.size()) throw new IllegalArgumentException("Out of bounds of the collection");
-        scenes.add(level, s);
-        s.setGame(game);
+    public void addScene(Scene scene, int sceneNum){
+        if(scene == null) throw new NullPointerException("Must give the scene manager a game before calling actions on it.");
+        if(sceneNum < 0 || sceneNum > scenes.size()) throw new IndexOutOfBoundsException("The scene position is out of bounds of the current collection of scenes.");
+        scenes.add(sceneNum, scene);
+        scene.setGame(game);
     }
 
     /**
      * Appends a collection of scenes to the current collection of scenes.
-     * @param s The collection of scenes.
+     * @param scenes The collection of scenes.
+     * @throws NullPointerException When the game is null, preventing getting scenes that have null games.
+     * @throws IllegalArgumentException There must be at least one scene in the collection.
      */
-    public void addScenes(Collection<Scene> s){
-        if(s == null) throw new IllegalArgumentException("Cannot add a null collection.");
-        if(!(s.size()>0)) throw new IllegalArgumentException("There must be at least one level.");
-        for(Scene sc : s)sc.setGame(game);
-        scenes.addAll(s);
+    public void addScenes(Collection<Scene> scenes){
+        if(scenes == null) throw new NullPointerException("Must give the scene manager a game before calling actions on it.");
+        if(!(scenes.size()>0)) throw new IllegalArgumentException("There must be at least one scene.");
+        for(Scene sc : scenes)sc.setGame(game);
+        this.scenes.addAll(scenes);
     }
 
     /**
      * Sets a pause menu scene for a game.
      * @param pause The scene to use as a pause menu.
+     * @throws NullPointerException When the game is null, preventing getting scenes that have null games.
      */
     public void setPauseMenu(Scene pause){
-        if(pause == null) throw new IllegalArgumentException("Cannot set a null pause menu.");
+        if(pause == null) throw new NullPointerException("Must give the scene manager a game before calling actions on it.");
         menu = pause;
         menu.setGame(game);
     }
@@ -199,17 +220,20 @@ public class LevelManager {
     /**
      * Returns the pause Scene
      * @return The pause Scene, null if it doesn't exist.
+     * @throws NullPointerException When the game is null, preventing getting scenes that have null games.
      */
     public Scene getPauseMenu(){
-        if(game == null) throw new IllegalArgumentException("Must give the level manager a game before calling actions on it.");
+        if(game == null) throw new NullPointerException("Must give the level manager a game before calling actions on it.");
         return menu;
     }
 
     /**
      * Pauses the game / switches to the pause menu if it exists.
+     * @throws NullPointerException When the game is null, preventing getting scenes that have null games.
+     * @throws RuntimeException When pause is called and there is no pause menu.
      */
     public void pause(){
-        if(game == null) throw new IllegalArgumentException("Must give the level manager a game before calling actions on it.");
+        if(game == null) throw new NullPointerException("Must give the level manager a game before calling actions on it.");
         if(menu == null) throw new RuntimeException("Cannot pause when no menu exists.");
         paused = !paused;
     }
