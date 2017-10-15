@@ -25,7 +25,8 @@ public class BeeEntity extends GameEntity implements Enemy{
 
     public BeeEntity(Vector transform, GameEntity target, Vector deviance){
         super(transform);
-        setup(transform,target,Optional.of(deviance));
+        if(deviance.equals(new Vector(0,0))) setup(transform, target, Optional.empty());
+        else setup(transform,target,Optional.of(deviance));
     }
 
     public BeeEntity(Vector transform, GameEntity target){
