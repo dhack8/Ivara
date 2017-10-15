@@ -58,7 +58,7 @@ public class PlayerEntity extends GameEntity {
         //Collider---
         Vector cTopLeft = new Vector(widthOff/2, heightOff);
         Vector cDimensions = new Vector(WIDTH -widthOff, HEIGHT -heightOff);
-        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, cTopLeft, cDimensions))); //Todo Change the Collider component
+        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, cTopLeft, cDimensions)));
 
         //Layer---
         addComponent(new RenderComponent(this, 999999999));

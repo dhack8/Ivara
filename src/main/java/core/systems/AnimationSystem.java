@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO: javadoc
+ * Animation system class that retrieves an array of SpriteComponents of the world (in the form of game entities), and
+ * adds them to a list of Animated Sprites. Each sprite is then given their updated resource so the animation is able
+ * to be performed.
  * @author Will Pearson
  */
 

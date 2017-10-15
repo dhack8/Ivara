@@ -43,7 +43,7 @@ public class AssetHandlerTest {
      * @throws RuntimeException
      */
     @Test
-    public void loadImage() throws RuntimeException { //TODO runtime exception
+    public void loadImage() throws RuntimeException {
         int prevSize = AssetHandler.getImageMap().size();
         try {
             AssetHandler.loadImage(filePath, "Player", renderer);
