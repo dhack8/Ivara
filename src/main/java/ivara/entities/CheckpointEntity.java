@@ -22,7 +22,7 @@ public class CheckpointEntity extends GameEntity{
     private float width = 1f;
     private float height = 1f;
 
-    private float poleWidth = 0.1f;
+    private float poleWidth = 0.3f;
 
     private float yOffset = 0.01f;
 

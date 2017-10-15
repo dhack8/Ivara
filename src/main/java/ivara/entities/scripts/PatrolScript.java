@@ -11,10 +11,12 @@ import maths.Vector;
  */
 public class PatrolScript implements Script{
 
-    private Vector home;
     private Vector pos1;
     private Vector pos2;
     private float speed;
+
+    private Vector target;
+    private static final float THRESHOLD = 0.01f;
 
     /**
      * Creates a Script that causes the entity to patrol their initial spawn location
@@ -22,58 +24,39 @@ public class PatrolScript implements Script{
      * @param deviance The x and y deviance from the origin
      */
     public PatrolScript(GameEntity entity, Vector deviance, float speed){
-        home = new Vector(entity.getTransform());
+        Vector home = new Vector(entity.getTransform());
         pos1 = new Vector(home.x - deviance.x, home.y - deviance.y);
         pos2 = new Vector(home.x + deviance.x, home.y + deviance.y);
+
+        target = pos2;
         this.speed = speed;
+
+        updateVelocity(entity);
     }
+
 
     @Override
     public void update(int dt, GameEntity entity) {
-        if(pos1.equals(home))return;
+        Vector current = entity.getTransform();
 
-        VelocityComponent vComp = entity.get(VelocityComponent.class).get();
-        
-        if(nearPoint(pos1, entity.getTransform())){ // cheeky swap for now
-            Vector temp = pos1;
-            pos1 = pos2;
-            pos2 = temp;
-        }
-
-        vComp.set(getV(pos1, entity.getTransform()));
+        if(atPoint(current, target)){swapTarget(entity);updateVelocity(entity);}
     }
 
-    /**
-     * Calculates and returns a vector representing the x and y velocities.
-     * These are used to move the entity towards a target
-     * @param target The target position
-     * @param from The start position
-     * @return A vector representing velocity
-     */
-    private Vector getV(Vector target, Vector from){
-        float dx = target.x - from.x;
-        float dy = target.y - from.y;
-        double angle = Math.atan(dx/dy);
-        float xVel = (float)(speed * Math.sin(angle));
-        float yVel = (float)(speed * Math.cos(angle));
-
-        if(dy <0){xVel *= -1; yVel *= -1;}
-        return new Vector(xVel,yVel);
+    private void updateVelocity(GameEntity entity){
+        VelocityComponent velocityComponent = entity.get(VelocityComponent.class).get();
+        Vector velocity = target.sub(entity.getTransform()).norm();
+        velocity.scaleBy(speed);
+        velocityComponent.set(velocity);
     }
 
-    /**
-     * Checks whether a given position is close to a point (rounding errors are preventing exact checks)
-     * @param position The position to check regarding the entity's position
-     * @return Whether the point is near the entity
-     */
-    private boolean nearPoint(Vector position, Vector current){
-        float threshold = 0.1f;
 
-        if(current.x > position.x-threshold && current.x < position.x + threshold){
-            if(current.y > position.y-threshold && current.y < position.y + threshold){
-                return true;
-            }
-        }
-        return false;
+    private void swapTarget(GameEntity entity){
+        target = (target.equals(pos1)? pos2 : pos1);
+
     }
+
+    private boolean atPoint(Vector location, Vector point){
+        return location.dist(point) <= THRESHOLD;
+    }
+
 }

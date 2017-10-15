@@ -1,5 +1,6 @@
 package ivara.entities;
 
+import core.Script;
 import core.components.ColliderComponent;
 import core.components.ScriptComponent;
 import core.components.SpriteComponent;
@@ -237,7 +238,8 @@ public class PlatformEntity extends GameEntity {
         addComponent(vComp);
 
         ScriptComponent sComp = new ScriptComponent(this);
-        sComp.add(new BasicMoveScript(this, end, time));
+        //sComp.add(new BasicMoveScript(this, end, time));
+        sComp.add(new MoveScript(end, time));
         addComponent(sComp);
     }
 
@@ -282,5 +284,42 @@ public class PlatformEntity extends GameEntity {
         float x = (float) ((Math.random() * (max.x - min.x)) + min.x);
         float y = (float) ((Math.random() * (max.y - min.y)) + min.x);
         return new Vector(x,y);
+    }
+
+
+    private class MoveScript implements Script{
+
+        private Vector pos1;
+        private Vector pos2;
+        private Vector target;
+
+        private static final float THRESHOLD = 0.01f;
+
+        public MoveScript(Vector end, float time){
+            pos2 = end;
+            pos1 = new Vector(PlatformEntity.this.getTransform());
+            target = pos2;
+
+            VelocityComponent vComp = PlatformEntity.this.get(VelocityComponent.class).get();
+            vComp.set(new Vector((pos2.x - pos1.x) / time, (pos2.y - pos1.y)/time));
+
+        }
+
+        @Override
+        public void update(int dt, GameEntity entity) {
+            Vector current = entity.getTransform();
+
+            if(atPoint(current, target)) swapTarget(entity);
+        }
+
+        private void swapTarget(GameEntity entity){
+            target = (target.equals(pos1)? pos2 : pos1);
+            VelocityComponent velocityComponent = entity.get(VelocityComponent.class).get();
+            velocityComponent.getVelocity().scaleBy(-1);
+        }
+
+        private boolean atPoint(Vector location, Vector point){
+            return location.dist(point) <= THRESHOLD;
+        }
     }
 }

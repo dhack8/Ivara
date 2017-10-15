@@ -40,13 +40,13 @@ public class CoinEntity extends GameEntity {
                 )
         );
 
-        Sensor coinSesnor = new Sensor(
+        Sensor coinSensor = new Sensor(
                 new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(SIZE, SIZE))
         );
 
         addComponent(new SensorComponent(
                 this,
-                coinSesnor
+                coinSensor
         ));
 
         SensorHandlerComponent sensorHandler = new SensorHandlerComponent(this);
@@ -57,9 +57,9 @@ public class CoinEntity extends GameEntity {
                 new Script() {
                     @Override
                     public void update(int dt, GameEntity entity) {
-                        if (sensorHandler.getSensorHandler().isActive(coinSesnor)) {
+                        if (sensorHandler.getSensorHandler().isActive(coinSensor)) {
                             if (sensorHandler.getSensorHandler().
-                                    getActivatingEntities(coinSesnor)
+                                    getActivatingEntities(coinSensor)
                                     .stream()
                                     .anyMatch((e) -> e.equals(player))) {
                                 player.coinsCollected += 1;
