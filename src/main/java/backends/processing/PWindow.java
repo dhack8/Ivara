@@ -348,6 +348,8 @@ public class PWindow extends Renderer implements InputBroadcaster{
             }
 
         }else{ //FULLSCREEN
+            if(sprite.resourceID == null) System.out.println("Null id");
+            if(AssetHandler.getImage(sprite.resourceID.id) == null) System.out.println("Null image");
             image(AssetHandler.getImage(sprite.resourceID.id), b.x, b.y, width-2*b.x, height-2*b.y);
         }
     }
@@ -402,8 +404,13 @@ public class PWindow extends Renderer implements InputBroadcaster{
      */
     private void displayError(String text){
         textSize(40);
-        background(255,0,0);
-        fill(0);
+        try {
+            background(255, 0, 0);
+        }catch (NullPointerException e){
+            //Sometimes processing throws a null pointer for no reason
+            fill(255, 0, 0);
+            rect(b.x, b.y, width-2*b.x, height-2*b.y);
+        }
         //TEXT THROWS ERRORS PROCESSINGS FAULT
         //text(text, 10, 40);
         drawing = false;
