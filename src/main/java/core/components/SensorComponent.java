@@ -1,10 +1,8 @@
 package core.components;
 
-import core.SensorListener;
 import core.entity.GameEntity;
 import core.struct.Sensor;
 import scew.Component;
-import physics.Collider;
 
 import java.util.*;
 

@@ -1,18 +1,13 @@
 package ivara.entities;
 
 import core.Script;
-import core.SensorListener;
 import core.components.*;
 import core.entity.GameEntity;
 import core.input.SensorHandler;
-import core.scene.Scene;
 import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Sprite;
 import ivara.entities.enemies.Enemy;
-import ivara.entities.enemies.ImmortalEnemy;
-import ivara.entities.enemies.ImmortalEnemy;
-import ivara.scenes.DefaultScene;
 import maths.Vector;
 import physics.AABBCollider;
 

@@ -11,7 +11,8 @@ import core.scene.LevelManager;
 import processing.core.PApplet;
 
 /**
- * Created by Callum Li on 9/14/17.
+ * Main game where everything comes together.
+ * @author Callum Li
  */
 public abstract class Game {
 
@@ -37,8 +38,15 @@ public abstract class Game {
     private final InputBroadcaster broadcaster;
 
     private final InputHandler inputHandler;
+
     private InputHandler.InputFrame inputFrame = new InputHandler.InputFrame();
 
+    /**
+     * Constructs a game with all the required aspects
+     * @param lm level manager
+     * @param renderer backend renderer
+     * @param broadcaster input broadcaster
+     */
     public Game(LevelManager lm, Renderer renderer, final InputBroadcaster broadcaster) {
         this.renderer = renderer;
         this.broadcaster = broadcaster;
@@ -53,38 +61,60 @@ public abstract class Game {
         assert broadcaster != null;
     }
 
+    /**
+     * Returns the the window for closing within the implantation.
+     * @return the renderer
+     */
     public PApplet getWindow() {
         return renderer;
     }
 
-
+    /**
+     * Gets a specific scene by scene number.
+     * @param sceneNum required scene number
+     * @return the desired scene
+     */
     public Scene getScene(int sceneNum){return levelManager.getScene(sceneNum);}
 
     // --- LevelManager methods
+
+    /**
+     * Getter for the level manager.
+     * @return level manager
+     */
     public Scene getCurrentScene() {
         return levelManager.getCurrentScene();
     }
 
+    /**
+     * Setter for the scene by scene number.
+     * @param level number of the scene to set to
+     */
     public void setCurrentScene(int level) {
         levelManager.setScene(level);
     }
 
+    /**
+     * Returns the current scene number.
+     * @return returns the current scene number
+     */
     public int getCurrentSceneNum(){
         return levelManager.getLevelNum();
     }
 
+    /**
+     * Advances the scene to the next, loops.
+     */
     public void nextScene(){
         levelManager.nextScene();
     }
 
+    /**
+     * pauses the game.
+     */
     public void pause(){
         levelManager.pause();
     }
-
-
-
-
-    public LevelManager getLevelManager() {return levelManager;}
 
     /**
      * Retrieves the current input frame.
@@ -105,7 +135,6 @@ public abstract class Game {
 
         while (true) {
             long delta = System.currentTimeMillis() - past;
-            //System.out.println("Delta: " + delta);
 
             accumulator += System.currentTimeMillis() - past;
             past = System.currentTimeMillis();
@@ -114,18 +143,14 @@ public abstract class Game {
             // of time needs to be processed.
             while (accumulator >= tickTime) {
                 // do Tick
-                //System.out.println("Acc: " + accumulator);
                 inputFrame = inputHandler.nextInputFrame();
                 levelManager.getCurrentScene().update(tickTime);
 
                 accumulator -= tickTime;
             }
 
-            // Display the current scene.
+            // Display the current scene. BLOCKING
             renderer.render(levelManager.getCurrentScene());
-
         }
     }
-
-
 }

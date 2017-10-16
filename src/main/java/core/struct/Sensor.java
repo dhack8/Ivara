@@ -1,7 +1,5 @@
 package core.struct;
 
-import core.SensorListener;
-import core.entity.GameEntity;
 import physics.Collider;
 
 /**

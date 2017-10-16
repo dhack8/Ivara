@@ -8,6 +8,10 @@ import scew.World;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This system maintains the timers.
+ * @author Callum Li
+ */
 public class TimerSystem extends System<GameEntity> {
 
     private Set<Timer> timers = new HashSet<>();
@@ -16,6 +20,11 @@ public class TimerSystem extends System<GameEntity> {
         timers.add(timer);
     }
 
+    /**
+     * Ticks the timers and performs their actions if they are finished.
+     * @param dt time passed
+     * @param world not used
+     */
     @Override
     public void update(int dt, World<GameEntity> world) {
         // Prevent asynchronous modification.

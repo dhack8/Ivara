@@ -12,7 +12,8 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * Created by james on 16/09/2017.
+ * Handles loading and storing of assets
+ * @author James Magallanes
  */
 public class AssetHandler {
     
