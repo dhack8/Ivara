@@ -24,6 +24,7 @@ import util.Debug;
  * Saving class that outputs the number of the level the player is currently on, the position where they would
  * spawn (taking into account checkpoints), the amount of time the timer has been going for, and the position of
  * the coins the player has collected.
+ * @author James Magallanes
  */
 public class SaveGame {
     private static final File savefile = new File("./savefile.sav");

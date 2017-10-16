@@ -23,6 +23,9 @@ import java.util.stream.Collectors;
 
 /**
  * This class handles the loading of a game from a file.
+ * Loading class that takes the number of the level the to load, the position where they would
+ * spawn (taking into account checkpoints), the amount of time the timer has been going for, and the position of
+ * the coins the player has collected.
  * @author Alex Mitchell
  */
 public class LoadGame {
