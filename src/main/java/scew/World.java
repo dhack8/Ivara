@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 /**
  * A world is essentially a container for entities and systems.
+ * @author Callum Li
  *
  * @param <T> The type of entity this world contains.
  */

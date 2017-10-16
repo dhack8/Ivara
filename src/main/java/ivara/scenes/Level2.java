@@ -95,8 +95,4 @@ public class Level2 extends DefaultScene {
 		setCamera(new Camera());
 		super.startScene(player);
 	}
-
-	public Scene hardReset() {
-		return new Level2();
-	}
 }

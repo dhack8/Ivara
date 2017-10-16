@@ -82,12 +82,6 @@ public class HardLevel3 extends DefaultScene {
 		addEntity(new PlatformEntity(new Vector(7,35),new Vector(7,30),2.5f));
 		addEntity(new PlatformEntity(new Vector(1,42),5,false,new Vector(1,6),18));
 
-		// Markers
-		//new Vector(1,6)
-		//new Vector(9,12)
-		//new Vector(13,18)
-		//new Vector(7,30)
-
 		// Fake Platforms
 		addEntity(new FakeBlockEntity(new Vector(20, 9)));
 		addEntity(new FakeBlockEntity(new Vector(24, 9)));

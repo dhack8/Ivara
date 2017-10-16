@@ -81,6 +81,5 @@ public class Level1 extends DefaultScene {
         addEntity(new DeathLineEntity(42));
         setCamera(new Camera());
         super.startScene(player);
-
     }
 }
