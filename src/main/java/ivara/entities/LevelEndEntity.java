@@ -14,49 +14,59 @@ import physics.AABBCollider;
 import java.util.Arrays;
 
 /**
- * Created by Alex Mitchell on 3/10/2017.
+ * This class handles the behaviour of a Flag that changes level on collision with the player.
+ * @author Alex Mitchell 
  */
 public class LevelEndEntity extends GameEntity {
-    //Dimensions
-    private float width = 1f;
-    private float height = 1f;
 
-    private float poleWidth = 0.1f;
-
-    private float yOffset = 0.01f;
-
+    // Constants
+    private static final float WIDTH = 1f;
+    private static final float HEIGHT = 1f;
+    private static final float POLE_WIDTH = 0.1f;
+    private static final float YOFFSET = 0.01f;
     private final static int ANIMATION_RATE = 1000;
 
+    /**
+     * Constructs a LevelEndEntity at a specified positions.
+     * @param x The x coordinate of the flag.
+     * @param y The y coordinate of the flag.
+     */
     public LevelEndEntity(float x, float y){
         super(new Vector(x,y));
 
+        // Sprites
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new FlagSprite(new Vector(width, height), ANIMATION_RATE));
+        sc.add(new FlagSprite(new Vector(WIDTH, HEIGHT), ANIMATION_RATE));
         addComponent(sc);
 
+        // Layer
         addComponent(new RenderComponent(this, 9999999));
 
-        //Sensors---
-        //AABB for the sensor
+        // Sensors
         Vector sTopLeft = new Vector(0f, 0f);
-        //Vector sDimensions = new Vector(0.1f, height);
-        Vector sDimensions = new Vector(poleWidth, height);
+        Vector sDimensions = new Vector(POLE_WIDTH, HEIGHT);
         AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
         Sensor leftSensor = new Sensor(ab);
         addComponent(new SensorComponent(this, leftSensor));
-
-        //Enable Listening for Sensor Events
         addComponent(new SensorHandlerComponent(this));
 
+        // Scripts
         LevelChangeScript l = new LevelChangeScript(leftSensor);
         ScriptComponent sComp = new ScriptComponent(this);
         sComp.add(l);
-
         addComponent(sComp);
-
     }
 
+    /**
+     * This class handles the Sprite relating to the end level entity.
+     * @author David Hack
+     */
     private class FlagSprite extends AnimatedSprite {
+        /**
+         * Constructs a flag sprite that changes it's appearance based upon the current state.
+         * @param dimensions The size of the sprite.
+         * @param frameTick The update tick delay.
+         */
         private FlagSprite(Vector dimensions, int frameTick){
             super(new Vector(0,0), dimensions, frameTick);
 
@@ -71,12 +81,17 @@ public class LevelEndEntity extends GameEntity {
         }
     }
 
+    /**
+     * This script causes the current level in the game to change on contact with the flag.
+     * @author Alex Mitchell
+     */
     private class LevelChangeScript implements Script {
         private final Sensor sensor;
+        private boolean entered = false; // Flag to avoid the scene being changed multiple times.
 
-        private boolean entered = false; // Todo sort out a way to reset a scene
         /**
-         * Create a LevelChangeScript
+         * Constructs a LevelChangeScript with a sensor the size of the flag.
+         * @param s The sensor.
          */
         public LevelChangeScript(Sensor s){
             this.sensor = s;
@@ -91,7 +106,7 @@ public class LevelEndEntity extends GameEntity {
 
                 if(!entered && playerCollision) {
                     entered = true;
-                    entity.getScene().getGame().nextScene();
+                    entity.getScene().getGame().nextScene(); // Goes to the next scene on a player collision
                 }
             }
         }

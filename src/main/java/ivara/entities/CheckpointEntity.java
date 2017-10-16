@@ -14,52 +14,66 @@ import physics.AABBCollider;
 import java.util.Arrays;
 
 /**
- * Created by David Hack Local on 14-Oct-17.
+ * This class handles the operation of a CheckPoint Entity.
+ * This entity sets the spawn position in the level.
+ * @author David Hack
  */
 public class CheckpointEntity extends GameEntity{
 
-    //Dimensions
-    private float width = 1f;
-    private float height = 1f;
-
-    private float poleWidth = 0.3f;
-
-    private float yOffset = 0.01f;
-
+    // Constants
+    private static final float WIDTH = 1f;
+    private static final float HEIGHT = 1f;
+    private static final float POLE_WIDTH = 0.3f;
+    private static final float YOFFSET = 0.01f;
     private final static int ANIMATION_RATE = 1000;
 
-    AnimatedSprite as;
+    private final AnimatedSprite as;
 
+    /**
+     * Constructs a CheckPointEntity at a specified position.
+     * @param x The x position.
+     * @param y The y position.
+     */
     public CheckpointEntity(float x, float y){
         super(new Vector(x,y));
 
+        // Script
         SpriteComponent sc = new SpriteComponent(this);
-        as = new FlagSprite(new Vector(width, height), ANIMATION_RATE);
+        as = new FlagSprite(new Vector(WIDTH, HEIGHT), ANIMATION_RATE);
         sc.add(as);
         addComponent(sc);
 
+        // Layer
         addComponent(new RenderComponent(this, 9999999));
 
-        //Sensors---
-        //AABB for the sensor
+        // Sensors
         Vector sTopLeft = new Vector(0f, 0f);
-        //Vector sDimensions = new Vector(0.1f, height);
-        Vector sDimensions = new Vector(poleWidth, height);
+        Vector sDimensions = new Vector(POLE_WIDTH, HEIGHT);
         AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
         Sensor leftSensor = new Sensor(ab);
         addComponent(new SensorComponent(this, leftSensor));
 
-        //Enable Listening for Sensor Events
+        // Enable Listening for Sensor Events
         addComponent(new SensorHandlerComponent(this));
 
+        // Scripts
         CheckpointScript c = new CheckpointScript(leftSensor);
         ScriptComponent sComp = new ScriptComponent(this);
         sComp.add(c);
-
         addComponent(sComp);
     }
 
+    /**
+     * Handles the sprite of the flag.
+     * The flag sprite changes on game ticks.
+     * @author David Hack
+     */
     private class FlagSprite extends AnimatedSprite {
+        /**
+         * Constructs the FlagSprite that is used by the CheckPointEntity.
+         * @param dimensions The size of the sprite.
+         * @param frameTick The update ticks for the sprite.
+         */
         private FlagSprite(Vector dimensions, int frameTick){
             super(new Vector(0,0), dimensions, frameTick);
 
@@ -80,13 +94,19 @@ public class CheckpointEntity extends GameEntity{
         }
     }
 
+    /**
+     * This script sets the spawn location of the scene when the flag is touched by the player.
+     * @author David Hack
+     * @author Alex Mitchell
+     */
     private class CheckpointScript implements Script {
-        private final Sensor sensor;
 
-        private boolean entered = false; // Todo sort out a way to reset a scene
+        private final Sensor sensor;
+        private boolean entered = false; // Avoiding the flag being entered multiple times
 
         /**
-         * Create a LevelChangeScript
+         * Constructs the Checkpoint script with the sensor.
+         * @param s The sensor that detects the player.
          */
         public CheckpointScript(Sensor s){
             this.sensor = s;
@@ -104,9 +124,8 @@ public class CheckpointEntity extends GameEntity{
                     Scene current = entity.getScene();
                     if(current instanceof DefaultScene){
                         DefaultScene currentDefault = (DefaultScene) current;
-                        currentDefault.setSpawn(entity.getTransform());
+                        currentDefault.setSpawn(entity.getTransform()); // Set the spawn in the level.
                     }
-
                     as.setState("down");
                 }
             }

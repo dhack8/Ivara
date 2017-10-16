@@ -1,29 +1,27 @@
 package ivara.entities;
 
-import core.Script;
 import core.components.ColliderComponent;
-import core.components.ScriptComponent;
-import core.components.SensorComponent;
-import core.components.SensorHandlerComponent;
 import core.entity.GameEntity;
-import core.input.SensorHandler;
-import core.struct.Sensor;
 import ivara.entities.enemies.ImmortalEnemy;
 import maths.Vector;
 import physics.AABBCollider;
 
-import java.util.Collection;
-
 /**
- * Created by David Hack Local on 11-Oct-17.
+ * DeathLineEntity acts as an "out of bounds" and resets the player whe they fall underneath the level.
+ * @author Alex Mitchell
+ * @author David Hack
  */
 public class DeathLineEntity extends GameEntity implements ImmortalEnemy{
 
-    private static final float girth = 99999;
+    private static final float GIRTH = 99999;
 
+    /**
+     * Constructs the death line at a specified height.
+     * The player dies on contact with an ImmortalEnemy.
+     * @param height The y location of the death line.
+     */
     public DeathLineEntity(float height){
-        super(new Vector(-girth/2f, height));
-        SensorComponent sComp = new SensorComponent(this);
-        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, new Vector(0,0), new Vector(girth, girth))));
+        super(new Vector(-GIRTH/2f, height));
+        addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, new Vector(0,0), new Vector(GIRTH, GIRTH))));
     }
 }
