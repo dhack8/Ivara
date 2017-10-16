@@ -40,7 +40,7 @@ public class EntityTest {
 
     @Test
     /**
-     * Testing components can be added and gathered
+     * Testing components can be added and removed correctly.
      */
     public void removeComponent() throws Exception {
         TestComp1 a = new TestComp1(testEntity);
