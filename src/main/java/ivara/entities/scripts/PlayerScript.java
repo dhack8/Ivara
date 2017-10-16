@@ -1,5 +1,6 @@
 package ivara.entities.scripts;
 
+import backends.tinysound.Music;
 import backends.tinysound.Sound;
 import backends.tinysound.TinySound;
 import core.Script;
@@ -56,6 +57,9 @@ public class PlayerScript implements Script{
     private static final Sound jumpSound = TinySound.loadSound("jumpsound.wav");
     private static final Sound playerDeath = TinySound.loadSound("playerdeath.wav");
     private static final Sound playerKill = TinySound.loadSound("kill.wav");
+    private static final Music playerStep = TinySound.loadMusic("steps.wav");
+
+    private boolean walking = false;
 
     /**
      * Constructs a PlayerScript that controls how a the player behaves.
@@ -147,6 +151,7 @@ public class PlayerScript implements Script{
      */
     private void handleAirborne(){
         updateState(State.JUMP);
+        stopWalkNoise();
     }
 
     /**
@@ -170,7 +175,22 @@ public class PlayerScript implements Script{
     private void handleWalk(VelocityComponent vComp, SensorHandler sensorHandler, Orientation o){
         vComp.setX(((o.equals(Orientation.LEFT)?-1:1)*metresPerSecond) + relative.x);
         updateState(o);
-        if(sensorHandler.isActive(bottomSensor)) updateState(State.WALK);
+        if(sensorHandler.isActive(bottomSensor)){
+            updateState(State.WALK);
+            playWalkNoise();
+        }
+    }
+
+    private void playWalkNoise(){
+        if(!walking){
+            playerStep.play(true);
+            walking = true;
+        }
+    }
+
+    private void stopWalkNoise(){
+        walking = false;
+        playerStep.stop();
     }
 
     /**
@@ -182,6 +202,7 @@ public class PlayerScript implements Script{
     private void stopWalk(VelocityComponent vComp, SensorHandler sensorHandler){
         vComp.setX(relative.x);
         if(sensorHandler.isActive(bottomSensor)) updateState(State.IDLE);
+        stopWalkNoise();
     }
 
     /**
