@@ -13,19 +13,19 @@ import physics.AABBCollider;
 import physics.PhysicProperties;
 
 /**
- * Created by David Hack Local on 14-Oct-17.
+ * This class handles the behaviour of the PushableBlockEntity
+ * @author David Hack
  */
 public class PushableBlockEntity extends GameEntity{
 
     private final static float WIDTH = 1f;
     private final static float HEIGHT = 1f;
-
-    private float sensorPadding = 0.05f;
-    private float sensorHeight = 0.1f;
-    private float extraSensorHeight = 0.05f;
+    
+    private final static float SENSOR_PADDING = 0.05f;
+    private final static float SENSOR_HEIGHT = 0.1f;
+    private final static float EXTRA_SENSOR_HEIGHT = 0.05f;
 
     private Vector intialLoc;
-
     private Sensor bot;
 
     public PushableBlockEntity(float x, float y){
@@ -33,38 +33,40 @@ public class PushableBlockEntity extends GameEntity{
         intialLoc = new Vector(transform);
         Vector dimension = new Vector(WIDTH, HEIGHT);
 
-        //Velocity---
+        // Velocity
         VelocityComponent v = new VelocityComponent(this);
         v.set(new Vector(0f, 0f));
         addComponent(v);
 
-        //Layer---
+        // Layer
         addComponent(new RenderComponent(this, 1000));
 
-        //Collider--
+        // Collider
         Vector topLeft = new Vector(0,0);
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension)));
 
-        //Sprite---
+        // Sprite
         addComponent(new SpriteComponent(this, new Sprite(new ResourceID("dirt"), new Vector(0,0), dimension)));
 
-        //Sensor---
-        Vector sensorDimension = new Vector(dimension.x-sensorPadding*2, sensorHeight + extraSensorHeight);
-        Vector SensorTopLeft = new Vector(sensorPadding, dimension.y-sensorHeight);
+        // Sensor
+        Vector sensorDimension = new Vector(dimension.x-SENSOR_PADDING*2, SENSOR_HEIGHT + EXTRA_SENSOR_HEIGHT);
+        Vector SensorTopLeft = new Vector(SENSOR_PADDING, dimension.y-SENSOR_HEIGHT);
         bot = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, SensorTopLeft, sensorDimension));
-
         addComponent(new SensorComponent(this, bot));
-
-        //Enable Listening for Sensor Events
         addComponent(new SensorHandlerComponent(this));
 
-        //Physics---
+        // Physics
         addComponent(new PhysicsComponent(this, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
 
-        //Script---
+        // Script
         addComponent(new ScriptComponent(this, new PushableBlockScript()));
     }
 
+    /**
+     * This class handles the movement and actions of the PushableBlockScript.
+     * This block is able to be pushed by any any entity.
+     * @author David Hack
+     */
     private class PushableBlockScript implements Script{
         @Override
         public void update(int dt, GameEntity entity) {

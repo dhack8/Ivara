@@ -13,26 +13,36 @@ import ivara.scenes.DefaultScene;
 import maths.Vector;
 
 /**
- * Created by Callum Li on 10/12/17.
+ * This class handles the operation and behaviour of the coin counter in a scene.
+ * @author Callum Li
+ * @author David Hack
  */
 public class CoinTextEntity extends GameEntity {
 
-    private final TextComponent score;
     private static final float TEXTSIZE = 25;
+
+    private final TextComponent score;
     private long coinCount = 0;
     private boolean coinCountSet = false;
-
     private static final Vector offset = new Vector(-45f,-31f);
 
+    /**
+     * Constructs a CoinTextEntity in a specified position.
+     * This entity updates from the coin count of a specified player.
+     * @param transform The position of the entity.
+     * @param player The player to update from.
+     */
     public CoinTextEntity(Vector transform, PlayerEntity player) {
         super(transform);
 
+        // Text
         score = new TextComponent(this, new Text(TEXTSIZE, "0"));
-
         addComponent(score);
 
+        // Sprite
         addComponent(new SpriteComponent(this, new Sprite(new ResourceID("coin"), offset, null)));
 
+        // Script
         addComponent(new ScriptComponent(
                 this,
                 new Script() {
@@ -49,8 +59,10 @@ public class CoinTextEntity extends GameEntity {
                         score.clear();
                         score.add(Integer.toString(player.coinsCollected) + "/" + coinCount, TEXTSIZE);
                     }
-                }));
+                })
+        );
 
+        // Layer
         addComponent(new RenderComponent(this, 999999999, RenderComponent.Mode.PIXEL_NO_TRANS));
     }
 }
