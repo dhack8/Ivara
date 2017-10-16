@@ -17,8 +17,7 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 /**
- * Testing class for the Scene
- *
+ * This class tests the functionality of the Scene class.
  * @author Alex Mitchell
  */
 public class SceneTest {
@@ -29,10 +28,10 @@ public class SceneTest {
         testScene = new TestScene(); // Creating a general scene for testing purposes
     }
 
-    @Test
     /**
      * Will test a simple add of a new unnamed entity and whether the entity exists in the scene
      */
+    @Test
     public void testAddEntity() throws Exception {
         GameEntity e = new GameEntity(new Vector(1, 1)) {};
         testScene.addEntity(e); // adding an unnamed entity
@@ -40,10 +39,10 @@ public class SceneTest {
         assertTrue("Scene should contain only one entity.", testScene.getEntities().size() == 1);
     }
 
-    @Test
     /**
      * Tests that a named entity is added to the scene correctly
      */
+    @Test
     public void testAddEntity1() throws Exception {
         GameEntity e1 = new GameEntity(new Vector(1, 1)){};
         GameEntity e2 = new GameEntity(new Vector(1, 1)){};
@@ -59,10 +58,10 @@ public class SceneTest {
         assertTrue("Scene should contain two entities.", testScene.getEntities().size() == 2);
     }
 
-    @Test
     /**
      * Tests adding a variety of entities
      */
+    @Test
     public void testAddEntity2() throws Exception {
         String name = "Test";
         int numEntities = 10;
@@ -80,10 +79,10 @@ public class SceneTest {
         }
     }
 
-    @Test
     /**
      * Tests adding a collection of entities
      */
+    @Test
     public void testAddEntity3() throws Exception {
         int numEntities = 10;
         List<GameEntity> entities = new ArrayList<>();
@@ -96,10 +95,11 @@ public class SceneTest {
         }
     }
 
-    @Test
+
     /**
      * Tests getting an entity of a given class
      */
+    @Test
     public void testGetEntity() throws Exception{
         TestEntity e = new TestEntity(new Vector(1,1));
         assertTrue("There should have been no TestEntities.",testScene.getEntity(TestEntity.class) == null);
@@ -109,11 +109,10 @@ public class SceneTest {
         assertTrue("There should have been no TestEntity2's.",testScene.getEntity(TestEntity2.class) == null);
     }
 
-
-    @Test
     /**
      * Tests getting a collection of entities of a given class
      */
+    @Test
     public void testGetEntities() throws Exception{
         TestEntity e1 = new TestEntity(new Vector(0,0));
         testScene.addEntity(e1);
@@ -139,11 +138,10 @@ public class SceneTest {
 
     }
 
-
-    @Test
     /**
      * Testing the camera creation
      */
+    @Test
     public void testCamera() throws Exception{
 
         assertTrue("Camera should be null.",testScene.getCamera()==null);
@@ -151,10 +149,10 @@ public class SceneTest {
         assertTrue("Should've found a camera", testScene.getCamera()!=null);
     }
 
-    @Test
     /**
      * Test removal of an entity
      */
+    @Test
     public void testRemove(){
         GameEntity e = new GameEntity(new Vector(0,0)) {};
         testScene.addEntity(e);
@@ -162,20 +160,19 @@ public class SceneTest {
         assertTrue("The entity should not exist.", !testScene.getEntities().contains(e));
     }
 
-    @Test
     /**
      * Test removal of an entity that doesn't exist
      */
+    @Test
     public void testRemove1(){
         GameEntity e = new GameEntity(new Vector(0,0)) {};
         testScene.removeEntity(e); // no error thrown
     }
 
-
-    @Test
     /**
      * Testing the reset of a scene.
      */
+    @Test
     public void testReset(){
         String testName = "test";
         TestEntity e = new TestEntity(new Vector(1,1));

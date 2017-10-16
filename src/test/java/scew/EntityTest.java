@@ -19,7 +19,6 @@ public class EntityTest {
 
     @Before
     public void setUp() throws Exception {
-        //testEntity = new GameEntity(new Vector(1,1)) {};
         testEntity = new Entity(){};
     }
 
@@ -37,6 +36,23 @@ public class EntityTest {
         assertTrue("GameEntity should contain a TestComp1 component.",comps.contains(a));
         assertTrue("GameEntity should contain a TestComp2 component.",comps.contains(b));
     }
+
+    @Test
+    /**
+     * Testing adding duplicate components
+     */
+    public void addComponent1() throws Exception {
+        TestComp1 a = new TestComp1(testEntity);
+        TestComp1 b = new TestComp1(testEntity);
+        testEntity.addComponent(a);
+        try{
+            testEntity.addComponent(b);
+            fail("Shouldn't be able to add a duplicate component.");
+        }catch (Entity.DuplicateComponentException e){
+
+        }
+    }
+
 
     @Test
     /**
@@ -86,5 +102,4 @@ public class EntityTest {
             super(e);
         }
     }
-    //TODO more component checks
 }
