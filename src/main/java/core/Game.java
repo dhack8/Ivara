@@ -53,7 +53,7 @@ public abstract class Game {
         this.inputHandler = new InputHandler(broadcaster);
         this.levelManager = lm;
 
-        //renderer.setMask(1);
+        renderer.setMask(1);
 
         TinySound.init();
 

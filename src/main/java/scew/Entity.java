@@ -11,6 +11,7 @@ import java.util.Set;
  *
  * @see Component
  * @author Callum Li
+ * @author Alex Mitchell
  */
 public abstract class Entity {
 

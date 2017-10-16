@@ -36,10 +36,10 @@ public class LevelManagerTest {
 
     // Single scene constructor
 
-    @Test
     /**
      * Testing that a LevelManager cannot be constructed with a null scene
      */
+    @Test
     public void testConstruction1(){
         Scene s = null;
         try{
@@ -52,10 +52,10 @@ public class LevelManagerTest {
 
     // List constructor
 
-    @Test
     /**
      *  Testing that a LevelManager cannot be constructed with a null collection of scenes
      */
+    @Test
     public void testConstructor2(){
         List<Scene> levels = null;
         try{
@@ -66,10 +66,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing the LevelManager with an empty list of scenes
      */
+    @Test
     public void testConstructor3(){
         List<Scene> levels = new ArrayList<>();
         try{
@@ -82,10 +82,10 @@ public class LevelManagerTest {
 
     // Scene and menu constructor
 
-    @Test
     /**
      * Testing that a LevelManager cannot be constructed with a null scene or menu
      */
+    @Test
     public void testConstruction4(){
         Scene s = null;
         Scene m = new TestScene();
@@ -97,10 +97,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing that a LevelManager cannot be constructed with a null scene or menu
      */
+    @Test
     public void testConstruction5(){
         Scene s = new TestScene();
         Scene m = null;
@@ -114,10 +114,10 @@ public class LevelManagerTest {
 
     // List constructor and menu
 
-    @Test
     /**
      * Testing that a LevelManager cannot be constructed with a null collection of scenes or menu
      */
+    @Test
     public void testConstruction6(){
         List<Scene> s = null;
         Scene m = new TestScene();
@@ -129,10 +129,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing that a LevelManager cannot be constructed with a null collection of scenes or menu
      */
+    @Test
     public void testConstruction7(){
         List<Scene> s = new ArrayList<>();
         s.add(new TestScene());
@@ -145,10 +145,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing that a LevelManager cannot be constructed with a less than 1 scene
      */
+    @Test
     public void testConstruction8(){
         List<Scene> s = new ArrayList<>();
         Scene m = new TestScene();
@@ -162,10 +162,10 @@ public class LevelManagerTest {
 
     // Expected behaviour constructor tests
 
-    @Test
     /**
      * Testing expected construction for a single scene constructor
      */
+    @Test
     public void testConstruction9(){
         Scene s = new TestScene();
         try{
@@ -176,10 +176,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing expected construction for a list constructor
      */
+    @Test
     public void testConstruction10(){
         List<Scene> s = new ArrayList<>();
         s.add(new TestScene());
@@ -192,10 +192,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing expected construction for a scene + menu constructor
      */
+    @Test
     public void testConstruction11(){
         Scene s = new TestScene();
         Scene m = new TestScene();
@@ -207,12 +207,13 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing expected construction for a list + menu constructor
      */
+    @Test
     public void testConstruction12(){
         List<Scene> s = new ArrayList<>();
+        s.add(new TestScene());
         Scene m = new TestScene();
         try{
             lm = new LevelManager(s,m);
@@ -224,14 +225,10 @@ public class LevelManagerTest {
 
 
 
-
-
-
-
-    @Test
     /**
      * Testing that a LevelManager cannot be have actions called on when there is no reference to a game
      */
+    @Test
     public void testNoGame1(){
         Scene s = new TestScene();
         try{
@@ -243,10 +240,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Tests whether the pause menu is correctly set in the simple case
      */
+    @Test
     public void testPause1(){
         setUpScenes(1);
         setupGame();
@@ -257,10 +254,10 @@ public class LevelManagerTest {
         assertTrue("The current scene is not the pause scene.", pauseMenu.equals(lm.getCurrentScene()));
     }
 
-    @Test
     /**
      * Tests setting a null pauseMenu
      */
+    @Test
     public void testPause2(){
         setUpScenes(1);
         setupGame();
@@ -273,10 +270,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Tests pausing when the menu is not set
      */
+    @Test
     public void testPause3(){
         setUpScenes(1);
         setupGame();
@@ -288,10 +285,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing to see if the nextScene changes between scenes for the simple case
      */
+    @Test
     public void testNextScene1(){
         
         List<Scene> scenes = setUpScenes(5);
@@ -303,10 +300,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing to see if the nextScene can be called when the pause menu is open
      */
+    @Test
     public void testNextScene2(){
         List<Scene> scenes = setUpScenes(5);
         setupGame();
@@ -320,10 +317,58 @@ public class LevelManagerTest {
         }
     }
 
+    /**
+     * Testing to see if a scene can be set out of the bounds of the current levels.
+     */
     @Test
+    public void testSetScene1(){
+        int initialSize = 1;
+        setUpScenes(initialSize);
+        setupGame();
+        try{
+            lm.setScene(-1);
+            fail("Should not have been able to change the scene to a scene that doesn't exist.");
+        }catch(IndexOutOfBoundsException e){
+
+        }
+    }
+
+    /**
+     * Testing to see if a scene can be set out of the bounds of the current levels.
+     */
+    @Test
+    public void testSetScene2(){
+        int initialSize = 1;
+        setUpScenes(initialSize);
+        setupGame();
+        try{
+            lm.setScene(3);
+            fail("Should not have been able to change the scene to a scene that doesn't exist.");
+        }catch(IndexOutOfBoundsException e){
+
+        }
+    }
+
+    /**
+     * Testing for expected behaviour.
+     */
+    @Test
+    public void testSetScene3(){
+        int initialSize = 2;
+        setUpScenes(initialSize);
+        setupGame();
+        try{
+            lm.setScene(1);
+            assertTrue("Current scene was not the correct scene.", lm.getLevelNum() == 1);
+        }catch(Exception e){
+            fail("Should have been able to set scene but couldn't.\n" + e.toString());
+        }
+    }
+
     /**
      * Testing adding a single scene
      */
+    @Test
     public void testAddScene1(){
         int initialSize = 1;
         setUpScenes(initialSize);
@@ -333,10 +378,10 @@ public class LevelManagerTest {
         assertTrue("New Scene should be at index: " + initialSize + 1, lm.getScene(initialSize).equals(s));
     }
 
-    @Test
     /**
      * Testing adding a single null scene
      */
+    @Test
     public void testAddScene2(){
         int initialSize = 1;
         setUpScenes(initialSize);
@@ -350,10 +395,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing adding a scene to a specified position
      */
+    @Test
     public void testAddScene3(){
         int initialSize = 2;
         setUpScenes(initialSize);
@@ -370,10 +415,10 @@ public class LevelManagerTest {
         assertTrue("The scene should be in position 3.", lm.getScene(2).equals(s2));
     }
 
-    @Test
     /**
      * Testing adding a scene to an invalid position
      */
+    @Test
     public void testAddScene4(){
         int initialSize = 2;
         setUpScenes(initialSize);
@@ -388,10 +433,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing adding a collection of scenes
      */
+    @Test
     public void testAddScene5(){
         int initialSize = 2;
         setUpScenes(initialSize);
@@ -403,10 +448,10 @@ public class LevelManagerTest {
         assertTrue("The LevelManager should contain the new scene added with a list.", lm.getScene(2).equals(s));
     }
 
-    @Test
     /**
      * Testing adding an invalid collection of scenes
      */
+    @Test
     public void testAddScene6(){
         int initialSize = 2;
         setUpScenes(initialSize);
@@ -420,10 +465,10 @@ public class LevelManagerTest {
         }
     }
 
-    @Test
     /**
      * Testing adding an invalid collection of scenes
      */
+    @Test
     public void testAddScene7(){
         int initialSize = 2;
         setUpScenes(initialSize);

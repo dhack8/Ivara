@@ -11,13 +11,8 @@ import static org.junit.Assert.*;
  */
 public class VectorTest {
 
-    @Before
-    public void setUpTest() throws Exception {
-
-    }
-
     /**
-     * Tests that set works
+     * Tests that set works.
      * @throws Exception
      */
     @Test
@@ -48,7 +43,7 @@ public class VectorTest {
     }
 
     /**
-     * Tests that set(Vector) works
+     * Tests that set(Vector) works.
      * @throws Exception
      */
     @Test
@@ -79,7 +74,7 @@ public class VectorTest {
     }
 
     /**
-     * Tests that increment works correctly
+     * Tests that increment works correctly.
      * @throws Exception
      */
     @Test
@@ -94,7 +89,7 @@ public class VectorTest {
     }
 
     /**
-     * Test that increment(Vector) works correctly
+     * Test that increment(Vector) works correctly.
      * @throws Exception
      */
     @Test
@@ -109,7 +104,7 @@ public class VectorTest {
     }
 
     /**
-     * Tests that scale works correctly
+     * Tests that scale works correctly.
      * @throws Exception
      */
     @Test
@@ -123,39 +118,96 @@ public class VectorTest {
         assertEquals(testVector.y, test2 * 2.0f, 0.000001f);
     }
 
+    /**
+     * Tests that the distance methods works.
+     * @throws Exception
+     */
     @Test
     public void distTest() throws Exception {
+        Vector testVector = new Vector(3,4);
+        assertEquals(testVector.dist(new Vector(0,0)), 5, 0.0001f);
 
+        testVector = new Vector(6,0);
+        Vector testVector2 = new Vector(3,4);
+        assertEquals(testVector.dist(testVector2), 5, 0.0001f);
     }
 
+    /**
+     * Tests that magnitude method works
+     * @throws Exception
+     */
     @Test
     public void magnitudeTest() throws Exception {
+        Vector testVector = new Vector(3,4);
+        assertEquals(testVector.magnitude(), 5, 0.0001f);
 
+        testVector = new Vector(1,1);
+        assertEquals(testVector.magnitude(), Math.sqrt(2), 0.0001f);
     }
 
+    /**
+     * Tests that the normalize method works
+     * @throws Exception
+     */
     @Test
     public void normTest() throws Exception {
+        Vector testVector = new Vector(3,4);
+        assertEquals(testVector.norm().magnitude(), 1, 0.0001f);
 
+        testVector = new Vector(1,1);
+        assertEquals(testVector.norm().magnitude(), 1, 0.0001f);
+
+        testVector = new Vector(1345634,657565);
+        assertEquals(testVector.norm().magnitude(), 1, 0.0001f);
     }
 
+    /**
+     * Tests that the add method works
+     * @throws Exception
+     */
     @Test
     public void addTest() throws Exception {
+        Vector testVector = new Vector(5,8);
+        Vector testVector2 = new Vector(5,8);
+        assertEquals(new Vector(10,16), testVector.add(testVector2));
 
+        testVector = new Vector(-4.2f,6.7f);
+        testVector2 = new Vector(-2.3f,9.1f);
+        Vector result = testVector.add(testVector2);
+        assertEquals(-6.5f, result.x, 0.0001f);
+        assertEquals(15.8f, result.y, 0.0001f);
     }
 
+    /**
+     * Tests that the sub method works
+     * @throws Exception
+     */
     @Test
     public void subTest() throws Exception {
+        Vector testVector = new Vector(5,8);
+        Vector testVector2 = new Vector(5,8);
+        assertEquals(new Vector(0,0), testVector.sub(testVector2));
 
+        testVector = new Vector(-4.2f,6.7f);
+        testVector2 = new Vector(-2.3f,9.1f);
+        Vector result = testVector.sub(testVector2);
+        assertEquals(-1.9f, result.x, 0.0001f);
+        assertEquals(-2.4f, result.y, 0.0001f);
     }
 
+    /**
+     * Tests that the equals method works
+     * @throws Exception
+     */
     @Test
     public void equalsTest() throws Exception {
+        Vector testVector = new Vector(5,8);
+        Vector testVector2 = new Vector(5,8);
+        assertEquals(testVector, testVector2);
 
-    }
-
-    @Test
-    public void toStringTest() throws Exception {
-
+        testVector = new Vector(-5.6768f,8.74323f);
+        testVector2 = new Vector(-5.6768f,8.74323f);
+        assertEquals(testVector, testVector2);
     }
 
 }
