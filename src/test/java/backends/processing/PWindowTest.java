@@ -36,7 +36,7 @@ public class PWindowTest {
         testWindow = new PWindow(false, new Vector(1600, 900));
         testWindow.setMask(1);
         PApplet.runSketch(new String[]{"PWindow"}, testWindow);
-        camera = new Camera(new Vector(0,0), new Vector(32,18));
+        camera = new Camera();
     }
 
     @Before

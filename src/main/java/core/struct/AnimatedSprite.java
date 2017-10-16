@@ -59,6 +59,7 @@ public class AnimatedSprite extends Sprite{
     /**
      * Sets the state. If the state isn't in the resource map
      * then it won't be set.
+     * if the resources are not empty the ID will be immediately set to a id from the resources.
      * @param newState Must already be stored.
      */
     public void setState(String newState) {
@@ -88,5 +89,13 @@ public class AnimatedSprite extends Sprite{
             super.resourceID = new ResourceID(resources.get(frame));
         }
 
+    }
+
+    /**
+     * Getter for the state.
+     * @return the current state
+     */
+    public String getState(){
+        return state;
     }
 }
