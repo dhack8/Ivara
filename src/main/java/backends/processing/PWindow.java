@@ -27,6 +27,8 @@ import java.util.Optional;
 
 /**
  * Window that the game runs in. Extends the Processing window PApplet.
+ * It is recommended to run the game with 'gradlew run' in the terminal
+ * to ensure the libraries for open gl are loaded correctly.
  * @author David Hack
  */
 public class PWindow extends Renderer implements InputBroadcaster{
