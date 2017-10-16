@@ -3,6 +3,8 @@ package ivara;
 import backends.InputBroadcaster;
 import backends.Renderer;
 import backends.processing.PWindow;
+import backends.tinysound.Music;
+import backends.tinysound.TinySound;
 import com.jogamp.opengl.GLException;
 import core.Game;
 import core.scene.LevelManager;
@@ -17,6 +19,8 @@ import java.util.List;
  * Created by Callum Li on 9/15/17.
  */
 public class Ivara extends Game {
+
+    private static Music backgroundTrack = TinySound.loadMusic("backgroundtrack.wav");
 
     public Ivara(LevelManager lm, Renderer renderer, InputBroadcaster broadcaster) {
         super(lm, renderer, broadcaster);
@@ -38,6 +42,7 @@ public class Ivara extends Game {
         //LevelManager l = new LevelManager(getLevels());
 
         Game g = new Ivara(l, processingBackend, processingBackend);
+        backgroundTrack.play(true);
         g.start();
     }
 
@@ -59,6 +64,10 @@ public class Ivara extends Game {
         levels.add(new HardLevel2());
         levels.add(new HardLevel3());
         return levels;
+    }
+
+    public static Music getBackgroundTrack(){
+        return backgroundTrack;
     }
 
 }

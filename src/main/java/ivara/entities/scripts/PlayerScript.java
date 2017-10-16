@@ -57,6 +57,7 @@ public class PlayerScript implements Script{
     private boolean canJump = true;
 
     private Sound jumpSound = TinySound.loadSound("jumpsound.wav");
+    private Sound playerDeath = TinySound.loadSound("playerdeath.wav");
 
     /**
      * Constructs a PlayerScript that controls how a the player behaves.
@@ -134,6 +135,7 @@ public class PlayerScript implements Script{
             Scene current = p.getScene();
             if(current instanceof DefaultScene){
                 DefaultScene currentDefault = (DefaultScene) current;
+                playerDeath.play();
                 currentDefault.respawnPlayer(p);
             }
         }else{

@@ -1,5 +1,6 @@
 package ivara;
 
+import backends.tinysound.TinySound;
 import core.Game;
 import core.Script;
 import core.components.ScriptComponent;
@@ -101,7 +102,8 @@ public class LoadGame {
             Debug.log(e.toString());
             return false;
         }
-
+        Ivara.getBackgroundTrack().stop();
+        Ivara.getBackgroundTrack().play(true);
         Debug.log("Successfully loaded the file.");
         return true;
     }
