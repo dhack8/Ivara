@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 /**
  * A world is essentially a container for entities and systems.
  * @author Callum Li
+ * @author Alex Mitchell
  *
  * @param <T> The type of entity this world contains.
  */
@@ -69,7 +70,6 @@ public class World<T extends Entity> {
      */
     final public <U extends Component<T>> Collection<U> get(Class<U> type) {
 
-        // todo: optimise
         return entities.stream()
                 .flatMap((e) -> e.getComponents().stream())
                 .filter((c) -> c.getClass().equals(type))
