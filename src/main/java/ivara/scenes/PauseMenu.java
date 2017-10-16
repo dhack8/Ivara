@@ -1,5 +1,7 @@
 package ivara.scenes;
 
+import backends.tinysound.Sound;
+import backends.tinysound.TinySound;
 import core.Game;
 import core.scene.Scene;
 import core.struct.Camera;
@@ -26,6 +28,8 @@ public class PauseMenu extends Scene{
     private static final float XMARGIN_LEFT = 3.5f; // Where to start adding buttons from
     private static final float XMARGIN_RIGHT = 5f; // Where to end adding buttons
 
+    private static final Sound saveSound = TinySound.loadSound("savesound.wav");
+
     @Override
     public void startScene() {
         Camera c = new Camera();
@@ -49,6 +53,7 @@ public class PauseMenu extends Scene{
         addButton("save", new UIListener() {
             @Override
             public void onClick() {
+                saveSound.play();
                 SaveGame.save(getGame()); // Save to file
             }
         },btnSpaceX, btnCount++);
