@@ -1,11 +1,8 @@
 package ivara.entities;
 
-import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
-import core.input.SensorHandler;
 import core.struct.ResourceID;
-import core.struct.Sensor;
 import core.struct.Sprite;
 import maths.Vector;
 import physics.AABBCollider;
@@ -17,7 +14,7 @@ import physics.AABBCollider;
 public class BackgroundEntity extends GameEntity {
 
     /**
-     * Creates a background entity which also has a death line.
+     * Creates a background entity that consists of a sprite.
      */
     public BackgroundEntity(ResourceID id){
         super(new Vector(0,0));
