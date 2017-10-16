@@ -3,15 +3,11 @@ package ivara.entities;
 import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
-import core.input.SensorHandler;
-import core.struct.ResourceID;
-import core.struct.Sensor;
-import core.struct.Sprite;
-import core.struct.Timer;
-import ivara.entities.sprites.CoinSprite;
+import core.struct.*;
 import maths.Vector;
 import physics.AABBCollider;
-import util.Debug;
+
+import java.util.Arrays;
 
 /**
  * Created by Callum Li on 10/12/17.
@@ -76,5 +72,30 @@ public class CoinEntity extends GameEntity {
     private void snapToGrid(Vector transform){
         transform.x = transform.x + (1f - SIZE)/2f;
         transform.y = transform.y + (1f - SIZE)/2f;
+    }
+
+    /**
+     * Animated coin sprite.
+     * @author David Hack
+     */
+    public class CoinSprite extends AnimatedSprite {
+        public CoinSprite(Vector transform, Vector dimensions, int frameTick){
+            super(transform, dimensions, frameTick);
+
+            String state = "normal";
+            String[] resources = new String[] {
+                    "coin",
+                    "coin2",
+                    "coin3",
+                    "coin4",
+                    "coin5",
+                    "coin6",
+                    "coin7",
+                    "coin8",
+            };
+            addResources(state, Arrays.asList(resources));
+
+            setState("normal");
+        }
     }
 }

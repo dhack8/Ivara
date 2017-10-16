@@ -2,13 +2,15 @@ package ivara.entities;
 
 import core.components.*;
 import core.entity.GameEntity;
+import core.struct.AnimatedSprite;
 import core.struct.Sensor;
-import ivara.entities.sprites.PlayerSprite;
 import ivara.entities.scripts.CameraScript;
 import ivara.entities.scripts.PlayerScript;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
+
+import java.util.Arrays;
 
 /**
  * This class handles the entity of the player within the game
@@ -30,6 +32,16 @@ public class PlayerEntity extends GameEntity {
     private static final float antiWallRun = 0.05f; //0 for wall running
 
     public int coinsCollected = 0;
+
+    //PLAYER STATES
+    public final static String WALK_RIGHT = "walk-right";
+    public final static String WALK_LEFT = "walk-left";
+    public final static String IDLE_RIGHT = "idle-right";
+    public final static String IDLE_LEFT = "idle-left";
+    public final static String JUMP_RIGHT = "jump-right";
+    public final static String JUMP_LEFT = "jump-left";
+    public final static String DUCK_RIGHT = "duck-right";
+    public final static String DUCK_LEFT = "duck-left";
 
     /**
      * Creates a PlayerEntity at a given position
@@ -89,6 +101,73 @@ public class PlayerEntity extends GameEntity {
         scriptComponent.add(cs);
 
         addComponent(scriptComponent);
+    }
+
+    public class PlayerSprite extends AnimatedSprite {
+
+        /**
+         * Constructor does not take any resource ID upon creation as you need
+         * to define the map resource map structure that the sprite will use. This
+         * is done with the addResource() method.
+         *
+         * @param transform  The animated sprite's relative position.
+         * @param dimensions The width and height of the animated sprite.
+         * @param frameTick  The time taken before the image should switch.
+         */
+        public PlayerSprite(Vector transform, Vector dimensions, int frameTick) {
+            super(transform, dimensions, frameTick);
+            String state = WALK_RIGHT;
+            String[] resources = new String[] {
+                    "player-walk2-right",
+                    "player-walk-right"
+            };
+            addResources(state, Arrays.asList(resources));
+
+            state = IDLE_RIGHT;
+            resources = new String[] {
+                    "player-right"
+            };
+            addResources(state, Arrays.asList(resources));
+
+            state = JUMP_RIGHT;
+            resources = new String[] {
+                    "player-jump-right"
+            };
+            addResources(state, Arrays.asList(resources));
+
+            state = DUCK_RIGHT;
+            resources = new String[] {
+                    "player-duck-right"
+            };
+            addResources(state, Arrays.asList(resources));
+
+            state = WALK_LEFT;
+            resources = new String[] {
+                    "player-walk2-left",
+                    "player-walk-left"
+            };
+            addResources(state, Arrays.asList(resources));
+
+            state = IDLE_LEFT;
+            resources = new String[] {
+                    "player-left"
+            };
+            addResources(state, Arrays.asList(resources));
+
+            state = JUMP_LEFT;
+            resources = new String[] {
+                    "player-jump-left"
+            };
+            addResources(state, Arrays.asList(resources));
+
+            state = DUCK_LEFT;
+            resources = new String[] {
+                    "player-duck-left"
+            };
+            addResources(state, Arrays.asList(resources));
+
+            setState(IDLE_RIGHT);
+        }
     }
 }
 

@@ -14,11 +14,8 @@ import core.struct.Sensor;
 import ivara.entities.PlayerEntity;
 import ivara.entities.enemies.Enemy;
 import ivara.entities.enemies.ImmortalEnemy;
-import ivara.entities.sprites.PlayerSprite;
 import ivara.scenes.DefaultScene;
 import maths.Vector;
-
-import java.util.Collection;
 
 /**
  * Script to control the player entity. Relies on the current input
@@ -47,7 +44,7 @@ public class PlayerScript implements Script{
     private final Sensor bottomSensor; // Sensor for detecting what is under the player
     private final Sensor enemySensor; // Sensor for detecting any enemy above the position of the feet
 
-    private PlayerSprite sprite; // Current sprite
+    private PlayerEntity.PlayerSprite sprite; // Current sprite
 
     private Vector relative; // The relative velocity of the player
 
@@ -65,7 +62,7 @@ public class PlayerScript implements Script{
      * @param bottomSensor The sensor at the bottom of the player.
      * @param enemySensor The sensor that detects an enemy collision.
      */
-    public PlayerScript(PlayerSprite sprite, Sensor bottomSensor, Sensor enemySensor) {
+    public PlayerScript(PlayerEntity.PlayerSprite sprite, Sensor bottomSensor, Sensor enemySensor) {
         this.sprite = sprite;
         this.bottomSensor = bottomSensor;
         this.enemySensor = enemySensor;
@@ -237,25 +234,25 @@ public class PlayerScript implements Script{
         if(orientation.equals(Orientation.RIGHT)){
             switch (state){
                 case WALK:
-                    sprite.setState(PlayerSprite.WALK_RIGHT);
+                    sprite.setState(PlayerEntity.WALK_RIGHT);
                     break;
                 case IDLE:
-                    sprite.setState(PlayerSprite.IDLE_RIGHT);
+                    sprite.setState(PlayerEntity.IDLE_RIGHT);
                     break;
                 case JUMP:
-                    sprite.setState(PlayerSprite.JUMP_RIGHT);
+                    sprite.setState(PlayerEntity.JUMP_RIGHT);
                     break;
             }
         }else{
             switch (state){
                 case WALK:
-                    sprite.setState(PlayerSprite.WALK_LEFT);
+                    sprite.setState(PlayerEntity.WALK_LEFT);
                     break;
                 case IDLE:
-                    sprite.setState(PlayerSprite.IDLE_LEFT);
+                    sprite.setState(PlayerEntity.IDLE_LEFT);
                     break;
                 case JUMP:
-                    sprite.setState(PlayerSprite.JUMP_LEFT);
+                    sprite.setState(PlayerEntity.JUMP_LEFT);
                     break;
             }
         }
