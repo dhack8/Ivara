@@ -10,22 +10,31 @@ import core.struct.ResourceID;
 import core.struct.Sprite;
 import maths.Vector;
 
+/**
+ * TimerEntity handles the creation of a timer that displays the time spent in a level.
+ * @author Will Pearson
+ */
 public class TimerEntity extends GameEntity {
 
+    // Constants
     private static final float TEXTSIZE = 25;
-    private static final Vector offset = new Vector(-67.5f,-44.5f);
+    private static final Vector OFFSET = new Vector(-67.5f,-44.5f);
 
     public TimerEntity(Vector transform, int time){
         super(transform);
 
+        // Text
         TextComponent tc = new TextComponent(this);
         tc.add("00:00.00", TEXTSIZE);
         addComponent(tc);
 
-        addComponent(new SpriteComponent(this, new Sprite(new ResourceID("timer"), offset, null)));
+        // Sprite
+        addComponent(new SpriteComponent(this, new Sprite(new ResourceID("timer"), OFFSET, null)));
 
+        // Layer
         addComponent(new RenderComponent(this, 999999999, RenderComponent.Mode.PIXEL_NO_TRANS));
 
+        // Script
         addComponent(new ScriptComponent(this, new TimerScript(time, TEXTSIZE)));
     }
 
