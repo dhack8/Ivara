@@ -128,6 +128,8 @@ public class Vector {
         return false;
     }
 
+    //TODO do hashing function
+
     @Override
     public String toString() {
         return "Vector {" + x + ", " + y + "}";

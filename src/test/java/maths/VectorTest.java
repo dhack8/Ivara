@@ -208,6 +208,11 @@ public class VectorTest {
         testVector = new Vector(-5.6768f,8.74323f);
         testVector2 = new Vector(-5.6768f,8.74323f);
         assertEquals(testVector, testVector2);
+
+        testVector2 = new Vector(0,0);
+        assertNotEquals(testVector, testVector2);
+
+        assertNotEquals(testVector, new Object());
     }
 
 }
