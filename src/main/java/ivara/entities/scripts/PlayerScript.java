@@ -55,6 +55,7 @@ public class PlayerScript implements Script{
 
     private Sound jumpSound = TinySound.loadSound("jumpsound.wav");
     private Sound playerDeath = TinySound.loadSound("playerdeath.wav");
+    private Sound playerKill = TinySound.loadSound("kill.wav");
 
     /**
      * Constructs a PlayerScript that controls how a the player behaves.
@@ -116,6 +117,7 @@ public class PlayerScript implements Script{
         vComp.setY(relative.y); // Set Y velocity to relative velocity regardless
 
         if(collided instanceof Enemy && !sensorHandler.isActive(enemySensor)){ // Kill the enemy if the player has jumped on it
+            playerKill.play();
             player.getScene().removeEntity(collided);
         }else if(collided instanceof ImmortalEnemy){ // If the enemy can't die, kill the player
             respawnPlayer(player);
