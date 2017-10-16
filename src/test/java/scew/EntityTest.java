@@ -40,6 +40,28 @@ public class EntityTest {
 
     @Test
     /**
+     * Testing components can be added and gathered
+     */
+    public void removeComponent() throws Exception {
+        TestComp1 a = new TestComp1(testEntity);
+        TestComp2 b = new TestComp2(testEntity);
+        testEntity.addComponent(a);
+        testEntity.addComponent(b);
+
+        Collection<Component> comps = testEntity.getComponents();
+        assertTrue("GameEntity should contain a TestComp1 component.",comps.contains(a));
+        assertTrue("GameEntity should contain a TestComp2 component.",comps.contains(b));
+
+        testEntity.removeComponent(a);
+        testEntity.removeComponent(TestComp2.class);
+        comps = testEntity.getComponents();
+        assertFalse("GameEntity should contain a TestComp1 component.",comps.contains(a));
+        assertFalse("GameEntity should contain a TestComp2 component.",comps.contains(b));
+    }
+
+
+    @Test
+    /**
      * Testing get components
      */
     public void getComponent() throws Exception {
