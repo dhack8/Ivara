@@ -26,10 +26,10 @@ public class PWindowTest {
         PWindow testWindow;
 
         try {
-            testWindow = new PWindow(true);
+            testWindow = new PWindow(true, new Vector(400, 400));
             PApplet.runSketch(new String[]{"PWindow"}, testWindow);
         }catch (GLException e){
-            testWindow = new PWindow(false);
+            testWindow = new PWindow(false, new Vector(400, 400));
             PApplet.runSketch(new String[]{"PWindow"}, testWindow);
         }
 
@@ -114,6 +114,9 @@ public class PWindowTest {
         if(z == 1){
             fail("Human tester detected a error with rendering");
         }
+
+        testWindow.exit();
+        System.exit(0);
     }
 
     public class TestScene extends Scene{

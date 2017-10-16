@@ -47,6 +47,8 @@ public class PWindow extends Renderer implements InputBroadcaster{
     private boolean useOpenGl;
     private boolean drawing = false;
 
+    private Vector startScreenSize = null;
+
     /**
      * Initializes the PWindow and tries to use open gl if specified however without the proper libraries this
      * can fail.
@@ -54,6 +56,17 @@ public class PWindow extends Renderer implements InputBroadcaster{
      */
     public PWindow(boolean useOpenGl){
         this.useOpenGl = useOpenGl;
+    }
+
+    /**
+     * Initializes the PWindow and tries to use open gl if specified however without the proper libraries this
+     * can fail.
+     * Also specifies screen size to use.
+     * @param useOpenGl true to use open gl
+     */
+    public PWindow(boolean useOpenGl, Vector startScreenSize){
+        this.useOpenGl = useOpenGl;
+        this.startScreenSize = startScreenSize;
     }
 
     /**
@@ -98,19 +111,23 @@ public class PWindow extends Renderer implements InputBroadcaster{
      */
     @Override
     public void settings(){
-
         if(useOpenGl) {
-            //size(1600, 900, P2D);
-            fullScreen(P2D);
+            if(startScreenSize != null){
+                size((int)startScreenSize.x, (int)startScreenSize.y, P2D);
+            }else {
+                //size(1600, 900, P2D);
+                fullScreen(P2D);
+            }
             System.out.println("---USING OPENGL---");
         }else{
-            size(1600, 900);
-            //fullScreen();
+            if(startScreenSize != null){
+                size((int)startScreenSize.x, (int)startScreenSize.y);
+            }else {
+                //size(1600, 900);
+                fullScreen();
+            }
             System.out.println("---USING JAVA2D---");
         }
-
-        //noLoop();
-
     }
 
     /**
