@@ -1,5 +1,10 @@
 package ivara.entities;
 
+import backends.tinysound.Sound;
+import core.entity.GameEntity;
+import backends.tinysound.Music;
+import backends.tinysound.Sound;
+import backends.tinysound.TinySound;
 import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
@@ -25,6 +30,8 @@ public class LevelEndEntity extends GameEntity {
     private static final float POLE_WIDTH = 0.1f;
     private static final float YOFFSET = 0.01f;
     private final static int ANIMATION_RATE = 1000;
+
+    private static final Sound playerWin = TinySound.loadSound("win.wav");
 
     /**
      * Constructs a LevelEndEntity at a specified positions.
@@ -106,6 +113,7 @@ public class LevelEndEntity extends GameEntity {
 
                 if(!entered && playerCollision) {
                     entered = true;
+                    playerWin.play();
                     entity.getScene().getGame().nextScene(); // Goes to the next scene on a player collision
                 }
             }

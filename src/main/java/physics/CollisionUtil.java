@@ -5,6 +5,7 @@ import maths.Vector;
 /**
  * A class that contains useful static methods for detecting and resolving
  * collisions.
+ * @author Cullum Li
  */
 public class CollisionUtil {
 

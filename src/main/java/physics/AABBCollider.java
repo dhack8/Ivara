@@ -4,6 +4,7 @@ import maths.Vector;
 
 /**
  * A class that describes an AABB Collider.
+ * @author Callum Li
  */
 public class AABBCollider extends Collider {
     public static final int CENTER_RADIUS = 1;
