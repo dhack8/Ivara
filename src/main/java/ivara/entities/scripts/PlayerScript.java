@@ -53,9 +53,9 @@ public class PlayerScript implements Script{
 
     private boolean canJump = true;
 
-    private Sound jumpSound = TinySound.loadSound("jumpsound.wav");
-    private Sound playerDeath = TinySound.loadSound("playerdeath.wav");
-    private Sound playerKill = TinySound.loadSound("kill.wav");
+    private static final Sound jumpSound = TinySound.loadSound("jumpsound.wav");
+    private static final Sound playerDeath = TinySound.loadSound("playerdeath.wav");
+    private static final Sound playerKill = TinySound.loadSound("kill.wav");
 
     /**
      * Constructs a PlayerScript that controls how a the player behaves.

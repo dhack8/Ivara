@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class Ivara extends Game {
 
-    private static Music backgroundTrack = TinySound.loadMusic("backgroundtrack.wav");
+    private static final Music backgroundTrack = TinySound.loadMusic("backgroundtrack.wav");
 
     public Ivara(LevelManager lm, Renderer renderer, InputBroadcaster broadcaster) {
         super(lm, renderer, broadcaster);

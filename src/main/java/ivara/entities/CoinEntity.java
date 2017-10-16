@@ -1,5 +1,7 @@
 package ivara.entities;
 
+import backends.tinysound.Sound;
+import backends.tinysound.TinySound;
 import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
@@ -16,6 +18,8 @@ public class CoinEntity extends GameEntity {
 
     private final static int ANIMATION_RATE = 100;
     private final static float SIZE = 0.6f;
+
+    private static final Sound coinPickup = TinySound.loadSound("coin.wav");
 
     public CoinEntity(PlayerEntity player, Vector transform, boolean snapToGrid) {
         super(transform);
@@ -58,6 +62,7 @@ public class CoinEntity extends GameEntity {
                                     getActivatingEntities(coinSensor)
                                     .stream()
                                     .anyMatch((e) -> e.equals(player))) {
+                                coinPickup.play();
                                 player.coinsCollected += 1;
                                 getScene().removeEntity(coinEntity);
 
