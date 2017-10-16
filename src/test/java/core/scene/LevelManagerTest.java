@@ -213,6 +213,7 @@ public class LevelManagerTest {
      */
     public void testConstruction12(){
         List<Scene> s = new ArrayList<>();
+        s.add(new TestScene());
         Scene m = new TestScene();
         try{
             lm = new LevelManager(s,m);
@@ -317,6 +318,55 @@ public class LevelManagerTest {
             fail("Should not be able to go to the next scene.");
         }catch (RuntimeException e){
 
+        }
+    }
+
+
+    @Test
+    /**
+     * Testing to see if a scene can be set out of the bounds of the current levels.
+     */
+    public void testSetScene1(){
+        int initialSize = 1;
+        setUpScenes(initialSize);
+        setupGame();
+        try{
+            lm.setScene(-1);
+            fail("Should not have been able to change the scene to a scene that doesn't exist.");
+        }catch(IndexOutOfBoundsException e){
+
+        }
+    }
+
+    @Test
+    /**
+     * Testing to see if a scene can be set out of the bounds of the current levels.
+     */
+    public void testSetScene2(){
+        int initialSize = 1;
+        setUpScenes(initialSize);
+        setupGame();
+        try{
+            lm.setScene(3);
+            fail("Should not have been able to change the scene to a scene that doesn't exist.");
+        }catch(IndexOutOfBoundsException e){
+
+        }
+    }
+
+    @Test
+    /**
+     * Testing for expected behaviour.
+     */
+    public void testSetScene3(){
+        int initialSize = 2;
+        setUpScenes(initialSize);
+        setupGame();
+        try{
+            lm.setScene(1);
+            assertTrue("Current scene was not the correct scene.", lm.getLevelNum() == 1);
+        }catch(Exception e){
+            fail("Should have been able to set scene but couldn't.\n" + e.toString());
         }
     }
 
