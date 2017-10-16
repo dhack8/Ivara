@@ -286,8 +286,8 @@ public class LevelManagerTest {
     }
 
     private void setupGame(){
-        //Game g = new TestGame();
-        //lm.setGame(g);
+        Game g = new TestGame();
+        lm.setGame(g);
     }
     
     private class TestScene extends Scene{
