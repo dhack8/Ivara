@@ -3,7 +3,8 @@ package physics;
 import maths.Vector;
 
 /**
- *
+ * Class for story physics properties.
+ * @author Callum Li
  */
 public class PhysicProperties {
 

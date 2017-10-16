@@ -7,6 +7,7 @@ import maths.Vector;
  *
  * An implementation of Collider also requires an extension of
  * the CollisionUtil.
+ * @author Callum Li
  * @see CollisionUtil
  */
 public abstract class Collider {
