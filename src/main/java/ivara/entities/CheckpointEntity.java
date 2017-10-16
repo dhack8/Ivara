@@ -1,5 +1,7 @@
 package ivara.entities;
 
+import backends.tinysound.Sound;
+import backends.tinysound.TinySound;
 import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
@@ -28,6 +30,8 @@ public class CheckpointEntity extends GameEntity{
     private final static int ANIMATION_RATE = 1000;
 
     private final AnimatedSprite as;
+
+    private static final Sound checkpointPass = TinySound.loadSound("checkpointpass.wav");
 
     /**
      * Constructs a CheckPointEntity at a specified position.
@@ -126,6 +130,7 @@ public class CheckpointEntity extends GameEntity{
                         DefaultScene currentDefault = (DefaultScene) current;
                         currentDefault.setSpawn(entity.getTransform()); // Set the spawn in the level.
                     }
+                    checkpointPass.play();
                     as.setState("down");
                 }
             }
