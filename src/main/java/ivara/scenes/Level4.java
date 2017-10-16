@@ -73,13 +73,6 @@ public class Level4 extends DefaultScene {
 		addEntity(new PlatformEntity(new Vector(53,19),new Vector(64,19),4));
 		addEntity(new PlatformEntity(new Vector(18,22),2,false,new Vector(31,22),4));
 
-		// Markers
-		//new Vector(42,2)
-		//new Vector(9,18)
-		//new Vector(49,18)
-		//new Vector(64,19)
-		//new Vector(31,22)
-
 		// Coins
 		addEntity(new CoinEntity(player, new Vector(44, 1), true));
 		addEntity(new CoinEntity(player, new Vector(46, 1), true));

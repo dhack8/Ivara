@@ -98,12 +98,4 @@ public class PauseMenu extends Scene{
         button.addListener(buttonEvent);
         addEntity(button);
     }
-
-    /**
-     * Return a newly created copy of the current scene.
-     * @return A duplicate Scene.
-     */
-    public Scene hardReset(){
-        return new PauseMenu();
-    }
 }
