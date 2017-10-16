@@ -59,7 +59,6 @@ public class ShootScript implements Script {
                     entity.transform,
                     new Vector(target.getTransform().x + offset.x, target.getTransform().y + offset.y),
                     SPEED,new ResourceID("slimeball"),
-                    target.getClass(),
                     Arrays.asList(entity.getClass())
             );
 

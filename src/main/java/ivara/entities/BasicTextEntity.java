@@ -7,10 +7,16 @@ import core.struct.Text;
 import maths.Vector;
 
 /**
- * Created by David Hack Local on 11-Oct-17.
+ * This Entity displays a specified text object in the scene.
+ * @author David Hack
  */
 public class BasicTextEntity extends GameEntity{
 
+    /**
+     * Constructs a textEntity with a given location and text.
+     * @param transform The position of the text.
+     * @param t The text object to display.
+     */
     public BasicTextEntity(Vector transform, Text t){
         super(transform);
         addComponent(new TextComponent(this, t));
