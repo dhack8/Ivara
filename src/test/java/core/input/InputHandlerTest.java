@@ -5,6 +5,8 @@ import maths.Vector;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+
 import static org.junit.Assert.*;
 
 /**
@@ -22,28 +24,37 @@ public class InputHandlerTest {
     @Test
     public void testKeyInput1() throws Exception {
         TestInputBroadcaster testBroadcaster = new TestInputBroadcaster();
-        InputHandler.InputFrame inputHandler = new InputHandler.InputFrame();
+        InputHandler inputHandler = new InputHandler(testBroadcaster);
+
+        Field f = inputHandler.getClass().getDeclaredField("inputFrame"); //NoSuchFieldException
+        f.setAccessible(true);
+        InputHandler.InputFrame inputFrame = (InputHandler.InputFrame) f.get(inputHandler); //IllegalAccessException
 
         for (int i = 0; i < 100; i++) {
-            assertFalse(inputHandler.isKeyPressed(i));
+            assertFalse(inputFrame.isKeyPressed(i));
             testBroadcaster.broadcastKeyPress(i);
-            assertTrue(inputHandler.isKeyPressed(i));
+            assertTrue(inputFrame.isKeyPressed(i));
             testBroadcaster.broadcastKeyRelease(i);
-            assertFalse(inputHandler.isKeyPressed(i));
+            assertFalse(inputFrame.isKeyPressed(i));
         }
     }
 
     @Test
     public void testMouseInput1() throws Exception {
         TestInputBroadcaster testBroadcaster = new TestInputBroadcaster();
-        InputHandler.InputFrame inputHandler = new InputHandler.InputFrame();
+        InputHandler inputHandler = new InputHandler(testBroadcaster);
+
+        Field f = inputHandler.getClass().getDeclaredField("inputFrame"); //NoSuchFieldException
+        f.setAccessible(true);
+        InputHandler.InputFrame inputFrame = (InputHandler.InputFrame) f.get(inputHandler); //IllegalAccessException
+
 
         for (int i = 0; i < 100; i++) {
-            assertFalse(inputHandler.isMousePressed(i));
+            assertFalse(inputFrame.isMousePressed(i));
             testBroadcaster.broadcastMousePress(i, new Vector(0, 0));
-            assertTrue(inputHandler.isMousePressed(i));
+            assertTrue(inputFrame.isMousePressed(i));
             testBroadcaster.broadcastMouseRelease(i, new Vector(0, 0));
-            assertFalse(inputHandler.isMousePressed(i));
+            assertFalse(inputFrame.isMousePressed(i));
         }
     }
 
