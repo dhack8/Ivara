@@ -16,12 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Callum Li on 9/15/17.
+ * This class extends the functionality of the game engine and runs our game, Ivara.
+ * The class brings together the necessary components to run the game.
+ * @author Callum Li
  */
 public class Ivara extends Game {
 
     private static final Music backgroundTrack = TinySound.loadMusic("backgroundtrack.wav");
 
+    /**
+     * Constructs the game.
+     * @param lm The LevelManager that handles scenes within the game.
+     * @param renderer The renderer to display the game.
+     * @param broadcaster The input handling component of the game.
+     */
     public Ivara(LevelManager lm, Renderer renderer, InputBroadcaster broadcaster) {
         super(lm, renderer, broadcaster);
     }
@@ -37,9 +45,7 @@ public class Ivara extends Game {
             PApplet.runSketch(new String[]{"PWindow"}, processingBackend);
         }
 
-        //LevelManager l = new LevelManager(getLevels(), new TestLevel1());
         LevelManager l = new LevelManager(getLevels(), new PauseMenu());
-        //LevelManager l = new LevelManager(getLevels());
 
         Game g = new Ivara(l, processingBackend, processingBackend);
         backgroundTrack.play(true);
@@ -47,8 +53,8 @@ public class Ivara extends Game {
     }
 
     /**
-     * Static method that returns a List of levels (ordered) to construct the LevelManager with
-     * @return
+     * Static method that returns a List of levels (ordered) to construct the LevelManager with.
+     * @return The levels to play (in order).
      */
     private static List<Scene> getLevels(){
         List<Scene> levels = new ArrayList<>();
@@ -66,6 +72,10 @@ public class Ivara extends Game {
         return levels;
     }
 
+    /**
+     * Gets the background sound file.
+     * @return The backing track.
+     */
     public static Music getBackgroundTrack(){
         return backgroundTrack;
     }
