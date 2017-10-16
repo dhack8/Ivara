@@ -34,6 +34,8 @@ public class LevelManagerTest {
         return new ArrayList<>(levels);
     }
 
+    // Single scene constructor
+
     @Test
     /**
      * Testing that a LevelManager cannot be constructed with a null scene
@@ -43,10 +45,12 @@ public class LevelManagerTest {
         try{
             lm = new LevelManager(s);
             fail("Should not have been able to construct a levelmanager with a null scene.");
-        }catch(IllegalArgumentException e){
+        }catch(NullPointerException e){
 
         }
     }
+
+    // List constructor
 
     @Test
     /**
@@ -57,7 +61,7 @@ public class LevelManagerTest {
         try{
             lm = new LevelManager(levels);
             fail("Should not be able to construct a levelmanager with a null collection of scenes.");
-        }catch(IllegalArgumentException e){
+        }catch(NullPointerException e){
 
         }
     }
@@ -76,6 +80,154 @@ public class LevelManagerTest {
         }
     }
 
+    // Scene and menu constructor
+
+    @Test
+    /**
+     * Testing that a LevelManager cannot be constructed with a null scene or menu
+     */
+    public void testConstruction4(){
+        Scene s = null;
+        Scene m = new TestScene();
+        try{
+            lm = new LevelManager(s, m);
+            fail("Should not have been able to construct a levelmanager with a null scene.");
+        }catch(NullPointerException e){
+
+        }
+    }
+
+    @Test
+    /**
+     * Testing that a LevelManager cannot be constructed with a null scene or menu
+     */
+    public void testConstruction5(){
+        Scene s = new TestScene();
+        Scene m = null;
+        try{
+            lm = new LevelManager(s, m);
+            fail("Should not have been able to construct a levelmanager with a null scene.");
+        }catch(NullPointerException e){
+
+        }
+    }
+
+    // List constructor and menu
+
+    @Test
+    /**
+     * Testing that a LevelManager cannot be constructed with a null collection of scenes or menu
+     */
+    public void testConstruction6(){
+        List<Scene> s = null;
+        Scene m = new TestScene();
+        try{
+            lm = new LevelManager(s, m);
+            fail("Should not have been able to construct a levelmanager with a null scene.");
+        }catch(NullPointerException e){
+
+        }
+    }
+
+    @Test
+    /**
+     * Testing that a LevelManager cannot be constructed with a null collection of scenes or menu
+     */
+    public void testConstruction7(){
+        List<Scene> s = new ArrayList<>();
+        s.add(new TestScene());
+        Scene m = null;
+        try{
+            lm = new LevelManager(s, m);
+            fail("Should not have been able to construct a levelmanager with a null scene.");
+        }catch(NullPointerException e){
+
+        }
+    }
+
+    @Test
+    /**
+     * Testing that a LevelManager cannot be constructed with a less than 1 scene
+     */
+    public void testConstruction8(){
+        List<Scene> s = new ArrayList<>();
+        Scene m = new TestScene();
+        try{
+            lm = new LevelManager(s, m);
+            fail("Should not have been able to construct a levelmanager less than 1 scene.");
+        }catch(IllegalArgumentException e){
+
+        }
+    }
+
+    // Expected behaviour constructor tests
+
+    @Test
+    /**
+     * Testing expected construction for a single scene constructor
+     */
+    public void testConstruction9(){
+        Scene s = new TestScene();
+        try{
+            lm = new LevelManager(s);
+
+        }catch(Exception e){
+            fail("Construction of a scene failed when it shouldn't have.\n" + e.toString());
+        }
+    }
+
+    @Test
+    /**
+     * Testing expected construction for a list constructor
+     */
+    public void testConstruction10(){
+        List<Scene> s = new ArrayList<>();
+        s.add(new TestScene());
+
+        try{
+            lm = new LevelManager(s);
+
+        }catch(Exception e){
+            fail("Construction of a scene failed when it shouldn't have.\n" + e.toString());
+        }
+    }
+
+    @Test
+    /**
+     * Testing expected construction for a scene + menu constructor
+     */
+    public void testConstruction11(){
+        Scene s = new TestScene();
+        Scene m = new TestScene();
+        try{
+            lm = new LevelManager(s, m);
+
+        }catch(Exception e){
+            fail("Construction of a scene failed when it shouldn't have.\n" + e.toString());
+        }
+    }
+
+    @Test
+    /**
+     * Testing expected construction for a list + menu constructor
+     */
+    public void testConstruction12(){
+        List<Scene> s = new ArrayList<>();
+        Scene m = new TestScene();
+        try{
+            lm = new LevelManager(s,m);
+
+        }catch(Exception e){
+            fail("Construction of a scene failed when it shouldn't have.\n" + e.toString());
+        }
+    }
+
+
+
+
+
+
+
     @Test
     /**
      * Testing that a LevelManager cannot be have actions called on when there is no reference to a game
@@ -86,7 +238,7 @@ public class LevelManagerTest {
             lm = new LevelManager(s);
             lm.nextScene();
             fail("Should not have been able to call actions on the LevelManager.");
-        }catch(IllegalArgumentException e){
+        }catch(NullPointerException e){
 
         }
     }
@@ -116,7 +268,7 @@ public class LevelManagerTest {
         try{
             lm.setPauseMenu(pauseMenu);
             fail("Should not have been able to set a pause menu.");
-        }catch(IllegalArgumentException e){
+        }catch(NullPointerException e){
 
         }
     }
@@ -193,7 +345,7 @@ public class LevelManagerTest {
             Scene s1 = null;
             lm.addScene(s1);
             fail("Should not be able to add a null scene.");
-        }catch(IllegalArgumentException e){
+        }catch(NullPointerException e){
 
         }
     }
@@ -231,7 +383,7 @@ public class LevelManagerTest {
             lm.addScene(s, -1);
             lm.addScene(s, initialSize + 2);
             fail("Shouldn't be able to add to an invalid position");
-        }catch(IllegalArgumentException e){
+        }catch(IndexOutOfBoundsException e){
 
         }
     }
@@ -263,7 +415,7 @@ public class LevelManagerTest {
         try{
             lm.addScenes(scenes);
             fail("Should not be able to add a null collection.");
-        }catch(IllegalArgumentException e){
+        }catch(NullPointerException e){
 
         }
     }
@@ -295,13 +447,6 @@ public class LevelManagerTest {
         public void startScene() {
 
         }
-
-        //@Override
-        public Scene hardReset() {
-            return null;
-        }
-
-
     }
 
 
@@ -317,16 +462,16 @@ public class LevelManagerTest {
                     @Override
                     public void render(Scene scene) {
                     }
-                }, new PWindow(true) {
-//                  new InputBroadcaster(){
-//                @Override
-//                public void addKeyListener(KeyListener listener) {
-//                }
-//
-//
-//                @Override
-//                public void addMouseListener(MouseListener listener) {
-//                }
+                },
+                    new InputBroadcaster(){
+                    @Override
+                    public void addKeyListener(KeyListener listener) {
+                    }
+
+
+                    @Override
+                    public void addMouseListener(MouseListener listener) {
+                    }
             });
         }
     }
