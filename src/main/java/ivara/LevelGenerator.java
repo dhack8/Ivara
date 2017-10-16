@@ -1,4 +1,4 @@
-package util;
+package ivara;
 
 import maths.Vector;
 
