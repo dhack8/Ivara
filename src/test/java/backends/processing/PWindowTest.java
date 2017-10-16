@@ -2,13 +2,13 @@ package backends.processing;
 
 import core.components.ColliderComponent;
 import core.components.RenderComponent;
+import core.components.SensorComponent;
 import core.components.SpriteComponent;
 import core.entity.GameEntity;
 import core.scene.Scene;
-import core.struct.Camera;
-import core.struct.ResourceID;
-import core.struct.Sprite;
+import core.struct.*;
 import ivara.entities.BackgroundEntity;
+import ivara.entities.BasicTextEntity;
 import ivara.entities.PlatformEntity;
 import maths.Vector;
 import org.junit.Before;
@@ -21,7 +21,8 @@ import javax.swing.*;
 import static org.junit.Assert.*;
 
 /**
- * Created by David Hack Local on 27-Sep-17.
+ * Tests for the PWindow using a mixture of specific test classes and some from the implementation.
+ * @author David Hack
  */
 public class PWindowTest {
 
@@ -29,11 +30,13 @@ public class PWindowTest {
     PWindow testWindow;
     TestScene testScene;
     ResourceID background;
+    Camera camera;
 
     {
         testWindow = new PWindow(false, new Vector(1600, 900));
         testWindow.setMask(1);
         PApplet.runSketch(new String[]{"PWindow"}, testWindow);
+        camera = new Camera();
     }
 
     @Before
@@ -50,15 +53,18 @@ public class PWindowTest {
 
     @Test
     public void normalRender(){
-        dispalyAndAskUser("Do you see a little man standing at the start of a nice platform with nice corners?");
+        dispalyAndAskUser("Do you see a little man standing at the start of a nice platform with nice corners?\n" +
+                "With test text below?");
         testScene.moveSprite();
-        dispalyAndAskUser("Do you see a little man standing at the end of the platform?");
+        dispalyAndAskUser("Do you see a little man standing at the end of the platform?\n" +
+                "With test text below?");
     }
 
     @Test
     public void debugRender(){
         testWindow.setMask(2);
-        dispalyAndAskUser("Do you see a scene with red testing boxes? note vegetation is not intended to have red boxes.");
+        dispalyAndAskUser("Do you see a scene with red testing boxes? note vegetation is not intended to have red boxes.\n" +
+                "Pablo should have a green box covering half of his body");
         testWindow.setMask(1);
     }
 
@@ -90,6 +96,20 @@ public class PWindowTest {
         dispalyAndAskUser("Do you see a scene with a dark red background, that spans the whole screen?");
     }
 
+    @Test
+    public void testVertLetterBoxRender(){
+        camera = new Camera(new Vector(0,0), new Vector(40,30));
+        testScene = new TestScene();
+        dispalyAndAskUser("Do you see a scene with vertical letter boxing?");
+    }
+
+    @Test
+    public void testHorLetterBoxRender(){
+        camera = new Camera(new Vector(0,0), new Vector(43,18));
+        testScene = new TestScene();
+        dispalyAndAskUser("Do you see a scene with horizontal letter boxing?");
+    }
+
     public void dispalyAndAskUser(String s){
         long start = System.currentTimeMillis();
         while(true) {
@@ -113,8 +133,9 @@ public class PWindowTest {
 
             addEntity(tE);
             addEntity(new PlatformEntity(new Vector(2,3), 10, false));
+            addEntity(new BasicTextEntity(new Vector(3, 7f), new Text(20, "Test text here")));
             addEntity(new BackgroundEntity(background));
-            setCamera(new Camera(new Vector(0,0), new Vector(32,18)));
+            setCamera(camera);
         }
 
         public void moveSprite(){
@@ -127,6 +148,7 @@ public class PWindowTest {
             super(new Vector(x,y));
             addComponent(new SpriteComponent(this, new Sprite(new ResourceID("player"), new Vector(0,0), new Vector(1,1.5f))));
             addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, new Vector(0,0), new Vector(1,1.5f))));
+            addComponent(new SensorComponent(this, new Sensor(new AABBCollider(AABBCollider.MIN_DIM, new Vector(0,0.75f), new Vector(1,0.75f)))));
             addComponent(new RenderComponent(this, 999999999));
         }
 

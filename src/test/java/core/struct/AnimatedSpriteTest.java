@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 /**
  * Tests for Animated Sprite.
  * TODO: Merge tests properly.
- * @author Will Pearson
+ * @author Will Pearson & David Hack
  */
 public class AnimatedSpriteTest {
 
@@ -30,22 +30,18 @@ public class AnimatedSpriteTest {
      */
     @Test
     public void addValidResources_1() throws Exception {
-        try {
-            String state = "a";
-            String[] resources = new String[]{
-                    "a1",
-                    "a2"
-            };
-            testSprite.addResources(state, Arrays.asList(resources));
-            state = "b";
-            resources = new String[]{
-                    "b1",
-                    "b2"
-            };
-            testSprite.addResources(state, Arrays.asList(resources));
-        } catch (Exception e) {
-            assert false;
-        }
+        String state = "a";
+        String[] resources = new String[]{
+                "a1",
+                "a2"
+        };
+        testSprite.addResources(state, Arrays.asList(resources));
+        state = "b";
+        resources = new String[]{
+                "b1",
+                "b2"
+        };
+        testSprite.addResources(state, Arrays.asList(resources));
     }
 
     /**
@@ -55,22 +51,18 @@ public class AnimatedSpriteTest {
      */
     @Test
     public void addValidResources_2() throws Exception {
-        try {
-            String state = "a";
-            String[] resources = new String[]{
-                    "a1",
-                    "a2"
-            };
-            testSprite.addResources(state, Arrays.asList(resources));
-            state = "b";
-            resources = new String[]{
-                    "a1",
-                    "a2"
-            };
-            testSprite.addResources(state, Arrays.asList(resources));
-        } catch (Exception e) {
-            assert false;
-        }
+        String state = "a";
+        String[] resources = new String[]{
+                "a1",
+                "a2"
+        };
+        testSprite.addResources(state, Arrays.asList(resources));
+        state = "b";
+        resources = new String[]{
+                "a1",
+                "a2"
+        };
+        testSprite.addResources(state, Arrays.asList(resources));
     }
 
     /**
@@ -80,28 +72,25 @@ public class AnimatedSpriteTest {
      */
     @Test
     public void addValidResources_3() throws Exception {
-        try {
-            String state = "a";
-            String[] resources = new String[]{
-                    "a1",
-                    "a2"
-            };
-            testSprite.addResources(state, Arrays.asList(resources));
-            state = "a";
-            resources = new String[]{
-                    "a3",
-                    "a4"
-            };
-            testSprite.addResources(state, Arrays.asList(resources));
-            testSprite.setState("a");
-            //TODO this fails for some reason even tho shouldnt it be set to a, not a1?
-            assertEquals("a", testSprite.resourceID.id); // all animated sprites start with black box until updated
-            testSprite.updateResource(31);
-            assertEquals("a4", testSprite.resourceID.id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            assert false;
-        }
+        String state = "a";
+        String[] resources = new String[]{
+                "a1",
+                "a2"
+        };
+        testSprite.addResources(state, Arrays.asList(resources));
+        state = "a";
+        resources = new String[]{
+                "a3",
+                "a4"
+        };
+        testSprite.addResources(state, Arrays.asList(resources));
+        testSprite.setState("a");
+
+        assertEquals("a", testSprite.getState());
+        assertEquals("a1", testSprite.resourceID.id);
+
+        testSprite.updateResource(31);
+        assertEquals("a4", testSprite.resourceID.id);
     }
 
 
@@ -114,15 +103,9 @@ public class AnimatedSpriteTest {
     public void updateResource() throws Exception {
     }
 
-/**
- * Some basic tests for animated sprite.
- * todo: reduce repetition, create helper assertion methods.
- * @author Callum
- */
-
-    List<String> resourceList1 = Arrays.stream(new String[]{"res1", "res2", "res3"}).collect(Collectors.toList());
-    List<String> resourceList2 = Arrays.stream(new String[]{"res4", "res5", "res6"}).collect(Collectors.toList());
-    List<String> resourceList3 = Arrays.stream(new String[]{"res0", "res2", "res5"}).collect(Collectors.toList());
+    private List<String> resourceList1 = Arrays.stream(new String[]{"res1", "res2", "res3"}).collect(Collectors.toList());
+    private List<String> resourceList2 = Arrays.stream(new String[]{"res4", "res5", "res6"}).collect(Collectors.toList());
+    private List<String> resourceList3 = Arrays.stream(new String[]{"res0", "res2", "res5"}).collect(Collectors.toList());
 
     /**
      * Tests that additional resources can be successfully added and
@@ -136,19 +119,21 @@ public class AnimatedSpriteTest {
 
         // Adds initial resources.
         testSprite.addResources("state1", resourceList1);
-        assertTrue(testSprite.resourceID.equals("res1"));
+        testSprite.setState("state1");
+
+        assertEquals("res1", testSprite.resourceID.id);
+
+        // Elapse a frame
+        testSprite.updateResource(17);
+        assertEquals("res2", testSprite.resourceID.id);
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res2"));
+        assertEquals("res3", testSprite.resourceID.id);
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res3"));
-
-        // Elapse a frame
-        testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res1"));
+        assertEquals("res1", testSprite.resourceID.id);
     }
 
     /**
@@ -164,27 +149,29 @@ public class AnimatedSpriteTest {
         // Adds initial resources.
         testSprite.addResources("state1", resourceList1);
         testSprite.addResources("state2", resourceList2);
-        assertTrue(testSprite.resourceID.equals("res1"));
+        testSprite.setState("state1");
+
+        assertEquals("res1", testSprite.resourceID.id);
 
         // Elapse a frame
-        testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res2"));
+        testSprite.updateResource(17);
+        assertEquals("res2", testSprite.resourceID.id);
 
         // Switch state
         testSprite.setState("state2");
-        assertTrue(testSprite.resourceID.equals("res4"));
+        assertEquals("res4", testSprite.resourceID.id);
+
+        // Elapse a frame
+        testSprite.updateResource(17);
+        assertEquals("res5", testSprite.resourceID.id);
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res5"));
+        assertEquals("res6", testSprite.resourceID.id);
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res6"));
-
-        // Elapse a frame
-        testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res4"));
+        assertEquals("res4", testSprite.resourceID.id);
 
     }
 
@@ -200,39 +187,41 @@ public class AnimatedSpriteTest {
         // Adds initial resources.
         testSprite.addResources("state1", resourceList1);
         testSprite.addResources("state2", resourceList2);
-        assertTrue(testSprite.resourceID.equals("res1"));
+        testSprite.setState("state1");
+
+        assertEquals("res1", testSprite.resourceID.id);
 
         // Elapse a frame
-        testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res2"));
+        testSprite.updateResource(17);
+        assertEquals("res2", testSprite.resourceID.id);
 
         // Switch state
         testSprite.setState("state2");
-        assertTrue(testSprite.resourceID.equals("res4"));
+        assertEquals("res4", testSprite.resourceID.id);
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res5"));
+        assertEquals("res5", testSprite.resourceID.id);
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res6"));
+        assertEquals("res6", testSprite.resourceID.id);
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res4"));
+        assertEquals("res4", testSprite.resourceID.id);
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res5"));
+        assertEquals("res5", testSprite.resourceID.id);
 
         // Switch state
         testSprite.setState("state1");
-        assertTrue(testSprite.resourceID.equals("res1"));
+        assertEquals("res1", testSprite.resourceID.id);
 
         // Elapse a frame
         testSprite.updateResource(16);
-        assertTrue(testSprite.resourceID.equals("res2"));
+        assertEquals("res2", testSprite.resourceID.id);
     }
 
     /**
@@ -242,7 +231,6 @@ public class AnimatedSpriteTest {
      */
     public AnimatedSprite createEmptyAnimatedSprite(int frameTick) {
         AnimatedSprite empty = new AnimatedSprite(new Vector(0, 0), new Vector(1, 1), frameTick);
-        assertTrue(empty.resourceID.equals("black)-box"));
         return empty;
     }
 }

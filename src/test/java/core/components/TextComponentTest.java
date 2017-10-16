@@ -68,5 +68,22 @@ public class TextComponentTest {
     public void add2() throws Exception {
         TextComponent tc = new TextComponent(testEntity);
         tc.add(new Vector(0,0), "test", 20f);
+        assertEquals(tc.getTexts().size(), 1);
+        assertEquals(tc.getTexts().get(0).fontSize, 20, 0.001);
+        assertEquals(tc.getTexts().get(0).transform, new Vector(0,0));
+        assertEquals(tc.getTexts().get(0).text, "test");
+    }
+
+    /**
+     * Tests that clearing the text component works.
+     * @throws Exception
+     */
+    @Test
+    public void clear() throws Exception {
+        TextComponent tc = new TextComponent(testEntity);
+        tc.add(new Vector(0,0), "test", 20f);
+        assertEquals(tc.getTexts().size(), 1);
+        tc.clear();
+        assertEquals(tc.getTexts().size(), 0);
     }
 }

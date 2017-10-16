@@ -14,7 +14,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * Created by David Hack Local on 06-Oct-17.
+ * Tests most of the game, not all of it is testable.
+ * @author David Hack
  */
 public class GameTest {
 
