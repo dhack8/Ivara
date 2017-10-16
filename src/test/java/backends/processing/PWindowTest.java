@@ -1,12 +1,19 @@
 package backends.processing;
 
-import com.jogamp.opengl.GLException;
+import core.components.ColliderComponent;
+import core.components.RenderComponent;
+import core.components.SpriteComponent;
+import core.entity.GameEntity;
 import core.scene.Scene;
 import core.struct.Camera;
+import core.struct.ResourceID;
+import core.struct.Sprite;
+import ivara.entities.BackgroundEntity;
 import ivara.entities.PlatformEntity;
-import ivara.entities.PlayerEntity;
 import maths.Vector;
+import org.junit.Before;
 import org.junit.Test;
+import physics.AABBCollider;
 import processing.core.PApplet;
 
 import javax.swing.*;
@@ -19,24 +26,71 @@ import static org.junit.Assert.*;
 public class PWindowTest {
 
     int delay = 800;
+    PWindow testWindow;
+    TestScene testScene;
+    ResourceID background;
+
+    {
+        testWindow = new PWindow(false, new Vector(1600, 900));
+        testWindow.setMask(1);
+        PApplet.runSketch(new String[]{"PWindow"}, testWindow);
+    }
+
+    @Before
+    public void startScene(){
+        background = new ResourceID("background");
+        testScene = new TestScene();
+    }
 
     @Test
-    public void render() throws Exception {
+    public void nullRender(){
+        testScene = null;
+        dispalyAndAskUser("Do you see red error screen?");
+    }
 
-        PWindow testWindow;
+    @Test
+    public void normalRender(){
+        dispalyAndAskUser("Do you see a little man standing at the start of a nice platform with nice corners?");
+        testScene.moveSprite();
+        dispalyAndAskUser("Do you see a little man standing at the end of the platform?");
+    }
 
-        try {
-            testWindow = new PWindow(true, new Vector(400, 400));
-            PApplet.runSketch(new String[]{"PWindow"}, testWindow);
-        }catch (GLException e){
-            testWindow = new PWindow(false, new Vector(400, 400));
-            PApplet.runSketch(new String[]{"PWindow"}, testWindow);
-        }
-
-        TestScene testScene = null;
-
+    @Test
+    public void debugRender(){
+        testWindow.setMask(2);
+        dispalyAndAskUser("Do you see a scene with red testing boxes? note vegetation is not intended to have red boxes.");
         testWindow.setMask(1);
+    }
 
+    @Test
+    public void sunriseRender(){
+        background = new ResourceID("background-sunrise");
+        testScene = new TestScene();
+        dispalyAndAskUser("Do you see a scene with a pink sun RISE background, that spans the whole screen?");
+    }
+
+    @Test
+    public void dayRender(){
+        background = new ResourceID("background");
+        testScene = new TestScene();
+        dispalyAndAskUser("Do you see a scene with a blue sky background, that spans the whole screen?");
+    }
+
+    @Test
+    public void sunsetRender(){
+        background = new ResourceID("background-sunset");
+        testScene = new TestScene();
+        dispalyAndAskUser("Do you see a scene with a orange sun SET background, that spans the whole screen?");
+    }
+
+    @Test
+    public void darkRender(){
+        background = new ResourceID("background-dark");
+        testScene = new TestScene();
+        dispalyAndAskUser("Do you see a scene with a dark red background, that spans the whole screen?");
+    }
+
+    public void dispalyAndAskUser(String s){
         long start = System.currentTimeMillis();
         while(true) {
             testWindow.render(testScene);
@@ -45,94 +99,22 @@ public class PWindowTest {
             }
         }
 
-        int o = JOptionPane.showConfirmDialog(
-                new JFrame(),
-                "Did you see red error screen?",
-                "Render result",
-                JOptionPane.YES_NO_OPTION);
+        int o = JOptionPane.showConfirmDialog(new JFrame(), s, "Render result", JOptionPane.YES_NO_OPTION);
 
-        if(o == 1){
-            fail("Human tester detected a error with rendering");
-        }
-
-        testScene = new TestScene();
-
-        start = System.currentTimeMillis();
-        while(true) {
-            testWindow.render(testScene);
-            if(System.currentTimeMillis() - start > delay){
-                break;
-            }
-        }
-
-        int n = JOptionPane.showConfirmDialog(
-                new JFrame(),
-                "Did you see a little man standing at the start of a nice platform with nice corners?",
-                "Render result",
-                JOptionPane.YES_NO_OPTION);
-
-        if(n == 1){
-            fail("Human tester detected a error with rendering");
-        }
-
-        testScene.moveSprite();
-
-        start = System.currentTimeMillis();
-        while(true) {
-            testWindow.render(testScene);
-            if(System.currentTimeMillis() - start > delay){
-                break;
-            }
-        }
-
-        int m = JOptionPane.showConfirmDialog(
-                new JFrame(),
-                "Did you see a little man standing at the end of the platform?",
-                "Render result",
-                JOptionPane.YES_NO_OPTION);
-
-        if(m == 1){
-            fail("Human tester detected a error with rendering");
-        }
-
-        testWindow.setMask(2);
-
-        start = System.currentTimeMillis();
-        while(true) {
-            testWindow.render(testScene);
-            if(System.currentTimeMillis() - start > delay){
-                break;
-            }
-        }
-
-        int z = JOptionPane.showConfirmDialog(
-                new JFrame(),
-                "Same thing with testing boxes?",
-                "Render result",
-                JOptionPane.YES_NO_OPTION);
-
-        if(z == 1){
-            fail("Human tester detected a error with rendering");
-        }
-
-        testWindow.exit();
-        System.exit(0);
+        if(o == 1)fail("Human tester detected a error with rendering");
     }
 
     public class TestScene extends Scene{
         TestEntity tE;
+
         @Override
         public void startScene() {
             tE = new TestEntity(2, 1.5f);
 
             addEntity(tE);
             addEntity(new PlatformEntity(new Vector(2,3), 10, false));
+            addEntity(new BackgroundEntity(background));
             setCamera(new Camera(new Vector(0,0), new Vector(32,18)));
-        }
-
-        //@Override
-        public Scene hardReset() { //todo need to test hardreset
-            return null;
         }
 
         public void moveSprite(){
@@ -140,9 +122,12 @@ public class PWindowTest {
         }
     }
 
-    public class TestEntity extends PlayerEntity {
+    public class TestEntity extends GameEntity {
         public TestEntity(float x, float y) {
-            super(x,y);
+            super(new Vector(x,y));
+            addComponent(new SpriteComponent(this, new Sprite(new ResourceID("player"), new Vector(0,0), new Vector(1,1.5f))));
+            addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, new Vector(0,0), new Vector(1,1.5f))));
+            addComponent(new RenderComponent(this, 999999999));
         }
 
         public void moveSprite(){
