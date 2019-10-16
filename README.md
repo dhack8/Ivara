@@ -1,48 +1,44 @@
-# Team Ivara/11 Readme
-Feel free to add to this readme, just make sure it's pretty.
-## Role Allocations
-| Library | Classes | Primary Author | Code Reviewer | External Tester |
-| ------ | ------ | ------ | ------ | ------ |
-| 1) Render | ProcessingRenderer, Sprite Component, AnimatedSpriteComponent | David | James | Callum |
-| 2) Control | ScriptComponent, Controller | Will | David | Alex |
-| 3) Scene | Scene, Entity | Alex | Callum | David |
-| 4) Physics | ColliderComponent, PhysicsComponent, PhysicsEngine | Callum | Will | James |
-| 5) Assets | ProcessingConsole, Game, AssetHandler, InputHandler | James | Alex | Will |
-| Misc |Ivara | All | All | All|
-## Libraries and Utilities
-### Libraries
-Processing will be used for rendering the game and the main game loop inside a Swing component.
-Swing is most likely going to be used for menus with a modified look and feel.
-Possibly JBox2d in the future for more complicated physics.
-### Utilities/Resources
-Using Gradle to build the project to be able to program easily in different enviroments and computers.
-Game assest can be found here https://kenney.nl/assets
-
 ## Installation and Setup
-Just run these commands and you should get the repo and a red window showing up.
-If you have any problems just send me a cheeky pm (Callum Li).
 
-If you are on a unix based system:
+### Cloning the repository
+**For cloning with https**
 ```
-cd <whatever directory you want to work in>
-git clone https://github.com/Raveva/swen222-project.git
-./gradlew build
-./gradlew run
+git clone https://gitlab.ecs.vuw.ac.nz/swen422-2019-a2/t20/pablo.git
 ```
-
-Windows
+**For cloning with ssh**
 ```
-dir <whatever directory you want to work in>
-git clone https://github.com/Raveva/swen222-project.git
-gradlew build
-gradlew run
+git@gitlab.ecs.vuw.ac.nz:swen422-2019-a2/t20/pablo.git
 ```
 
-From there, you can use your IDE of choice to edit it.
-I know IntelliJ IDEA has great support for gradle projects, you can just open
-the build.gradle. Not sure about Eclipse though.
+### Installing Gradle
+This project utilizes Gradle to simplify dependency resolution and build management across varying setups.
 
-Any questions hmu (Callum Li).
+The current release of Gradle can be downloaded at https://gradle.org/next-steps/?version=5.6.2&format=all, alternatives can be selected from https://gradle.org/releases/.
 
-## Class Diagram
-![Click here](https://gitlab.ecs.vuw.ac.nz/hackdavi/temp-group-project/blob/master/classDiagram.png)
+**For Windows based systems:**
+
+Create a directory named "Gradle" in the C drive `C:\Gradle`.
+
+Extract the content folder `gradle-5.6.2` into the `C:\Gradle` directory from the archive file linked above.
+
+Add a new PATH entry in the system environment variables for `C:\Gradle\gradle-5.6.2\bin`.
+
+### Setting up the project in IntelliJ
+The process for opening the project in IntelliJ is simple.
+
+Open IntelliJ. Select open project. Select the `build.gradle` file of Ivara.
+
+The tasks for building and running the project can be found in the gradle panel to the right of the UI.
+
+### Running the project through the command line
+
+**For Windows based systems:**
+
+(From within the project directory)
+```
+gradle build
+gradle run
+```
+
+### Other
+Game assets can be found here https://kenney.nl/assets
