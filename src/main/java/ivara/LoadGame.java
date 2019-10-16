@@ -1,6 +1,5 @@
 package ivara;
 
-import backends.tinysound.TinySound;
 import core.Game;
 import core.Script;
 import core.components.ScriptComponent;

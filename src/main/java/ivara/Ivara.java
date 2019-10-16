@@ -3,13 +3,13 @@ package ivara;
 import backends.InputBroadcaster;
 import backends.Renderer;
 import backends.processing.PWindow;
-import backends.tinysound.Music;
-import backends.tinysound.TinySound;
 import com.jogamp.opengl.GLException;
 import core.Game;
 import core.scene.LevelManager;
 import core.scene.Scene;
 import ivara.scenes.*;
+import kuusisto.tinysound.Music;
+import kuusisto.tinysound.TinySound;
 import processing.core.PApplet;
 
 import java.util.ArrayList;

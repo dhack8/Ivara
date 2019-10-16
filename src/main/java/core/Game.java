@@ -3,11 +3,10 @@ package core;
 
 import backends.InputBroadcaster;
 import backends.Renderer;
-import backends.processing.PWindow;
-import backends.tinysound.TinySound;
 import core.input.InputHandler;
 import core.scene.Scene;
 import core.scene.LevelManager;
+import kuusisto.tinysound.TinySound;
 import processing.core.PApplet;
 
 /**

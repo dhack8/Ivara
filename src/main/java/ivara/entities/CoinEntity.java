@@ -1,11 +1,11 @@
 package ivara.entities;
 
-import backends.tinysound.Sound;
-import backends.tinysound.TinySound;
 import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
 import core.struct.*;
+import kuusisto.tinysound.Sound;
+import kuusisto.tinysound.TinySound;
 import maths.Vector;
 import physics.AABBCollider;
 

@@ -1,8 +1,5 @@
 package ivara.entities.scripts;
 
-import backends.tinysound.Music;
-import backends.tinysound.Sound;
-import backends.tinysound.TinySound;
 import core.Script;
 import core.components.SensorHandlerComponent;
 import core.components.VelocityComponent;
@@ -16,6 +13,9 @@ import ivara.entities.PlayerEntity;
 import ivara.entities.enemies.Enemy;
 import ivara.entities.enemies.ImmortalEnemy;
 import ivara.scenes.DefaultScene;
+import kuusisto.tinysound.Music;
+import kuusisto.tinysound.Sound;
+import kuusisto.tinysound.TinySound;
 import maths.Vector;
 
 /**

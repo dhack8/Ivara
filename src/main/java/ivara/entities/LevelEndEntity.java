@@ -1,10 +1,6 @@
 package ivara.entities;
 
-import backends.tinysound.Sound;
 import core.entity.GameEntity;
-import backends.tinysound.Music;
-import backends.tinysound.Sound;
-import backends.tinysound.TinySound;
 import core.Script;
 import core.components.*;
 import core.entity.GameEntity;
@@ -13,6 +9,8 @@ import core.scene.Scene;
 import core.struct.AnimatedSprite;
 import core.struct.ResourceID;
 import core.struct.Sensor;
+import kuusisto.tinysound.Sound;
+import kuusisto.tinysound.TinySound;
 import maths.Vector;
 import physics.AABBCollider;
 

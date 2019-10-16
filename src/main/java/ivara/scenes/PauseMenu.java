@@ -1,7 +1,5 @@
 package ivara.scenes;
 
-import backends.tinysound.Sound;
-import backends.tinysound.TinySound;
 import core.Game;
 import core.scene.Scene;
 import core.struct.Camera;
@@ -12,6 +10,8 @@ import ivara.SaveGame;
 import ivara.entities.BackgroundEntity;
 import ivara.entities.UIEntity;
 import ivara.entities.UIListener;
+import kuusisto.tinysound.Sound;
+import kuusisto.tinysound.TinySound;
 import maths.Vector;
 import physics.AABBCollider;
 
