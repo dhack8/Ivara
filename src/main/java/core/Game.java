@@ -9,13 +9,15 @@ import core.scene.LevelManager;
 import kuusisto.tinysound.TinySound;
 import processing.core.PApplet;
 
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Main game where everything comes together.
  * @author Callum Li
  */
 public abstract class Game {
+
+    private static final String SAVE_FILE = "./savefile.ser";
 
     static {
         TinySound.init();
@@ -132,6 +134,26 @@ public abstract class Game {
      */
     public InputHandler.InputFrame getInputFrame() {
         return inputFrame;
+    }
+
+    public void save(){
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(SAVE_FILE)); ) {
+            out.writeObject(levelManager);
+            System.out.println("Saved model to: " + SAVE_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void load(){
+        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(SAVE_FILE)); ) {
+            LevelManager levelManager = (LevelManager) in.readObject();
+            levelManager.setGame(this);
+            System.out.println("Loaded game");
+            this.levelManager = levelManager;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

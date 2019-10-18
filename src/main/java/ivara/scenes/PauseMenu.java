@@ -5,8 +5,6 @@ import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
-import ivara.LoadGame;
-import ivara.SaveGame;
 import ivara.entities.BackgroundEntity;
 import ivara.entities.UIEntity;
 import ivara.entities.UIListener;
@@ -54,7 +52,7 @@ public class PauseMenu extends Scene{
             @Override
             public void onClick() {
                 saveSound.play();
-                SaveGame.save(getGame().getLevelManager()); // Save to file
+                getGame().save();
             }
         },btnSpaceX, btnCount++);
 
@@ -62,7 +60,7 @@ public class PauseMenu extends Scene{
         addButton("load", new UIListener() {
             @Override
             public void onClick() {
-                getGame().setLevelManager(LoadGame.load2(getGame())); // Update the current game with the contents
+                getGame().load();
             }
         },btnSpaceX, btnCount++);
 

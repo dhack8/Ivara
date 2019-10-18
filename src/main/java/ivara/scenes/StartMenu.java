@@ -4,13 +4,11 @@ import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
-import ivara.LoadGame;
 import ivara.entities.BackgroundEntity;
 import ivara.entities.UIEntity;
 import ivara.entities.UIListener;
 import maths.Vector;
 import physics.AABBCollider;
-import util.Debug;
 
 /**
  * Created by Alex Mitchell on 12/10/2017.
@@ -50,7 +48,7 @@ public class StartMenu extends Scene{
         addButton("load", new UIListener() {
             @Override
             public void onClick() {
-                getGame().setLevelManager(LoadGame.load2(getGame()));
+                getGame().load();
             }
         },btnSpaceX, btnCount++);
 
