@@ -42,8 +42,8 @@ public class PlayerEntity extends GameEntity {
     public final static String DUCK_RIGHT = "duck-right";
     public final static String DUCK_LEFT = "duck-left";
 
-    public static Set<GameEntity> COLLECTED_ENTITIES = new HashSet<>();
-    public static Set<GameEntity> USED_ENTITIES = new HashSet<>();
+    public static Set<GameEntity> COLLECTIBLE_ENTITIES = new HashSet<>();
+    public static Set<GameEntity> USED_COLLECTIBLE_ENTITIES = new HashSet<>();
 
     /**
      * Creates a PlayerEntity at a given position

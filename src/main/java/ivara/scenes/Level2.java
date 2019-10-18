@@ -1,7 +1,6 @@
 package ivara.scenes;
 
 
-import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Text;
@@ -79,9 +78,9 @@ public class Level2 extends DefaultScene {
 		addEntity(new CoinEntity(player, new Vector(15, 20), true));
 
 		// Snakes
-		addEntity(new SnakeEntity(new Vector(46,6.5f)));
-		addEntity(new SnakeEntity(new Vector(10,23.5f)));
-		addEntity(new SnakeEntity(new Vector(18,23.5f)));
+		addEntity(new SquigglyEntity(new Vector(46,6.5f)));
+		addEntity(new SquigglyEntity(new Vector(10,23.5f)));
+		addEntity(new SquigglyEntity(new Vector(18,23.5f)));
 
 		// Slimes
 		addEntity(new SlimeEntity(new Vector(12,1)));

@@ -1,6 +1,7 @@
 package ivara.entities.enemies;
 
 import core.struct.AnimatedSprite;
+import ivara.entities.Removable;
 import maths.Vector;
 import java.util.Arrays;
 
@@ -10,7 +11,7 @@ import java.util.Arrays;
  * @author David Hack
  * @author Alex Mitchell
  */
-public class SnakeEntity extends BasicEnemyEntity implements Enemy {
+public class SquigglyEntity extends BasicEnemyEntity implements Enemy, Removable {
 
     // Constants
     private final static float WIDTH = 0.7f;
@@ -21,7 +22,7 @@ public class SnakeEntity extends BasicEnemyEntity implements Enemy {
      * Constructs a snake entity that moves until it detects a collision or no block underneath it.
      * @param location The initial position.
      */
-    public SnakeEntity(Vector location){
+    public SquigglyEntity(Vector location){
         super(location, new Vector(WIDTH, HEIGHT));
         AnimatedSprite as = new SnakeSprite(new Vector(WIDTH, HEIGHT), RATE);
         super.setSprite(as);

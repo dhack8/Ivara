@@ -18,7 +18,7 @@ import java.util.Collection;
  * @author Alex Mitchell 
  * @author Callum Li
  */
-public class BulletEntity extends GameEntity implements Enemy {
+public class BulletEntity extends GameEntity implements Enemy, Removable{
     private static final Vector DIMENSIONS = new Vector(0.4f, 0.4f); // The size of the bullet
 
     /**

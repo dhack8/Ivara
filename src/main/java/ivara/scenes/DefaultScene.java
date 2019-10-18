@@ -3,8 +3,6 @@ package ivara.scenes;
 import core.entity.GameEntity;
 import core.scene.Scene;
 import ivara.entities.*;
-import ivara.entities.enemies.Enemy;
-import ivara.entities.enemies.FakeBlockEntity;
 import maths.Vector;
 
 import java.util.*;
@@ -25,12 +23,13 @@ abstract public class DefaultScene extends Scene {
     //Stores where to respawn the player
     private Vector spawn;
 
-    // Entities that need to be restored if the player dies
+    // Entities that need to be restored if the player dies (Entities removed since last checkpoint)
     private Collection<GameEntity> checkpointEntities;
 
-    // Entities that have been collected during completion of the level
-    private Collection<GameEntity> collectedEntities;
+    // Entities that have been collected during completion of the level (Entities removed prior to last checkpoint)
+    private Collection<GameEntity> preCheckpointEntities;
 
+    // Entities that have been permanently removed from levels (Collectibles)
     private Collection<GameEntity> removedEntities;
 
     /**
@@ -43,34 +42,34 @@ abstract public class DefaultScene extends Scene {
         initialSpawn = new Vector(player.getTransform());
         spawn = new Vector(player.getTransform());
         checkpointEntities = new ArrayList<>();
-        collectedEntities = new ArrayList<>();
+        preCheckpointEntities = new ArrayList<>();
         removedEntities = new HashSet<>();
     }
 
     /**
-     * Sets the spawn that the player will spawn at and permanently removes enemies and coins picked up.
+     * Sets the spawn that the player will spawn at
+     * Also updates the currently collected items
      * @param v position to set spawn to
      */
     public void updateCheckpoint(Vector v){
         spawn = new Vector(v);
-        Set<GameEntity> collectedCoins = checkpointEntities.stream().filter((e) -> e instanceof CoinEntity).collect(Collectors.toSet());
-        collectedEntities.addAll(collectedCoins);
-        checkpointEntities.removeAll(collectedCoins);
+        preCheckpointEntities.addAll(checkpointEntities);
+        checkpointEntities = new ArrayList<>();
     }
 
     /**
      * Getter for all the collected entities.
      * @return collection of collected entities
      */
-    public Collection<GameEntity> getCollectedEntities(){
-        return collectedEntities;
+    public Collection<GameEntity> getPreCheckpointEntities(){
+        return preCheckpointEntities;
     }
 
 
-    public int getCollectedCoinCount() { return (int) Stream.concat(checkpointEntities.stream(), collectedEntities.stream()).filter(entity -> entity instanceof CoinEntity).count();}
+    public int getCollectedCoinCount() { return (int) (Stream.concat(checkpointEntities.stream(), preCheckpointEntities.stream()).filter(entity -> entity instanceof CoinEntity).count() + removedEntities.stream().filter(entity -> entity instanceof CoinEntity).count());}
 
     public int getTotalCoinCount() {
-        return (int) Stream.concat(removedEntities.stream(), getEntities().stream()).filter(entity -> entity instanceof  CoinEntity).count() + getCollectedCoinCount();
+        return (int) getEntities().stream().filter(entity -> entity instanceof  CoinEntity).count() + getCollectedCoinCount();
     }
 
 
@@ -84,35 +83,36 @@ abstract public class DefaultScene extends Scene {
 
     /**
      * Moves the player to the appropriate position.
-     * Also deducts coins and respawns coins and enemies
+     * Re adds the items removed since the last checkpoint
      * @param player player to respawn
      */
     public void respawnPlayer(PlayerEntity player){
         player.getTransform().setAs(spawn);
-        // Re-add the removed entities
         addEntities(checkpointEntities);
         checkpointEntities = new ArrayList<>();
     }
 
     /**
-     * Overrides normal remove entity and keeps track of things that may need to respawn if the player does'nt make it
+     * Overrides normal remove entity and keeps track of things that may need to respawn if the player doesn't make it
      * to a checkpoint.
      * @param e entity to remove
      */
     @Override
     public void removeEntity(GameEntity e){
-        if((e instanceof CoinEntity || e instanceof Enemy || e instanceof FakeBlockEntity || e instanceof PushableBlockEntity)
-                && !(e instanceof BulletEntity)){
+        if(e instanceof Removable){
             checkpointEntities.add(e);
         }
         super.removeEntity(e);
     }
 
+    /*
+    *  Resets the entities in the current scene
+    */
     public void resetScene(){
         addEntities(checkpointEntities);
-        addEntities(collectedEntities);
+        addEntities(preCheckpointEntities);
         checkpointEntities = new ArrayList<>();
-        collectedEntities = new ArrayList<>();
+        preCheckpointEntities = new ArrayList<>();
         getEntity(PlayerEntity.class).getTransform().setAs(initialSpawn);
 
         // Reset the timer TODO fix this
@@ -120,12 +120,16 @@ abstract public class DefaultScene extends Scene {
         addEntity(new TimerEntity(timerLoc, 0));
     }
 
+    /**
+     * Collects all collectable items and resets the scene
+     */
     public void complete(){
-        // Transfer all coins on completion to the player
-        List<GameEntity> collectedCoins = collectedEntities.stream().filter(entity -> entity instanceof CoinEntity).collect(Collectors.toList());
-        PlayerEntity.COLLECTED_ENTITIES.addAll(collectedCoins);
-        removedEntities.addAll(collectedCoins);
-        checkpointEntities.removeAll(collectedCoins);
+        List<GameEntity> collectibles = Stream.concat(preCheckpointEntities.stream(), checkpointEntities.stream()).filter(entity -> entity instanceof Collectible).collect(Collectors.toList());
+        PlayerEntity.COLLECTIBLE_ENTITIES.addAll(collectibles);
+        removedEntities.addAll(collectibles);
+
+        checkpointEntities.removeAll(collectibles);
+        preCheckpointEntities.removeAll(collectibles);
         resetScene();
     }
 }

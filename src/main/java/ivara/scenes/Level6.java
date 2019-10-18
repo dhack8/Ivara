@@ -1,7 +1,6 @@
 package ivara.scenes;
 
 
-import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Text;
@@ -141,18 +140,18 @@ public class Level6 extends DefaultScene {
 		addEntity(new BarnacleEntity(new Vector(43,28), BarnacleEntity.Direction.NORTH, true));
 
 		// Snakes
-		addEntity(new SnakeEntity(new Vector(25,8.5f)));
-		addEntity(new SnakeEntity(new Vector(27,8.5f)));
-		addEntity(new SnakeEntity(new Vector(36,11.5f)));
-		addEntity(new SnakeEntity(new Vector(38,11.5f)));
-		addEntity(new SnakeEntity(new Vector(40,11.5f)));
-		addEntity(new SnakeEntity(new Vector(43,12.5f)));
-		addEntity(new SnakeEntity(new Vector(45,12.5f)));
-		addEntity(new SnakeEntity(new Vector(47,12.5f)));
-		addEntity(new SnakeEntity(new Vector(49,12.5f)));
-		addEntity(new SnakeEntity(new Vector(25,18.5f)));
-		addEntity(new SnakeEntity(new Vector(27,18.5f)));
-		addEntity(new SnakeEntity(new Vector(47,24.5f)));
+		addEntity(new SquigglyEntity(new Vector(25,8.5f)));
+		addEntity(new SquigglyEntity(new Vector(27,8.5f)));
+		addEntity(new SquigglyEntity(new Vector(36,11.5f)));
+		addEntity(new SquigglyEntity(new Vector(38,11.5f)));
+		addEntity(new SquigglyEntity(new Vector(40,11.5f)));
+		addEntity(new SquigglyEntity(new Vector(43,12.5f)));
+		addEntity(new SquigglyEntity(new Vector(45,12.5f)));
+		addEntity(new SquigglyEntity(new Vector(47,12.5f)));
+		addEntity(new SquigglyEntity(new Vector(49,12.5f)));
+		addEntity(new SquigglyEntity(new Vector(25,18.5f)));
+		addEntity(new SquigglyEntity(new Vector(27,18.5f)));
+		addEntity(new SquigglyEntity(new Vector(47,24.5f)));
 
 		// Slimes
 		addEntity(new SlimeEntity(new Vector(29,19)));

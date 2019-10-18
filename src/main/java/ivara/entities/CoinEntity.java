@@ -15,7 +15,7 @@ import java.util.Arrays;
  * This class handles the behaviour and setup of a CoinEntity within the game.
  * @author Callum Li
  */
-public class CoinEntity extends GameEntity {
+public class CoinEntity extends GameEntity implements Collectible, Removable{
 
     // Constants
     private final static int ANIMATION_RATE = 100;

@@ -2,6 +2,7 @@ package ivara.entities.enemies;
 
 import core.struct.ResourceID;
 import core.struct.Sprite;
+import ivara.entities.Removable;
 import ivara.entities.enemies.BasicEnemyEntity;
 import ivara.entities.enemies.Enemy;
 import maths.Vector;
@@ -12,7 +13,7 @@ import maths.Vector;
  * @author Alex Mitchell
  * @author David Hack
  */
-public class SlimeEntity extends BasicEnemyEntity implements Enemy {
+public class SlimeEntity extends BasicEnemyEntity implements Enemy, Removable {
     // Constants
     private final static float WIDTH = 1f;
     private final static float HEIGHT = 1f;

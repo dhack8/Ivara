@@ -6,6 +6,7 @@ import core.entity.GameEntity;
 import core.input.SensorHandler;
 import core.struct.*;
 import ivara.entities.PlayerEntity;
+import ivara.entities.Removable;
 import ivara.entities.scripts.BasicEnemyScript;
 import maths.Vector;
 import physics.AABBCollider;
@@ -19,7 +20,7 @@ import java.util.Arrays;
  * The fake block will fall if a player comes into contact with the top.
  * @author David Hack
  */
-public class FakeBlockEntity extends GameEntity{
+public class FakeBlockEntity extends GameEntity implements Removable {
 
     // Constants
     private final static float WIDTH = 1f;

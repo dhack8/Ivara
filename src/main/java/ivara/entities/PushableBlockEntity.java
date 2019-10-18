@@ -18,7 +18,7 @@ import java.io.Serializable;
  * This class handles the behaviour of the PushableBlockEntity
  * @author David Hack
  */
-public class PushableBlockEntity extends GameEntity{
+public class PushableBlockEntity extends GameEntity implements Removable{
 
     private final static float WIDTH = 1f;
     private final static float HEIGHT = 1f;

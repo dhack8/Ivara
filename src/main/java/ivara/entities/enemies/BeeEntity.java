@@ -5,6 +5,7 @@ import core.components.*;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
 import ivara.entities.PlayerEntity;
+import ivara.entities.Removable;
 import ivara.entities.scripts.PatrolScript;
 import ivara.entities.scripts.ShootScript;
 import maths.Vector;
@@ -18,7 +19,7 @@ import java.util.Optional;
  * The BeeEntity can be given a deviance of which it patrols back and forth between.
  * @author David Hack
  */
-public class BeeEntity extends GameEntity implements Enemy{
+public class BeeEntity extends GameEntity implements Enemy, Removable {
 
     // Constants
     private final static float WIDTH = 0.8f;

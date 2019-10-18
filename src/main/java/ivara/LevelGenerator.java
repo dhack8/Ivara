@@ -337,7 +337,7 @@ public class LevelGenerator {
     }
 
     private static String snake(int x, int y) {
-        return codeLine("addEntity(new SnakeEntity(new Vector("+x+","+((float)y-0.5f)+"f)));");
+        return codeLine("addEntity(new SquigglyEntity(new Vector("+x+","+((float)y-0.5f)+"f)));");
     }
 
     private static String barnacle(int x, int y, Color[][] grid) {

@@ -1,10 +1,8 @@
 package ivara.scenes;
 
 
-import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
-import core.struct.Text;
 import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.*;
@@ -200,8 +198,8 @@ public class HardLevel3 extends DefaultScene {
 		addEntity(new BarnacleEntity(new Vector(5,43), BarnacleEntity.Direction.NORTH, true));
 
 		// Snakes
-		addEntity(new SnakeEntity(new Vector(32,9.5f)));
-		addEntity(new SnakeEntity(new Vector(33,15.5f)));
+		addEntity(new SquigglyEntity(new Vector(32,9.5f)));
+		addEntity(new SquigglyEntity(new Vector(33,15.5f)));
 
 		// Slimes
 		addEntity(new SlimeEntity(new Vector(22,29)));

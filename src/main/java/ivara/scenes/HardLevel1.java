@@ -1,10 +1,8 @@
 package ivara.scenes;
 
 
-import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
-import core.struct.Text;
 import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.*;
@@ -105,16 +103,16 @@ public class HardLevel1 extends DefaultScene {
 		addEntity(new CoinEntity(player, new Vector(22, 27), true));
 
 		// Snakes
-		addEntity(new SnakeEntity(new Vector(7,3.5f)));
-		addEntity(new SnakeEntity(new Vector(12,3.5f)));
-		addEntity(new SnakeEntity(new Vector(17,3.5f)));
-		addEntity(new SnakeEntity(new Vector(22,3.5f)));
-		addEntity(new SnakeEntity(new Vector(5,9.5f)));
-		addEntity(new SnakeEntity(new Vector(10,9.5f)));
-		addEntity(new SnakeEntity(new Vector(15,9.5f)));
-		addEntity(new SnakeEntity(new Vector(19,15.5f)));
-		addEntity(new SnakeEntity(new Vector(24,15.5f)));
-		addEntity(new SnakeEntity(new Vector(5,21.5f)));
+		addEntity(new SquigglyEntity(new Vector(7,3.5f)));
+		addEntity(new SquigglyEntity(new Vector(12,3.5f)));
+		addEntity(new SquigglyEntity(new Vector(17,3.5f)));
+		addEntity(new SquigglyEntity(new Vector(22,3.5f)));
+		addEntity(new SquigglyEntity(new Vector(5,9.5f)));
+		addEntity(new SquigglyEntity(new Vector(10,9.5f)));
+		addEntity(new SquigglyEntity(new Vector(15,9.5f)));
+		addEntity(new SquigglyEntity(new Vector(19,15.5f)));
+		addEntity(new SquigglyEntity(new Vector(24,15.5f)));
+		addEntity(new SquigglyEntity(new Vector(5,21.5f)));
 
 		// Slimes
 		addEntity(new SlimeEntity(new Vector(20,10)));
