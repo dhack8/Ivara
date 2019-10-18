@@ -12,13 +12,14 @@ import physics.Collider;
 import physics.CollisionUtil;
 import physics.PhysicProperties;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Resolves collisions between entities with colliders.
  * @author Callum Li
  */
-public class PhysicsSystem extends System<GameEntity> {
+public class PhysicsSystem extends System<GameEntity> implements Serializable {
 
     private HashMap<ColliderComponent, PhysicProperties> memo;
 

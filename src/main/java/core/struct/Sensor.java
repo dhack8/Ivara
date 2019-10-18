@@ -2,11 +2,13 @@ package core.struct;
 
 import physics.Collider;
 
+import java.io.Serializable;
+
 /**
  * Sensor struct containing a collider
  * @author Callum Li
  */
-public class Sensor {
+public class Sensor implements Serializable {
 
     public final Collider collider;
 

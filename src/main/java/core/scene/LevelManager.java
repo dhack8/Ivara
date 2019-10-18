@@ -4,6 +4,7 @@ import core.Game;
 import core.scene.Scene;
 import ivara.Ivara;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -12,14 +13,14 @@ import java.util.*;
  * The LevelManager assumes that a game is set before the methods are run.
  * @author Alex Mitchell
  */
-public class LevelManager {
+public class LevelManager implements Serializable {
 
-    private Game game; // The game associated with this level manager
+    private transient Game game; // The game associated with this level manager
     private List<Scene> scenes; // Levels in the game, must have at least 1
     private Scene menu; // An optional pause menu
 
     private int currentScene; // Current scene number
-    private boolean paused;
+    private transient boolean paused;
 
 
     /**

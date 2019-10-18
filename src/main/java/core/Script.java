@@ -2,11 +2,13 @@ package core;
 
 import core.entity.GameEntity;
 
+import java.io.Serializable;
+
 /**
  * Basic definition of a script
  * @author Callum Li
  */
-public interface Script {
+public interface Script extends Serializable {
 
     /**
      * Updates the script with delta time and the entity it should update.

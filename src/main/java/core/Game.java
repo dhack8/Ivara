@@ -9,6 +9,8 @@ import core.scene.LevelManager;
 import kuusisto.tinysound.TinySound;
 import processing.core.PApplet;
 
+import java.io.Serializable;
+
 /**
  * Main game where everything comes together.
  * @author Callum Li
@@ -27,7 +29,7 @@ public abstract class Game {
     /**
      * The current scene of the game.
      */
-     private LevelManager levelManager;
+    private LevelManager levelManager;
 
     /**
      * Backend Dependent Renderer
@@ -99,6 +101,15 @@ public abstract class Game {
      */
     public int getCurrentSceneNum(){
         return levelManager.getLevelNum();
+    }
+
+    //TODO: remove these methods and move saving and loading to the game engine
+    public LevelManager getLevelManager() {
+        return levelManager;
+    }
+
+    public void setLevelManager(LevelManager levelManager) {
+        this.levelManager = levelManager;
     }
 
     /**

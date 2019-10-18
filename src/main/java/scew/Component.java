@@ -1,5 +1,7 @@
 package scew;
 
+import java.io.Serializable;
+
 /**
  * Abstract class for Component that defines all the requirements
  * a Component should fulfil.
@@ -11,7 +13,7 @@ package scew;
  * @see Entity
  * @author Callum Li
  */
-public abstract class Component<T extends Entity> {
+public abstract class Component<T extends Entity> implements Serializable {
     private final T entity;
 
     /**

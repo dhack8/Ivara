@@ -1,11 +1,13 @@
 package maths;
 
+import java.io.Serializable;
+
 /**
  * Class to store 2D vectors with floats.
  *
  * @author David Hack
  */
-public class Vector {
+public class Vector implements Serializable {
 
     public float x;
     public float y;

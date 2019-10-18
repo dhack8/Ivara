@@ -3,6 +3,7 @@ package scew;
 import com.google.common.collect.ClassToInstanceMap;
 import com.google.common.collect.MutableClassToInstanceMap;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
  *
  * @param <T> The type of entity this world contains.
  */
-public class World<T extends Entity> {
+public class World<T extends Entity> implements Serializable {
 
     /**
      * The backing collection for the entities.

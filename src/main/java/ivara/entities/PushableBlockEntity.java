@@ -12,6 +12,8 @@ import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
 
+import java.io.Serializable;
+
 /**
  * This class handles the behaviour of the PushableBlockEntity
  * @author David Hack

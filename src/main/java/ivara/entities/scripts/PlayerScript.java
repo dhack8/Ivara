@@ -18,6 +18,8 @@ import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
 import maths.Vector;
 
+import java.io.Serializable;
+
 /**
  * Script to control the player entity. Relies on the current input
  * stored in InputHandler to determine control.

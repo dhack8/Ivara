@@ -2,11 +2,13 @@ package core.struct;
 
 import maths.Vector;
 
+import java.io.Serializable;
+
 /**
  * Basic data object for a sprite
  * @author David Hack
  */
-public class Text {
+public class Text implements Serializable {
 
     public final Vector transform;
     public final float fontSize;

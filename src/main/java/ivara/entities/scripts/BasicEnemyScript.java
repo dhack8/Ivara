@@ -9,6 +9,8 @@ import core.input.SensorHandler;
 import core.struct.Sensor;
 import core.struct.Timer;
 
+import java.io.Serializable;
+
 /**
  * This script inverts the velocity of an enemy entity when there is a left/right collision or no floor tile to it's left or right. *
  * @author David Hack
@@ -84,7 +86,7 @@ public class BasicEnemyScript implements Script {
         if(vc.isPaused()){return;}
         vc.pause();
         if(entity.getScene() == null) return;
-        entity.getScene().addTimer(new Timer(pauseTime, () -> {
+        entity.getScene().addTimer(new Timer(pauseTime, (Runnable & Serializable)() -> {
             vc.unpause();
         }));
     }

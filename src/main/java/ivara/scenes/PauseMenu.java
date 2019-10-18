@@ -54,7 +54,7 @@ public class PauseMenu extends Scene{
             @Override
             public void onClick() {
                 saveSound.play();
-                SaveGame.save(getGame()); // Save to file
+                SaveGame.save(getGame().getLevelManager()); // Save to file
             }
         },btnSpaceX, btnCount++);
 
@@ -62,7 +62,7 @@ public class PauseMenu extends Scene{
         addButton("load", new UIListener() {
             @Override
             public void onClick() {
-                LoadGame.load(getGame()); // Update the current game with the contents
+                getGame().setLevelManager(LoadGame.load2(getGame())); // Update the current game with the contents
             }
         },btnSpaceX, btnCount++);
 

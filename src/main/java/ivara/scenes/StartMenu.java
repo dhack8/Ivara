@@ -50,7 +50,7 @@ public class StartMenu extends Scene{
         addButton("load", new UIListener() {
             @Override
             public void onClick() {
-                LoadGame.load(getGame());
+                getGame().setLevelManager(LoadGame.load2(getGame()));
             }
         },btnSpaceX, btnCount++);
 

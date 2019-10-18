@@ -13,6 +13,7 @@ import maths.Vector;
 import physics.AABBCollider;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Optional;
 
 /**
@@ -299,7 +300,7 @@ public class PlatformEntity extends GameEntity {
      * MoveScript enables an entity to move between two given locations over a given time.
      * @author Alex Mitchell
      */
-    private class MoveScript implements Script{
+    private class MoveScript implements Script {
 
         private Vector pos1;
         private Vector pos2;
@@ -348,7 +349,7 @@ public class PlatformEntity extends GameEntity {
 
             if(entity.getScene() == null) return; // todo working on this
             velocityComponent.pause();
-            entity.getScene().addTimer(new Timer(PAUSE_TIME, velocityComponent::unpause));
+            entity.getScene().addTimer(new Timer(PAUSE_TIME, (Runnable & Serializable) velocityComponent::unpause));
         }
 
         /**

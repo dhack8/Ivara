@@ -1,9 +1,11 @@
 package core.struct;
 
+import java.io.Serializable;
+
 /**
  * Resource ID class, A little lacking at the moment but is in place for future changes.
  */
-public class ResourceID {
+public class ResourceID implements Serializable {
 
     public final String id;
 

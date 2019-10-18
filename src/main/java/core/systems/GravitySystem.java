@@ -7,6 +7,7 @@ import scew.System;
 import scew.World;
 import maths.Vector;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
  * Gravity system goes through all entities and if they have the appropriate physics component applies gravity to it.
  * @author Callum Li
  */
-public class GravitySystem extends System<GameEntity> {
+public class GravitySystem extends System<GameEntity> implements Serializable {
 
     private final Vector gravity;
 

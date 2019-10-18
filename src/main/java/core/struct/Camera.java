@@ -2,13 +2,15 @@ package core.struct;
 
 import maths.Vector;
 
+import java.io.Serializable;
+
 /**
  * Represents a camera that the renderer uses to render the game
  * If the aspect ratio is incorrect for the screen scaling will remain square.
  * And black bars will be used, it is recommended to run with the correct aspect ratio.
  * @author David Hack
  */
-public class Camera {
+public class Camera implements Serializable {
 
     //Make this 43 for 21:9 aspect ratio, yes 21:9 is actually 21.5:9
     public final static float width = 32;

@@ -5,6 +5,7 @@ import core.struct.Timer;
 import scew.System;
 import scew.World;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ import java.util.Set;
  * This system maintains the timers.
  * @author Callum Li
  */
-public class TimerSystem extends System<GameEntity> {
+public class TimerSystem extends System<GameEntity> implements Serializable {
 
     private Set<Timer> timers = new HashSet<>();
 

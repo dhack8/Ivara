@@ -1,10 +1,12 @@
 package core.struct;
 
+import java.io.Serializable;
+
 /**
  * Timer struct for the timer system.
  * @author Callum Li
  */
-public class Timer {
+public class Timer implements Serializable {
     /**
      * Current elapsed time in milliseconds
      */

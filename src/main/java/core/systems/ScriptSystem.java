@@ -5,11 +5,13 @@ import core.entity.GameEntity;
 import scew.System;
 import scew.World;
 
+import java.io.Serializable;
+
 /**
  * Script system is basic, it updates every script with the relevant information.
  * @author Callum Li
  */
-public class ScriptSystem extends System<GameEntity> {
+public class ScriptSystem extends System<GameEntity> implements Serializable {
 
     /**
      * Main update loop as outlined above

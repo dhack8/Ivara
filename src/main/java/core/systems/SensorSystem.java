@@ -13,12 +13,13 @@ import scew.World;
 import physics.CollisionUtil;
 import util.Debug;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
  * Created by Callum Li on 9/17/17.
  */
-public class SensorSystem extends System<GameEntity> {
+public class SensorSystem extends System<GameEntity> implements Serializable {
 
     @Override
     public void update(int dt, World<GameEntity> world) {

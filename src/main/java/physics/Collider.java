@@ -2,6 +2,8 @@ package physics;
 
 import maths.Vector;
 
+import java.io.Serializable;
+
 /**
  * An abstract class that describes the requirements for a Collider.
  *
@@ -10,7 +12,7 @@ import maths.Vector;
  * @author Callum Li
  * @see CollisionUtil
  */
-public abstract class Collider {
+public abstract class Collider implements Serializable {
 
     /**
      * Creates a new collider translated by the given vector.

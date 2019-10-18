@@ -3,6 +3,7 @@ package core.input;
 import core.entity.GameEntity;
 import core.struct.Sensor;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,7 +11,7 @@ import java.util.HashSet;
 /**
  * Allows querying of sensors status.
  */
-public class SensorHandler {
+public class SensorHandler implements Serializable {
 
     private HashMap<Sensor, Collection<GameEntity>> sensorMap = new HashMap<>();
 

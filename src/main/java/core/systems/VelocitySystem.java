@@ -5,11 +5,13 @@ import core.entity.GameEntity;
 import scew.System;
 import scew.World;
 
+import java.io.Serializable;
+
 /**
  * Moves entities with velocity components.
  * @author Callum Li & David Hack
  */
-public class VelocitySystem extends System<GameEntity> {
+public class VelocitySystem extends System<GameEntity> implements Serializable {
 
     /**
      * Main update loop, updates transforms by un paused velocities.

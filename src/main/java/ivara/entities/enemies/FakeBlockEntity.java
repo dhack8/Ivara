@@ -11,6 +11,7 @@ import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -129,11 +130,11 @@ public class FakeBlockEntity extends GameEntity{
                     alive = false;
 
                     fbs.setState("dead");
-                    entity.getScene().addTimer(new Timer(FALL_DELAY, () -> {
+                    entity.getScene().addTimer(new Timer(FALL_DELAY, (Runnable & Serializable)() -> {
                         entity.addComponent(new PhysicsComponent(entity, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
                     }));
 
-                    entity.getScene().addTimer(new Timer(REMOVE_DELAY, () -> {
+                    entity.getScene().addTimer(new Timer(REMOVE_DELAY, (Runnable & Serializable)() -> {
                         doRemove();
                     }));
                 }

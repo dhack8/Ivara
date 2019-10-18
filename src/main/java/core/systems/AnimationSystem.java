@@ -6,6 +6,7 @@ import core.struct.AnimatedSprite;
 import scew.System;
 import scew.World;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * @author Will Pearson
  */
 
-public class AnimationSystem extends System<GameEntity> {
+public class AnimationSystem extends System<GameEntity> implements Serializable {
 
     /**
      * Update tick as outlined above.

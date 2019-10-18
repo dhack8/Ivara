@@ -1,5 +1,6 @@
 package scew;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
@@ -13,7 +14,7 @@ import java.util.Set;
  * @author Callum Li
  * @author Alex Mitchell
  */
-public abstract class Entity {
+public abstract class Entity implements Serializable {
 
     /**
      * The collection of components associated with the entity.

@@ -2,11 +2,13 @@ package physics;
 
 import maths.Vector;
 
+import java.io.Serializable;
+
 /**
  * Class for story physics properties.
  * @author Callum Li
  */
-public class PhysicProperties {
+public class PhysicProperties implements Serializable {
 
     /**
      * The canonical default physics property.

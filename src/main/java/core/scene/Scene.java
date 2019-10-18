@@ -9,6 +9,7 @@ import maths.Vector;
 import scew.World;
 //import scew.World;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +23,8 @@ import java.util.stream.Collectors;
  * @author Alex Mitchell
  * @author Callum Li
  */
-public abstract class Scene {
-    private Game game;
+public abstract class Scene implements Serializable {
+    private transient Game game;
     private World<GameEntity> world                 = new World<>();
     private Map<String, GameEntity> nameEntityMap   = new HashMap<>();
     private Camera camera                           = null;

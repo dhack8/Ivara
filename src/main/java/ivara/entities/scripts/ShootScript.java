@@ -8,6 +8,7 @@ import core.struct.Timer;
 import ivara.entities.BulletEntity;
 import maths.Vector;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -37,7 +38,7 @@ public class ShootScript implements Script {
         this.entity = entity;
         this.target = target;
         this.offset = offset;
-        t = new Timer(0, ()->{}); // Initialise timer
+        t = new Timer(0, (Runnable & Serializable)()->{}); // Initialise timer
     }
 
     /**
@@ -49,7 +50,7 @@ public class ShootScript implements Script {
         this.entity = entity;
         this.target = target;
         this.offset = new Vector(0,0);
-        t = new Timer(0, ()->{}); // Initialise timer
+        t = new Timer(0, (Runnable & Serializable)()->{}); // Initialise timer
     }
 
     @Override
@@ -64,12 +65,12 @@ public class ShootScript implements Script {
 
             // Add bullet to the scene
             entity.getScene().addEntity(bullet);
-            entity.getScene().addTimer(new Timer(DURATION, ()->entity.getScene().removeEntity(bullet)));
+            entity.getScene().addTimer(new Timer(DURATION, (Runnable & Serializable)()->entity.getScene().removeEntity(bullet)));
 
             // Reset delay timer
             t = new Timer(
                     DELAY,
-                    ()->{}
+                    (Runnable & Serializable)()->{}
             );
             entity.getScene().addTimer(t);
         }
