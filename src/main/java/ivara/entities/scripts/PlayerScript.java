@@ -12,13 +12,11 @@ import core.struct.Sensor;
 import ivara.entities.PlayerEntity;
 import ivara.entities.enemies.Enemy;
 import ivara.entities.enemies.ImmortalEnemy;
-import ivara.scenes.DefaultScene;
+import ivara.scenes.DefaultLevel;
 import kuusisto.tinysound.Music;
 import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
 import maths.Vector;
-
-import java.io.Serializable;
 
 /**
  * Script to control the player entity. Relies on the current input
@@ -138,8 +136,8 @@ public class PlayerScript implements Script{
         if(player instanceof PlayerEntity){
             PlayerEntity p = (PlayerEntity) player;
             Scene current = p.getScene();
-            if(current instanceof DefaultScene){
-                DefaultScene currentDefault = (DefaultScene) current;
+            if(current instanceof DefaultLevel){
+                DefaultLevel currentDefault = (DefaultLevel) current;
                 playerDeath.play();
                 currentDefault.respawnPlayer(p);
             }

@@ -7,7 +7,7 @@ import core.input.SensorHandler;
 import core.scene.Scene;
 import core.struct.AnimatedSprite;
 import core.struct.Sensor;
-import ivara.scenes.DefaultScene;
+import ivara.scenes.DefaultLevel;
 import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
 import maths.Vector;
@@ -126,8 +126,8 @@ public class CheckpointEntity extends GameEntity{
                 if(!entered && playerCollision) {
                     entered = true;
                     Scene current = entity.getScene();
-                    if(current instanceof DefaultScene){
-                        DefaultScene currentDefault = (DefaultScene) current;
+                    if(current instanceof DefaultLevel){
+                        DefaultLevel currentDefault = (DefaultLevel) current;
                         currentDefault.updateCheckpoint(entity.getTransform()); // Set the spawn in the level.
                     }
                     checkpointPass.play();

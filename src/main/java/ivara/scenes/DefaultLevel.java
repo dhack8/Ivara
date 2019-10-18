@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * Default scene provides common behavior for all implementation side scenes.
  * @author David Hack
  */
-abstract public class DefaultScene extends Scene {
+abstract public class DefaultLevel extends Scene {
 
     private static final Vector timerLoc = new Vector(75f,75f);
     private static final Vector coinLoc = new Vector(105f, 115f);

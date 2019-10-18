@@ -9,7 +9,7 @@ import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import core.struct.Text;
-import ivara.scenes.DefaultScene;
+import ivara.scenes.DefaultLevel;
 import maths.Vector;
 
 /**
@@ -49,8 +49,8 @@ public class CoinTextEntity extends GameEntity {
                         int collected = 0;
                         int total = 0;
 
-                        if(getScene() instanceof DefaultScene){
-                            DefaultScene ds = (DefaultScene) getScene();
+                        if(getScene() instanceof DefaultLevel){
+                            DefaultLevel ds = (DefaultLevel) getScene();
                             collected = ds.getCollectedCoinCount();
                             total = ds.getTotalCoinCount();
                         }
