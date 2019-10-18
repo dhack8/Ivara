@@ -22,8 +22,6 @@ public class CoinTextEntity extends GameEntity {
     private static final float TEXTSIZE = 25;
 
     private final TextComponent score;
-    private long coinCount = 0;
-    private boolean coinCountSet = false;
     private static final Vector offset = new Vector(-45f,-31f);
 
     /**
@@ -48,16 +46,17 @@ public class CoinTextEntity extends GameEntity {
                 new Script() {
                     @Override
                     public void update(int dt, GameEntity entity) {
-                        if(!coinCountSet){
-                            coinCount = getScene().getEntities().stream().filter((e) -> e instanceof CoinEntity).count();
-                            if(getScene() instanceof DefaultScene){
-                                DefaultScene ds = (DefaultScene) getScene();
-                                coinCount += ds.getCollectedCoins().size();
-                            }
-                            coinCountSet = true;
+                        int collected = 0;
+                        int total = 0;
+
+                        if(getScene() instanceof DefaultScene){
+                            DefaultScene ds = (DefaultScene) getScene();
+                            collected = ds.getCollectedCoinCount();
+                            total = ds.getTotalCoinCount();
                         }
+
                         score.clear();
-                        score.add(Integer.toString(player.coinsCollected) + "/" + coinCount, TEXTSIZE);
+                        score.add(collected + "/" + total, TEXTSIZE);
                     }
                 })
         );

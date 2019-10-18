@@ -39,7 +39,7 @@ public class GameEntityTest {
 
     private class TestScene extends Scene{
         @Override
-        public void startScene() {
+        public void initialize() {
 
         }
     }

@@ -40,46 +40,6 @@ public class SceneTest {
     }
 
     /**
-     * Tests that a named entity is added to the scene correctly
-     */
-    @Test
-    public void testAddEntity1() throws Exception {
-        GameEntity e1 = new GameEntity(new Vector(1, 1)){};
-        GameEntity e2 = new GameEntity(new Vector(1, 1)){};
-
-        String n = "Test";
-        testScene.addEntity(e1, Optional.of(n)); //adding a named entity
-        assertTrue("Scene should contain the entity.", testScene.getEntities().contains(e1));
-        assertTrue("Scene should contain only one entity.", testScene.getEntities().size() == 1);
-        assertTrue("Scene should contain the entity in the named entities collection.", testScene.getEntity(n).equals(e1));
-
-        testScene.addEntity(e2, Optional.empty()); //adding an unnamed entity
-        assertTrue("Scene should contain the entity.", testScene.getEntities().contains(e2));
-        assertTrue("Scene should contain two entities.", testScene.getEntities().size() == 2);
-    }
-
-    /**
-     * Tests adding a variety of entities
-     */
-    @Test
-    public void testAddEntity2() throws Exception {
-        String name = "Test";
-        int numEntities = 10;
-        for (int i = 1; i <= numEntities; i++) {
-            // alternating between adding a named and unnamed entity
-            GameEntity e = new GameEntity(new Vector(1, 1)){}; // irrelevant position
-            if(i % 2 != 0) testScene.addEntity(e);
-            else testScene.addEntity(e, Optional.of(name + i));
-        }
-
-        assertTrue("Scene should contain " + numEntities + " entities, but found " + testScene.getEntities().size() + ".", testScene.getEntities().size() == numEntities);
-
-        for(int i = 2; i <= numEntities; i+=2){
-            assertTrue("Scene should contain the named entity " + name + i + ".", testScene.getEntity(name + i) != null);
-        }
-    }
-
-    /**
      * Tests adding a collection of entities
      */
     @Test
@@ -169,24 +129,9 @@ public class SceneTest {
         testScene.removeEntity(e); // no error thrown
     }
 
-    /**
-     * Testing the reset of a scene.
-     */
-    @Test
-    public void testReset(){
-        String testName = "test";
-        TestEntity e = new TestEntity(new Vector(1,1));
-        testScene.addEntity(e, Optional.of(testName));
-        testScene.resetScene();
-
-        assertTrue("The entities collection should be empty, but wasn't.",testScene.getEntities().size() == 0);
-        assertTrue("Found the named entity even though it shouldn't exist in the scene.",testScene.getEntity(testName) == null);
-    }
-
-
     private class TestScene extends Scene{
         @Override
-        public void startScene() {
+        public void initialize() {
 
         }
     }

@@ -128,7 +128,7 @@ public class PWindowTest {
         TestEntity tE;
 
         @Override
-        public void startScene() {
+        public void initialize() {
             tE = new TestEntity(2, 1.5f);
 
             addEntity(tE);

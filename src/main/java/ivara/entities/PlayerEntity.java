@@ -11,6 +11,8 @@ import physics.AABBCollider;
 import physics.PhysicProperties;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class handles the behaviour of the PlayerEntity in the game.
@@ -40,7 +42,8 @@ public class PlayerEntity extends GameEntity {
     public final static String DUCK_RIGHT = "duck-right";
     public final static String DUCK_LEFT = "duck-left";
 
-    public int coinsCollected = 0;
+    public static Set<GameEntity> COLLECTED_ENTITIES = new HashSet<>();
+    public static Set<GameEntity> USED_ENTITIES = new HashSet<>();
 
     /**
      * Creates a PlayerEntity at a given position

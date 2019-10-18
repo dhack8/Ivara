@@ -29,7 +29,7 @@ public class PauseMenu extends Scene{
     private static final Sound saveSound = TinySound.loadSound("savesound.wav");
 
     @Override
-    public void startScene() {
+    public void initialize() {
         Camera c = new Camera();
         setCamera(c);
         Vector cDimensions = c.dimensions;
@@ -69,7 +69,7 @@ public class PauseMenu extends Scene{
             @Override
             public void onClick() {
                 Game g = getGame();
-                g.getScene(g.getCurrentSceneNum()).resetScene(); // Reset the current scene and unpause
+                ((DefaultScene)g.getScene(g.getCurrentSceneNum())).resetScene(); // TODO fix this
                 g.pause();
             }
         },btnSpaceX, btnCount++);
@@ -78,7 +78,9 @@ public class PauseMenu extends Scene{
         addButton("quit", new UIListener() {
             @Override
             public void onClick() {
-                getGame().setCurrentScene(0); // Quit to start menu
+                Game g = getGame();
+                ((DefaultScene)g.getScene(g.getCurrentSceneNum())).resetScene(); // TODO fix this
+                g.setCurrentScene(0); // Quit to start menu
             }
         },btnSpaceX, btnCount++);
 

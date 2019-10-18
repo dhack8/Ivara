@@ -146,7 +146,7 @@ public class LevelManager implements Serializable {
         if(game == null) throw new NullPointerException("Must give the level manager a game before calling actions on it.");
         if(paused) throw new RuntimeException("Cannot change to the next scene while the menu is open.");
 
-        getCurrentScene().resetScene(); // Reset the current scene on exit
+        getCurrentScene();
 
         if(currentScene == scenes.size()-1)currentScene = 0;
         else currentScene++;
@@ -162,8 +162,6 @@ public class LevelManager implements Serializable {
         if(game == null) throw new NullPointerException("Must give the scene manager a game before calling actions on it.");
         if(scene >= scenes.size() || scene < 0) throw new IndexOutOfBoundsException("The scene does not exist, out of bounds.");
         paused = false;
-
-        getCurrentScene().resetScene(); // reset the current scene on exit
 
         currentScene = scene;
     }

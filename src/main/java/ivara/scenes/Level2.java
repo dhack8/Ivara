@@ -16,7 +16,7 @@ import maths.Vector;
  * This is the slime level.
  */
 public class Level2 extends DefaultScene {
-	public void startScene(){
+	public void initialize(){
 
 		// Player
 		PlayerEntity player = new PlayerEntity(2,0.5f);

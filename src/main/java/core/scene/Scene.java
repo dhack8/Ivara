@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 public abstract class Scene implements Serializable {
     private transient Game game;
     private World<GameEntity> world                 = new World<>();
-    private Map<String, GameEntity> nameEntityMap   = new HashMap<>();
     private Camera camera                           = null;
     private TimerSystem timerSystem                 = new TimerSystem();
 
@@ -35,24 +34,14 @@ public abstract class Scene implements Serializable {
      */
     public Scene() {
         addSystems();
-        startScene();
+        initialize();
     }
 
     /**
      * This method adds all the entities into the scene.
      */
-    abstract public void startScene();
+    abstract public void initialize();
 
-    /**
-     * This method wipes and resets the entities and systems in the scene.
-     */
-    public void resetScene(){
-        world = new World<>();
-        addSystems();
-
-        nameEntityMap = new HashMap<>();
-        startScene();
-    }
 
     /**
      * Adds all the necessary systems to the scene in order for the game to operate the scene.
@@ -126,16 +115,6 @@ public abstract class Scene implements Serializable {
     }
 
     /**
-     * Gets a named GameEntity via a given name
-     *
-     * @param name The name of the entity
-     * @return The entity, if it exists
-     */
-    public GameEntity getEntity(String name){
-        return nameEntityMap.get(name);
-    }
-
-    /**
      * Gets a collection of GameEntities that are of a certain class.
      * @param type The type of GameEntity.
      * @return A collection of the game entities.
@@ -151,32 +130,17 @@ public abstract class Scene implements Serializable {
      */
     public GameEntity getEntity(Class<? extends GameEntity> type){
         Optional<GameEntity> entity = world.getEntities().stream().filter((e) -> e.getClass() == type).findAny();
-        return entity.isPresent()?entity.get():null;
+        return entity.orElse(null);
     }
 
     /**
      * Adds an entity to the collection of entities within the Scene
-     * The entity is also added to the collection of named entities in the scene
-     *
-     * @param entity The entity to add
-     * @param name   The name of the entity
-     */
-    public void addEntity(GameEntity entity, Optional<String> name) {
-        name.ifPresent((n) -> {
-            nameEntityMap.put(n, entity);
-        });
-
-        entity.setScene(this);
-        world.addEntity(entity);
-    }
-
-    /**
-     * Adds an entity to the collection of the entities within the Scene
      *
      * @param entity The entity to add
      */
     public void addEntity(GameEntity entity) {
-        addEntity(entity, Optional.empty());
+        entity.setScene(this);
+        world.addEntity(entity);
     }
 
     /**

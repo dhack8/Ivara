@@ -128,7 +128,7 @@ public class CheckpointEntity extends GameEntity{
                     Scene current = entity.getScene();
                     if(current instanceof DefaultScene){
                         DefaultScene currentDefault = (DefaultScene) current;
-                        currentDefault.setSpawn(entity.getTransform()); // Set the spawn in the level.
+                        currentDefault.updateCheckpoint(entity.getTransform()); // Set the spawn in the level.
                     }
                     checkpointPass.play();
                     as.setState("down");

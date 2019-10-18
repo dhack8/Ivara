@@ -73,7 +73,6 @@ public class CoinEntity extends GameEntity {
                                     .stream()
                                     .anyMatch((e) -> e.equals(player))) {
                                 coinPickup.play();
-                                player.coinsCollected += 1;
                                 getScene().removeEntity(coinEntity);
                             }
                         }

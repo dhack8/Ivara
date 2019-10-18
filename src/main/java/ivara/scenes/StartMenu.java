@@ -25,7 +25,7 @@ public class StartMenu extends Scene{
 
     private final int NUM_BUTTONS = 3; // Spacing is defined by the number of buttons within the scene
     @Override
-    public void startScene() {
+    public void initialize() {
 
         Camera c = new Camera();
         setCamera(c);

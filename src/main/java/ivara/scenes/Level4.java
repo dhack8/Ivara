@@ -16,7 +16,7 @@ import maths.Vector;
  * This is the ghost level.
  */
 public class Level4 extends DefaultScene {
-	public void startScene(){
+	public void initialize(){
 
 		// Player
 		PlayerEntity player = new PlayerEntity(4,0.5f);

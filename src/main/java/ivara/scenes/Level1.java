@@ -16,7 +16,7 @@ import maths.Vector;
  * This is the barnacle level.
  */
 public class Level1 extends DefaultScene {
-    public void startScene(){
+    public void initialize(){
 
         PlayerEntity player = new PlayerEntity(2,27);
         addEntity(player);

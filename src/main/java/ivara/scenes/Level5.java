@@ -16,7 +16,7 @@ import maths.Vector;
  * This is the bee level.
  */
 public class Level5 extends DefaultScene {
-	public void startScene(){
+	public void initialize(){
 
 		// Player
 		PlayerEntity player = new PlayerEntity(1,27.5f);

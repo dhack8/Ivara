@@ -16,7 +16,7 @@ import maths.Vector;
  * This is the fake block level.
  */
 public class Level3 extends DefaultScene {
-	public void startScene(){
+	public void initialize(){
 
 		// Player
 		PlayerEntity player = new PlayerEntity(5,13.5f);
