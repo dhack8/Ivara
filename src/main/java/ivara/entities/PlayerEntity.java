@@ -10,9 +10,7 @@ import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This class handles the behaviour of the PlayerEntity in the game.
@@ -44,6 +42,8 @@ public class PlayerEntity extends GameEntity {
 
     public static Set<GameEntity> COLLECTIBLE_ENTITIES = new HashSet<>();
     public static Set<GameEntity> USED_COLLECTIBLE_ENTITIES = new HashSet<>();
+
+    public static Map<String, Float> ITEM_FLAGS = new HashMap<>();
 
     /**
      * Creates a PlayerEntity at a given position

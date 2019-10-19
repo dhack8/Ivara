@@ -18,6 +18,9 @@ import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
 import maths.Vector;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Script to control the player entity. Relies on the current input
  * stored in InputHandler to determine control.
@@ -54,6 +57,10 @@ public class PlayerScript implements Script{
 
     private boolean canJump = true;
 
+    private Map<Integer, Boolean> wasActive = new HashMap<>();
+
+    private int jumpsMade = 0;
+
     private static final Sound jumpSound = TinySound.loadSound("jumpsound.wav");
     private static final Sound playerDeath = TinySound.loadSound("playerdeath.wav");
     private static final Sound playerKill = TinySound.loadSound("kill.wav");
@@ -89,6 +96,7 @@ public class PlayerScript implements Script{
 
         //Handle potential jump
         if (input.isKeyPressed(Constants.W)) performJump(vComp);
+        else wasActive.put(Constants.W, false);
 
         //Handle left and right movement
         if (input.isKeyPressed(Constants.A)) handleWalk(vComp, sensorHandler, Orientation.LEFT);
@@ -159,10 +167,19 @@ public class PlayerScript implements Script{
      * @param vComp The velocity component of the player.
      */
     private void performJump(VelocityComponent vComp){
-        if (canJump) {
+        float additionalJumps = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-num-additional-jumps", 0f);
+        float jumpBoost = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-jump-boost", 0f);
+        float jumpPowerLevel = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-double-jump-power", 0.7f);
+
+        if(jumpsMade <= additionalJumps && !(wasActive.getOrDefault(Constants.W,false))){ // can jump
             jumpSound.play();
-            vComp.setY(jump);
-            canJump = false;
+
+            float alteredBaseJump = jump + jumpBoost;
+            float jumpHeight = jumpsMade < 1? alteredBaseJump : alteredBaseJump * jumpPowerLevel;
+
+            vComp.setY(jumpHeight);
+            wasActive.put(Constants.W, true);
+            jumpsMade++;
         }
     }
 
@@ -211,6 +228,7 @@ public class PlayerScript implements Script{
      * @param collided The player collided.
      */
     private void groundCollision(GameEntity player, GameEntity collided) {
+        jumpsMade = 0;
         canJump = true;
         VelocityComponent v = player.get(VelocityComponent.class).get();
 
