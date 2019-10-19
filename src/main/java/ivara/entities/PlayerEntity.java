@@ -28,7 +28,7 @@ public class PlayerEntity extends GameEntity {
 
     private static final float JUMP_SENSOR_HEIGHT = 0.15f;
     private static final float JUMP_SENSOR_EXTRA = 0.01f;
-    private static final float ANTI_WALL_RUN = 0.05f; // 0 for wall running
+    private static final float ANTI_WALL_RUN = 0.1f; // 0 for wall running
 
     //PLAYER STATES
     public final static String WALK_RIGHT = "walk-right";

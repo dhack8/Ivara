@@ -66,7 +66,7 @@ public class PlayerScript implements Script{
     private static final Sound playerKill = TinySound.loadSound("kill.wav");
     private static final Music playerStep = TinySound.loadMusic("steps.wav");
 
-    private boolean walking = false;
+    private boolean moving = false;
 
     /**
      * Constructs a PlayerScript that controls how a the player behaves.
@@ -99,9 +99,9 @@ public class PlayerScript implements Script{
         else wasActive.put(Constants.W, false);
 
         //Handle left and right movement
-        if (input.isKeyPressed(Constants.A)) handleWalk(vComp, sensorHandler, Orientation.LEFT);
-        else if (input.isKeyPressed(Constants.D)) handleWalk(vComp, sensorHandler, Orientation.RIGHT);
-        else stopWalk(vComp, sensorHandler);
+        if (input.isKeyPressed(Constants.A)) handleMove(vComp, sensorHandler, Orientation.LEFT, input.isKeyPressed(Constants.SHIFT));
+        else if (input.isKeyPressed(Constants.D)) handleMove(vComp, sensorHandler, Orientation.RIGHT, input.isKeyPressed(Constants.SHIFT));
+        else stopMove(vComp, sensorHandler);
 
         //Handle pause
         if(input.isKeyReleased(Constants.ESC)) entity.getScene().getGame().pause();
@@ -159,7 +159,7 @@ public class PlayerScript implements Script{
      */
     private void handleAirborne(){
         updateState(State.JUMP);
-        stopWalkNoise();
+        stopMoveNoise();
     }
 
     /**
@@ -169,7 +169,7 @@ public class PlayerScript implements Script{
     private void performJump(VelocityComponent vComp){
         float additionalJumps = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-num-additional-jumps", 0f);
         float jumpBoost = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-jump-boost", 0f);
-        float jumpPowerLevel = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-double-jump-power", 0.7f);
+        float jumpPowerLevel = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-additional-jump-power", 0.7f);
 
         if(jumpsMade <= additionalJumps && !(wasActive.getOrDefault(Constants.W,false))){ // can jump
             jumpSound.play();
@@ -183,30 +183,36 @@ public class PlayerScript implements Script{
         }
     }
 
+
+
     /**
-     * Handles the player walking.
+     * Handles the player moving.
      * @param vComp The velocity component of the player.
      * @param sensorHandler The sensor handler of the player.
      * @param o The orientation of the player.
      */
-    private void handleWalk(VelocityComponent vComp, SensorHandler sensorHandler, Orientation o){
-        vComp.setX(((o.equals(Orientation.LEFT)?-1:1)*metresPerSecond) + relative.x);
+    private void handleMove(VelocityComponent vComp, SensorHandler sensorHandler, Orientation o, boolean isRun){
+        float runBoost = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-sprint-multiplier", 1f);
+
+        float speed = isRun? metresPerSecond*runBoost : metresPerSecond;
+
+        vComp.setX(((o.equals(Orientation.LEFT)?-1:1)*speed) + relative.x);
         updateState(o);
         if(sensorHandler.isActive(bottomSensor)){
             updateState(State.WALK);
-            playWalkNoise();
+            playMoveNoise();
         }
     }
 
-    private void playWalkNoise(){
-        if(!walking){
+    private void playMoveNoise(){
+        if(!moving){
             playerStep.play(true);
-            walking = true;
+            moving = true;
         }
     }
 
-    private void stopWalkNoise(){
-        walking = false;
+    private void stopMoveNoise(){
+        moving = false;
         playerStep.stop();
     }
 
@@ -216,10 +222,10 @@ public class PlayerScript implements Script{
      * @param vComp The velocity component of the player.
      * @param sensorHandler The sensor handler of the player.
      */
-    private void stopWalk(VelocityComponent vComp, SensorHandler sensorHandler){
+    private void stopMove(VelocityComponent vComp, SensorHandler sensorHandler){
         vComp.setX(relative.x);
         if(sensorHandler.isActive(bottomSensor)) updateState(State.IDLE);
-        stopWalkNoise();
+        stopMoveNoise();
     }
 
     /**

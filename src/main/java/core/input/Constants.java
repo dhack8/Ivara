@@ -11,6 +11,7 @@ public class Constants {
     public static final int D = 68;
     public static final int SPACE = 32;
     public static final int LEFT_MOUSE = 37;
+    public static final int SHIFT = 16;
 
     public static final int ESC = 27;
 }
