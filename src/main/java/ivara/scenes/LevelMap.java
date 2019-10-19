@@ -21,6 +21,16 @@ public class LevelMap extends Scene {
         // Snow
         addEntity(new LevelIconEntity(new Vector(11.7625f, 6.1625f), new Level3(), null));
 
+        addAlienLevels();
+
+        // Desert
+        addEntity(new LevelIconEntity(new Vector(10.65f, 11.8f), new Level3(), null));
+
+        addEntity(new BackgroundEntity(new ResourceID("background-sea")));
+        addEntity(new BackgroundEntity(new ResourceID("map")));
+    }
+
+    private void addAlienLevels() {
         // Alien
         Level initialBootsLevel = new InitialBootsLevel();
         addEntity(new LevelIconEntity(new Vector(15.125f, 9.5375f), initialBootsLevel, null));
@@ -44,12 +54,6 @@ public class LevelMap extends Scene {
         addEntity(new LevelIconEntity(new Vector(16.275f, 11.225f), movementSpeed1, initialBootsLevel));
         addEntity(new LevelIconEntity(new Vector(17.975f, 10.65f), movementSpeed2, movementSpeed1));
         addEntity(new LevelIconEntity(new Vector(17.3625f, 9.5375f), movementSpeed3, movementSpeed2));
-
-        // Desert
-        addEntity(new LevelIconEntity(new Vector(10.65f, 11.8f), new Level3(), null));
-
-        addEntity(new BackgroundEntity(new ResourceID("background-sea")));
-        addEntity(new BackgroundEntity(new ResourceID("map")));
     }
 }
 
