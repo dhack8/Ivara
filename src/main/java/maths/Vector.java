@@ -1,6 +1,7 @@
 package maths;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Class to store 2D vectors with floats.
@@ -123,14 +124,17 @@ public class Vector implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Vector) {
-            Vector other = (Vector) obj;
-            return other.x == this.x && other.y == this.y;
-        }
-        return false;
+        if(obj == this) return true;
+        if(!(obj instanceof  Vector)) return false;
+
+        Vector other = (Vector) obj;
+        return other.x == this.x && other.y == this.y;
     }
 
-    //TODO do hashing function
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.x, this.y);
+    }
 
     @Override
     public String toString() {
