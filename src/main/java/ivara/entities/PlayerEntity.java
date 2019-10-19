@@ -39,6 +39,9 @@ public class PlayerEntity extends GameEntity {
     public final static String JUMP_LEFT = "jump-left";
     public final static String DUCK_RIGHT = "duck-right";
     public final static String DUCK_LEFT = "duck-left";
+    public final static String SHOT_RIGHT = "shot-right";
+    public final static String SHOT_LEFT = "shot-left";
+
 
     public static Set<GameEntity> COLLECTIBLE_ENTITIES = new HashSet<>();
     public static Set<GameEntity> USED_COLLECTIBLE_ENTITIES = new HashSet<>();
@@ -139,6 +142,12 @@ public class PlayerEntity extends GameEntity {
             };
             addResources(state, Arrays.asList(resources));
 
+            state = SHOT_RIGHT;
+            resources = new String[]{
+                    "player-walk-right-bow"
+            };
+            addResources(state, Arrays.asList(resources));
+
             state = WALK_LEFT;
             resources = new String[] {
                     "player-walk2-left",
@@ -161,6 +170,12 @@ public class PlayerEntity extends GameEntity {
             state = DUCK_LEFT;
             resources = new String[] {
                     "player-duck-left"
+            };
+            addResources(state, Arrays.asList(resources));
+
+            state = SHOT_LEFT;
+            resources = new String[]{
+                    "player-walk-left-bow"
             };
             addResources(state, Arrays.asList(resources));
 

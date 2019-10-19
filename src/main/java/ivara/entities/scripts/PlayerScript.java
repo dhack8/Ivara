@@ -8,7 +8,11 @@ import core.input.Constants;
 import core.input.InputHandler;
 import core.input.SensorHandler;
 import core.scene.Scene;
+import core.struct.ResourceID;
 import core.struct.Sensor;
+import core.struct.Timer;
+import ivara.entities.ArrowEntity;
+import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.enemies.Enemy;
 import ivara.entities.enemies.ImmortalEnemy;
@@ -18,8 +22,9 @@ import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
 import maths.Vector;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * Script to control the player entity. Relies on the current input
@@ -39,7 +44,9 @@ public class PlayerScript implements Script{
     private enum State{ // Possible animation states
         WALK,
         IDLE,
-        JUMP
+        JUMP,
+        SHOT,
+        JUMP_SHOT
     }
 
     private static final float metresPerSecond = 3.5f; // Movement speed
@@ -61,12 +68,20 @@ public class PlayerScript implements Script{
 
     private int jumpsMade = 0;
 
+    private static final Sound arrowSound = TinySound.loadSound("crossbow.wav");
     private static final Sound jumpSound = TinySound.loadSound("jumpsound.wav");
     private static final Sound playerDeath = TinySound.loadSound("playerdeath.wav");
     private static final Sound playerKill = TinySound.loadSound("kill.wav");
     private static final Music playerStep = TinySound.loadMusic("steps.wav");
 
     private boolean moving = false;
+
+    private static final int DELAY = 500; // Delay after a shot
+    private static final int DURATION = 2000; // Delay until a bullet is reset
+    private static final float SPEED = 15f; // In meters per second (has x and y components that in total equal 3f)
+
+
+    private Timer arrowDelay;
 
     /**
      * Constructs a PlayerScript that controls how a the player behaves.
@@ -105,7 +120,80 @@ public class PlayerScript implements Script{
 
         //Handle pause
         if(input.isKeyReleased(Constants.ESC)) entity.getScene().getGame().pause();
+
+
+        // Shot detection //TODO work on this
+        if(input.isKeyPressed(Constants.SPACE)){
+            handleCrossbow(entity, orientation);
+        }
+
     }
+
+
+    private void handleCrossbow(GameEntity entity, Orientation orientation){
+        updateState(State.SHOT); // TODO handle this properly
+
+
+        float multishot = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-multishot", 0f);
+        float shotDelay = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-delay", 1f) * 1000f; // in seconds
+        float shotDuration = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-duration", 2f) * 1000f;
+
+
+
+        if(arrowDelay != null && !arrowDelay.isFinished()) return;
+
+        float xVelocity = orientation == Orientation.LEFT ? SPEED * -1 : SPEED;
+        float xStart = orientation == Orientation.LEFT ? entity.getTransform().x - 0.25f : entity.getTransform().x + 0.75f;
+        float yStart = entity.getTransform().y + 0.6f;
+
+
+        Vector location = new Vector(xStart, yStart);
+
+        GameEntity arrow = new ArrowEntity(
+                location,
+                new Vector(xVelocity, 0),
+                new ResourceID(orientation == Orientation.LEFT? "arrow-straight-left":"arrow-straight-right"),
+                List.of(entity.getClass(), ArrowEntity.class)
+        );
+
+        arrowSound.play();
+
+        entity.getScene().addEntity(arrow);
+        Timer arrowDuration = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(arrow));
+        entity.getScene().addTimer(arrowDuration);
+
+        if(multishot > 0f){
+            Vector a1loc = new Vector(location.x, location.y);
+            Vector a2loc = new Vector(location.x, location.y);
+
+            GameEntity a1 = new ArrowEntity(
+                    a1loc,
+                    new Vector(xVelocity, -1f),
+                    new ResourceID(orientation == Orientation.LEFT? "arrow-up-left":"arrow-up-right"),
+                    List.of(entity.getClass(), ArrowEntity.class)
+            );
+            GameEntity a2 = new ArrowEntity(
+                    a2loc,
+                    new Vector(xVelocity, 1f),
+                    new ResourceID(orientation == Orientation.LEFT? "arrow-down-left":"arrow-down-right"),
+                    List.of(entity.getClass(), ArrowEntity.class)
+            );
+
+            entity.getScene().addEntity(a1);
+            Timer t1 = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(a1));
+            entity.getScene().addTimer(t1);
+
+            entity.getScene().addEntity(a2);
+            Timer t2 = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(a2));
+            entity.getScene().addTimer(t2);
+
+        }
+
+        arrowDelay = new Timer((int)shotDelay, (Runnable & Serializable)()->{});
+        entity.getScene().addTimer(arrowDelay);
+
+    }
+
 
     /**
      * Handles what happens when an enemy enters the enemy sensor.
@@ -289,6 +377,8 @@ public class PlayerScript implements Script{
                 case JUMP:
                     sprite.setState(PlayerEntity.JUMP_RIGHT);
                     break;
+                case SHOT:
+                    sprite.setState(PlayerEntity.SHOT_RIGHT);
             }
         }else{
             switch (state){
@@ -301,6 +391,8 @@ public class PlayerScript implements Script{
                 case JUMP:
                     sprite.setState(PlayerEntity.JUMP_LEFT);
                     break;
+                case SHOT:
+                    sprite.setState(PlayerEntity.SHOT_LEFT);
             }
         }
     }
