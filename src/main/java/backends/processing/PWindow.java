@@ -412,6 +412,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
             rect(b.x, b.y, width-2*b.x, height-2*b.y);
         }
         //TEXT THROWS ERRORS PROCESSINGS FAULT
+        System.out.println(text);
         //text(text, 10, 40);
         drawing = false;
     }
