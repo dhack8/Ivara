@@ -20,6 +20,9 @@ public class TimerEntity extends GameEntity {
     private static final float TEXTSIZE = 25;
     private static final Vector OFFSET = new Vector(-67.5f,-44.5f);
 
+    public long start;
+    public long currentTime;
+
     public TimerEntity(Vector transform, int time){
         super(transform);
 
@@ -44,8 +47,6 @@ public class TimerEntity extends GameEntity {
      * @author David Hack
      */
     public class TimerScript implements Script {
-        public long start;
-        public long currentTime;
         private float textSize;
 
         /**
@@ -71,11 +72,15 @@ public class TimerEntity extends GameEntity {
          * @return A string representing the time.
          */
         private String timeString() {
-            long millis = currentTime - start;
+            long millis = getTimeInMillis();
             long seconds = (millis / 1000) % 60 ;
             long minutes = (millis / (1000*60)) % 60;
             millis = (millis % 1000)/10;
             return String.format("%02d:%02d.%02d", minutes, seconds, millis);
         }
+    }
+
+    public long getTimeInMillis() {
+        return currentTime - start;
     }
 }

@@ -15,6 +15,14 @@ import java.util.stream.Stream;
  */
 abstract public class Level extends Scene {
 
+    public static final String BRONZE = "bronze";
+    public static final String SILVER = "silver";
+    public static final String GOLD = "gold";
+
+    public static final int DEFAULT_BRONZE_TIME = 300;
+    public static final int DEFAULT_SILVER_TIME = 180;
+    public static final int DEFAULT_GOLD_TIME = 120;
+
     private static final Vector timerLoc = new Vector(75f,75f);
     private static final Vector coinLoc = new Vector(105f, 115f);
 
@@ -31,6 +39,8 @@ abstract public class Level extends Scene {
 
     // Entities that have been permanently removed from levels (Collectibles)
     private Collection<GameEntity> removedEntities;
+
+    private long bestTimeInMillis;
 
     /**
      * Starts the scene with some default entities
@@ -66,7 +76,9 @@ abstract public class Level extends Scene {
     }
 
 
-    public int getCollectedCoinCount() { return (int) (Stream.concat(checkpointEntities.stream(), preCheckpointEntities.stream()).filter(entity -> entity instanceof CoinEntity).count() + removedEntities.stream().filter(entity -> entity instanceof CoinEntity).count());}
+    public int getCollectedCoinCount() {
+        return (int) (Stream.concat(checkpointEntities.stream(), preCheckpointEntities.stream()).filter(entity -> entity instanceof CoinEntity).count() + removedEntities.stream().filter(entity -> entity instanceof CoinEntity).count());
+    }
 
     public int getTotalCoinCount() {
         return (int) getEntities().stream().filter(entity -> entity instanceof  CoinEntity).count() + getCollectedCoinCount();
@@ -131,5 +143,33 @@ abstract public class Level extends Scene {
         checkpointEntities.removeAll(collectibles);
         preCheckpointEntities.removeAll(collectibles);
         resetScene();
+    }
+
+    public long getBestTimeInMillis() {
+        return this.bestTimeInMillis;
+    }
+
+    public int getBronzeTime() {
+        return DEFAULT_BRONZE_TIME;
+    };
+
+    public int getSilverTime() {
+        return DEFAULT_SILVER_TIME;
+    }
+
+    public int getGoldTime() {
+        return DEFAULT_GOLD_TIME;
+    }
+
+    public String getMedalLevel() {
+        if (this.bestTimeInMillis < getGoldTime()) {
+            return GOLD;
+        } else if (this.bestTimeInMillis < getSilverTime()) {
+            return SILVER;
+        } else if (this.bestTimeInMillis < getBronzeTime()) {
+            return BRONZE;
+        } else {
+            return null;
+        }
     }
 }
