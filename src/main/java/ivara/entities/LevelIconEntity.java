@@ -59,7 +59,8 @@ public class LevelIconEntity extends GameEntity {
     }
 
     private void iconClicked() {
-        System.out.println("Icon clicked");
+        LevelInfoEntity levelInfoEntity = (LevelInfoEntity) getScene().getEntity(LevelInfoEntity.class);
+        levelInfoEntity.displayLevel(level);
     }
 
     private boolean isInIcon(Vector position) {
