@@ -21,7 +21,7 @@ public class LevelIconEntity extends GameEntity {
     private static final String UNAVAILABLE = "unavailable";
     private static final String COMPLETED = "completed";
 
-    private static final float WIDTH = 0.7f;
+    private static final float WIDTH = 0.6f;
     private static final Vector SIZE = new Vector(WIDTH, WIDTH);
 
     private Level level;
