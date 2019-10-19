@@ -182,6 +182,10 @@ public class PlayerEntity extends GameEntity {
             setState(IDLE_RIGHT);
         }
     }
+
+    public static int getCoinCount(){
+        return (int)COLLECTIBLE_ENTITIES.stream().filter(e -> e instanceof CoinEntity).count();
+    }
 }
 
 
