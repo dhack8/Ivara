@@ -5,6 +5,7 @@ import core.struct.Camera;
 import core.struct.ResourceID;
 import ivara.entities.BackgroundEntity;
 import ivara.entities.LevelIconEntity;
+import ivara.entities.LevelInfoEntity;
 import ivara.scenes.boots.*;
 import maths.Vector;
 
@@ -15,19 +16,25 @@ public class LevelMap extends Scene {
         Camera c = new Camera();
         setCamera(c);
 
-        // Grass
-        addEntity(new LevelIconEntity(new Vector(7.275f, 8.4355f), new Level3(), null));
-
-        // Snow
-        addEntity(new LevelIconEntity(new Vector(11.7625f, 6.1625f), new Level3(), null));
-
+        addGrassLevels();
+        addSnowLevels();
         addAlienLevels();
+        addDesertLevels();
 
-        // Desert
-        addEntity(new LevelIconEntity(new Vector(10.65f, 11.8f), new Level3(), null));
+        addEntity(new LevelInfoEntity(new Vector(21.5f, 1.4f)));
 
         addEntity(new BackgroundEntity(new ResourceID("background-sea")));
         addEntity(new BackgroundEntity(new ResourceID("map")));
+    }
+
+    private void addGrassLevels() {
+        // Grass
+        addEntity(new LevelIconEntity(new Vector(7.275f, 8.4355f), new Level3(), null));
+    }
+
+    private void addSnowLevels() {
+        // Snow
+        addEntity(new LevelIconEntity(new Vector(11.7625f, 6.1625f), new Level3(), null));
     }
 
     private void addAlienLevels() {
@@ -54,6 +61,11 @@ public class LevelMap extends Scene {
         addEntity(new LevelIconEntity(new Vector(16.275f, 11.225f), movementSpeed1, initialBootsLevel));
         addEntity(new LevelIconEntity(new Vector(17.975f, 10.65f), movementSpeed2, movementSpeed1));
         addEntity(new LevelIconEntity(new Vector(17.3625f, 9.5375f), movementSpeed3, movementSpeed2));
+    }
+
+    private void addDesertLevels() {
+        // Desert
+        addEntity(new LevelIconEntity(new Vector(10.65f, 11.8f), new Level3(), null));
     }
 }
 

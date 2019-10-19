@@ -18,6 +18,7 @@ abstract public class Level extends Scene {
     public static final String BRONZE = "bronze";
     public static final String SILVER = "silver";
     public static final String GOLD = "gold";
+    public static final String NOTHING = "none";
 
     public static final int DEFAULT_BRONZE_TIME = 300;
     public static final int DEFAULT_SILVER_TIME = 180;
@@ -41,6 +42,8 @@ abstract public class Level extends Scene {
     private Collection<GameEntity> removedEntities;
 
     private long bestTimeInMillis;
+
+    private boolean completed = false;
 
     /**
      * Starts the scene with some default entities
@@ -68,32 +71,6 @@ abstract public class Level extends Scene {
     }
 
     /**
-     * Getter for all the collected entities.
-     * @return collection of collected entities
-     */
-    public Collection<GameEntity> getPreCheckpointEntities(){
-        return preCheckpointEntities;
-    }
-
-
-    public int getCollectedCoinCount() {
-        return (int) (Stream.concat(checkpointEntities.stream(), preCheckpointEntities.stream()).filter(entity -> entity instanceof CoinEntity).count() + removedEntities.stream().filter(entity -> entity instanceof CoinEntity).count());
-    }
-
-    public int getTotalCoinCount() {
-        return (int) getEntities().stream().filter(entity -> entity instanceof  CoinEntity).count() + getCollectedCoinCount();
-    }
-
-
-    /**
-     * Getter for the player spawn position.
-     * @return the player spawn position
-     */
-    public Vector getSpawnVector(){
-        return spawn;
-    }
-
-    /**
      * Moves the player to the appropriate position.
      * Re adds the items removed since the last checkpoint
      * @param player player to respawn
@@ -117,7 +94,7 @@ abstract public class Level extends Scene {
         super.removeEntity(e);
     }
 
-    /*
+    /**
     *  Resets the entities in the current scene
     */
     public void resetScene(){
@@ -136,6 +113,10 @@ abstract public class Level extends Scene {
      * Collects all collectable items and resets the scene
      */
     public void complete(){
+        completed = true;
+        long completedTime = ((TimerEntity) getEntity(TimerEntity.class)).getTimeInMillis();
+        if(completedTime < bestTimeInMillis) bestTimeInMillis = completedTime;
+
         List<GameEntity> collectibles = Stream.concat(preCheckpointEntities.stream(), checkpointEntities.stream()).filter(entity -> entity instanceof Collectible).collect(Collectors.toList());
         PlayerEntity.COLLECTIBLE_ENTITIES.addAll(collectibles);
         removedEntities.addAll(collectibles);
@@ -145,8 +126,30 @@ abstract public class Level extends Scene {
         resetScene();
     }
 
+    // Getter helper methods
+
+    public int getCollectedCoinCount() {
+        return (int) (Stream.concat(checkpointEntities.stream(), preCheckpointEntities.stream()).filter(entity -> entity instanceof CoinEntity).count() + removedEntities.stream().filter(entity -> entity instanceof CoinEntity).count());
+    }
+
+    public int getTotalCoinCount() {
+        return (int) getEntities().stream().filter(entity -> entity instanceof  CoinEntity).count() + getCollectedCoinCount();
+    }
+
     public long getBestTimeInMillis() {
         return this.bestTimeInMillis;
+    }
+
+    public String getLevelName() {
+        return "Override Get Level Name Method";
+    }
+
+    public String getLevelDescription() {
+        return "Override Get Level Description Method";
+    }
+
+    public String getLevelRewardDescription() {
+        return "Override Get Level Reward Description Method";
     }
 
     public int getBronzeTime() {
@@ -169,7 +172,11 @@ abstract public class Level extends Scene {
         } else if (this.bestTimeInMillis < getBronzeTime()) {
             return BRONZE;
         } else {
-            return null;
+            return NOTHING;
         }
+    }
+
+    public boolean isCompleted() {
+        return completed;
     }
 }
