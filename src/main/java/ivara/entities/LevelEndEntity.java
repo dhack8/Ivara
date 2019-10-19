@@ -7,7 +7,7 @@ import core.components.*;
 import core.input.SensorHandler;
 import core.struct.AnimatedSprite;
 import core.struct.Sensor;
-import ivara.scenes.DefaultLevel;
+import ivara.scenes.Level;
 import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
 import maths.Vector;
@@ -111,7 +111,7 @@ public class LevelEndEntity extends GameEntity {
                 if(!entered && playerCollision) {
                     entered = true;
                     playerWin.play();
-                    ((DefaultLevel)entity.getScene()).complete();
+                    ((Level)entity.getScene()).complete();
                     Game game = entity.getScene().getGame();
                     game.nextScene(); // Goes to the next scene on a player collision
                 }
