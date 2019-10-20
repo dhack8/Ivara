@@ -92,7 +92,7 @@ public class LevelInfoEntity extends GameEntity {
         text.add(COIN_LOCATION, formatCoins(level), COIN_FONT_SIZE);
 
         text.add(new Text(TITLE_LOCATION, TITLE_DIMEN, TITLE_FONT_SIZE, level.getTitle()));
-        text.add(new Text(DESCRIPTION_LOCATION, TITLE_DIMEN, DESCRIPTION_FONT_SIZE, level.getDescription()));
+        text.add(new Text(DESCRIPTION_LOCATION, DESCRIPTION_DIMEN, DESCRIPTION_FONT_SIZE, level.getDescription()));
 
         text.add(REWARD_TITLE_LOCATION, "Rewards", REWARD_TITLE_FONT_SIZE);
         text.add(new Text(REWARD_DESC_LOCATION, REWARD_DESC_DIMEN, REWARD_DESC_FONT_SIZE, level.getRewardDescription()));
