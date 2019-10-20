@@ -69,7 +69,7 @@ public class PauseMenu extends Scene{
             @Override
             public void onClick() {
                 Game g = getGame();
-                ((Level)g.getScene(g.getCurrentSceneNum())).resetScene(); // TODO fix this
+                ((Level)g.getLevelManager().getCurrentScene()).resetScene(); // TODO fix this
                 g.pause();
             }
         },btnSpaceX, btnCount++);
@@ -79,8 +79,7 @@ public class PauseMenu extends Scene{
             @Override
             public void onClick() {
                 Game g = getGame();
-                ((Level)g.getScene(g.getCurrentSceneNum())).resetScene(); // TODO fix this
-                g.setCurrentScene(0); // Quit to start menu
+                ((Level)g.getLevelManager().getCurrentScene()).resetScene(); // TODO fix this
             }
         },btnSpaceX, btnCount++);
 

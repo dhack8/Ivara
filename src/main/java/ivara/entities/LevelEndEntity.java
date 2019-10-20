@@ -15,6 +15,8 @@ import physics.AABBCollider;
 
 import java.util.Arrays;
 
+import static ivara.Ivara.MAP;
+
 /**
  * This class handles the behaviour of a Flag that changes level on collision with the player.
  * @author Alex Mitchell 
@@ -113,7 +115,7 @@ public class LevelEndEntity extends GameEntity {
                     playerWin.play();
                     ((Level)entity.getScene()).complete();
                     Game game = entity.getScene().getGame();
-                    game.nextScene(); // Goes to the next scene on a player collision
+                    game.getLevelManager().setToBookmarkedScene(MAP); // Goes to the next scene on a player collision
                 }
             }
         }
