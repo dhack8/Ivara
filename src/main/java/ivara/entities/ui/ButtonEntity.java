@@ -29,10 +29,28 @@ public class ButtonEntity extends GameEntity {
     private Collider hitBox;
     private List<UIListener> listeners = new ArrayList<>();
 
+    public ButtonEntity(Vector transform, Vector dimensions, String button) {
+        super(transform);
+
+        setup(dimensions, button, button + "-hover", button + "-click", button + "-deactivated");
+    }
+
     //TODO: this class is very similar to UIentity but cannot extend it due to the interface/design combine the two??
     public ButtonEntity(Vector transform, Vector dimensions, String button, String hover, String click, String deactivated) {
         super(transform);
 
+        setup(dimensions, button, hover, click, deactivated);
+    }
+
+    public void setActive(boolean active) {
+        if (!active) {
+            buttonSprite.setState(DEACTIVATED);
+        } else {
+            buttonSprite.setState(IDLE);
+        }
+    }
+
+    private void setup(Vector dimensions, String button, String hover, String click, String deactivated) {
         this.hitBox = new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), dimensions);
 
         // Sprite
@@ -77,19 +95,6 @@ public class ButtonEntity extends GameEntity {
         addComponent(scriptComponent);
     }
 
-    public class ButtonSprite extends AnimatedSprite {
-        public ButtonSprite(Vector transform, Vector dimensions, int frameTick) {
-            super(transform, dimensions, frameTick);
-        }
-
-        public void addButtonState(String image, String state) {
-            String[] resources = new String[] {
-                    image
-            };
-            addResources(state, Arrays.asList(resources));
-        }
-    }
-
     /**
      * Checks to see whether the click is within the entity.
      * @param position The mouse click.
@@ -111,7 +116,21 @@ public class ButtonEntity extends GameEntity {
      * Adds a listener to the listeners.
      * @param uiListener The listener to add.
      */
-    public void addListener(UIListener uiListener) {
+    public ButtonEntity addListener(UIListener uiListener) {
         listeners.add(uiListener);
+        return this;
+    }
+
+    public class ButtonSprite extends AnimatedSprite {
+        public ButtonSprite(Vector transform, Vector dimensions, int frameTick) {
+            super(transform, dimensions, frameTick);
+        }
+
+        public void addButtonState(String image, String state) {
+            String[] resources = new String[] {
+                    image
+            };
+            addResources(state, Arrays.asList(resources));
+        }
     }
 }

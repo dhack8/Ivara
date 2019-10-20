@@ -77,7 +77,7 @@ public class LevelIconEntity extends GameEntity {
 
     private void iconClicked() {
         LevelInfoEntity levelInfoEntity = (LevelInfoEntity) getScene().getEntity(LevelInfoEntity.class);
-        levelInfoEntity.displayLevel(level);
+        levelInfoEntity.displayLevel(level, preReqLevel == null || preReqLevel.isCompleted());
 
         getScene().getEntity(PlayerMiniFigureEntity.class).getTransform().setAs(this.transform);
     }

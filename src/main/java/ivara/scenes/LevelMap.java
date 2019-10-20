@@ -13,6 +13,7 @@ import physics.AABBCollider;
 public class LevelMap extends Scene {
 
     private static final Vector PLAY_BUTTON_DIMEN = new Vector(7.225f, 1.625f);
+    private static final Vector MINI_BUTTON_DIMEN = new Vector(4.6f, 0.84375f);
 
     @Override
     public void initialize() {
@@ -24,17 +25,26 @@ public class LevelMap extends Scene {
         addAlienLevels();
         addDesertLevels();
 
-        addEntity(new PlayerMiniFigureEntity(new Vector(10.225f, 9.65f)));
-        LevelInfoEntity levelInfo = new LevelInfoEntity(new Vector(21.5f, 1.4f));
-        addEntity(levelInfo);
+        ButtonEntity playButton = new ButtonEntity(new Vector(22.65f, 13.4f), PLAY_BUTTON_DIMEN, "play");
 
-//        UIEntity button = new UIEntity(
-//                new Vector(22.65f, 13.4f),
-//                new Sprite(new ResourceID("play"), new Vector(0, 0), PLAY_BUTTON_DIMEN),
-//                new AABBCollider(new Vector(0, 0), PLAY_BUTTON_DIMEN)
-//        );
-//        button.addListener(levelInfo::playLevel);
-        addEntity(new ButtonEntity(new Vector(22.65f, 13.4f), PLAY_BUTTON_DIMEN, "play", "play-hover", "play-click", "play-deactivated"));
+        addEntity(new PlayerMiniFigureEntity(new Vector(10.225f, 9.65f)));
+        LevelInfoEntity levelInfo = new LevelInfoEntity(new Vector(21.5f, 1.4f), playButton);
+        addEntity(levelInfo);
+        addEntity(playButton);
+
+        addEntity(new MiniMenuEntity(new Vector(1.2f, 13f)));
+        addEntity(
+                new ButtonEntity(new Vector(1.4f, 13.2f), MINI_BUTTON_DIMEN, "save")
+                        .addListener(() -> getGame().save()));
+        addEntity(new ButtonEntity(
+                new Vector(1.4f, 14.1f), MINI_BUTTON_DIMEN, "load")
+                        .addListener(() -> getGame().load()));
+        addEntity(
+                new ButtonEntity(new Vector(1.4f, 15f), MINI_BUTTON_DIMEN, "back")
+                        .addListener(() -> System.out.println("Go to menu")));
+        addEntity(
+                new ButtonEntity(new Vector(1.4f, 15.9f), MINI_BUTTON_DIMEN, "quit")
+                        .addListener(() -> getGame().getWindow().exit()));
 
         addEntity(new BackgroundEntity(new ResourceID("background-sea")));
         addEntity(new BackgroundEntity(new ResourceID("map")));

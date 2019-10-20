@@ -45,13 +45,26 @@ public class LevelInfoEntity extends GameEntity {
     public static final Vector REWARD_DESC_DIMEN = new Vector(6.625f, 1.725f);
     private static final int REWARD_DESC_FONT_SIZE = 20;
 
+    public static final Vector WARNING_LOCATION = new Vector(2.95f, 12f);
+    private static final int WARNING_FONT_SIZE = 20;
+
     private static final int LABEL_FONT_SIZE = 20;
 
     Level currentLevel = null;
     AnimatedSprite infoSprite;
+    ButtonEntity playButton;
 
-    public LevelInfoEntity(Vector transform) {
+    public LevelInfoEntity(Vector transform, ButtonEntity playButton) {
         super(transform);
+
+        this.playButton = playButton;
+        this.playButton.setActive(false);
+
+        // Text
+        TextComponent tc = new TextComponent(this);
+        tc.add(new Text(TITLE_LOCATION, TITLE_DIMEN, TITLE_FONT_SIZE, "Pablo's House"));
+        tc.add(new Text(DESCRIPTION_LOCATION, TITLE_DIMEN, DESCRIPTION_FONT_SIZE, "Click on a level icon to start Pablo's adventures"));
+        addComponent(tc);
 
         // Sprite
         SpriteComponent sc = new SpriteComponent(this);
@@ -61,7 +74,7 @@ public class LevelInfoEntity extends GameEntity {
         addComponent(sc);
     }
 
-    public void displayLevel(Level level) {
+    public void displayLevel(Level level, boolean canPlay) {
         currentLevel = level;
         removeComponent(TextComponent.class);
         TextComponent tc = new TextComponent(this);
@@ -83,9 +96,12 @@ public class LevelInfoEntity extends GameEntity {
         tc.add(REWARD_TITLE_LOCATION, "Rewards", REWARD_TITLE_FONT_SIZE);
         tc.add(new Text(REWARD_DESC_LOCATION, REWARD_DESC_DIMEN, REWARD_DESC_FONT_SIZE, level.getRewardDescription()));
 
+        if(!canPlay) tc.add(WARNING_LOCATION, "Play levels up to this level to play", WARNING_FONT_SIZE);
+
         addComponent(tc);
 
         infoSprite.setState(level.getMedalLevel());
+        playButton.setActive(canPlay);
     }
 
     public void playLevel() {
