@@ -5,10 +5,7 @@ import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import ivara.entities.*;
-import ivara.entities.ui.LevelIconEntity;
-import ivara.entities.ui.LevelInfoEntity;
-import ivara.entities.ui.PlayerMiniFigureEntity;
-import ivara.entities.ui.UIEntity;
+import ivara.entities.ui.*;
 import ivara.scenes.boots.*;
 import maths.Vector;
 import physics.AABBCollider;
@@ -31,13 +28,13 @@ public class LevelMap extends Scene {
         LevelInfoEntity levelInfo = new LevelInfoEntity(new Vector(21.5f, 1.4f));
         addEntity(levelInfo);
 
-        UIEntity button = new UIEntity(
-                new Vector(22.65f, 13.4f),
-                new Sprite(new ResourceID("play"), new Vector(0, 0), PLAY_BUTTON_DIMEN),
-                new AABBCollider(new Vector(0, 0), PLAY_BUTTON_DIMEN)
-        );
-        button.addListener(levelInfo::playLevel);
-        addEntity(button);
+//        UIEntity button = new UIEntity(
+//                new Vector(22.65f, 13.4f),
+//                new Sprite(new ResourceID("play"), new Vector(0, 0), PLAY_BUTTON_DIMEN),
+//                new AABBCollider(new Vector(0, 0), PLAY_BUTTON_DIMEN)
+//        );
+//        button.addListener(levelInfo::playLevel);
+        addEntity(new ButtonEntity(new Vector(22.65f, 13.4f), PLAY_BUTTON_DIMEN, "play", "play-hover", "play-click", "play-deactivated"));
 
         addEntity(new BackgroundEntity(new ResourceID("background-sea")));
         addEntity(new BackgroundEntity(new ResourceID("map")));
