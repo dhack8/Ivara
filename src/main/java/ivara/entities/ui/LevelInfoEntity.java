@@ -54,6 +54,8 @@ public class LevelInfoEntity extends GameEntity {
     AnimatedSprite infoSprite;
     ButtonEntity playButton;
 
+    TextComponent text;
+
     public LevelInfoEntity(Vector transform, ButtonEntity playButton) {
         super(transform);
 
@@ -61,10 +63,10 @@ public class LevelInfoEntity extends GameEntity {
         this.playButton.setActive(false);
 
         // Text
-        TextComponent tc = new TextComponent(this);
-        tc.add(new Text(TITLE_LOCATION, TITLE_DIMEN, TITLE_FONT_SIZE, "Pablo's House"));
-        tc.add(new Text(DESCRIPTION_LOCATION, TITLE_DIMEN, DESCRIPTION_FONT_SIZE, "Click on a level icon to start Pablo's adventures"));
-        addComponent(tc);
+        text = new TextComponent(this);
+        text.add(new Text(TITLE_LOCATION, TITLE_DIMEN, TITLE_FONT_SIZE, "Pablo's House"));
+        text.add(new Text(DESCRIPTION_LOCATION, TITLE_DIMEN, DESCRIPTION_FONT_SIZE, "Click on a level icon to start Pablo's adventures"));
+        addComponent(text);
 
         // Sprite
         SpriteComponent sc = new SpriteComponent(this);
@@ -76,29 +78,26 @@ public class LevelInfoEntity extends GameEntity {
 
     public void displayLevel(Level level, boolean canPlay) {
         currentLevel = level;
-        removeComponent(TextComponent.class);
-        TextComponent tc = new TextComponent(this);
+        text.clear();
 
-        tc.add(MEDAL_LABEL_LOCATION, "Medal Times:", LABEL_FONT_SIZE);
-        tc.add(BRONZE_TIME_LOCATION, String.valueOf(level.getBronzeTime()) + 's', MEDAL_FONT_SIZE);
-        tc.add(SILVER_TIME_LOCATION, String.valueOf(level.getSilverTime()) + 's', MEDAL_FONT_SIZE);
-        tc.add(GOLD_TIME_LOCATION, String.valueOf(level.getGoldTime()) + 's', MEDAL_FONT_SIZE);
+        text.add(MEDAL_LABEL_LOCATION, "Medal Times:", LABEL_FONT_SIZE);
+        text.add(BRONZE_TIME_LOCATION, String.valueOf(level.getBronzeTime()) + 's', MEDAL_FONT_SIZE);
+        text.add(SILVER_TIME_LOCATION, String.valueOf(level.getSilverTime()) + 's', MEDAL_FONT_SIZE);
+        text.add(GOLD_TIME_LOCATION, String.valueOf(level.getGoldTime()) + 's', MEDAL_FONT_SIZE);
 
-        tc.add(BEST_TIME_LABEL_LOCATION, "Your Best Time", LABEL_FONT_SIZE);
-        tc.add(BEST_TIME_LOCATION, formatTime(level), BEST_TIME_FONT_SIZE);
+        text.add(BEST_TIME_LABEL_LOCATION, "Your Best Time", LABEL_FONT_SIZE);
+        text.add(BEST_TIME_LOCATION, formatTime(level), BEST_TIME_FONT_SIZE);
 
-        tc.add(COIN_LABEL_LOCATION, "Coins Collected", LABEL_FONT_SIZE);
-        tc.add(COIN_LOCATION, formatCoins(level), COIN_FONT_SIZE);
+        text.add(COIN_LABEL_LOCATION, "Coins Collected", LABEL_FONT_SIZE);
+        text.add(COIN_LOCATION, formatCoins(level), COIN_FONT_SIZE);
 
-        tc.add(new Text(TITLE_LOCATION, TITLE_DIMEN, TITLE_FONT_SIZE, level.getTitle()));
-        tc.add(new Text(DESCRIPTION_LOCATION, TITLE_DIMEN, DESCRIPTION_FONT_SIZE, level.getDescription()));
+        text.add(new Text(TITLE_LOCATION, TITLE_DIMEN, TITLE_FONT_SIZE, level.getTitle()));
+        text.add(new Text(DESCRIPTION_LOCATION, TITLE_DIMEN, DESCRIPTION_FONT_SIZE, level.getDescription()));
 
-        tc.add(REWARD_TITLE_LOCATION, "Rewards", REWARD_TITLE_FONT_SIZE);
-        tc.add(new Text(REWARD_DESC_LOCATION, REWARD_DESC_DIMEN, REWARD_DESC_FONT_SIZE, level.getRewardDescription()));
+        text.add(REWARD_TITLE_LOCATION, "Rewards", REWARD_TITLE_FONT_SIZE);
+        text.add(new Text(REWARD_DESC_LOCATION, REWARD_DESC_DIMEN, REWARD_DESC_FONT_SIZE, level.getRewardDescription()));
 
-        if(!canPlay) tc.add(WARNING_LOCATION, "Play levels up to this level to play", WARNING_FONT_SIZE);
-
-        addComponent(tc);
+        if(!canPlay) text.add(WARNING_LOCATION, "Play levels up to this level to play", WARNING_FONT_SIZE);
 
         infoSprite.setState(level.getMedalLevel());
         playButton.setActive(canPlay);
