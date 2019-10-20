@@ -295,15 +295,11 @@ public class PlayerScript implements Script{
      * @param vComp The velocity component of the player.
      */
     private void performJump(VelocityComponent vComp){
-        float additionalJumps = PlayerEntity.ITEM_FLAGS.get("boots-num-additional-jumps");
-        float jumpBoost = PlayerEntity.ITEM_FLAGS.get("boots-jump-boost");
-        float jumpPowerLevel = PlayerEntity.ITEM_FLAGS.get("boots-additional-jump-power");
-
-        if(jumpsMade <= additionalJumps && !(jumpKeyPressedLast)){ // can jump
+        if(jumpsMade <= PlayerEntity.getBootsAdditionalJumps() && !(jumpKeyPressedLast)){ // can jump
             jumpSound.play();
 
-            float alteredBaseJump = jump + jumpBoost;
-            float jumpHeight = jumpsMade < 1? alteredBaseJump : alteredBaseJump * jumpPowerLevel;
+            float alteredBaseJump = jump + PlayerEntity.getBootsAdditionalHeight();
+            float jumpHeight = jumpsMade < 1? alteredBaseJump : alteredBaseJump * PlayerEntity.getBootsSuccessiveJumpPower();
 
             vComp.setY(jumpHeight);
 
@@ -321,9 +317,7 @@ public class PlayerScript implements Script{
      * @param o The orientation of the player.
      */
     private void handleMove(VelocityComponent vComp, SensorHandler sensorHandler, Orientation o, boolean isRun){
-        float runBoost = PlayerEntity.ITEM_FLAGS.get("boots-sprint-multiplier");
-
-        float speed = isRun? metresPerSecond*runBoost : metresPerSecond;
+        float speed = isRun && PlayerEntity.canSprint()? metresPerSecond * PlayerEntity.getSprintMultiplier() : metresPerSecond;
 
         vComp.setX(((o.equals(Orientation.LEFT)?-1:1)*speed) + relative.x);
 

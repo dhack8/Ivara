@@ -33,7 +33,7 @@ public class PlayerEntity extends GameEntity {
     public static Set<GameEntity> COLLECTIBLE_ENTITIES = new HashSet<>();
     public static Set<GameEntity> USED_COLLECTIBLE_ENTITIES = new HashSet<>();
 
-    public static Map<String, Float> ITEM_FLAGS = getInitialItemFlags();
+    private static Map<String, Float> ITEM_FLAGS = getInitialItemFlags();
 
     private int arrowsFired = 0;
     private int arrowsFiredSinceCheckpoint = 0;
@@ -158,13 +158,16 @@ public class PlayerEntity extends GameEntity {
         // Jump boots initial flags
         itemFlags.put("boots-num-additional-jumps", 0f);
         itemFlags.put("boots-jump-boost", 0f);
-        itemFlags.put("boots-additional-jump-power", 0.7f);
-        itemFlags.put("boots-sprint-multiplier", 1f);
+        itemFlags.put("boots-successive-jump-power", 0.7f);
+        itemFlags.put("boots-sprint", 1f);
+        itemFlags.put("boots-sprint-multiplier", 1.5f);
 
         return itemFlags;
     }
 
     // Methods for accessing flag variables
+
+    // Crossbow
 
     public static boolean hasCrossbow(){
         return ITEM_FLAGS.get("crossbow-collected").intValue() >= 1;
@@ -197,6 +200,29 @@ public class PlayerEntity extends GameEntity {
     public static int getCrossbowQuiverSize(){
         return ITEM_FLAGS.get("crossbow-quiver-size").intValue();
     }
+
+    // Boots
+
+    public static int getBootsAdditionalJumps(){
+        return ITEM_FLAGS.get("boots-num-additional-jumps").intValue();
+    }
+
+    public static float getBootsAdditionalHeight(){
+        return ITEM_FLAGS.get("boots-jump-boost");
+    }
+
+    public static float getBootsSuccessiveJumpPower(){
+        return ITEM_FLAGS.get("boots-successive-jump-power");
+    }
+
+    public static boolean canSprint(){
+        return ITEM_FLAGS.get("boots-sprint").intValue() >= 1;
+    }
+
+    public static float getSprintMultiplier(){
+        return ITEM_FLAGS.get("boots-sprint-multiplier");
+    }
+
 }
 
 
