@@ -25,7 +25,7 @@ abstract public class Level extends Scene {
 
     private static final Vector timerLoc = new Vector(75f,75f);
     private static final Vector coinLoc = new Vector(105f, 115f);
-    private static final Vector arrowLoc = new Vector(135f, 145f);
+    private static final Vector arrowLoc = new Vector(85f, 160f);
 
     private Vector initialSpawn;
 

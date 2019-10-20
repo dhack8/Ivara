@@ -16,7 +16,7 @@ import maths.Vector;
 public class ArrowTextEntity extends GameEntity {
 
     private static final float TEXT_SIZE = 25;
-    private static final Vector OFFSET = new Vector(-70f,-20f);
+    private static final Vector OFFSET = new Vector(-80f,-31f);
 
     private TextComponent arrows;
 
@@ -33,7 +33,7 @@ public class ArrowTextEntity extends GameEntity {
         addComponent(arrows);
 
         // Sprite
-        addComponent(new SpriteComponent(this, new Sprite(new ResourceID("arrow"), OFFSET, new Vector(1f, 0.6f))));
+        addComponent(new SpriteComponent(this, new Sprite(new ResourceID("arrow-straight-right"), OFFSET, new Vector(1f, 0.6f))));
 
         // Script
         addComponent(new ScriptComponent(
