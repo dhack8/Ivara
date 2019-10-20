@@ -34,6 +34,7 @@ public class Store extends Scene{
     private final float YPOS = 6; // The Y position to start drawing the line of buttons from
 
     private boolean confirmation = false;
+    private String playSelectedCharacter = "Pablo";
     private String selectedCharacter = "Pablo";
     private BasicTextEntity confirmationText = null;
     private UIEntity yesButton = null;
@@ -51,12 +52,16 @@ public class Store extends Scene{
         addEntity(new BasicTextEntity(new Vector(14f, 1.3f), new Text(40, "Store")));
         addEntity(new BasicTextEntity(new Vector(9f, 2f), new Text(20, "Buy one of Pablo's friends or select purchased character to play with!")));
 
-        //addEntity(new StoreCoinEntity(new Vector(0f,0f)));
+        addEntity(new StoreCoinEntity(new Vector(0f,0f)));
 
         float leftoverX = cDimensions.x - (NUM_BUTTONS*BUTTON_WIDTH) - XMARGIN_LEFT - XMARGIN_RIGHT;
         float btnSpaceX = leftoverX/(NUM_BUTTONS+1);
 
         int btnCount = 0;
+        addBackButton();
+
+        addItemButton("pablo",
+                (UIListener) () -> showConfirmation("Zombie"),btnSpaceX, btnCount++, "Pablo", 0);
 
         //--- Female button
         addItemButton("female",
@@ -71,20 +76,33 @@ public class Store extends Scene{
                 (UIListener) () -> showConfirmation("Male Player"),btnSpaceX, btnCount++, "Male Player", 20);
 
         //--- Zombie button
-
-        int finalBtnCount = btnCount;
         addItemButton("zombie",
                 (UIListener) () -> showConfirmation("Zombie"),btnSpaceX, btnCount++, "Zombie", 100);
 
         addEntity(new BackgroundEntity(new ResourceID("background-sunrise")));
     }
 
+    private void addBackButton(){
+
+        UIEntity button = new UIEntity(new Vector(1f,1f),
+                new Sprite(new ResourceID("back"), new Vector(0, 0), new Vector(2f, 2f)),
+                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(2f, 2f)));
+        //TODO: Change to go back
+        button.addListener((UIListener) () -> getGame().getWindow().exit());
+        addEntity(button);
+    }
+
     private void addItemButton(String resourceID, UIListener buttonEvent, float btnSpaceX, int btnCount, String itemName, int cost){
 
         addEntity(new BasicTextEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)+2.7f),YPOS), new Text(20, itemName)));
+        //TODO: Big red screen is showing up for these. Trying to show selected character and add characters to purchased after they've been purchased.
 
-        if(selectedCharacter.equals(itemName)) addEntity(new BasicTextEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)+2.7f),YPOS+0.5f), new Text(20, "Selected")));
-        if(!purchasedCharacters.contains(itemName)) addEntity(new BasicTextEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)+2.7f),YPOS+0.5f), new Text(20, cost + " Coins")));
+        //if(playSelectedCharacter.equals(itemName))
+        //   addEntity(new BasicTextEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)+2.7f),YPOS+0.5f),
+        //            new Text(20, "Selected")));
+        //if(!purchasedCharacters.contains(itemName))
+        //    addEntity(new BasicTextEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)+2.7f),YPOS+0.5f),
+        //            new Text(20, cost + " Coins")));
 
         UIEntity button = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)),YPOS),
                 new Sprite(new ResourceID(resourceID), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
@@ -95,13 +113,14 @@ public class Store extends Scene{
     }
 
     private void showConfirmation(String itemName) {
-        if (!confirmation) {
+        removeConfirmation();
+        if (!confirmation || !selectedCharacter.equals(itemName)) {
             confirmation = true;
             confirmationText = new BasicTextEntity(new Vector(14f, 3f), new Text(20, "Purchase " + itemName + "?"));
 
             yesButton = new UIEntity(new Vector(14f,3.5f),
                     new Sprite(new ResourceID("yes"), new Vector(0, 0), new Vector(YESNO_WIDTH, YESNO_HEIGHT)),
-                    new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(YESNO_WIDTH, YESNO_HEIGHT)));
+                    new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(YESNO_WIDTH/2f, YESNO_HEIGHT/2f)));
             yesButton.addListener((UIListener) () -> {
                 //purchase(itemName);
                 removeConfirmation();
@@ -109,7 +128,7 @@ public class Store extends Scene{
 
             noButton = new UIEntity(new Vector(16f ,3.5f),
                     new Sprite(new ResourceID("no"), new Vector(0, 0), new Vector(YESNO_WIDTH, YESNO_HEIGHT)),
-                    new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(YESNO_WIDTH, YESNO_HEIGHT)));
+                    new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(YESNO_WIDTH/2f, YESNO_HEIGHT/2f)));
             noButton.addListener((UIListener) this::removeConfirmation);
 
             addEntity(confirmationText);
@@ -127,12 +146,13 @@ public class Store extends Scene{
     }
 
     private void purchase(String itemName){
+        //TODO: take off coins from player.
         //PURCHASE CHARACTER
         purchasedCharacters.add(itemName);
     }
 
     private void select(String itemName){
+        //TODO: change game character to blah
         selectedCharacter = itemName;
-        //CHANGE GAME CHARACTER TO BLAH
     }
 }

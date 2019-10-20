@@ -186,6 +186,10 @@ public class PlayerEntity extends GameEntity {
     public static int getCoinCount(){
         return (int)COLLECTIBLE_ENTITIES.stream().filter(e -> e instanceof CoinEntity).count();
     }
+
+    public static void spendCoins(int amount){
+
+    }
 }
 
 
