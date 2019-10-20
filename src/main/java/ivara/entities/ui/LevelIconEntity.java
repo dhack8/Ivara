@@ -24,7 +24,7 @@ public class LevelIconEntity extends GameEntity {
     //ICON STATES
     private static final String AVAILABLE = "available";
     private static final String UNAVAILABLE = "unavailable";
-    private static final String COMPLETED = "completed";
+    private static final String COMPLETED = "complete";
 
     private static final String IDLE = "idle";
     private static final String HOVER = "hover";
@@ -70,9 +70,19 @@ public class LevelIconEntity extends GameEntity {
                         iconClicked();
                     }
                 }
+
+                updateState();
             }
         });
         addComponent(scriptComponent);
+    }
+
+    private void updateState() {
+        if (level.isCompleted()) {
+            playState = COMPLETED;
+        } else if (preReqLevel != null && preReqLevel.isCompleted()) {
+            playState = AVAILABLE;
+        }
     }
 
     private void iconClicked() {

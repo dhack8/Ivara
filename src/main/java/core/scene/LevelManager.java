@@ -50,7 +50,6 @@ public class LevelManager implements Serializable {
      * @throws NullPointerException When the game is null, preventing getting scenes that have null games.
      */
     public Scene getCurrentScene(){
-        System.out.println(paused);
         return paused? menu : currentScene;
     }
 

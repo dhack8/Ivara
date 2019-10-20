@@ -27,12 +27,13 @@ public class LevelMap extends Scene {
         addAlienLevels();
         addDesertLevels();
 
-        ButtonEntity playButton = new ButtonEntity(new Vector(22.65f, 13.4f), PLAY_BUTTON_DIMEN, "play");
-
         addEntity(new PlayerMiniFigureEntity(new Vector(10.225f, 9.65f)));
+
+        ButtonEntity playButton = new ButtonEntity(new Vector(22.65f, 13.4f), PLAY_BUTTON_DIMEN, "play");
         LevelInfoEntity levelInfo = new LevelInfoEntity(new Vector(21.5f, 1.4f), playButton);
         addEntity(levelInfo);
         addEntity(playButton);
+        playButton.addListener(levelInfo::playLevel);
 
         addEntity(new MiniMenuEntity(new Vector(1.2f, 13f)));
         addEntity(

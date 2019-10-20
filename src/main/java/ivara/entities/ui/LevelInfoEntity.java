@@ -105,7 +105,8 @@ public class LevelInfoEntity extends GameEntity {
     }
 
     public void playLevel() {
-        System.out.println("PLAY");
+        System.out.println("Here");
+        getScene().getGame().getLevelManager().setScene(currentLevel);
     }
 
     private String formatCoins(Level level) {
