@@ -5,8 +5,8 @@ import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import ivara.entities.BackgroundEntity;
-import ivara.entities.UIEntity;
-import ivara.entities.UIListener;
+import ivara.entities.ui.UIEntity;
+import ivara.entities.ui.UIListener;
 import maths.Vector;
 import physics.AABBCollider;
 

@@ -3,6 +3,8 @@ package ivara.scenes;
 import core.entity.GameEntity;
 import core.scene.Scene;
 import ivara.entities.*;
+import ivara.entities.ui.CoinTextEntity;
+import ivara.entities.ui.TimerEntity;
 import maths.Vector;
 
 import java.util.*;

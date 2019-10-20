@@ -1,4 +1,4 @@
-package ivara.entities;
+package ivara.entities.ui;
 
 import core.Script;
 import core.components.ScriptComponent;
@@ -8,8 +8,6 @@ import core.input.Constants;
 import core.input.InputHandler;
 import core.scene.SceneUtils;
 import core.struct.AnimatedSprite;
-import core.struct.ResourceID;
-import core.struct.Sprite;
 import ivara.scenes.Level;
 import maths.Vector;
 import physics.AABBCollider;

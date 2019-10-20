@@ -1,4 +1,4 @@
-package ivara.entities;
+package ivara.entities.ui;
 
 import core.Script;
 import core.components.RenderComponent;
@@ -9,6 +9,7 @@ import core.entity.GameEntity;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import core.struct.Text;
+import ivara.entities.PlayerEntity;
 import ivara.scenes.Level;
 import maths.Vector;
 

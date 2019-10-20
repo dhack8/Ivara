@@ -8,6 +8,7 @@ import ivara.entities.PlatformEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.*;
 import ivara.entities.enemies.*;
+import ivara.entities.ui.BasicTextEntity;
 import maths.Vector;
 
 /**

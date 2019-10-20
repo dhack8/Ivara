@@ -6,6 +6,7 @@ import core.struct.Text;
 import ivara.entities.*;
 import ivara.entities.enemies.SlimeEntity;
 import ivara.entities.enemies.SquigglyEntity;
+import ivara.entities.ui.BasicTextEntity;
 import ivara.scenes.Level;
 import maths.Vector;
 

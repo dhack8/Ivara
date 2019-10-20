@@ -1,4 +1,4 @@
-package ivara.entities;
+package ivara.entities.ui;
 
 import core.components.RenderComponent;
 import core.components.TextComponent;
