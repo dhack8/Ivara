@@ -39,6 +39,7 @@ public class LevelInfoEntity extends GameEntity {
 
     public void displayLevel(Level level) {
         currentLevel = level;
+        removeComponent(TextComponent.class);
         TextComponent tc = new TextComponent(this);
 
         tc.add(MEDAL_LABEL_LOCATION, "Medal Times:", LABEL_FONT_SIZE);

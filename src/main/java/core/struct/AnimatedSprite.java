@@ -82,6 +82,8 @@ public class AnimatedSprite extends Sprite {
      * @param delta time changed since last call
      */
     public void updateResource(long delta) {
+        if(resources.size() <= 1) return;
+
         time += delta;
         while (time > frameTick) {
             time -= frameTick;

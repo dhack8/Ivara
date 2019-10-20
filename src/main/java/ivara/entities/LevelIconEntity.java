@@ -16,6 +16,8 @@ import physics.AABBCollider;
 import physics.Collider;
 import physics.CollisionUtil;
 
+import java.util.Arrays;
+
 public class LevelIconEntity extends GameEntity {
 
     private static final float WIDTH = 0.6f;
@@ -26,27 +28,31 @@ public class LevelIconEntity extends GameEntity {
     private static final String UNAVAILABLE = "unavailable";
     private static final String COMPLETED = "completed";
 
-//    private static final String AVAILABLE = "available-hover";
-//    private static final String UNAVAILABLE = "unavailable-hover";
-//    private static final String COMPLETED = "completed-hover";
-    public final static String HOVER = "hover";
-    public final static String SELECTED = "selected";
+    private static final String IDLE = "idle";
+    private static final String HOVER = "hover";
+    private static final String SELECTED = "selected";
+
+    AnimatedSprite iconSprite;
+
 
     private Level level;
     private Level preReqLevel;
-    private String state = UNAVAILABLE;
+    private String playState = UNAVAILABLE;
+    private String uiState = IDLE;
     private Collider collider;
 
     public LevelIconEntity(Vector transform, Level level, Level preReqLevel) {
         super(transform);
         this.level = level;
         this.preReqLevel = preReqLevel;
-        if(preReqLevel == null) this.state = AVAILABLE;
+        if(preReqLevel == null) this.playState = AVAILABLE;
         this.collider = new AABBCollider(AABBCollider.MIN_DIM, new Vector(-WIDTH/2, -WIDTH/2), SIZE);
 
         // Sprite
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new Sprite(new ResourceID("level-icon-" + state), new Vector(-WIDTH/2, -WIDTH/2), SIZE));
+        iconSprite = new IconSprite(new Vector(-WIDTH/2, -WIDTH/2), SIZE, 500);
+        iconSprite.setState(getState());
+        sc.add(iconSprite);
         addComponent(sc);
 
         // Scripts
@@ -56,13 +62,20 @@ public class LevelIconEntity extends GameEntity {
             public void update(int dt, GameEntity entity) {
                 InputHandler.InputFrame input = getInput();
 
-                if (isInIcon(input.getMousePosition())) {
-
+                if(!uiState.equals(SELECTED)) {
+                    if (isInIcon(input.getMousePosition())) {
+                        updateUIState(HOVER);
+                    } else {
+                        updateUIState(IDLE);
+                    }
                 }
 
                 if (input.isMouseReleased(Constants.LEFT_MOUSE)) {
                     if (isInIcon(input.getMousePosition())) {
+                        updateUIState(SELECTED);
                         iconClicked();
+                    } else {
+                        updateUIState(IDLE);
                     }
                 }
             }
@@ -80,6 +93,16 @@ public class LevelIconEntity extends GameEntity {
         return CollisionUtil.contains(tC, position);
     }
 
+    private void updateUIState(String state) {
+        System.out.println(state);
+        this.uiState = state;
+        this.iconSprite.setState(getState());
+    }
+
+    private String getState() {
+        return this.playState + "-" + this.uiState;
+    }
+
     public class IconSprite extends AnimatedSprite {
 
         /**
@@ -93,8 +116,22 @@ public class LevelIconEntity extends GameEntity {
          */
         public IconSprite(Vector transform, Vector dimensions, int frameTick) {
             super(transform, dimensions, frameTick);
+            addIconState(AVAILABLE + "-" + IDLE);
+            addIconState(UNAVAILABLE + "-" + IDLE);
+            addIconState(COMPLETED  + "-" + IDLE);
+            addIconState(AVAILABLE + "-" + HOVER);
+            addIconState(UNAVAILABLE + "-" + HOVER);
+            addIconState(COMPLETED + "-" + HOVER);
+            addIconState(AVAILABLE + "-" + SELECTED);
+            addIconState(UNAVAILABLE + "-" + SELECTED);
+            addIconState(COMPLETED + "-" + SELECTED);
+        }
 
-
+        private void addIconState(String state) {
+            String[] resources = new String[] {
+                    "level-icon-" + state
+            };
+            addResources(state, Arrays.asList(resources));
         }
     }
 }
