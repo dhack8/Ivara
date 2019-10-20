@@ -10,6 +10,8 @@ import ivara.entities.ui.UIListener;
 import maths.Vector;
 import physics.AABBCollider;
 
+import static ivara.Ivara.MAP;
+
 /**
  * Created by Alex Mitchell on 12/10/2017.
  */
@@ -40,7 +42,7 @@ public class StartMenu extends Scene{
         addButton("play", new UIListener() {
             @Override
             public void onClick() {
-                getGame().nextScene();
+                getGame().getLevelManager().setToBookmarkedScene(MAP);
             }
         },btnSpaceX, btnCount++);
 

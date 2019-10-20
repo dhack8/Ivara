@@ -7,6 +7,7 @@ import core.components.*;
 import core.input.SensorHandler;
 import core.struct.AnimatedSprite;
 import core.struct.Sensor;
+import ivara.entities.ui.LevelInfoEntity;
 import ivara.scenes.Level;
 import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
@@ -14,6 +15,8 @@ import maths.Vector;
 import physics.AABBCollider;
 
 import java.util.Arrays;
+
+import static ivara.Ivara.MAP;
 
 /**
  * This class handles the behaviour of a Flag that changes level on collision with the player.
@@ -113,7 +116,9 @@ public class LevelEndEntity extends GameEntity {
                     playerWin.play();
                     ((Level)entity.getScene()).complete();
                     Game game = entity.getScene().getGame();
-                    game.nextScene(); // Goes to the next scene on a player collision
+                    LevelInfoEntity levelInfoEntity = (LevelInfoEntity) game.getLevelManager().getBookmarkedScene(MAP).getEntity(LevelInfoEntity.class);
+                    levelInfoEntity.refresh(true);
+                    game.getLevelManager().setToBookmarkedScene(MAP);
                 }
             }
         }

@@ -86,7 +86,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
     public synchronized void render(Scene scene) {
 
         if(scene == null){
-            displayError("The scene provided to the renderer is NULL!");
+            displayError("The scene provided to the renderer is NULL1!");
             return;
         }
 
@@ -177,7 +177,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
     @Override
     public synchronized void draw(){
         if(currentScene == null){
-            displayError("The scene provided to the renderer is NULL!");
+            displayError("The scene provided to the renderer is NULL2!");
             return;
         }
 

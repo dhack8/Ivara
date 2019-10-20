@@ -10,6 +10,10 @@ import ivara.scenes.boots.*;
 import maths.Vector;
 import physics.AABBCollider;
 
+import java.io.Serializable;
+
+import static ivara.Ivara.MAIN_MENU;
+
 public class LevelMap extends Scene {
 
     private static final Vector PLAY_BUTTON_DIMEN = new Vector(7.225f, 1.625f);
@@ -25,12 +29,13 @@ public class LevelMap extends Scene {
         addAlienLevels();
         addDesertLevels();
 
-        ButtonEntity playButton = new ButtonEntity(new Vector(22.65f, 13.4f), PLAY_BUTTON_DIMEN, "play");
-
         addEntity(new PlayerMiniFigureEntity(new Vector(10.225f, 9.65f)));
+
+        ButtonEntity playButton = new ButtonEntity(new Vector(22.65f, 13.4f), PLAY_BUTTON_DIMEN, "play");
         LevelInfoEntity levelInfo = new LevelInfoEntity(new Vector(21.5f, 1.4f), playButton);
         addEntity(levelInfo);
         addEntity(playButton);
+        playButton.addListener(levelInfo::playLevel);
 
         addEntity(new MiniMenuEntity(new Vector(1.2f, 13f)));
         addEntity(
@@ -41,7 +46,7 @@ public class LevelMap extends Scene {
                         .addListener(() -> getGame().load()));
         addEntity(
                 new ButtonEntity(new Vector(1.4f, 15f), MINI_BUTTON_DIMEN, "back")
-                        .addListener(() -> System.out.println("Go to menu")));
+                        .addListener(() -> getGame().getLevelManager().setToBookmarkedScene(MAIN_MENU)));
         addEntity(
                 new ButtonEntity(new Vector(1.4f, 15.9f), MINI_BUTTON_DIMEN, "quit")
                         .addListener(() -> getGame().getWindow().exit()));

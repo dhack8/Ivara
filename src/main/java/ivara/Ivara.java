@@ -24,6 +24,9 @@ public class Ivara extends Game {
 
     private static final Music backgroundTrack = TinySound.loadMusic("backgroundtrack.wav");
 
+    public static final String MAP = "map";
+    public static final String MAIN_MENU = "main_menu";
+
     /**
      * Constructs the game.
      * @param lm The LevelManager that handles scenes within the game.
@@ -45,24 +48,14 @@ public class Ivara extends Game {
             PApplet.runSketch(new String[]{"PWindow"}, processingBackend);
         }
 
-        LevelManager l = new LevelManager(getLevels(), new PauseMenu());
+        StartMenu startMenu = new StartMenu();
+        LevelManager l = new LevelManager(startMenu, new PauseMenu());
+        l.bookmarkScene(MAP, new LevelMap());
+        l.bookmarkScene(MAIN_MENU, startMenu);
 
         Game g = new Ivara(l, processingBackend, processingBackend);
         backgroundTrack.play(true);
         g.start();
-    }
-
-    /**
-     * Static method that returns a List of levels (ordered) to construct the LevelManager with.
-     * @return The levels to play (in order).
-     */
-    private static List<Scene> getLevels(){
-        List<Scene> levels = new ArrayList<>();
-
-        levels.add(new LevelMap());
-        levels.add(new Level3());
-        levels.add(new StartMenu());
-        return levels;
     }
 
     /**
@@ -72,5 +65,4 @@ public class Ivara extends Game {
     public static Music getBackgroundTrack(){
         return backgroundTrack;
     }
-
 }
