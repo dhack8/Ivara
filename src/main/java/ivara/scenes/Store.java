@@ -40,22 +40,23 @@ public class Store extends Scene{
     private UIEntity yesButton = null;
     private UIEntity noButton = null;
 
-    private List<String> purchasedCharacters = new ArrayList<>();
+    private List<String> purchasedCharacters;
 
     @Override
     public void initialize() {
+
+        this.purchasedCharacters = new ArrayList<>();
 
         Camera c = new Camera();
         setCamera(c);
         Vector cDimensions = c.dimensions;
         //TODO: uncommenting this also causes big red screen
-        //purchasedCharacters.add("Pablo");
+        purchasedCharacters.add("Pablo");
 
         addEntity(new BasicTextEntity(new Vector(14f, 1.3f), new Text(40, "Store")));
         addEntity(new BasicTextEntity(new Vector(9f, 2f), new Text(20, "Buy one of Pablo's friends or select purchased character to play with!")));
 
-        //TODO: this isn't showing up and I don't know why
-        addEntity(new StoreCoinEntity(new Vector(0f,0f)));
+        addEntity(new StoreCoinEntity(new Vector(50f,50f)));
 
         float leftoverX = cDimensions.x - (NUM_BUTTONS*BUTTON_WIDTH) - XMARGIN_LEFT - XMARGIN_RIGHT;
         float btnSpaceX = leftoverX/(NUM_BUTTONS+1);
