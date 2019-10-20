@@ -29,6 +29,8 @@ public class CheckpointEntity extends GameEntity{
     private static final float YOFFSET = 0.01f;
     private final static int ANIMATION_RATE = 1000;
 
+    private boolean entered = false; // Avoiding the flag being entered multiple times
+
     private final AnimatedSprite as;
 
     private static final Sound checkpointPass = TinySound.loadSound("checkpointpass.wav");
@@ -106,7 +108,6 @@ public class CheckpointEntity extends GameEntity{
     private class CheckpointScript implements Script {
 
         private final Sensor sensor;
-        private boolean entered = false; // Avoiding the flag being entered multiple times
 
         /**
          * Constructs the Checkpoint script with the sensor.
@@ -135,5 +136,10 @@ public class CheckpointEntity extends GameEntity{
                 }
             }
         }
+    }
+
+    public void setEntered(boolean entered) {
+        this.entered = entered;
+        as.setState("normal");
     }
 }

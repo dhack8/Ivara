@@ -141,6 +141,9 @@ abstract public class Level extends Scene {
         player.getTransform().setAs(initialSpawn);
         spawn = initialSpawn;
 
+        // Reset the checkpoints
+        getEntities(CheckpointEntity.class).stream().map((c) -> ((CheckpointEntity)c)).forEach((c) -> c.setEntered(false));
+
         // Reset the crossbow indicator
         if(PlayerEntity.hasCrossbow() && getEntity(ArrowTextEntity.class) != null){
             removeEntity(getEntity(ArrowTextEntity.class));
