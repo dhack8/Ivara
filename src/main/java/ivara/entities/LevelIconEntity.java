@@ -30,7 +30,6 @@ public class LevelIconEntity extends GameEntity {
 
     private static final String IDLE = "idle";
     private static final String HOVER = "hover";
-    private static final String SELECTED = "selected";
 
     AnimatedSprite iconSprite;
 
@@ -62,20 +61,15 @@ public class LevelIconEntity extends GameEntity {
             public void update(int dt, GameEntity entity) {
                 InputHandler.InputFrame input = getInput();
 
-                if(!uiState.equals(SELECTED)) {
-                    if (isInIcon(input.getMousePosition())) {
-                        updateUIState(HOVER);
-                    } else {
-                        updateUIState(IDLE);
-                    }
+                if (isInIcon(input.getMousePosition())) {
+                    updateUIState(HOVER);
+                } else {
+                    updateUIState(IDLE);
                 }
 
                 if (input.isMouseReleased(Constants.LEFT_MOUSE)) {
                     if (isInIcon(input.getMousePosition())) {
-                        updateUIState(SELECTED);
                         iconClicked();
-                    } else {
-                        updateUIState(IDLE);
                     }
                 }
             }
@@ -86,6 +80,8 @@ public class LevelIconEntity extends GameEntity {
     private void iconClicked() {
         LevelInfoEntity levelInfoEntity = (LevelInfoEntity) getScene().getEntity(LevelInfoEntity.class);
         levelInfoEntity.displayLevel(level);
+
+        getScene().getEntity(PlayerMiniFigureEntity.class).getTransform().setAs(this.transform);
     }
 
     private boolean isInIcon(Vector position) {
@@ -122,9 +118,6 @@ public class LevelIconEntity extends GameEntity {
             addIconState(AVAILABLE + "-" + HOVER);
             addIconState(UNAVAILABLE + "-" + HOVER);
             addIconState(COMPLETED + "-" + HOVER);
-            addIconState(AVAILABLE + "-" + SELECTED);
-            addIconState(UNAVAILABLE + "-" + SELECTED);
-            addIconState(COMPLETED + "-" + SELECTED);
         }
 
         private void addIconState(String state) {

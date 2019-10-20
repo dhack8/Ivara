@@ -6,6 +6,7 @@ import core.struct.ResourceID;
 import ivara.entities.BackgroundEntity;
 import ivara.entities.LevelIconEntity;
 import ivara.entities.LevelInfoEntity;
+import ivara.entities.PlayerMiniFigureEntity;
 import ivara.scenes.boots.*;
 import maths.Vector;
 
@@ -21,6 +22,7 @@ public class LevelMap extends Scene {
         addAlienLevels();
         addDesertLevels();
 
+        addEntity(new PlayerMiniFigureEntity(new Vector(10.225f, 9.65f)));
         addEntity(new LevelInfoEntity(new Vector(21.5f, 1.4f)));
 
         addEntity(new BackgroundEntity(new ResourceID("background-sea")));

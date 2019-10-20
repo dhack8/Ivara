@@ -24,6 +24,8 @@ public class LevelInfoEntity extends GameEntity {
     private static final Vector COIN_LOCATION  = new Vector(6.35f, 2.55f);
     private static final int COIN_FONT_SIZE = 50;
 
+    public static final Vector TITLE_LOCATION = new Vector(0, 0);
+
     private static final int LABEL_FONT_SIZE = 20;
 
     Level currentLevel = null;
@@ -33,7 +35,7 @@ public class LevelInfoEntity extends GameEntity {
 
         // Sprite
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new Sprite(new ResourceID("level-info-none"), new Vector(0,0), null));
+        sc.add(new Sprite(new ResourceID("level-info-none"), new Vector(0,0), new Vector(9.5f, 15f)));
         addComponent(sc);
     }
 
