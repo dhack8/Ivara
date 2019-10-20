@@ -90,7 +90,6 @@ public class LevelIconEntity extends GameEntity {
     }
 
     private void updateUIState(String state) {
-        System.out.println(state);
         this.uiState = state;
         this.iconSprite.setState(getState());
     }

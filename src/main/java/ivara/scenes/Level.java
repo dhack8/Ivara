@@ -20,10 +20,6 @@ abstract public class Level extends Scene {
     public static final String GOLD = "gold";
     public static final String NOTHING = "none";
 
-    public static final int DEFAULT_BRONZE_TIME = 300;
-    public static final int DEFAULT_SILVER_TIME = 180;
-    public static final int DEFAULT_GOLD_TIME = 120;
-
     private static final Vector timerLoc = new Vector(75f,75f);
     private static final Vector coinLoc = new Vector(105f, 115f);
 
@@ -44,6 +40,30 @@ abstract public class Level extends Scene {
     private long bestTimeInMillis;
 
     private boolean completed = false;
+
+    private String title = "Default title";
+    private String description = "No description";
+    private String rewardDescription = "No reward description";
+    private int bronzeTime = 300;
+    private int silverTime = 180;
+    private int goldTime = 120;
+
+    public Level(String title, String description, String rewardDescription, int bronzeTime, int silverTime, int goldTime) {
+        this.title = title;
+        this.description = description;
+        this.rewardDescription = rewardDescription;
+        this.bronzeTime = bronzeTime;
+        this.silverTime = silverTime;
+        this.goldTime = goldTime;
+    }
+
+    public Level(String title, String description, String rewardDescription) {
+        this.title = title;
+        this.description = description;
+        this.rewardDescription = rewardDescription;
+    }
+
+    public Level() {}
 
     /**
      * Starts the scene with some default entities
@@ -140,32 +160,34 @@ abstract public class Level extends Scene {
         return this.bestTimeInMillis;
     }
 
-    public String getLevelName() {
-        return "Override Get Level Name Method";
+    public String getTitle() {
+        return title;
     }
 
-    public String getLevelDescription() {
-        return "Override Get Level Description Method";
+    public String getDescription() {
+        return description;
     }
 
-    public String getLevelRewardDescription() {
-        return "Override Get Level Reward Description Method";
+    public String getRewardDescription() {
+        return rewardDescription;
     }
 
     public int getBronzeTime() {
-        return DEFAULT_BRONZE_TIME;
-    };
+        return bronzeTime;
+    }
 
     public int getSilverTime() {
-        return DEFAULT_SILVER_TIME;
+        return silverTime;
     }
 
     public int getGoldTime() {
-        return DEFAULT_GOLD_TIME;
+        return goldTime;
     }
 
     public String getMedalLevel() {
-        if (this.bestTimeInMillis < getGoldTime()) {
+        if (this.bestTimeInMillis == 0) {
+            return NOTHING;
+        } else if (this.bestTimeInMillis < getGoldTime()) {
             return GOLD;
         } else if (this.bestTimeInMillis < getSilverTime()) {
             return SILVER;

@@ -373,7 +373,12 @@ public class PWindow extends Renderer implements InputBroadcaster{
         }
 
         textSize(text.fontSize*(s/designerScreenFontScale));
-        text(text.text, loc.x, loc.y);
+        if (text.hasDimension()) {
+            Vector dimension = new Vector(text.dimensions.x * s, text.dimensions.y * s);
+            text(text.text, loc.x, loc.y, dimension.x, dimension.y);
+        } else {
+            text(text.text, loc.x, loc.y);
+        }
     }
 
     /**
