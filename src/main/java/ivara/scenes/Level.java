@@ -142,7 +142,8 @@ abstract public class Level extends Scene {
         spawn = initialSpawn;
 
         // Reset the crossbow indicator
-        if(PlayerEntity.hasCrossbow() && getEntity(ArrowEntity.class) != null){
+        if(PlayerEntity.hasCrossbow() && getEntity(ArrowTextEntity.class) != null){
+            removeEntity(getEntity(ArrowTextEntity.class));
             addEntity(new ArrowTextEntity(arrowLoc, player));
         }
 
