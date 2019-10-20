@@ -88,6 +88,10 @@ public class LevelInfoEntity extends GameEntity {
         infoSprite.setState(level.getMedalLevel());
     }
 
+    public void playLevel() {
+        System.out.println("PLAY");
+    }
+
     private String formatCoins(Level level) {
         return String.valueOf(level.getCollectedCoinCount()) + '/' + String.valueOf(level.getTotalCoinCount());
     }

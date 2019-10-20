@@ -3,14 +3,15 @@ package ivara.scenes;
 import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
-import ivara.entities.BackgroundEntity;
-import ivara.entities.LevelIconEntity;
-import ivara.entities.LevelInfoEntity;
-import ivara.entities.PlayerMiniFigureEntity;
+import core.struct.Sprite;
+import ivara.entities.*;
 import ivara.scenes.boots.*;
 import maths.Vector;
+import physics.AABBCollider;
 
 public class LevelMap extends Scene {
+
+    private static final Vector PLAY_BUTTON_DIMEN = new Vector(7.225f, 1.625f);
 
     @Override
     public void initialize() {
@@ -23,7 +24,16 @@ public class LevelMap extends Scene {
         addDesertLevels();
 
         addEntity(new PlayerMiniFigureEntity(new Vector(10.225f, 9.65f)));
-        addEntity(new LevelInfoEntity(new Vector(21.5f, 1.4f)));
+        LevelInfoEntity levelInfo = new LevelInfoEntity(new Vector(21.5f, 1.4f));
+        addEntity(levelInfo);
+
+        UIEntity button = new UIEntity(
+                new Vector(22.65f, 13.4f),
+                new Sprite(new ResourceID("play"), new Vector(0, 0), PLAY_BUTTON_DIMEN),
+                new AABBCollider(new Vector(0, 0), PLAY_BUTTON_DIMEN)
+        );
+        button.addListener(levelInfo::playLevel);
+        addEntity(button);
 
         addEntity(new BackgroundEntity(new ResourceID("background-sea")));
         addEntity(new BackgroundEntity(new ResourceID("map")));

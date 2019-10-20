@@ -20,6 +20,7 @@ import java.util.Map;
  *
  * @author Will Pearson
  */
+//TODO: this is being used beyond it intended use as a "sprite switcher" this needs to be made and animated sprite can extend it with animations
 public class AnimatedSprite extends Sprite {
 
     private String state;
