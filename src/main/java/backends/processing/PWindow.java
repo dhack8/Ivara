@@ -370,7 +370,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
             loc = new Vector((entityTransform.x + text.transform.x) + b.x, (entityTransform.y + text.transform.y) + b.y);
         }
 
-        textSize(text.fontSize);
+        textSize(text.fontSize*(s/80f));
         text(text.text, loc.x, loc.y);
     }
 
