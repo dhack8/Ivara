@@ -3,6 +3,7 @@ package ivara.scenes;
 import core.entity.GameEntity;
 import core.scene.Scene;
 import ivara.entities.*;
+import ivara.entities.ui.ArrowTextEntity;
 import ivara.entities.ui.CoinTextEntity;
 import ivara.entities.ui.TimerEntity;
 import maths.Vector;
@@ -24,6 +25,7 @@ abstract public class Level extends Scene {
 
     private static final Vector timerLoc = new Vector(75f,75f);
     private static final Vector coinLoc = new Vector(105f, 115f);
+    private static final Vector arrowLoc = new Vector(135f, 145f);
 
     private Vector initialSpawn;
 
@@ -74,6 +76,9 @@ abstract public class Level extends Scene {
     public void startScene(PlayerEntity player){
         addEntity(new TimerEntity(timerLoc, 0));
         addEntity(new CoinTextEntity(coinLoc, player));
+        if(PlayerEntity.hasCrossbow()){
+            addEntity(new ArrowTextEntity(arrowLoc, player));
+        }
         initialSpawn = new Vector(player.getTransform());
         spawn = new Vector(player.getTransform());
         checkpointEntities = new ArrayList<>();
@@ -88,6 +93,7 @@ abstract public class Level extends Scene {
      */
     public void updateCheckpoint(Vector v){
         spawn = new Vector(v);
+        ((PlayerEntity)getEntity(PlayerEntity.class)).setArrowCheckpoint();
         preCheckpointEntities.addAll(checkpointEntities);
         checkpointEntities = new ArrayList<>();
     }
@@ -99,6 +105,7 @@ abstract public class Level extends Scene {
      */
     public void respawnPlayer(PlayerEntity player){
         player.getTransform().setAs(spawn);
+        player.resetArrowsToCheckpoint();
         addEntities(checkpointEntities);
         checkpointEntities = new ArrayList<>();
     }
@@ -124,11 +131,22 @@ abstract public class Level extends Scene {
         addEntities(preCheckpointEntities);
         checkpointEntities = new ArrayList<>();
         preCheckpointEntities = new ArrayList<>();
-        getEntity(PlayerEntity.class).getTransform().setAs(initialSpawn);
 
-        // Reset the timer TODO fix this
+        // Reset the timer
         removeEntity(getEntity(TimerEntity.class));
         addEntity(new TimerEntity(timerLoc, 0));
+
+        // Reset the player
+        PlayerEntity player = (PlayerEntity) getEntity(PlayerEntity.class);
+        player.getTransform().setAs(initialSpawn);
+        spawn = initialSpawn;
+
+        // Reset the crossbow indicator
+        if(PlayerEntity.hasCrossbow() && getEntity(ArrowEntity.class) != null){
+            addEntity(new ArrowTextEntity(arrowLoc, player));
+        }
+
+        player.resetArrowsFired();
     }
 
     /**
