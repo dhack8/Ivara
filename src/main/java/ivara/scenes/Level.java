@@ -33,13 +33,13 @@ abstract public class Level extends Scene {
     private Vector spawn;
 
     // Entities that need to be restored if the player dies (Entities removed since last checkpoint)
-    private Collection<GameEntity> checkpointEntities;
+    private Collection<GameEntity> checkpointEntities = new ArrayList<>();
 
     // Entities that have been collected during completion of the level (Entities removed prior to last checkpoint)
-    private Collection<GameEntity> preCheckpointEntities;
+    private Collection<GameEntity> preCheckpointEntities = new ArrayList<>();
 
     // Entities that have been permanently removed from levels (Collectibles)
-    private Collection<GameEntity> removedEntities;
+    private Collection<GameEntity> removedEntities = new HashSet<>();
 
     private long bestTimeInMillis;
 
