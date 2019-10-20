@@ -21,20 +21,15 @@ public class StoreCoinEntity extends GameEntity {
 
     private static final float TEXTSIZE = 25;
 
-    private final TextComponent score;
     private static final Vector offset = new Vector(-45f,-31f);
 
     /**
-     * Constructs a CoinTextEntity in a specified position.
-     * This entity updates from the coin count of a specified player.
+     * Constructs a StoreCoinEntity in a specified position.
+     * This entity shows the total coin count of the player.
      * @param transform The position of the entity.
      */
     public StoreCoinEntity(Vector transform) {
         super(transform);
-
-        // Text
-        score = new TextComponent(this, new Text(TEXTSIZE, "0"));
-        addComponent(score);
 
         // Sprite
         addComponent(new SpriteComponent(this, new Sprite(new ResourceID("coin"), offset, null)));

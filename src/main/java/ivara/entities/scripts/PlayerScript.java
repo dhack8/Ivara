@@ -123,76 +123,76 @@ public class PlayerScript implements Script{
 
 
         // Shot detection //TODO work on this
-        if(input.isKeyPressed(Constants.SPACE)){
-            handleCrossbow(entity, orientation);
-        }
+//        if(input.isKeyPressed(Constants.SPACE)){
+//            handleCrossbow(entity, orientation);
+//        }
 
     }
 
 
-    private void handleCrossbow(GameEntity entity, Orientation orientation){
-        updateState(State.SHOT); // TODO handle this properly
-
-
-        float multishot = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-multishot", 0f);
-        float shotDelay = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-delay", 1f) * 1000f; // in seconds
-        float shotDuration = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-duration", 2f) * 1000f;
-
-
-
-        if(arrowDelay != null && !arrowDelay.isFinished()) return;
-
-        float xVelocity = orientation == Orientation.LEFT ? SPEED * -1 : SPEED;
-        float xStart = orientation == Orientation.LEFT ? entity.getTransform().x - 0.25f : entity.getTransform().x + 0.75f;
-        float yStart = entity.getTransform().y + 0.6f;
-
-
-        Vector location = new Vector(xStart, yStart);
-
-        GameEntity arrow = new ArrowEntity(
-                location,
-                new Vector(xVelocity, 0),
-                new ResourceID(orientation == Orientation.LEFT? "arrow-straight-left":"arrow-straight-right"),
-                List.of(entity.getClass(), ArrowEntity.class)
-        );
-
-        arrowSound.play();
-
-        entity.getScene().addEntity(arrow);
-        Timer arrowDuration = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(arrow));
-        entity.getScene().addTimer(arrowDuration);
-
-        if(multishot > 0f){
-            Vector a1loc = new Vector(location.x, location.y);
-            Vector a2loc = new Vector(location.x, location.y);
-
-            GameEntity a1 = new ArrowEntity(
-                    a1loc,
-                    new Vector(xVelocity, -1f),
-                    new ResourceID(orientation == Orientation.LEFT? "arrow-up-left":"arrow-up-right"),
-                    List.of(entity.getClass(), ArrowEntity.class)
-            );
-            GameEntity a2 = new ArrowEntity(
-                    a2loc,
-                    new Vector(xVelocity, 1f),
-                    new ResourceID(orientation == Orientation.LEFT? "arrow-down-left":"arrow-down-right"),
-                    List.of(entity.getClass(), ArrowEntity.class)
-            );
-
-            entity.getScene().addEntity(a1);
-            Timer t1 = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(a1));
-            entity.getScene().addTimer(t1);
-
-            entity.getScene().addEntity(a2);
-            Timer t2 = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(a2));
-            entity.getScene().addTimer(t2);
-
-        }
-
-        arrowDelay = new Timer((int)shotDelay, (Runnable & Serializable)()->{});
-        entity.getScene().addTimer(arrowDelay);
-
-    }
+//    private void handleCrossbow(GameEntity entity, Orientation orientation){
+//        updateState(State.SHOT); // TODO handle this properly
+//
+//
+//        float multishot = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-multishot", 0f);
+//        float shotDelay = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-delay", 1f) * 1000f; // in seconds
+//        float shotDuration = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-duration", 2f) * 1000f;
+//
+//
+//
+//        if(arrowDelay != null && !arrowDelay.isFinished()) return;
+//
+//        float xVelocity = orientation == Orientation.LEFT ? SPEED * -1 : SPEED;
+//        float xStart = orientation == Orientation.LEFT ? entity.getTransform().x - 0.25f : entity.getTransform().x + 0.75f;
+//        float yStart = entity.getTransform().y + 0.6f;
+//
+//
+//        Vector location = new Vector(xStart, yStart);
+//
+//        GameEntity arrow = new ArrowEntity(
+//                location,
+//                new Vector(xVelocity, 0),
+//                new ResourceID(orientation == Orientation.LEFT? "arrow-straight-left":"arrow-straight-right"),
+//                List.of(entity.getClass(), ArrowEntity.class)
+//        );
+//
+//        arrowSound.play();
+//
+//        entity.getScene().addEntity(arrow);
+//        Timer arrowDuration = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(arrow));
+//        entity.getScene().addTimer(arrowDuration);
+//
+//        if(multishot > 0f){
+//            Vector a1loc = new Vector(location.x, location.y);
+//            Vector a2loc = new Vector(location.x, location.y);
+////
+////            GameEntity a1 = new ArrowEntity(
+////                    a1loc,
+////                    new Vector(xVelocity, -1f),
+////                    new ResourceID(orientation == Orientation.LEFT? "arrow-up-left":"arrow-up-right"),
+////                    List.of(entity.getClass(), ArrowEntity.class)
+////            );
+////            GameEntity a2 = new ArrowEntity(
+////                    a2loc,
+////                    new Vector(xVelocity, 1f),
+////                    new ResourceID(orientation == Orientation.LEFT? "arrow-down-left":"arrow-down-right"),
+////                    List.of(entity.getClass(), ArrowEntity.class)
+////            );
+//
+//            entity.getScene().addEntity(a1);
+//            Timer t1 = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(a1));
+//            entity.getScene().addTimer(t1);
+//
+//            entity.getScene().addEntity(a2);
+//            Timer t2 = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(a2));
+//            entity.getScene().addTimer(t2);
+//
+//        }
+//
+//        arrowDelay = new Timer((int)shotDelay, (Runnable & Serializable)()->{});
+//        entity.getScene().addTimer(arrowDelay);
+//
+//    }
 
 
     /**
