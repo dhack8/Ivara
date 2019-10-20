@@ -37,6 +37,8 @@ public class PWindow extends Renderer implements InputBroadcaster{
     private AssetHandler handler;
     private int mask = 2;
 
+    private float designerScreenFontScale = 80f;
+
     private float s = 100;
     private Vector t = new Vector(0,0); //translation
     private Vector b = new Vector(0,0); //border
@@ -370,7 +372,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
             loc = new Vector((entityTransform.x + text.transform.x) + b.x, (entityTransform.y + text.transform.y) + b.y);
         }
 
-        textSize(text.fontSize*(s/80f));
+        textSize(text.fontSize*(s/designerScreenFontScale));
         text(text.text, loc.x, loc.y);
     }
 
