@@ -48,10 +48,13 @@ public class Store extends Scene{
         Camera c = new Camera();
         setCamera(c);
         Vector cDimensions = c.dimensions;
+        //TODO: uncommenting this also causes big red screen
+        //purchasedCharacters.add("Pablo");
 
         addEntity(new BasicTextEntity(new Vector(14f, 1.3f), new Text(40, "Store")));
         addEntity(new BasicTextEntity(new Vector(9f, 2f), new Text(20, "Buy one of Pablo's friends or select purchased character to play with!")));
 
+        //TODO: this isn't showing up and I don't know why
         addEntity(new StoreCoinEntity(new Vector(0f,0f)));
 
         float leftoverX = cDimensions.x - (NUM_BUTTONS*BUTTON_WIDTH) - XMARGIN_LEFT - XMARGIN_RIGHT;
@@ -61,7 +64,7 @@ public class Store extends Scene{
         addBackButton();
 
         addItemButton("pablo",
-                (UIListener) () -> showConfirmation("Zombie"),btnSpaceX, btnCount++, "Pablo", 0);
+                (UIListener) () -> showConfirmation("Pablo"),btnSpaceX, btnCount++, "Pablo", 0);
 
         //--- Female button
         addItemButton("female",
@@ -95,8 +98,8 @@ public class Store extends Scene{
     private void addItemButton(String resourceID, UIListener buttonEvent, float btnSpaceX, int btnCount, String itemName, int cost){
 
         addEntity(new BasicTextEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)+2.7f),YPOS), new Text(20, itemName)));
-        //TODO: Big red screen is showing up for these. Trying to show selected character and add characters to purchased after they've been purchased.
 
+        //TODO: Big red screen is showing up for these. Trying to show selected character and add characters to purchased after they've been purchased.
         //if(playSelectedCharacter.equals(itemName))
         //   addEntity(new BasicTextEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)+2.7f),YPOS+0.5f),
         //            new Text(20, "Selected")));
@@ -122,6 +125,7 @@ public class Store extends Scene{
                     new Sprite(new ResourceID("yes"), new Vector(0, 0), new Vector(YESNO_WIDTH, YESNO_HEIGHT)),
                     new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(YESNO_WIDTH/2f, YESNO_HEIGHT/2f)));
             yesButton.addListener((UIListener) () -> {
+                //TODO: uncommenting this also causes big red screen
                 //purchase(itemName);
                 removeConfirmation();
             });
