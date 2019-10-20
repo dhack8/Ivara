@@ -7,6 +7,7 @@ import core.components.*;
 import core.input.SensorHandler;
 import core.struct.AnimatedSprite;
 import core.struct.Sensor;
+import ivara.entities.ui.LevelInfoEntity;
 import ivara.scenes.Level;
 import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
@@ -115,7 +116,9 @@ public class LevelEndEntity extends GameEntity {
                     playerWin.play();
                     ((Level)entity.getScene()).complete();
                     Game game = entity.getScene().getGame();
-                    game.getLevelManager().setToBookmarkedScene(MAP); // Goes to the next scene on a player collision
+                    LevelInfoEntity levelInfoEntity = (LevelInfoEntity) game.getLevelManager().getBookmarkedScene(MAP).getEntity(LevelInfoEntity.class);
+                    levelInfoEntity.refresh(true);
+                    game.getLevelManager().setToBookmarkedScene(MAP);
                 }
             }
         }

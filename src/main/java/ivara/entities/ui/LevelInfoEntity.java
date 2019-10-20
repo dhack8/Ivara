@@ -104,6 +104,10 @@ public class LevelInfoEntity extends GameEntity {
         playButton.setActive(canPlay);
     }
 
+    public void refresh(boolean canPlay) {
+        displayLevel(currentLevel, canPlay);
+    }
+
     public void playLevel() {
         getScene().getGame().getLevelManager().setScene(currentLevel);
     }

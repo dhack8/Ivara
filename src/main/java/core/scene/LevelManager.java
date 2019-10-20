@@ -53,6 +53,10 @@ public class LevelManager implements Serializable {
         return paused? menu : currentScene;
     }
 
+    public Scene getCurrentActiveScene(){
+        return currentScene;
+    }
+
     /**
      * Sets all the scenes in the LevelManager to reference the game.
      * @param g The game to reference.

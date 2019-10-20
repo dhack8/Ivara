@@ -10,6 +10,8 @@ import ivara.scenes.boots.*;
 import maths.Vector;
 import physics.AABBCollider;
 
+import java.io.Serializable;
+
 import static ivara.Ivara.MAIN_MENU;
 
 public class LevelMap extends Scene {

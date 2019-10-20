@@ -137,7 +137,7 @@ abstract public class Level extends Scene {
     public void complete(){
         completed = true;
         long completedTime = ((TimerEntity) getEntity(TimerEntity.class)).getTimeInMillis();
-        if(completedTime < bestTimeInMillis) bestTimeInMillis = completedTime;
+        if(completedTime < bestTimeInMillis || bestTimeInMillis == 0) bestTimeInMillis = completedTime;
 
         List<GameEntity> collectibles = Stream.concat(preCheckpointEntities.stream(), checkpointEntities.stream()).filter(entity -> entity instanceof Collectible).collect(Collectors.toList());
         PlayerEntity.COLLECTIBLE_ENTITIES.addAll(collectibles);
@@ -187,13 +187,14 @@ abstract public class Level extends Scene {
     }
 
     public String getMedalLevel() {
+        float seconds = bestTimeInMillis / 1000;
         if (this.bestTimeInMillis == 0) {
             return NOTHING;
-        } else if (this.bestTimeInMillis < getGoldTime()) {
+        } else if (seconds < getGoldTime()) {
             return GOLD;
-        } else if (this.bestTimeInMillis < getSilverTime()) {
+        } else if (seconds < getSilverTime()) {
             return SILVER;
-        } else if (this.bestTimeInMillis < getBronzeTime()) {
+        } else if (seconds < getBronzeTime()) {
             return BRONZE;
         } else {
             return NOTHING;
