@@ -10,6 +10,8 @@ import ivara.scenes.boots.*;
 import maths.Vector;
 import physics.AABBCollider;
 
+import static ivara.Ivara.MAIN_MENU;
+
 public class LevelMap extends Scene {
 
     private static final Vector PLAY_BUTTON_DIMEN = new Vector(7.225f, 1.625f);
@@ -41,7 +43,7 @@ public class LevelMap extends Scene {
                         .addListener(() -> getGame().load()));
         addEntity(
                 new ButtonEntity(new Vector(1.4f, 15f), MINI_BUTTON_DIMEN, "back")
-                        .addListener(() -> System.out.println("Go to menu")));
+                        .addListener(() -> getGame().getLevelManager().setToBookmarkedScene(MAIN_MENU)));
         addEntity(
                 new ButtonEntity(new Vector(1.4f, 15.9f), MINI_BUTTON_DIMEN, "quit")
                         .addListener(() -> getGame().getWindow().exit()));

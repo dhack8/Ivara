@@ -29,7 +29,6 @@ public class LevelManager implements Serializable {
      */
     public LevelManager(Scene firstScene){
         if(firstScene == null) throw new NullPointerException("Cannot construct a LevelManager with a null Scene.");
-        if(game == null) throw new NullPointerException("Cannot construct a LevelManager with a null Game.");
         this.currentScene = firstScene;
     }
 
@@ -41,7 +40,6 @@ public class LevelManager implements Serializable {
      */
     public LevelManager(Scene firstScene, Scene menu){
         if(firstScene == null || menu == null) throw new NullPointerException("Cannot construct a LevelManager with a null Scene.");
-        if(game == null) throw new NullPointerException("Cannot construct a LevelManager with a null Game.");
         this.currentScene = firstScene;
         this.menu = menu;
     }
@@ -76,7 +74,7 @@ public class LevelManager implements Serializable {
      */
     public void setScene(Scene scene){
         paused = false;
-        currentScene.setGame(game);
+        scene.setGame(game);
         currentScene = scene;
     }
 

@@ -25,6 +25,7 @@ public class Ivara extends Game {
     private static final Music backgroundTrack = TinySound.loadMusic("backgroundtrack.wav");
 
     public static final String MAP = "map";
+    public static final String MAIN_MENU = "main_menu";
 
     /**
      * Constructs the game.
@@ -47,8 +48,10 @@ public class Ivara extends Game {
             PApplet.runSketch(new String[]{"PWindow"}, processingBackend);
         }
 
-        LevelManager l = new LevelManager(new StartMenu(), new PauseMenu());
+        StartMenu startMenu = new StartMenu();
+        LevelManager l = new LevelManager(startMenu, new PauseMenu());
         l.bookmarkScene(MAP, new LevelMap());
+        l.bookmarkScene(MAIN_MENU, startMenu);
 
         Game g = new Ivara(l, processingBackend, processingBackend);
         backgroundTrack.play(true);
