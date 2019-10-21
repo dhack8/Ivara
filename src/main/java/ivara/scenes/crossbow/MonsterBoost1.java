@@ -14,6 +14,11 @@ public class MonsterBoost1 extends Level {
     }
 
     @Override
+    public void updateRewards() {
+
+    }
+
+    @Override
     public void initialize() {
 
     }

@@ -114,4 +114,9 @@ public class Level3 extends Level {
 		setCamera(new Camera());
 		super.startScene(player);
 	}
+
+	@Override
+	public void updateRewards() {
+
+	}
 }

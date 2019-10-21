@@ -22,6 +22,11 @@ public class InitialBootsLevel extends Level {
     }
 
     @Override
+    public void updateRewards() {
+        PlayerEntity.setItemFlag("boots-collected", 1f);
+    }
+
+    @Override
     public void initialize() {
         // Player
         PlayerEntity player = new PlayerEntity(2,0.5f);

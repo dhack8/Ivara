@@ -14,6 +14,11 @@ public class RangeAndSpeed extends Level {
     }
 
     @Override
+    public void updateRewards() {
+
+    }
+
+    @Override
     public void initialize() {
 
     }

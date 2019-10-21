@@ -93,7 +93,7 @@ abstract public class Level extends Scene {
      */
     public void updateCheckpoint(Vector v){
         spawn = new Vector(v);
-        ((PlayerEntity)getEntity(PlayerEntity.class)).setArrowCheckpoint();
+        getPlayer().setArrowCheckpoint();
         preCheckpointEntities.addAll(checkpointEntities);
         checkpointEntities = new ArrayList<>();
     }
@@ -137,7 +137,7 @@ abstract public class Level extends Scene {
         addEntity(new TimerEntity(timerLoc, 0));
 
         // Reset the player
-        PlayerEntity player = (PlayerEntity) getEntity(PlayerEntity.class);
+        PlayerEntity player = getPlayer();
         player.getTransform().setAs(initialSpawn);
         spawn = initialSpawn;
 
@@ -167,10 +167,17 @@ abstract public class Level extends Scene {
 
         checkpointEntities.removeAll(collectibles);
         preCheckpointEntities.removeAll(collectibles);
+        updateRewards();
         resetScene();
     }
 
+    public abstract void updateRewards();
+
     // Getter helper methods
+
+    public PlayerEntity getPlayer() {
+        return (PlayerEntity) getEntity(PlayerEntity.class);
+    }
 
     public int getCollectedCoinCount() {
         return (int) (Stream.concat(checkpointEntities.stream(), preCheckpointEntities.stream()).filter(entity -> entity instanceof CoinEntity).count() + removedEntities.stream().filter(entity -> entity instanceof CoinEntity).count());

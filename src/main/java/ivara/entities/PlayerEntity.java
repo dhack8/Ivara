@@ -10,6 +10,7 @@ import maths.Vector;
 import physics.AABBCollider;
 import physics.PhysicProperties;
 
+import java.security.KeyException;
 import java.util.*;
 
 /**
@@ -212,9 +213,20 @@ public class PlayerEntity extends GameEntity {
         itemFlags.put("boots-super-jump-power", 1.2f);
         itemFlags.put("boots-sprint", 1f);
         itemFlags.put("boots-sprint-multiplier", 1.5f);
-        itemFlags.put("boots-collected", 1f);
+        itemFlags.put("boots-collected", 0f);
 
         return itemFlags;
+    }
+
+    public static void setItemFlag(String flag, float value) {
+        if(ITEM_FLAGS.containsKey(flag)) {
+            float currentValue = ITEM_FLAGS.get(flag);
+            if(value > currentValue) {
+                ITEM_FLAGS.put(flag, value);
+            }
+        } else {
+            throw new IllegalArgumentException("Flag does not exist");
+        }
     }
 
     // Methods for accessing flag variables

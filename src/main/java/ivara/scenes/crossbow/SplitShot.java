@@ -14,6 +14,11 @@ public class SplitShot extends Level {
     }
 
     @Override
+    public void updateRewards() {
+
+    }
+
+    @Override
     public void initialize() {
 
     }
