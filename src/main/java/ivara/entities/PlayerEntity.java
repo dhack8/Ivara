@@ -76,8 +76,10 @@ public class PlayerEntity extends GameEntity {
         SpriteComponent sc = new SpriteComponent(this);
         PlayerSprite playerSprite = new PlayerSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
         CrossbowSprite crossbowSprite = new CrossbowSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
+        BootsSprite bootsSprite = new BootsSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
         sc.add(playerSprite);
         sc.add(crossbowSprite);
+        sc.add(bootsSprite);
         addComponent(sc);
 
         // Collider
@@ -103,7 +105,7 @@ public class PlayerEntity extends GameEntity {
         addComponent(new SensorHandlerComponent(this));
 
         // Scripts
-        PlayerScript pc = new PlayerScript(playerSprite, crossbowSprite, bottomSensor, enemySensor);
+        PlayerScript pc = new PlayerScript(playerSprite, crossbowSprite, bootsSprite, bottomSensor, enemySensor);
         CameraScript cs = new CameraScript(this, new Vector(WIDTH /2, HEIGHT /2));
         ScriptComponent scriptComponent = new ScriptComponent(this);
         scriptComponent.add(pc);
@@ -167,6 +169,20 @@ public class PlayerEntity extends GameEntity {
         }
     }
 
+    public class BootsSprite extends AnimatedSprite {
+        public BootsSprite(Vector transform, Vector dimensions, int frameTick) {
+            super(transform, dimensions, frameTick);
+            addResources("boots-hidden", List.of("transparent"));
+            addResources("boots-walk-left", List.of("boots-walk-left", "boots-walk2-left"));
+            addResources("boots-walk-right", List.of("boots-walk-right", "boots-walk2-right"));
+            addResources("boots-idle-left", List.of("boots-left"));
+            addResources("boots-idle-right", List.of("boots-right"));
+            addResources("boots-jump-left", List.of("boots-jump-left"));
+            addResources("boots-jump-right", List.of("boots-jump-right"));
+            setState("boots-hidden");
+        }
+    }
+
     public static int getCoinCount(){
         return (int)COLLECTIBLE_ENTITIES.stream().filter(e -> e instanceof CoinEntity).count();
     }
@@ -190,6 +206,7 @@ public class PlayerEntity extends GameEntity {
         itemFlags.put("boots-successive-jump-power", 0.7f);
         itemFlags.put("boots-sprint", 1f);
         itemFlags.put("boots-sprint-multiplier", 1.5f);
+        itemFlags.put("boots-collected", 0f);
 
         return itemFlags;
     }
@@ -231,6 +248,10 @@ public class PlayerEntity extends GameEntity {
     }
 
     // Boots
+
+    public static boolean hasBoots(){
+        return ITEM_FLAGS.get("boots-collected").intValue() >= 1;
+    }
 
     public static int getBootsAdditionalJumps(){
         return ITEM_FLAGS.get("boots-num-additional-jumps").intValue();

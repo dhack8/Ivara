@@ -85,6 +85,22 @@ public class PlayerScript implements Script{
         }
     }
 
+    private enum BootsState { // Possible crossbow animation states
+        VISIBLE("visible"),
+        HIDDEN("hidden");
+
+        private String value;
+
+        BootsState(String value){
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
     private static final float metresPerSecond = 3.5f; // Movement speed
     private static final float jump = -9f; // Y-velocity on jump
 
@@ -93,12 +109,14 @@ public class PlayerScript implements Script{
 
     private PlayerEntity.PlayerSprite sprite; // Current sprite
     private PlayerEntity.CrossbowSprite crossbowSprite;
+    private PlayerEntity.BootsSprite bootsSprite;
 
     private Vector relative; // The relative velocity of the player
 
     private Orientation orientation = Orientation.RIGHT; // Current player orientation
     private PlayerState playerState = PlayerState.IDLE; // Current player state
     private CrossbowState crossbowState = CrossbowState.HIDDEN;
+    private BootsState bootsState = BootsState.HIDDEN;
 
     private boolean moving = false;
     private boolean shooting = false;
@@ -118,16 +136,17 @@ public class PlayerScript implements Script{
     /**
      * Constructs a PlayerScript that controls how a the player behaves.
      * @param sprite The player sprite to alter with the script.
-     * @param bottomSensor The sensor at the bottom of the player.
      * @param enemySensor The sensor that detects an enemy collision.
      */
-    public PlayerScript(PlayerEntity.PlayerSprite sprite, PlayerEntity.CrossbowSprite crossbowSprite, Sensor bottomSensor, Sensor enemySensor) {
+    public PlayerScript(PlayerEntity.PlayerSprite sprite, PlayerEntity.CrossbowSprite crossbowSprite, PlayerEntity.BootsSprite bootsSprite, Sensor bottomSensor, Sensor enemySensor) {
         this.sprite = sprite;
         this.crossbowSprite = crossbowSprite;
+        this.bootsSprite = bootsSprite;
         this.bottomSensor = bottomSensor;
         this.enemySensor = enemySensor;
         relative = new Vector(0f,0f);
         this.crossbowState = PlayerEntity.hasCrossbow() && PlayerEntity.canShootWhileMoving() ? CrossbowState.VISIBLE : CrossbowState.HIDDEN;
+        this.bootsState = PlayerEntity.hasBoots() ? BootsState.VISIBLE : BootsState.HIDDEN;
     }
 
     @Override
@@ -177,6 +196,7 @@ public class PlayerScript implements Script{
         // Update the sprites based on the state
         updatePlayerSprite();
         updateCrossbowSprite();
+        updateBootsSprite();
     }
 
 
@@ -372,6 +392,14 @@ public class PlayerScript implements Script{
             crossbowSprite.setState("crossbow-" + crossbowState);
         }else{
             crossbowSprite.setState("crossbow-" + playerState + "-" + orientation);
+        }
+    }
+
+    private void updateBootsSprite(){
+        if( bootsState == BootsState.HIDDEN){
+            bootsSprite.setState("boots-" + bootsState);
+        } else {
+            bootsSprite.setState("boots-" + playerState + "-" + orientation);
         }
     }
 }
