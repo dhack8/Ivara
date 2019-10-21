@@ -45,7 +45,8 @@ public class PlayerEntity extends GameEntity {
         STACY("stacy"),
         NIGEL("nigel"),
         SIMON("simon"),
-        ZOMBIE("zombie");
+        ZOMBIE("zombie"),
+        SNOWMAN("snowman");
 
         private String value;
 
@@ -211,7 +212,7 @@ public class PlayerEntity extends GameEntity {
         itemFlags.put("boots-super-jump-power", 1.2f);
         itemFlags.put("boots-sprint", 1f);
         itemFlags.put("boots-sprint-multiplier", 1.5f);
-        itemFlags.put("boots-collected", 0f);
+        itemFlags.put("boots-collected", 1f);
 
         return itemFlags;
     }
