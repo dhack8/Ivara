@@ -146,6 +146,8 @@ public class PlayerScript implements Script{
         this.bottomSensor = bottomSensor;
         this.enemySensor = enemySensor;
         relative = new Vector(0f,0f);
+        this.crossbowState = PlayerEntity.hasCrossbow() && PlayerEntity.canShootWhileMoving() ? CrossbowState.VISIBLE : CrossbowState.HIDDEN;
+        this.bootsState = PlayerEntity.hasBoots() ? BootsState.VISIBLE : BootsState.HIDDEN;
     }
 
     @Override
@@ -153,9 +155,6 @@ public class PlayerScript implements Script{
         InputHandler.InputFrame input = entity.getInput();
         VelocityComponent vComp = entity.get(VelocityComponent.class).get();
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
-
-        this.crossbowState = PlayerEntity.hasCrossbow() && PlayerEntity.canShootWhileMoving() ? CrossbowState.VISIBLE : CrossbowState.HIDDEN;
-        this.bootsState = PlayerEntity.hasBoots() ? BootsState.VISIBLE : BootsState.HIDDEN;
 
         //Enemy detection
         if(sensorHandler.isActive(enemySensor)) {

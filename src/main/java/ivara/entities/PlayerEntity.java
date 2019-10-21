@@ -40,6 +40,11 @@ public class PlayerEntity extends GameEntity {
     private int arrowsFired = 0;
     private int arrowsFiredSinceCheckpoint = 0;
 
+    private PlayerSprite playerSprite;
+    private CrossbowSprite crossbowSprite;
+    private BootsSprite bootsSprite;
+    private Sensor bottomSensor;
+    private Sensor enemySensor;
 
     public enum SKIN {
         PABLO("pablo"),
@@ -76,9 +81,9 @@ public class PlayerEntity extends GameEntity {
 
         // Sprites
         SpriteComponent sc = new SpriteComponent(this);
-        PlayerSprite playerSprite = new PlayerSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
-        CrossbowSprite crossbowSprite = new CrossbowSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
-        BootsSprite bootsSprite = new BootsSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
+        playerSprite = new PlayerSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
+        crossbowSprite = new CrossbowSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
+        bootsSprite = new BootsSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
         sc.add(playerSprite);
         sc.add(crossbowSprite);
         sc.add(bootsSprite);
@@ -99,14 +104,25 @@ public class PlayerEntity extends GameEntity {
         Vector sTopLeft = new Vector(WIDTH_OFF/2 + ANTI_WALL_RUN, HEIGHT -JUMP_SENSOR_HEIGHT);
         Vector sDimensions = new Vector(WIDTH -WIDTH_OFF - ANTI_WALL_RUN*2, JUMP_SENSOR_HEIGHT + JUMP_SENSOR_EXTRA);
         AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
-        Sensor bottomSensor = new Sensor(ab);
+        bottomSensor = new Sensor(ab);
         cDimensions.y = cDimensions.y - JUMP_SENSOR_HEIGHT;
         ab = new AABBCollider(AABBCollider.MIN_DIM, cTopLeft, cDimensions);
-        Sensor enemySensor = new Sensor(ab);
+        enemySensor = new Sensor(ab);
         addComponent(new SensorComponent(this, new Sensor[]{bottomSensor, enemySensor}));
         addComponent(new SensorHandlerComponent(this));
 
         // Scripts
+        PlayerScript pc = new PlayerScript(playerSprite, crossbowSprite, bootsSprite, bottomSensor, enemySensor);
+        CameraScript cs = new CameraScript(this, new Vector(WIDTH /2, HEIGHT /2));
+        ScriptComponent scriptComponent = new ScriptComponent(this);
+        scriptComponent.add(pc);
+        scriptComponent.add(cs);
+        addComponent(scriptComponent);
+    }
+
+    public void resetPlayerScript() {
+        removeComponent(ScriptComponent.class);
+
         PlayerScript pc = new PlayerScript(playerSprite, crossbowSprite, bootsSprite, bottomSensor, enemySensor);
         CameraScript cs = new CameraScript(this, new Vector(WIDTH /2, HEIGHT /2));
         ScriptComponent scriptComponent = new ScriptComponent(this);
@@ -201,14 +217,14 @@ public class PlayerEntity extends GameEntity {
         Map<String, Float> itemFlags = new HashMap<>();
 
         // Crossbow initial flags
-        itemFlags.put("crossbow-pre-delay", 200f);
+        itemFlags.put("crossbow-pre-delay", 0f);
         itemFlags.put("crossbow-multishot", 0f);
-        itemFlags.put("crossbow-post-delay", 1000f);
-        itemFlags.put("crossbow-duration", 2000f) ;
-        itemFlags.put("crossbow-moving", 1f);
-        itemFlags.put("crossbow-arrow-speed", 15f);
-        itemFlags.put("crossbow-collected", 1f);
-        itemFlags.put("crossbow-quiver-size", 3f);
+        itemFlags.put("crossbow-post-delay", 0f);
+        itemFlags.put("crossbow-duration", 0f) ;
+        itemFlags.put("crossbow-moving", 0f);
+        itemFlags.put("crossbow-arrow-speed", 0f);
+        itemFlags.put("crossbow-collected", 0f);
+        itemFlags.put("crossbow-quiver-size", 0f);
 
         // Jump boots initial flags
         itemFlags.put("boots-num-additional-jumps", 0f);
