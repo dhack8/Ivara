@@ -25,10 +25,10 @@ public class InitialCrossbowLevel extends Level {
     public void updateRewards() {
         PlayerEntity.setItemFlag("crossbow-collected", 1f);
         PlayerEntity.setItemFlag("crossbow-quiver-size", 2f);
-        PlayerEntity.setItemFlag("crossbow-arrow-speed", 10f);
-        PlayerEntity.setItemFlag("crossbow-duration", 2000f);
-        PlayerEntity.setItemFlag("crossbow-pre-delay", 500f);
-        PlayerEntity.setItemFlag("crossbow-post-delay", 1000f);
+        PlayerEntity.setItemFlag("crossbow-arrow-speed", 7f);
+        PlayerEntity.setItemFlag("crossbow-duration", 500f);
+        PlayerEntity.setItemFlag("crossbow-pre-delay", 700f);
+        PlayerEntity.setItemFlag("crossbow-post-delay", 1500f);
     }
 
     @Override
