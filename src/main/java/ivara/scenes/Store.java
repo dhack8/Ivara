@@ -1,7 +1,5 @@
 package ivara.scenes;
 
-
-import core.components.TextComponent;
 import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
@@ -62,6 +60,9 @@ public class Store extends Scene{
         Camera c = new Camera();
         setCamera(c);
         Vector cDimensions = c.dimensions;
+
+        //TODO: uncommenting this also causes big red screen
+        purchasedCharacters.add("Pablo");
 
         addEntity(new BasicTextEntity(new Vector(14f, 1.3f), new Text(40, "Store")));
         addEntity(new BasicTextEntity(new Vector(9f, 2f), new Text(20, "Buy one of Pablo's friends or select purchased character to play with!")));

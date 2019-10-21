@@ -35,7 +35,7 @@ public class StoreCoinEntity extends GameEntity {
         addComponent(new SpriteComponent(this, new Sprite(new ResourceID("coin"), offset, null)));
 
         // Text
-        addComponent(new TextComponent(new BasicTextEntity(new Vector(5f, 5f), new Text(20, "" + PlayerEntity.getCoinCount()))));
+        addComponent(new TextComponent(this, new Text(20, "" + PlayerEntity.getCoinCount())));
 
         // Layer
         addComponent(new RenderComponent(this, 999999999, RenderComponent.Mode.PIXEL_NO_TRANS));
