@@ -7,6 +7,7 @@ import core.struct.Sprite;
 import ivara.entities.*;
 import ivara.entities.ui.*;
 import ivara.scenes.boots.*;
+import ivara.scenes.crossbow.*;
 import maths.Vector;
 import physics.AABBCollider;
 
@@ -57,12 +58,35 @@ public class LevelMap extends Scene {
 
     private void addGrassLevels() {
         // Grass
-        addEntity(new LevelIconEntity(new Vector(7.275f, 8.4355f), new Level3(), null));
+        Level initialCrossbowLevel = new InitialCrossbowLevel();
+        addEntity(new LevelIconEntity(new Vector(7.275f, 8.4355f), initialCrossbowLevel, null));
+
+        // Grass: Bottom path, quiver and split
+        Level quiverSize1 = new QuiverSize1();
+        Level quiverSize2 = new QuiverSize2();
+        Level splitShot = new SplitShot();
+        addEntity(new LevelIconEntity(new Vector(7.25f, 10.65f), quiverSize1, initialCrossbowLevel));
+        addEntity(new LevelIconEntity(new Vector(3.875f, 10.65f), quiverSize2, quiverSize1));
+        addEntity(new LevelIconEntity(new Vector(5f, 9.525f), splitShot, quiverSize1));
+
+        // Grass: Top path, movement and monsters
+        Level rangeAndSpeed = new RangeAndSpeed();
+        Level monsterBoost1 = new MonsterBoost1();
+        Level monsterBoost2 = new MonsterBoost2();
+        Level monsterBoost3 = new MonsterBoost3();
+        Level quickDraw = new QuickDraw();
+        Level hipFire = new HipFire();
+        addEntity(new LevelIconEntity(new Vector(7.175f, 6.4f), rangeAndSpeed, initialCrossbowLevel));
+        addEntity(new LevelIconEntity(new Vector(4.975f, 6.925f), monsterBoost1, rangeAndSpeed));
+        addEntity(new LevelIconEntity(new Vector(3.875f, 7.875f), monsterBoost2, monsterBoost1));
+        addEntity(new LevelIconEntity(new Vector(5f, 8.4355f), monsterBoost3, monsterBoost2));
+        addEntity(new LevelIconEntity(new Vector(3.875f, 6.15f), quickDraw, rangeAndSpeed));
+        addEntity(new LevelIconEntity(new Vector(3.875f, 5.05f), hipFire, quickDraw));
     }
 
     private void addSnowLevels() {
         // Snow
-        addEntity(new LevelIconEntity(new Vector(11.7625f, 6.1625f), new Level3(), null));
+        addEntity(new LevelIconEntity(new Vector(11.7625f, 6.1625f), new StubLevel(), new StubLevel()));
     }
 
     private void addAlienLevels() {
@@ -93,7 +117,7 @@ public class LevelMap extends Scene {
 
     private void addDesertLevels() {
         // Desert
-        addEntity(new LevelIconEntity(new Vector(10.65f, 11.8f), new Level3(), null));
+        addEntity(new LevelIconEntity(new Vector(10.65f, 11.8f), new StubLevel(), new StubLevel()));
     }
 }
 

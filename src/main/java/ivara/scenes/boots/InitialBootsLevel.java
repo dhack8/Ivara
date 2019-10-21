@@ -15,7 +15,7 @@ public class InitialBootsLevel extends Level {
     public InitialBootsLevel() {
         super(
                 "Boosted Boots Odyssey",
-                "Pablo starts his quest with the advanced aliens here. Pablo gains access to advanced alien rocket boots.",
+                "Pablo starts his quest on the alien island here. Pablo gains access to advanced alien rocket boots.",
                 "Pablo now has rocket boots providing a boost in jump height.",
                 120, 60, 40
         );

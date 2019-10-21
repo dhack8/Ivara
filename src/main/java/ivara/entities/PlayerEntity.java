@@ -150,7 +150,7 @@ public class PlayerEntity extends GameEntity {
         itemFlags.put("crossbow-multishot", 0f);
         itemFlags.put("crossbow-post-delay", 1000f);
         itemFlags.put("crossbow-duration", 2000f) ;
-        itemFlags.put("crossbow-moving", 0f);
+        itemFlags.put("crossbow-moving", 1f);
         itemFlags.put("crossbow-arrow-speed", 15f);
         itemFlags.put("crossbow-collected", 1f);
         itemFlags.put("crossbow-quiver-size", 3f);
