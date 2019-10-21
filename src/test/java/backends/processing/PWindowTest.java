@@ -8,7 +8,7 @@ import core.entity.GameEntity;
 import core.scene.Scene;
 import core.struct.*;
 import ivara.entities.BackgroundEntity;
-import ivara.entities.BasicTextEntity;
+import ivara.entities.ui.BasicTextEntity;
 import ivara.entities.PlatformEntity;
 import maths.Vector;
 import org.junit.Before;

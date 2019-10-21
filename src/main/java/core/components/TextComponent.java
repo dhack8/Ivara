@@ -38,6 +38,7 @@ public class TextComponent extends Component<GameEntity>{
 
     //End of constructors----------------------------------------
 
+    //TODO: Remove all of these other adds and just keep the text add, check if other components do this to!
     /**
      * Adds a text to this text component.
      * @param t text to add

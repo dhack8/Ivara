@@ -10,11 +10,8 @@ import core.input.KeyListener;
 import core.input.MouseListener;
 import core.scene.Scene;
 import core.struct.*;
-import ivara.entities.CoinTextEntity;
-import ivara.entities.TimerEntity;
 import maths.Vector;
 import physics.AABBCollider;
-import processing.core.PApplet;
 import processing.core.PFont;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -36,6 +33,8 @@ public class PWindow extends Renderer implements InputBroadcaster{
     private Scene currentScene;
     private AssetHandler handler;
     private int mask = 2;
+
+    private float designerScreenFontScale = 80f;
 
     private float s = 100;
     private Vector t = new Vector(0,0); //translation
@@ -87,7 +86,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
     public synchronized void render(Scene scene) {
 
         if(scene == null){
-            displayError("The scene provided to the renderer is NULL!");
+            displayError("The scene provided to the renderer is NULL1!");
             return;
         }
 
@@ -178,7 +177,7 @@ public class PWindow extends Renderer implements InputBroadcaster{
     @Override
     public synchronized void draw(){
         if(currentScene == null){
-            displayError("The scene provided to the renderer is NULL!");
+            displayError("The scene provided to the renderer is NULL2!");
             return;
         }
 
@@ -370,8 +369,13 @@ public class PWindow extends Renderer implements InputBroadcaster{
             loc = new Vector((entityTransform.x + text.transform.x) + b.x, (entityTransform.y + text.transform.y) + b.y);
         }
 
-        textSize(text.fontSize);
-        text(text.text, loc.x, loc.y);
+        textSize(text.fontSize*(s/designerScreenFontScale));
+        if (text.hasDimension()) {
+            Vector dimension = new Vector(text.dimensions.x * s, text.dimensions.y * s);
+            text(text.text, loc.x, loc.y, dimension.x, dimension.y);
+        } else {
+            text(text.text, loc.x, loc.y);
+        }
     }
 
     /**

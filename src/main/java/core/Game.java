@@ -72,58 +72,10 @@ public abstract class Game {
         return renderer;
     }
 
-    /**
-     * Gets a specific scene by scene number.
-     * @param sceneNum required scene number
-     * @return the desired scene
-     */
-    public Scene getScene(int sceneNum){return levelManager.getScene(sceneNum);}
-
-    // --- LevelManager methods
-
-    /**
-     * Getter for the level manager.
-     * @return level manager
-     */
-    public Scene getCurrentScene() {
-        return levelManager.getCurrentScene();
-    }
-
-    /**
-     * Setter for the scene by scene number.
-     * @param level number of the scene to set to
-     */
-    public void setCurrentScene(int level) {
-        levelManager.setScene(level);
-    }
-
-    /**
-     * Returns the current scene number.
-     * @return returns the current scene number
-     */
-    public int getCurrentSceneNum(){
-        return levelManager.getLevelNum();
-    }
-
-    //TODO: remove these methods and move saving and loading to the game engine
     public LevelManager getLevelManager() {
         return levelManager;
     }
 
-    public void setLevelManager(LevelManager levelManager) {
-        this.levelManager = levelManager;
-    }
-
-    /**
-     * Advances the scene to the next, loops.
-     */
-    public void nextScene(){
-        levelManager.nextScene();
-    }
-
-    /**
-     * pauses the game.
-     */
     public void pause(){
         levelManager.pause();
     }

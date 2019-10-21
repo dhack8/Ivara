@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class Text implements Serializable {
 
     public final Vector transform;
+    public final Vector dimensions;
     public final float fontSize;
     public final String text;
 
@@ -24,6 +25,7 @@ public class Text implements Serializable {
         this.transform = transform;
         this.fontSize = fontSize;
         this.text = text;
+        this.dimensions = null;
     }
 
     /**
@@ -35,5 +37,17 @@ public class Text implements Serializable {
         this.transform = new Vector(0,0);
         this.fontSize = fontSize;
         this.text = text;
+        this.dimensions = null;
+    }
+
+    public Text(Vector transform, Vector dimensions, float fontSize, String text) {
+        this.transform = transform;
+        this.dimensions = dimensions;
+        this.fontSize = fontSize;
+        this.text = text;
+    }
+
+    public boolean hasDimension() {
+        return !(dimensions == null);
     }
 }

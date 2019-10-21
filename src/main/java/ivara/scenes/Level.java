@@ -3,6 +3,9 @@ package ivara.scenes;
 import core.entity.GameEntity;
 import core.scene.Scene;
 import ivara.entities.*;
+import ivara.entities.ui.ArrowTextEntity;
+import ivara.entities.ui.CoinTextEntity;
+import ivara.entities.ui.TimerEntity;
 import maths.Vector;
 
 import java.util.*;
@@ -20,12 +23,9 @@ abstract public class Level extends Scene {
     public static final String GOLD = "gold";
     public static final String NOTHING = "none";
 
-    public static final int DEFAULT_BRONZE_TIME = 300;
-    public static final int DEFAULT_SILVER_TIME = 180;
-    public static final int DEFAULT_GOLD_TIME = 120;
-
     private static final Vector timerLoc = new Vector(75f,75f);
     private static final Vector coinLoc = new Vector(105f, 115f);
+    private static final Vector arrowLoc = new Vector(85f, 160f);
 
     private Vector initialSpawn;
 
@@ -45,6 +45,30 @@ abstract public class Level extends Scene {
 
     private boolean completed = false;
 
+    private String title = "Default title";
+    private String description = "No description";
+    private String rewardDescription = "No reward description";
+    private int bronzeTime = 300;
+    private int silverTime = 180;
+    private int goldTime = 120;
+
+    public Level(String title, String description, String rewardDescription, int bronzeTime, int silverTime, int goldTime) {
+        this.title = title;
+        this.description = description;
+        this.rewardDescription = rewardDescription;
+        this.bronzeTime = bronzeTime;
+        this.silverTime = silverTime;
+        this.goldTime = goldTime;
+    }
+
+    public Level(String title, String description, String rewardDescription) {
+        this.title = title;
+        this.description = description;
+        this.rewardDescription = rewardDescription;
+    }
+
+    public Level() {}
+
     /**
      * Starts the scene with some default entities
      * @param player player to get location
@@ -52,6 +76,9 @@ abstract public class Level extends Scene {
     public void startScene(PlayerEntity player){
         addEntity(new TimerEntity(timerLoc, 0));
         addEntity(new CoinTextEntity(coinLoc, player));
+        if(PlayerEntity.hasCrossbow()){
+            addEntity(new ArrowTextEntity(arrowLoc, player));
+        }
         initialSpawn = new Vector(player.getTransform());
         spawn = new Vector(player.getTransform());
         checkpointEntities = new ArrayList<>();
@@ -66,6 +93,7 @@ abstract public class Level extends Scene {
      */
     public void updateCheckpoint(Vector v){
         spawn = new Vector(v);
+        ((PlayerEntity)getEntity(PlayerEntity.class)).setArrowCheckpoint();
         preCheckpointEntities.addAll(checkpointEntities);
         checkpointEntities = new ArrayList<>();
     }
@@ -77,6 +105,7 @@ abstract public class Level extends Scene {
      */
     public void respawnPlayer(PlayerEntity player){
         player.getTransform().setAs(spawn);
+        player.resetArrowsToCheckpoint();
         addEntities(checkpointEntities);
         checkpointEntities = new ArrayList<>();
     }
@@ -102,11 +131,26 @@ abstract public class Level extends Scene {
         addEntities(preCheckpointEntities);
         checkpointEntities = new ArrayList<>();
         preCheckpointEntities = new ArrayList<>();
-        getEntity(PlayerEntity.class).getTransform().setAs(initialSpawn);
 
-        // Reset the timer TODO fix this
+        // Reset the timer
         removeEntity(getEntity(TimerEntity.class));
         addEntity(new TimerEntity(timerLoc, 0));
+
+        // Reset the player
+        PlayerEntity player = (PlayerEntity) getEntity(PlayerEntity.class);
+        player.getTransform().setAs(initialSpawn);
+        spawn = initialSpawn;
+
+        // Reset the checkpoints
+        getEntities(CheckpointEntity.class).stream().map((c) -> ((CheckpointEntity)c)).forEach((c) -> c.setEntered(false));
+
+        // Reset the crossbow indicator
+        if(PlayerEntity.hasCrossbow() && getEntity(ArrowTextEntity.class) != null){
+            removeEntity(getEntity(ArrowTextEntity.class));
+            addEntity(new ArrowTextEntity(arrowLoc, player));
+        }
+
+        player.resetArrowsFired();
     }
 
     /**
@@ -115,7 +159,7 @@ abstract public class Level extends Scene {
     public void complete(){
         completed = true;
         long completedTime = ((TimerEntity) getEntity(TimerEntity.class)).getTimeInMillis();
-        if(completedTime < bestTimeInMillis) bestTimeInMillis = completedTime;
+        if(completedTime < bestTimeInMillis || bestTimeInMillis == 0) bestTimeInMillis = completedTime;
 
         List<GameEntity> collectibles = Stream.concat(preCheckpointEntities.stream(), checkpointEntities.stream()).filter(entity -> entity instanceof Collectible).collect(Collectors.toList());
         PlayerEntity.COLLECTIBLE_ENTITIES.addAll(collectibles);
@@ -140,36 +184,39 @@ abstract public class Level extends Scene {
         return this.bestTimeInMillis;
     }
 
-    public String getLevelName() {
-        return "Override Get Level Name Method";
+    public String getTitle() {
+        return title;
     }
 
-    public String getLevelDescription() {
-        return "Override Get Level Description Method";
+    public String getDescription() {
+        return description;
     }
 
-    public String getLevelRewardDescription() {
-        return "Override Get Level Reward Description Method";
+    public String getRewardDescription() {
+        return rewardDescription;
     }
 
     public int getBronzeTime() {
-        return DEFAULT_BRONZE_TIME;
-    };
+        return bronzeTime;
+    }
 
     public int getSilverTime() {
-        return DEFAULT_SILVER_TIME;
+        return silverTime;
     }
 
     public int getGoldTime() {
-        return DEFAULT_GOLD_TIME;
+        return goldTime;
     }
 
     public String getMedalLevel() {
-        if (this.bestTimeInMillis < getGoldTime()) {
+        float seconds = bestTimeInMillis / 1000;
+        if (this.bestTimeInMillis == 0) {
+            return NOTHING;
+        } else if (seconds < getGoldTime()) {
             return GOLD;
-        } else if (this.bestTimeInMillis < getSilverTime()) {
+        } else if (seconds < getSilverTime()) {
             return SILVER;
-        } else if (this.bestTimeInMillis < getBronzeTime()) {
+        } else if (seconds < getBronzeTime()) {
             return BRONZE;
         } else {
             return NOTHING;

@@ -6,10 +6,21 @@ import core.struct.Text;
 import ivara.entities.*;
 import ivara.entities.enemies.SlimeEntity;
 import ivara.entities.enemies.SquigglyEntity;
+import ivara.entities.ui.BasicTextEntity;
 import ivara.scenes.Level;
 import maths.Vector;
 
 public class InitialBootsLevel extends Level {
+
+    public InitialBootsLevel() {
+        super(
+                "Boosted Boots Odyssey",
+                "Pablo starts his quest on the alien island here. Pablo gains access to advanced alien rocket boots.",
+                "Pablo now has rocket boots providing a boost in jump height.",
+                120, 60, 40
+        );
+    }
+
     @Override
     public void initialize() {
         // Player
@@ -88,35 +99,5 @@ public class InitialBootsLevel extends Level {
         addEntity(new DeathLineEntity(42));
         setCamera(new Camera());
         super.startScene(player);
-    }
-
-    @Override
-    public String getLevelName() {
-        return "Boosted Boots Odyssey";
-    }
-
-    @Override
-    public String getLevelDescription() {
-        return "Pablo starts his quest with the advanced aliens here.";
-    }
-
-    @Override
-    public String getLevelRewardDescription() {
-        return "Pablo gains access to advanced alien rocket boots, providing a boost in jump height.";
-    }
-
-    @Override
-    public int getBronzeTime() {
-        return 60;
-    }
-
-    @Override
-    public int getSilverTime() {
-        return 45;
-    }
-
-    @Override
-    public int getGoldTime() {
-        return 30;
     }
 }

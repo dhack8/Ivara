@@ -6,8 +6,8 @@ import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import ivara.entities.BackgroundEntity;
-import ivara.entities.UIEntity;
-import ivara.entities.UIListener;
+import ivara.entities.ui.UIEntity;
+import ivara.entities.ui.UIListener;
 import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
 import maths.Vector;
@@ -69,7 +69,7 @@ public class PauseMenu extends Scene{
             @Override
             public void onClick() {
                 Game g = getGame();
-                ((Level)g.getScene(g.getCurrentSceneNum())).resetScene(); // TODO fix this
+                ((Level)g.getLevelManager().getCurrentActiveScene()).resetScene(); // TODO fix this
                 g.pause();
             }
         },btnSpaceX, btnCount++);
@@ -79,8 +79,7 @@ public class PauseMenu extends Scene{
             @Override
             public void onClick() {
                 Game g = getGame();
-                ((Level)g.getScene(g.getCurrentSceneNum())).resetScene(); // TODO fix this
-                g.setCurrentScene(0); // Quit to start menu
+                ((Level)g.getLevelManager().getCurrentActiveScene()).resetScene(); // TODO fix this
             }
         },btnSpaceX, btnCount++);
 

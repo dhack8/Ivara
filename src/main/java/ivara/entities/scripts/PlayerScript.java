@@ -12,7 +12,6 @@ import core.struct.ResourceID;
 import core.struct.Sensor;
 import core.struct.Timer;
 import ivara.entities.ArrowEntity;
-import ivara.entities.BulletEntity;
 import ivara.entities.PlayerEntity;
 import ivara.entities.enemies.Enemy;
 import ivara.entities.enemies.ImmortalEnemy;
@@ -23,8 +22,9 @@ import kuusisto.tinysound.TinySound;
 import maths.Vector;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Script to control the player entity. Relies on the current input
@@ -37,16 +37,68 @@ import java.util.*;
 public class PlayerScript implements Script{
 
     private enum Orientation{ // Possible player sprite orientations
-        RIGHT,
-        LEFT
+        RIGHT("right"),
+        LEFT("left");
+
+        private String value;
+
+        Orientation(String value){
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
     }
 
-    private enum State{ // Possible animation states
-        WALK,
-        IDLE,
-        JUMP,
-        SHOT,
-        JUMP_SHOT
+    private enum PlayerState { // Possible animation states
+        WALK("walk"),
+        IDLE("idle"),
+        JUMP("jump");
+
+        private String value;
+
+        PlayerState(String value){
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
+    private enum CrossbowState { // Possible crossbow animation states
+        VISIBLE("visible"),
+        HIDDEN("hidden");
+
+        private String value;
+
+        CrossbowState(String value){
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
+    private enum BootsState { // Possible crossbow animation states
+        VISIBLE("visible"),
+        HIDDEN("hidden");
+
+        private String value;
+
+        BootsState(String value){
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
     }
 
     private static final float metresPerSecond = 3.5f; // Movement speed
@@ -56,17 +108,23 @@ public class PlayerScript implements Script{
     private final Sensor enemySensor; // Sensor for detecting any enemy above the position of the feet
 
     private PlayerEntity.PlayerSprite sprite; // Current sprite
+    private PlayerEntity.CrossbowSprite crossbowSprite;
+    private PlayerEntity.BootsSprite bootsSprite;
 
     private Vector relative; // The relative velocity of the player
 
     private Orientation orientation = Orientation.RIGHT; // Current player orientation
-    private State state = State.IDLE; // Current player state
+    private PlayerState playerState = PlayerState.IDLE; // Current player state
+    private CrossbowState crossbowState = CrossbowState.HIDDEN;
+    private BootsState bootsState = BootsState.HIDDEN;
 
-    private boolean canJump = true;
-
-    private Map<Integer, Boolean> wasActive = new HashMap<>();
-
+    private boolean moving = false;
+    private boolean shooting = false;
+    private boolean canShoot = true;
+    private boolean inAir = false;
     private int jumpsMade = 0;
+    private boolean jumpKeyPressedLast = false;
+    private boolean shotKeyPressedLast = false;
 
     private static final Sound arrowSound = TinySound.loadSound("crossbow.wav");
     private static final Sound jumpSound = TinySound.loadSound("jumpsound.wav");
@@ -74,26 +132,21 @@ public class PlayerScript implements Script{
     private static final Sound playerKill = TinySound.loadSound("kill.wav");
     private static final Music playerStep = TinySound.loadMusic("steps.wav");
 
-    private boolean moving = false;
-
-    private static final int DELAY = 500; // Delay after a shot
-    private static final int DURATION = 2000; // Delay until a bullet is reset
-    private static final float SPEED = 15f; // In meters per second (has x and y components that in total equal 3f)
-
-
-    private Timer arrowDelay;
 
     /**
      * Constructs a PlayerScript that controls how a the player behaves.
      * @param sprite The player sprite to alter with the script.
-     * @param bottomSensor The sensor at the bottom of the player.
      * @param enemySensor The sensor that detects an enemy collision.
      */
-    public PlayerScript(PlayerEntity.PlayerSprite sprite, Sensor bottomSensor, Sensor enemySensor) {
+    public PlayerScript(PlayerEntity.PlayerSprite sprite, PlayerEntity.CrossbowSprite crossbowSprite, PlayerEntity.BootsSprite bootsSprite, Sensor bottomSensor, Sensor enemySensor) {
         this.sprite = sprite;
+        this.crossbowSprite = crossbowSprite;
+        this.bootsSprite = bootsSprite;
         this.bottomSensor = bottomSensor;
         this.enemySensor = enemySensor;
         relative = new Vector(0f,0f);
+        this.crossbowState = PlayerEntity.hasCrossbow() && PlayerEntity.canShootWhileMoving() ? CrossbowState.VISIBLE : CrossbowState.HIDDEN;
+        this.bootsState = PlayerEntity.hasBoots() ? BootsState.VISIBLE : BootsState.HIDDEN;
     }
 
     @Override
@@ -103,96 +156,100 @@ public class PlayerScript implements Script{
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
 
         //Enemy detection
-        if(sensorHandler.isActive(enemySensor)) handleEnemy(sensorHandler, entity);
+        if(sensorHandler.isActive(enemySensor)) {
+            handleEnemy(sensorHandler, entity);
+        };
 
         //Bottom sensor detection
-        if (sensorHandler.isActive(bottomSensor)) handleOnGround(vComp, sensorHandler, entity);
-        else handleAirborne();
-
-        //Handle potential jump
-        if (input.isKeyPressed(Constants.W)) performJump(vComp);
-        else wasActive.put(Constants.W, false);
+        if (sensorHandler.isActive(bottomSensor)) {
+            handleOnGround(vComp, sensorHandler, entity);
+        }else {
+            handleAirborne();
+        }
 
         //Handle left and right movement
-        if (input.isKeyPressed(Constants.A)) handleMove(vComp, sensorHandler, Orientation.LEFT, input.isKeyPressed(Constants.SHIFT));
-        else if (input.isKeyPressed(Constants.D)) handleMove(vComp, sensorHandler, Orientation.RIGHT, input.isKeyPressed(Constants.SHIFT));
-        else stopMove(vComp, sensorHandler);
+        if (input.isKeyPressed(Constants.A)){
+            handleMove(vComp, sensorHandler, Orientation.LEFT, input.isKeyPressed(Constants.SHIFT));
+            this.crossbowState = PlayerEntity.hasCrossbow() && PlayerEntity.canShootWhileMoving() ? CrossbowState.VISIBLE : CrossbowState.HIDDEN;
+        }
+        else if (input.isKeyPressed(Constants.D)) {
+            handleMove(vComp, sensorHandler, Orientation.RIGHT, input.isKeyPressed(Constants.SHIFT));
+            this.crossbowState = PlayerEntity.hasCrossbow() && PlayerEntity.canShootWhileMoving() ? CrossbowState.VISIBLE : CrossbowState.HIDDEN;
+        }
+        else {
+            stopMove(vComp, sensorHandler);
+        };
+
+        //Handle potential jump
+        if (input.isKeyPressed(Constants.W)){
+            performJump(vComp);
+        } else jumpKeyPressedLast = false;
+
+        // Handle potential shot
+        if(input.isKeyPressed(Constants.SPACE)){
+            handleCrossbow(entity);
+        }else shotKeyPressedLast = false;
 
         //Handle pause
         if(input.isKeyReleased(Constants.ESC)) entity.getScene().getGame().pause();
 
-
-        // Shot detection //TODO work on this
-//        if(input.isKeyPressed(Constants.SPACE)){
-//            handleCrossbow(entity, orientation);
-//        }
-
+        // Update the sprites based on the state
+        updatePlayerSprite();
+        updateCrossbowSprite();
+        updateBootsSprite();
     }
 
 
-//    private void handleCrossbow(GameEntity entity, Orientation orientation){
-//        updateState(State.SHOT); // TODO handle this properly
-//
-//
-//        float multishot = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-multishot", 0f);
-//        float shotDelay = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-delay", 1f) * 1000f; // in seconds
-//        float shotDuration = PlayerEntity.ITEM_FLAGS.getOrDefault("crossbow-duration", 2f) * 1000f;
-//
-//
-//
-//        if(arrowDelay != null && !arrowDelay.isFinished()) return;
-//
-//        float xVelocity = orientation == Orientation.LEFT ? SPEED * -1 : SPEED;
-//        float xStart = orientation == Orientation.LEFT ? entity.getTransform().x - 0.25f : entity.getTransform().x + 0.75f;
-//        float yStart = entity.getTransform().y + 0.6f;
-//
-//
-//        Vector location = new Vector(xStart, yStart);
-//
-//        GameEntity arrow = new ArrowEntity(
-//                location,
-//                new Vector(xVelocity, 0),
-//                new ResourceID(orientation == Orientation.LEFT? "arrow-straight-left":"arrow-straight-right"),
-//                List.of(entity.getClass(), ArrowEntity.class)
-//        );
-//
-//        arrowSound.play();
-//
-//        entity.getScene().addEntity(arrow);
-//        Timer arrowDuration = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(arrow));
-//        entity.getScene().addTimer(arrowDuration);
-//
-//        if(multishot > 0f){
-//            Vector a1loc = new Vector(location.x, location.y);
-//            Vector a2loc = new Vector(location.x, location.y);
-////
-////            GameEntity a1 = new ArrowEntity(
-////                    a1loc,
-////                    new Vector(xVelocity, -1f),
-////                    new ResourceID(orientation == Orientation.LEFT? "arrow-up-left":"arrow-up-right"),
-////                    List.of(entity.getClass(), ArrowEntity.class)
-////            );
-////            GameEntity a2 = new ArrowEntity(
-////                    a2loc,
-////                    new Vector(xVelocity, 1f),
-////                    new ResourceID(orientation == Orientation.LEFT? "arrow-down-left":"arrow-down-right"),
-////                    List.of(entity.getClass(), ArrowEntity.class)
-////            );
-//
-//            entity.getScene().addEntity(a1);
-//            Timer t1 = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(a1));
-//            entity.getScene().addTimer(t1);
-//
-//            entity.getScene().addEntity(a2);
-//            Timer t2 = new Timer((int)shotDuration, (Runnable & Serializable)()->entity.getScene().removeEntity(a2));
-//            entity.getScene().addTimer(t2);
-//
-//        }
-//
-//        arrowDelay = new Timer((int)shotDelay, (Runnable & Serializable)()->{});
-//        entity.getScene().addTimer(arrowDelay);
-//
-//    }
+    private void handleCrossbow(GameEntity entity){
+        PlayerEntity playerEntity = (PlayerEntity) entity;
+
+        // When the crossbow can't fire
+        if(!PlayerEntity.hasCrossbow() ||
+                !canShoot ||
+                shotKeyPressedLast ||
+                ((moving || inAir) && !PlayerEntity.canShootWhileMoving()) ||
+                playerEntity.getArrowsFired() >= PlayerEntity.getCrossbowQuiverSize()
+        ) return;
+
+        // Show the crossbow shooting and stop the player from moving
+        this.crossbowState = CrossbowState.VISIBLE;
+        this.shooting = true;
+        this.canShoot = false;
+        this.shotKeyPressedLast = true;
+
+        Timer preShotTimer = new Timer(PlayerEntity.getCrossbowPreShotDelay(), (Runnable & Serializable) () -> {
+            float xVelocity = orientation == Orientation.LEFT ? PlayerEntity.getCrossbowShotSpeed() * -1 : PlayerEntity.getCrossbowShotSpeed();
+            float xStart = orientation == Orientation.LEFT ? entity.getTransform().x - 0.25f : entity.getTransform().x + 0.75f;
+            float yStart = entity.getTransform().y + 0.9f;
+            Vector location = new Vector(xStart, yStart);
+
+            arrowSound.play();
+            playerEntity.fireArrow();
+
+            fireArrow(entity.getScene(), location, new Vector(xVelocity, 0), new ResourceID("arrow-straight-"+orientation), List.of(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
+            if(PlayerEntity.hasMultishotCrossbow()){
+                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, -1f), new ResourceID("arrow-up-"+orientation), List.of(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
+                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, 1f), new ResourceID("arrow-down-"+orientation), List.of(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
+            }
+
+            Timer postShotTimer = new Timer(PlayerEntity.getCrossbowPostShotDelay(), (Runnable & Serializable) () -> {canShoot = true;});
+            entity.getScene().addTimer(postShotTimer);
+            shooting = false;
+        });
+        entity.getScene().addTimer(preShotTimer);
+    }
+
+    private void fireArrow(Scene scene, Vector startLocation, Vector velocity, ResourceID resourceID, Collection<Class<? extends GameEntity> > nonColliders, int duration){
+        GameEntity arrow = new ArrowEntity(
+                startLocation,
+                velocity,
+                resourceID,
+                nonColliders
+        );
+        Timer durationTimer = new Timer(duration, (Runnable & Serializable) () -> scene.removeEntity(arrow));
+        scene.addEntity(arrow);
+        scene.addTimer(durationTimer);
+    }
 
 
     /**
@@ -246,31 +303,31 @@ public class PlayerScript implements Script{
      * Sets the player state when in the air.
      */
     private void handleAirborne(){
-        updateState(State.JUMP);
-        stopMoveNoise();
+        this.playerState = PlayerState.JUMP;
+        inAir = true;
+        moving = false;
+        playerStep.stop();
     }
+
 
     /**
      * Handles a jump.
      * @param vComp The velocity component of the player.
      */
     private void performJump(VelocityComponent vComp){
-        float additionalJumps = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-num-additional-jumps", 0f);
-        float jumpBoost = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-jump-boost", 0f);
-        float jumpPowerLevel = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-additional-jump-power", 0.7f);
-
-        if(jumpsMade <= additionalJumps && !(wasActive.getOrDefault(Constants.W,false))){ // can jump
+        if(jumpsMade <= PlayerEntity.getBootsAdditionalJumps() && !(jumpKeyPressedLast)){ // can jump
             jumpSound.play();
 
-            float alteredBaseJump = jump + jumpBoost;
-            float jumpHeight = jumpsMade < 1? alteredBaseJump : alteredBaseJump * jumpPowerLevel;
+            float alteredBaseJump = jump + PlayerEntity.getBootsAdditionalHeight();
+            float jumpHeight = jumpsMade < 1? alteredBaseJump : alteredBaseJump * PlayerEntity.getBootsSuccessiveJumpPower();
 
             vComp.setY(jumpHeight);
-            wasActive.put(Constants.W, true);
+
+            jumpKeyPressedLast = true;
             jumpsMade++;
+            inAir = true;
         }
     }
-
 
 
     /**
@@ -280,29 +337,19 @@ public class PlayerScript implements Script{
      * @param o The orientation of the player.
      */
     private void handleMove(VelocityComponent vComp, SensorHandler sensorHandler, Orientation o, boolean isRun){
-        float runBoost = PlayerEntity.ITEM_FLAGS.getOrDefault("boots-sprint-multiplier", 1f);
-
-        float speed = isRun? metresPerSecond*runBoost : metresPerSecond;
+        float speed = isRun && PlayerEntity.canSprint()? metresPerSecond * PlayerEntity.getSprintMultiplier() : metresPerSecond;
 
         vComp.setX(((o.equals(Orientation.LEFT)?-1:1)*speed) + relative.x);
-        updateState(o);
-        if(sensorHandler.isActive(bottomSensor)){
-            updateState(State.WALK);
-            playMoveNoise();
-        }
-    }
 
-    private void playMoveNoise(){
-        if(!moving){
+        this.orientation = o;
+
+        if(sensorHandler.isActive(bottomSensor)){
+            this.playerState = PlayerState.WALK;
             playerStep.play(true);
             moving = true;
         }
     }
 
-    private void stopMoveNoise(){
-        moving = false;
-        playerStep.stop();
-    }
 
     /**
      * Sets the player velocity to be the relative velocity (y velocity already accounted for).
@@ -312,8 +359,11 @@ public class PlayerScript implements Script{
      */
     private void stopMove(VelocityComponent vComp, SensorHandler sensorHandler){
         vComp.setX(relative.x);
-        if(sensorHandler.isActive(bottomSensor)) updateState(State.IDLE);
-        stopMoveNoise();
+        if(sensorHandler.isActive(bottomSensor)){
+            this.playerState = PlayerState.IDLE;
+        }
+        moving = false;
+        playerStep.stop();
     }
 
     /**
@@ -323,7 +373,7 @@ public class PlayerScript implements Script{
      */
     private void groundCollision(GameEntity player, GameEntity collided) {
         jumpsMade = 0;
-        canJump = true;
+        inAir = false;
         VelocityComponent v = player.get(VelocityComponent.class).get();
 
         Vector c = collided.get(VelocityComponent.class)
@@ -333,67 +383,23 @@ public class PlayerScript implements Script{
         relative.setAs(c);
     }
 
-    /**
-     * Updates the state of the player.
-     * @param o The new orientation.
-     * @param s The new state.
-     */
-    private void updateState(Orientation o, State s){
-        orientation = o;
-        state = s;
-        updateSprite();
+    private void updatePlayerSprite(){
+        sprite.setState("player-" + playerState + "-" + orientation);
     }
 
-    /**
-     * Updates the state of the player.
-     * @param s The new state.
-     */
-    private void updateState(State s){
-        state = s;
-        updateSprite();
-    }
-
-    /**
-     * Updates the state of the player.
-     * @param o The new orientation.
-     */
-    private void updateState(Orientation o){
-        orientation = o;
-        updateSprite();
-    }
-
-    /**
-     * Updates the current sprite of the player based on the given state.
-     */
-    private void updateSprite(){
-        if(orientation.equals(Orientation.RIGHT)){
-            switch (state){
-                case WALK:
-                    sprite.setState(PlayerEntity.WALK_RIGHT);
-                    break;
-                case IDLE:
-                    sprite.setState(PlayerEntity.IDLE_RIGHT);
-                    break;
-                case JUMP:
-                    sprite.setState(PlayerEntity.JUMP_RIGHT);
-                    break;
-                case SHOT:
-                    sprite.setState(PlayerEntity.SHOT_RIGHT);
-            }
+    private void updateCrossbowSprite(){
+        if( crossbowState == CrossbowState.HIDDEN){
+            crossbowSprite.setState("crossbow-" + crossbowState);
         }else{
-            switch (state){
-                case WALK:
-                    sprite.setState(PlayerEntity.WALK_LEFT);
-                    break;
-                case IDLE:
-                    sprite.setState(PlayerEntity.IDLE_LEFT);
-                    break;
-                case JUMP:
-                    sprite.setState(PlayerEntity.JUMP_LEFT);
-                    break;
-                case SHOT:
-                    sprite.setState(PlayerEntity.SHOT_LEFT);
-            }
+            crossbowSprite.setState("crossbow-" + playerState + "-" + orientation);
+        }
+    }
+
+    private void updateBootsSprite(){
+        if( bootsState == BootsState.HIDDEN){
+            bootsSprite.setState("boots-" + bootsState);
+        } else {
+            bootsSprite.setState("boots-" + playerState + "-" + orientation);
         }
     }
 }

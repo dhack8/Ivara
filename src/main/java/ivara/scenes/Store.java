@@ -6,9 +6,9 @@ import core.struct.ResourceID;
 import core.struct.Sprite;
 import core.struct.Text;
 import ivara.entities.*;
-import ivara.entities.BasicTextEntity;
-import ivara.entities.UIEntity;
-import ivara.entities.UIListener;
+import ivara.entities.ui.BasicTextEntity;
+import ivara.entities.ui.UIEntity;
+import ivara.entities.ui.UIListener;
 import maths.Vector;
 import physics.AABBCollider;
 
