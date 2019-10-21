@@ -4,6 +4,10 @@ import core.components.*;
 import core.entity.GameEntity;
 import core.struct.AnimatedSprite;
 import core.struct.Sensor;
+import ivara.entities.enemies.BeeEntity;
+import ivara.entities.enemies.GhostEntity;
+import ivara.entities.enemies.SquigglyEntity;
+import ivara.entities.enemies.BarnacleEntity;
 import ivara.entities.scripts.CameraScript;
 import ivara.entities.scripts.PlayerScript;
 import maths.Vector;
@@ -64,6 +68,16 @@ public class PlayerEntity extends GameEntity {
         public String toString() {
             return this.value;
         }
+    }
+
+    //TODO: this shoots through enemies rather then getting stuck on them
+    private static Map<Integer, Collection<Class<? extends GameEntity>>> arrowExemptEntities = new HashMap<>();
+
+    static {
+        arrowExemptEntities.put(1, Arrays.asList(PlayerEntity.class, ArrowEntity.class, SquigglyEntity.class, BeeEntity.class, GhostEntity.class, BarnacleEntity.class));
+        arrowExemptEntities.put(2, Arrays.asList(PlayerEntity.class, ArrowEntity.class, BeeEntity.class, GhostEntity.class, BarnacleEntity.class));
+        arrowExemptEntities.put(3, Arrays.asList(PlayerEntity.class, ArrowEntity.class, GhostEntity.class, BarnacleEntity.class));
+        arrowExemptEntities.put(4, Arrays.asList(PlayerEntity.class, ArrowEntity.class));
     }
 
     /**
@@ -244,6 +258,7 @@ public class PlayerEntity extends GameEntity {
         itemFlags.put("crossbow-arrow-speed", 0f);
         itemFlags.put("crossbow-collected", 0f);
         itemFlags.put("crossbow-quiver-size", 0f);
+        itemFlags.put("crossbow-monster-level", 1f);
 
         // Jump boots initial flags
         itemFlags.put("boots-num-additional-jumps", 0f);
@@ -260,10 +275,7 @@ public class PlayerEntity extends GameEntity {
 
     public static void setItemFlag(String flag, float value) {
         if(ITEM_FLAGS.containsKey(flag)) {
-            float currentValue = ITEM_FLAGS.get(flag);
-            if(value > currentValue) {
-                ITEM_FLAGS.put(flag, value);
-            }
+            ITEM_FLAGS.put(flag, value);
         } else {
             throw new IllegalArgumentException("Flag does not exist");
         }
@@ -303,6 +315,14 @@ public class PlayerEntity extends GameEntity {
 
     public static int getCrossbowQuiverSize(){
         return ITEM_FLAGS.get("crossbow-quiver-size").intValue();
+    }
+
+    public static int getCrossbowMonsterLevel(){
+        return ITEM_FLAGS.get("crossbow-monster-level").intValue();
+    }
+
+    public static Collection<Class<? extends GameEntity>> getExemptList(int monsterLevel){
+        return arrowExemptEntities.get(monsterLevel);
     }
 
     // Boots

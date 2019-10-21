@@ -227,10 +227,10 @@ public class PlayerScript implements Script{
             arrowSound.play();
             playerEntity.fireArrow();
 
-            fireArrow(entity.getScene(), location, new Vector(xVelocity, 0), new ResourceID("arrow-straight-"+orientation), Arrays.asList(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
+            fireArrow(entity.getScene(), location, new Vector(xVelocity, 0), new ResourceID("arrow-straight-"+orientation), PlayerEntity.getExemptList(PlayerEntity.getCrossbowMonsterLevel()), PlayerEntity.getCrossbowShotDuration());
             if(PlayerEntity.hasMultishotCrossbow()){
-                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, -1f), new ResourceID("arrow-up-"+orientation), Arrays.asList(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
-                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, 1f), new ResourceID("arrow-down-"+orientation), Arrays.asList(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
+                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, -1f), new ResourceID("arrow-up-"+orientation), PlayerEntity.getExemptList(PlayerEntity.getCrossbowMonsterLevel()), PlayerEntity.getCrossbowShotDuration());
+                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, 1f), new ResourceID("arrow-down-"+orientation), PlayerEntity.getExemptList(PlayerEntity.getCrossbowMonsterLevel()), PlayerEntity.getCrossbowShotDuration());
             }
 
             Timer postShotTimer = new Timer(PlayerEntity.getCrossbowPostShotDelay(), (Runnable & Serializable) () -> {canShoot = true;});

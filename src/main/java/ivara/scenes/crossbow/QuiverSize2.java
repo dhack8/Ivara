@@ -23,7 +23,7 @@ public class QuiverSize2 extends Level {
 
     @Override
     public void updateRewards() {
-
+        PlayerEntity.setItemFlag("crossbow-quiver-size", 5f);
     }
 
     @Override

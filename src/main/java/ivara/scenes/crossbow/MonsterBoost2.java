@@ -23,7 +23,7 @@ public class MonsterBoost2 extends Level {
 
     @Override
     public void updateRewards() {
-
+        PlayerEntity.setItemFlag("crossbow-monster-level", 3f);
     }
 
     @Override

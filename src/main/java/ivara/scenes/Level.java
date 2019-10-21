@@ -161,6 +161,7 @@ abstract public class Level extends Scene {
      * Collects all collectable items and resets the scene
      */
     public void complete(){
+        if(!completed) updateRewards();
         completed = true;
         long completedTime = ((TimerEntity) getEntity(TimerEntity.class)).getTimeInMillis();
         if(completedTime < bestTimeInMillis || bestTimeInMillis == 0) bestTimeInMillis = completedTime;
