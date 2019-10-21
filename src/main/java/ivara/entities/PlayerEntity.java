@@ -34,9 +34,30 @@ public class PlayerEntity extends GameEntity {
     public static Set<GameEntity> USED_COLLECTIBLE_ENTITIES = new HashSet<>();
 
     private static Map<String, Float> ITEM_FLAGS = getInitialItemFlags();
+    private static SKIN ACTIVE_SKIN = SKIN.PABLO;
 
     private int arrowsFired = 0;
     private int arrowsFiredSinceCheckpoint = 0;
+
+
+    public enum SKIN {
+        PABLO("pablo"),
+        STACY("stacy"),
+        NIGEL("nigel"),
+        SIMON("simon"),
+        ZOMBIE("zombie");
+
+        private String value;
+
+        SKIN(String value){
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
+    }
 
     /**
      * Creates a PlayerEntity at a given position
@@ -112,15 +133,23 @@ public class PlayerEntity extends GameEntity {
         this.arrowsFired = this.arrowsFiredSinceCheckpoint = 0;
     }
 
+    public static SKIN getActiveSkin(){
+        return ACTIVE_SKIN;
+    }
+
+    public static void setActiveSkin(SKIN skin){
+        ACTIVE_SKIN = skin;
+    }
+
     public class PlayerSprite extends AnimatedSprite {
         public PlayerSprite(Vector transform, Vector dimensions, int frameTick) {
             super(transform, dimensions, frameTick);
-            addResources("player-walk-right", List.of("player-walk-right", "player-walk2-right"));
-            addResources("player-walk-left", List.of("player-walk-left", "player-walk2-left"));
-            addResources("player-idle-right", List.of("player-right"));
-            addResources("player-idle-left", List.of("player-left"));
-            addResources("player-jump-right", List.of("player-jump-right"));
-            addResources("player-jump-left", List.of("player-jump-left"));
+            addResources("player-walk-right", List.of(ACTIVE_SKIN + "-walk-right", ACTIVE_SKIN + "-walk2-right"));
+            addResources("player-walk-left", List.of(ACTIVE_SKIN + "-walk-left", ACTIVE_SKIN + "-walk2-left"));
+            addResources("player-idle-right", List.of(ACTIVE_SKIN + "-right"));
+            addResources("player-idle-left", List.of(ACTIVE_SKIN + "-left"));
+            addResources("player-jump-right", List.of(ACTIVE_SKIN + "-jump-right"));
+            addResources("player-jump-left", List.of(ACTIVE_SKIN + "-jump-left"));
         }
     }
 

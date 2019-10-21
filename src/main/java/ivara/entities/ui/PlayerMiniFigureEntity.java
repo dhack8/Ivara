@@ -16,7 +16,7 @@ public class PlayerMiniFigureEntity extends GameEntity {
         super(transform);
 
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new Sprite(new ResourceID("player-right"), new Vector(-WIDTH/2, -HEIGHT), new Vector(WIDTH, HEIGHT)));
+        sc.add(new Sprite(new ResourceID("pablo-right"), new Vector(-WIDTH/2, -HEIGHT), new Vector(WIDTH, HEIGHT)));
         addComponent(sc);
     }
 }
