@@ -1,5 +1,6 @@
 package ivara.scenes.boots;
 
+import ivara.entities.PlayerEntity;
 import ivara.scenes.Level;
 
 public class MovementSpeed2 extends Level {
@@ -15,7 +16,8 @@ public class MovementSpeed2 extends Level {
 
     @Override
     public void updateRewards() {
-
+        PlayerEntity.setItemFlag("boots-sprint", 1f);
+        PlayerEntity.setItemFlag("boots-sprint-multiplier", 1.5f);
     }
 
     @Override

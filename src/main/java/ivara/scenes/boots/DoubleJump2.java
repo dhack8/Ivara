@@ -1,5 +1,6 @@
 package ivara.scenes.boots;
 
+import ivara.entities.PlayerEntity;
 import ivara.scenes.Level;
 
 public class DoubleJump2 extends Level {
@@ -15,7 +16,9 @@ public class DoubleJump2 extends Level {
 
     @Override
     public void updateRewards() {
-
+        PlayerEntity.setItemFlag("boots-collected", 1f);
+        PlayerEntity.setItemFlag("boots-num-additional-jumps", 1f);
+        PlayerEntity.setItemFlag("boots-successive-jump-power", 0.8f);
     }
 
     @Override

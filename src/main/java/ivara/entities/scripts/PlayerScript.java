@@ -320,14 +320,15 @@ public class PlayerScript implements Script{
         if(jumpsMade <= PlayerEntity.getBootsAdditionalJumps() && !(jumpKeyPressedLast)){ // can jump
             jumpSound.play();
 
-            float alteredBaseJump = jump + PlayerEntity.getBootsAdditionalHeight();
+            float alteredBaseJump = jump - PlayerEntity.getBootsAdditionalHeight();
 
             // Set super jump
             if(isStationary && !inAir){
-                alteredBaseJump *= PlayerEntity.getBootsSuperJumpPower();
+                alteredBaseJump -= PlayerEntity.getBootsSuperJumpPower();
             }
 
-            float jumpHeight = jumpsMade < 1? alteredBaseJump : alteredBaseJump * PlayerEntity.getBootsSuccessiveJumpPower();
+            // Jumps wear out
+            float jumpHeight = jumpsMade < 1? alteredBaseJump : alteredBaseJump * (float) Math.pow(PlayerEntity.getBootsSuccessiveJumpPower(), jumpsMade);
 
             vComp.setY(jumpHeight);
 
@@ -345,7 +346,8 @@ public class PlayerScript implements Script{
      * @param o The orientation of the player.
      */
     private void handleMove(VelocityComponent vComp, SensorHandler sensorHandler, Orientation o, boolean isRun){
-        float speed = isRun && PlayerEntity.canSprint()? metresPerSecond * PlayerEntity.getSprintMultiplier() : metresPerSecond;
+        float walkingSpeed = metresPerSecond * PlayerEntity.getWalkMultiplier();
+        float speed = isRun && PlayerEntity.canSprint()? walkingSpeed * PlayerEntity.getSprintMultiplier() : walkingSpeed;
 
         vComp.setX(((o.equals(Orientation.LEFT)?-1:1)*speed) + relative.x);
 
