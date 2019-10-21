@@ -57,6 +57,8 @@ public class LevelMap extends Scene {
     }
 
     private void addGrassLevels() {
+        //TODO Reload speed and penetrating bolts?
+
         // Grass
         Level initialCrossbowLevel = new InitialCrossbowLevel();
         addEntity(new LevelIconEntity(new Vector(7.275f, 8.4355f), initialCrossbowLevel, null));
@@ -76,12 +78,12 @@ public class LevelMap extends Scene {
         Level monsterBoost3 = new MonsterBoost3();
         Level quickDraw = new QuickDraw();
         Level hipFire = new HipFire();
-        addEntity(new LevelIconEntity(new Vector(7.175f, 6.4f), rangeAndSpeed, initialCrossbowLevel));
-        addEntity(new LevelIconEntity(new Vector(4.975f, 6.925f), monsterBoost1, rangeAndSpeed));
+        addEntity(new LevelIconEntity(new Vector(7.175f, 6.4f), quickDraw, initialCrossbowLevel));
+        addEntity(new LevelIconEntity(new Vector(4.975f, 6.925f), monsterBoost1, quickDraw));
         addEntity(new LevelIconEntity(new Vector(3.875f, 7.875f), monsterBoost2, monsterBoost1));
         addEntity(new LevelIconEntity(new Vector(5f, 8.4355f), monsterBoost3, monsterBoost2));
-        addEntity(new LevelIconEntity(new Vector(3.875f, 6.15f), quickDraw, rangeAndSpeed));
-        addEntity(new LevelIconEntity(new Vector(3.875f, 5.05f), hipFire, quickDraw));
+        addEntity(new LevelIconEntity(new Vector(3.875f, 6.15f), rangeAndSpeed, quickDraw));
+        addEntity(new LevelIconEntity(new Vector(3.875f, 5.05f), hipFire, rangeAndSpeed));
     }
 
     private void addSnowLevels() {

@@ -7,8 +7,8 @@ public class InitialCrossbowLevel extends Level {
     public InitialCrossbowLevel() {
         super(
                 "Crossbow Conquest",
-                "Pablo starts his quest on the alien island here. Pablo gains access to advanced alien rocket boots.",
-                "Pablo now has rocket boots providing a boost in jump height.",
+                "Pablo started his exploration of the western island here. Pablo was interested in the socially advanced nation. Yet for some reason it was infested with slimes and other nasty creatures... Pablo would squash them all! Or would he use the crossbow he found as he entered the grassy island?",
+                "Pablo now has a crossbow which he can only use stationary. Pablo can only carry 2 bolts per level.",
                 120, 60, 40
         );
     }
