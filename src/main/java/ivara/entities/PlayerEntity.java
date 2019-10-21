@@ -187,6 +187,10 @@ public class PlayerEntity extends GameEntity {
         return (int)COLLECTIBLE_ENTITIES.stream().filter(e -> e instanceof CoinEntity).count();
     }
 
+    public static void spendCoins(int amount){
+
+    }
+
     private static Map<String, Float> getInitialItemFlags(){
         Map<String, Float> itemFlags = new HashMap<>();
 

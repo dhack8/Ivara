@@ -59,6 +59,20 @@ public class Ivara extends Game {
     }
 
     /**
+     * Static method that returns a List of levels (ordered) to construct the LevelManager with.
+     * @return The levels to play (in order).
+     */
+    private static List<Scene> getLevels(){
+        List<Scene> levels = new ArrayList<>();
+
+        //levels.add(new StartMenu());
+        levels.add(new Store());
+        levels.add(new Level3());
+        levels.add(new LevelMap());
+        return levels;
+    }
+
+    /**
      * Gets the background sound file.
      * @return The backing track.
      */
