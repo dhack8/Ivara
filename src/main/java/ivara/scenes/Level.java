@@ -162,8 +162,9 @@ abstract public class Level extends Scene {
         if(completedTime < bestTimeInMillis || bestTimeInMillis == 0) bestTimeInMillis = completedTime;
 
         List<GameEntity> collectibles = Stream.concat(preCheckpointEntities.stream(), checkpointEntities.stream()).filter(entity -> entity instanceof Collectible).collect(Collectors.toList());
-        PlayerEntity.COLLECTIBLE_ENTITIES.addAll(collectibles);
         removedEntities.addAll(collectibles);
+
+        PlayerEntity.bankCoins((int)collectibles.stream().filter(e -> e instanceof CoinEntity).count());
 
         checkpointEntities.removeAll(collectibles);
         preCheckpointEntities.removeAll(collectibles);

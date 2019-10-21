@@ -31,8 +31,8 @@ public class PlayerEntity extends GameEntity {
     private static final float JUMP_SENSOR_EXTRA = 0.01f;
     private static final float ANTI_WALL_RUN = 0.1f; // 0 for wall running
 
-    public static Set<GameEntity> COLLECTIBLE_ENTITIES = new HashSet<>();
-    public static Set<GameEntity> USED_COLLECTIBLE_ENTITIES = new HashSet<>();
+    private static int COINS = 0;
+    private static int COINS_USED = 0;
 
     private static Map<String, Float> ITEM_FLAGS = getInitialItemFlags();
     private static SKIN ACTIVE_SKIN = SKIN.PABLO;
@@ -186,7 +186,11 @@ public class PlayerEntity extends GameEntity {
     }
 
     public static int getCoinCount(){
-        return (int)COLLECTIBLE_ENTITIES.stream().filter(e -> e instanceof CoinEntity).count();
+        return COINS;
+    }
+
+    public static void bankCoins(int amount){
+        COINS += amount;
     }
 
     public static void spendCoins(int amount){
