@@ -22,6 +22,7 @@ import kuusisto.tinysound.TinySound;
 import maths.Vector;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -226,10 +227,10 @@ public class PlayerScript implements Script{
             arrowSound.play();
             playerEntity.fireArrow();
 
-            fireArrow(entity.getScene(), location, new Vector(xVelocity, 0), new ResourceID("arrow-straight-"+orientation), List.of(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
+            fireArrow(entity.getScene(), location, new Vector(xVelocity, 0), new ResourceID("arrow-straight-"+orientation), Arrays.asList(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
             if(PlayerEntity.hasMultishotCrossbow()){
-                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, -1f), new ResourceID("arrow-up-"+orientation), List.of(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
-                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, 1f), new ResourceID("arrow-down-"+orientation), List.of(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
+                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, -1f), new ResourceID("arrow-up-"+orientation), Arrays.asList(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
+                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, 1f), new ResourceID("arrow-down-"+orientation), Arrays.asList(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
             }
 
             Timer postShotTimer = new Timer(PlayerEntity.getCrossbowPostShotDelay(), (Runnable & Serializable) () -> {canShoot = true;});

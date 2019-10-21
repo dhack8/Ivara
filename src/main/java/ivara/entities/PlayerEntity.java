@@ -146,25 +146,25 @@ public class PlayerEntity extends GameEntity {
     public class PlayerSprite extends AnimatedSprite {
         public PlayerSprite(Vector transform, Vector dimensions, int frameTick) {
             super(transform, dimensions, frameTick);
-            addResources("player-walk-right", List.of(ACTIVE_SKIN + "-walk-right", ACTIVE_SKIN + "-walk2-right"));
-            addResources("player-walk-left", List.of(ACTIVE_SKIN + "-walk-left", ACTIVE_SKIN + "-walk2-left"));
-            addResources("player-idle-right", List.of(ACTIVE_SKIN + "-right"));
-            addResources("player-idle-left", List.of(ACTIVE_SKIN + "-left"));
-            addResources("player-jump-right", List.of(ACTIVE_SKIN + "-jump-right"));
-            addResources("player-jump-left", List.of(ACTIVE_SKIN + "-jump-left"));
+            addResources("player-walk-right", Arrays.asList(ACTIVE_SKIN + "-walk-right", ACTIVE_SKIN + "-walk2-right"));
+            addResources("player-walk-left", Arrays.asList(ACTIVE_SKIN + "-walk-left", ACTIVE_SKIN + "-walk2-left"));
+            addResources("player-idle-right", Arrays.asList(ACTIVE_SKIN + "-right"));
+            addResources("player-idle-left", Arrays.asList(ACTIVE_SKIN + "-left"));
+            addResources("player-jump-right", Arrays.asList(ACTIVE_SKIN + "-jump-right"));
+            addResources("player-jump-left", Arrays.asList(ACTIVE_SKIN + "-jump-left"));
         }
     }
 
     public class CrossbowSprite extends AnimatedSprite {
         public CrossbowSprite(Vector transform, Vector dimensions, int frameTick) {
             super(transform, dimensions, frameTick);
-            addResources("crossbow-hidden", List.of("transparent"));
-            addResources("crossbow-walk-left", List.of("crossbow-walk-left", "crossbow-walk2-left"));
-            addResources("crossbow-walk-right", List.of("crossbow-walk-right", "crossbow-walk2-right"));
-            addResources("crossbow-idle-left", List.of("crossbow-left"));
-            addResources("crossbow-idle-right", List.of("crossbow-right"));
-            addResources("crossbow-jump-left", List.of("crossbow-jump-left"));
-            addResources("crossbow-jump-right", List.of("crossbow-jump-right"));
+            addResources("crossbow-hidden", Arrays.asList("transparent"));
+            addResources("crossbow-walk-left", Arrays.asList("crossbow-walk-left", "crossbow-walk2-left"));
+            addResources("crossbow-walk-right", Arrays.asList("crossbow-walk-right", "crossbow-walk2-right"));
+            addResources("crossbow-idle-left", Arrays.asList("crossbow-left"));
+            addResources("crossbow-idle-right", Arrays.asList("crossbow-right"));
+            addResources("crossbow-jump-left", Arrays.asList("crossbow-jump-left"));
+            addResources("crossbow-jump-right", Arrays.asList("crossbow-jump-right"));
             setState("crossbow-hidden");
         }
     }
@@ -172,13 +172,13 @@ public class PlayerEntity extends GameEntity {
     public class BootsSprite extends AnimatedSprite {
         public BootsSprite(Vector transform, Vector dimensions, int frameTick) {
             super(transform, dimensions, frameTick);
-            addResources("boots-hidden", List.of("transparent"));
-            addResources("boots-walk-left", List.of("boots-walk-left", "boots-walk2-left"));
-            addResources("boots-walk-right", List.of("boots-walk-right", "boots-walk2-right"));
-            addResources("boots-idle-left", List.of("boots-left"));
-            addResources("boots-idle-right", List.of("boots-right"));
-            addResources("boots-jump-left", List.of("boots-jump-left"));
-            addResources("boots-jump-right", List.of("boots-jump-right"));
+            addResources("boots-hidden", Arrays.asList("transparent"));
+            addResources("boots-walk-left", Arrays.asList("boots-walk-left", "boots-walk2-left"));
+            addResources("boots-walk-right", Arrays.asList("boots-walk-right", "boots-walk2-right"));
+            addResources("boots-idle-left", Arrays.asList("boots-left"));
+            addResources("boots-idle-right", Arrays.asList("boots-right"));
+            addResources("boots-jump-left", Arrays.asList("boots-jump-left"));
+            addResources("boots-jump-right", Arrays.asList("boots-jump-right"));
             setState("boots-hidden");
         }
     }
