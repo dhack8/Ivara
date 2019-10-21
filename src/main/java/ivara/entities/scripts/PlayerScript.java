@@ -183,7 +183,7 @@ public class PlayerScript implements Script{
 
         //Handle potential jump
         if (input.isKeyPressed(Constants.W)){
-            performJump(vComp);
+            performJump(vComp, !(input.isKeyPressed(Constants.A) || input.isKeyPressed(Constants.D)));
         } else jumpKeyPressedLast = false;
 
         // Handle potential shot
@@ -315,11 +315,17 @@ public class PlayerScript implements Script{
      * Handles a jump.
      * @param vComp The velocity component of the player.
      */
-    private void performJump(VelocityComponent vComp){
+    private void performJump(VelocityComponent vComp, boolean isStationary){
         if(jumpsMade <= PlayerEntity.getBootsAdditionalJumps() && !(jumpKeyPressedLast)){ // can jump
             jumpSound.play();
 
             float alteredBaseJump = jump + PlayerEntity.getBootsAdditionalHeight();
+
+            // Set super jump
+            if(isStationary && !inAir){
+                alteredBaseJump *= PlayerEntity.getBootsSuperJumpPower();
+            }
+
             float jumpHeight = jumpsMade < 1? alteredBaseJump : alteredBaseJump * PlayerEntity.getBootsSuccessiveJumpPower();
 
             vComp.setY(jumpHeight);

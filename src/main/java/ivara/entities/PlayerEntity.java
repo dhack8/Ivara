@@ -208,6 +208,7 @@ public class PlayerEntity extends GameEntity {
         itemFlags.put("boots-num-additional-jumps", 0f);
         itemFlags.put("boots-jump-boost", 0f);
         itemFlags.put("boots-successive-jump-power", 0.7f);
+        itemFlags.put("boots-super-jump-power", 1.2f);
         itemFlags.put("boots-sprint", 1f);
         itemFlags.put("boots-sprint-multiplier", 1.5f);
         itemFlags.put("boots-collected", 0f);
@@ -267,6 +268,10 @@ public class PlayerEntity extends GameEntity {
 
     public static float getBootsSuccessiveJumpPower(){
         return ITEM_FLAGS.get("boots-successive-jump-power");
+    }
+
+    public static float getBootsSuperJumpPower(){
+        return ITEM_FLAGS.get("boots-super-jump-power");
     }
 
     public static boolean canSprint(){
