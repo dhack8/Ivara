@@ -4,6 +4,7 @@ import core.scene.Scene;
 import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
+import ivara.Ivara;
 import ivara.entities.*;
 import ivara.entities.ui.*;
 import ivara.scenes.boots.*;
@@ -29,6 +30,7 @@ public class LevelMap extends Scene {
         addSnowLevels();
         addAlienLevels();
         addDesertLevels();
+        addStore();
 
         addEntity(new PlayerMiniFigureEntity(new Vector(10.225f, 9.65f)));
 
@@ -120,6 +122,12 @@ public class LevelMap extends Scene {
     private void addDesertLevels() {
         // Desert
         addEntity(new LevelIconEntity(new Vector(10.65f, 11.8f), new StubLevel(), new StubLevel()));
+    }
+
+    private void addStore(){
+        addEntity(
+                new ButtonEntity(new Vector(11.0375f, 9.325f), MINI_BUTTON_DIMEN, "save")
+                        .addListener(() -> getGame().getLevelManager().setToBookmarkedScene(Ivara.STORE)));
     }
 }
 

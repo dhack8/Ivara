@@ -138,6 +138,7 @@ abstract public class Level extends Scene {
 
         // Reset the player
         PlayerEntity player = getPlayer();
+        player.refreshSprites();
         player.resetPlayerScript();
         player.getTransform().setAs(initialSpawn);
         spawn = initialSpawn;
@@ -172,7 +173,6 @@ abstract public class Level extends Scene {
         checkpointEntities.removeAll(collectibles);
         preCheckpointEntities.removeAll(collectibles);
         updateRewards();
-        resetScene();
     }
 
     public abstract void updateRewards();

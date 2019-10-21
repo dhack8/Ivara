@@ -5,6 +5,7 @@ import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import core.struct.Text;
+import ivara.Ivara;
 import ivara.entities.*;
 import ivara.entities.ui.BasicTextEntity;
 import ivara.entities.ui.UIEntity;
@@ -36,15 +37,15 @@ public class Store extends Scene{
     private final float YPOS = 6; // The Y position to start drawing the line of buttons from
 
     private boolean confirmation = false;
-    private String playSelectedCharacter;
-    private String selectedCharacter;
+    private PlayerEntity.SKIN playSelectedCharacter;
+    private PlayerEntity.SKIN selectedCharacter;
     private BasicTextEntity confirmationText;
     private UIEntity yesButton;
     private UIEntity noButton;
     private BasicTextEntity selectText;
 
-    private List<String> purchasedCharacters;
-    private Map<String, BasicTextEntity> characterCostMap;
+    private List<PlayerEntity.SKIN> purchasedCharacters;
+    private Map<PlayerEntity.SKIN, BasicTextEntity> characterCostMap;
 
 
     @Override
@@ -53,16 +54,16 @@ public class Store extends Scene{
         this.characterCostMap = new HashMap<>();
         this.purchasedCharacters = new ArrayList<>();
 
-        this.purchasedCharacters.add("Pablo");
-        this.selectedCharacter = "Pablo";
-        this.playSelectedCharacter = "Pablo";
+        this.purchasedCharacters.add(PlayerEntity.SKIN.PABLO);
+        this.selectedCharacter = PlayerEntity.SKIN.PABLO;
+        this.playSelectedCharacter = PlayerEntity.SKIN.PABLO;
 
         Camera c = new Camera();
         setCamera(c);
         Vector cDimensions = c.dimensions;
 
         //TODO: uncommenting this also causes big red screen
-        purchasedCharacters.add("Pablo");
+        purchasedCharacters.add(PlayerEntity.SKIN.PABLO);
 
         addEntity(new BasicTextEntity(new Vector(14f, 1.3f), new Text(40, "Store")));
         addEntity(new BasicTextEntity(new Vector(9f, 2f), new Text(20, "Buy one of Pablo's friends or select purchased character to play with!")));
@@ -78,23 +79,23 @@ public class Store extends Scene{
         addBackButton();
 
         addItemButton("pablo",
-                (UIListener) () -> showConfirmation("Pablo", 0),btnSpaceX, btnCount++, "Pablo", 0);
+                (UIListener) () -> showConfirmation(PlayerEntity.SKIN.PABLO, 0),btnSpaceX, btnCount++, PlayerEntity.SKIN.PABLO, 0);
 
         //--- Female button
-        addItemButton("female",
-                (UIListener) () -> showConfirmation("Stacey", 20),btnSpaceX, btnCount++, "Stacey", 20);
+        addItemButton("stacy",
+                (UIListener) () -> showConfirmation(PlayerEntity.SKIN.STACY, 20),btnSpaceX, btnCount++, PlayerEntity.SKIN.STACY, 20);
 
         //--- Male button
-        addItemButton("adventurer",
-                (UIListener) () -> showConfirmation("Adventurer", 50),btnSpaceX, btnCount++, "Adventurer", 50);
+        addItemButton("simon",
+                (UIListener) () -> showConfirmation(PlayerEntity.SKIN.SIMON, 50),btnSpaceX, btnCount++, PlayerEntity.SKIN.SIMON, 50);
 
         //--- Adventurer button
-        addItemButton("male",
-                (UIListener) () -> showConfirmation("Nigel", 20),btnSpaceX, btnCount++, "Nigel", 20);
+        addItemButton("nigel",
+                (UIListener) () -> showConfirmation(PlayerEntity.SKIN.NIGEL, 20),btnSpaceX, btnCount++, PlayerEntity.SKIN.NIGEL, 20);
 
         //--- Zombie button
         addItemButton("zombie",
-                (UIListener) () -> showConfirmation("Zombie", 100),btnSpaceX, btnCount++, "Zombie", 100);
+                (UIListener) () -> showConfirmation(PlayerEntity.SKIN.ZOMBIE, 100),btnSpaceX, btnCount++, PlayerEntity.SKIN.ZOMBIE, 100);
 
         addEntity(new BackgroundEntity(new ResourceID("background-sunrise")));
     }
@@ -105,13 +106,13 @@ public class Store extends Scene{
                 new Sprite(new ResourceID("back"), new Vector(0, 0), new Vector(2f, 2f)),
                 new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(2f, 2f)));
         //TODO: Change to go back
-        button.addListener((UIListener) () -> getGame().getWindow().exit());
+        button.addListener((UIListener) () -> getGame().getLevelManager().setToBookmarkedScene(Ivara.MAP));
         addEntity(button);
     }
 
-    private void addItemButton(String resourceID, UIListener buttonEvent, float btnSpaceX, int btnCount, String itemName, int cost){
+    private void addItemButton(String resourceID, UIListener buttonEvent, float btnSpaceX, int btnCount, PlayerEntity.SKIN itemName, int cost){
 
-        BasicTextEntity itemText = new BasicTextEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)+2.7f),YPOS), new Text(20, itemName));
+        BasicTextEntity itemText = new BasicTextEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)+2.7f),YPOS), new Text(20, itemName.toString()));
         BasicTextEntity costText = new BasicTextEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)+2.7f),YPOS+0.5f),
                 new Text(20, cost + " Coins"));
         UIEntity button = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)),YPOS),
@@ -130,7 +131,7 @@ public class Store extends Scene{
         addEntity(button);
     }
 
-    private void showConfirmation(String itemName, int cost) {
+    private void showConfirmation(PlayerEntity.SKIN itemName, int cost) {
         removeConfirmation();
         if (!confirmation && !selectedCharacter.equals(itemName) && !purchasedCharacters.contains(itemName)) {
             confirmation = true;
@@ -166,19 +167,21 @@ public class Store extends Scene{
         removeEntity(noButton);
     }
 
-    private void purchase(String itemName, int cost){
+    private void purchase(PlayerEntity.SKIN itemName, int cost){
         //TODO: take off coins from player.
         purchasedCharacters.add(itemName);
         removeEntity(characterCostMap.get(itemName));
         // PlayerEntity.spendCoins(cost);
     }
 
-    private void select(String itemName){
+    private void select(PlayerEntity.SKIN itemName){
         playSelectedCharacter = itemName;
         removeEntity(selectText);
         selectText = new BasicTextEntity(new Vector(10f, 2.5f),
                 new Text(20, "Currently playing as: " + itemName));
         addEntity(selectText);
         //TODO: change to play as selected character
+
+        PlayerEntity.setActiveSkin(itemName);
     }
 }

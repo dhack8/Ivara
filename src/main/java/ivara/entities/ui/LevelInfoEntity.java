@@ -108,6 +108,7 @@ public class LevelInfoEntity extends GameEntity {
     }
 
     public void playLevel() {
+        currentLevel.resetScene();
         getScene().getGame().getLevelManager().setScene(currentLevel);
     }
 

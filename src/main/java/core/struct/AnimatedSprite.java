@@ -50,10 +50,10 @@ public class AnimatedSprite extends Sprite {
      */
     public void addResources(String state, List<String> resources) {
         assert state != null && resources != null && resources.size() > 0;
-        if (resourceMap.containsKey(state)) {
-            List<String> r = resourceMap.get(state);
-            r.addAll(resources);
-        } else
+//        if (resourceMap.containsKey(state)) {
+//            List<String> r = resourceMap.get(state);
+//            r.addAll(resources);
+//        } else
             resourceMap.put(state, new ArrayList<>(resources));
     }
 

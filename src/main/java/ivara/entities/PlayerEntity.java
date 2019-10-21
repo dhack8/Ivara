@@ -161,21 +161,36 @@ public class PlayerEntity extends GameEntity {
         ACTIVE_SKIN = skin;
     }
 
+    public void refreshSprites(){
+        playerSprite.updateSprite();
+        crossbowSprite.updateSprite();
+        bootsSprite.updateSprite();
+    }
+
     public class PlayerSprite extends AnimatedSprite {
         public PlayerSprite(Vector transform, Vector dimensions, int frameTick) {
             super(transform, dimensions, frameTick);
+            updateSprite();
+        }
+
+        public void updateSprite(){
             addResources("player-walk-right", Arrays.asList(ACTIVE_SKIN + "-walk-right", ACTIVE_SKIN + "-walk2-right"));
             addResources("player-walk-left", Arrays.asList(ACTIVE_SKIN + "-walk-left", ACTIVE_SKIN + "-walk2-left"));
             addResources("player-idle-right", Arrays.asList(ACTIVE_SKIN + "-right"));
             addResources("player-idle-left", Arrays.asList(ACTIVE_SKIN + "-left"));
             addResources("player-jump-right", Arrays.asList(ACTIVE_SKIN + "-jump-right"));
             addResources("player-jump-left", Arrays.asList(ACTIVE_SKIN + "-jump-left"));
+            setState("player-idle-right");
         }
     }
 
     public class CrossbowSprite extends AnimatedSprite {
         public CrossbowSprite(Vector transform, Vector dimensions, int frameTick) {
             super(transform, dimensions, frameTick);
+            updateSprite();
+        }
+
+        public void updateSprite(){
             addResources("crossbow-hidden", Arrays.asList("transparent"));
             addResources("crossbow-walk-left", Arrays.asList("crossbow-walk-left", "crossbow-walk2-left"));
             addResources("crossbow-walk-right", Arrays.asList("crossbow-walk-right", "crossbow-walk2-right"));
@@ -190,6 +205,10 @@ public class PlayerEntity extends GameEntity {
     public class BootsSprite extends AnimatedSprite {
         public BootsSprite(Vector transform, Vector dimensions, int frameTick) {
             super(transform, dimensions, frameTick);
+            updateSprite();
+        }
+
+        public void updateSprite(){
             addResources("boots-hidden", Arrays.asList("transparent"));
             addResources("boots-walk-left", Arrays.asList("boots-walk-left", "boots-walk2-left"));
             addResources("boots-walk-right", Arrays.asList("boots-walk-right", "boots-walk2-right"));
