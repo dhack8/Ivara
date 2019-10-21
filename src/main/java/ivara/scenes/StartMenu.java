@@ -5,6 +5,7 @@ import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import ivara.entities.BackgroundEntity;
+import ivara.entities.ui.ButtonEntity;
 import ivara.entities.ui.UIEntity;
 import ivara.entities.ui.UIListener;
 import maths.Vector;
@@ -17,61 +18,32 @@ import static ivara.Ivara.MAP;
  */
 public class StartMenu extends Scene{
 
-    private final float BUTTON_WIDTH = 6f;
-    private final float BUTTON_HEIGHT = 1.7f;
+    private static final float LEFT = 7.25f;
+    private static final float TOP = 13.625f;
+    private static final float MARGIN = 0.25f;
+    private static final float BUTTON_WIDTH = 5.5f;
+    private static final float BUTTON_HEIGHT = 1.1f;
+    private static final Vector BUTTON_DIMEN = new Vector(BUTTON_WIDTH, BUTTON_HEIGHT);
 
-    private final float YPOS = 13.5f; // The Y position to start drawing the line of buttons from
-
-    private final float XMARGIN_LEFT = 2f;
-    private final float XMARGIN_RIGHT = 3f;
-
-    private final int NUM_BUTTONS = 3; // Spacing is defined by the number of buttons within the scene
     @Override
     public void initialize() {
 
         Camera c = new Camera();
         setCamera(c);
-        Vector cDimensions = c.dimensions;
 
-        float leftoverX = cDimensions.x - (NUM_BUTTONS*BUTTON_WIDTH) - XMARGIN_LEFT - XMARGIN_RIGHT;
-        float btnSpaceX = leftoverX/(NUM_BUTTONS+1);
+        addEntity(new ButtonEntity(getButtonPosition(1), BUTTON_DIMEN, "play")
+                .addListener(() -> getGame().getLevelManager().setToBookmarkedScene(MAP)));
 
-        int btnCount = 0;
+        addEntity(new ButtonEntity(getButtonPosition(2), BUTTON_DIMEN, "load")
+                .addListener(() -> getGame().load()));
 
-        //--- New game button
-        addButton("play", new UIListener() {
-            @Override
-            public void onClick() {
-                getGame().getLevelManager().setToBookmarkedScene(MAP);
-            }
-        },btnSpaceX, btnCount++);
-
-        //--- Load button
-        addButton("load", new UIListener() {
-            @Override
-            public void onClick() {
-                getGame().load();
-            }
-        },btnSpaceX, btnCount++);
-
-        //--- Quit button
-        addButton("quit", new UIListener() {
-            @Override
-            public void onClick() {
-                getGame().getWindow().exit();
-            }
-        },btnSpaceX, btnCount++);
+        addEntity(new ButtonEntity(getButtonPosition(3), BUTTON_DIMEN, "quit")
+                .addListener(() -> getGame().getWindow().exit()));
 
         addEntity(new BackgroundEntity(new ResourceID("menuscreen1")));
-
-
     }
 
-    private void addButton(String resourceID, UIListener buttonEvent, float btnSpaceX, int btnCount){
-        UIEntity button = new UIEntity(new Vector(XMARGIN_LEFT + btnSpaceX + (btnCount*(BUTTON_WIDTH + btnSpaceX)),YPOS),
-                new Sprite(new ResourceID(resourceID), new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)),
-                new AABBCollider(AABBCollider.MIN_DIM, new Vector(0, 0), new Vector(BUTTON_WIDTH, BUTTON_HEIGHT)));
-        button.addListener(buttonEvent);
-        addEntity(button);
+    private Vector getButtonPosition(int buttonNumber) {
+        return new Vector(LEFT + MARGIN + ((buttonNumber-1) * (MARGIN + BUTTON_WIDTH)), TOP);
     }
 }
