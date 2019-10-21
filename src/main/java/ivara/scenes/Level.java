@@ -138,7 +138,7 @@ abstract public class Level extends Scene {
 
         // Reset the player
         PlayerEntity player = getPlayer();
-        player.refreshSprites();
+        player.resetPlayerSprites();
         player.resetPlayerScript();
         player.getTransform().setAs(initialSpawn);
         spawn = initialSpawn;

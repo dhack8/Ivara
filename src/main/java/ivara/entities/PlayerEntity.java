@@ -134,6 +134,18 @@ public class PlayerEntity extends GameEntity {
         addComponent(scriptComponent);
     }
 
+    public void resetPlayerSprites(){
+        removeComponent(SpriteComponent.class);
+        SpriteComponent sc = new SpriteComponent(this);
+        playerSprite = new PlayerSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
+        crossbowSprite = new CrossbowSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
+        bootsSprite = new BootsSprite(new Vector(0,0), new Vector(WIDTH, HEIGHT), 160);
+        sc.add(playerSprite);
+        sc.add(crossbowSprite);
+        sc.add(bootsSprite);
+        addComponent(sc);
+    }
+
     public void resetPlayerScript() {
         removeComponent(ScriptComponent.class);
 
@@ -173,12 +185,6 @@ public class PlayerEntity extends GameEntity {
 
     public static void setActiveSkin(SKIN skin){
         ACTIVE_SKIN = skin;
-    }
-
-    public void refreshSprites(){
-        playerSprite.updateSprite();
-        crossbowSprite.updateSprite();
-        bootsSprite.updateSprite();
     }
 
     public class PlayerSprite extends AnimatedSprite {
