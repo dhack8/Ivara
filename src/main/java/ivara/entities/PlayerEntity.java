@@ -213,10 +213,11 @@ public class PlayerEntity extends GameEntity {
         // Jump boots initial flags
         itemFlags.put("boots-num-additional-jumps", 0f);
         itemFlags.put("boots-jump-boost", 0f);
-        itemFlags.put("boots-successive-jump-power", 0.7f);
-        itemFlags.put("boots-super-jump-power", 1.2f);
-        itemFlags.put("boots-sprint", 1f);
-        itemFlags.put("boots-sprint-multiplier", 1.5f);
+        itemFlags.put("boots-successive-jump-power", 0f);
+        itemFlags.put("boots-super-jump-power", 0f);
+        itemFlags.put("boots-sprint", 0f);
+        itemFlags.put("boots-sprint-multiplier", 1f);
+        itemFlags.put("boots-walk-multiplier", 1f);
         itemFlags.put("boots-collected", 0f);
 
         return itemFlags;
@@ -297,6 +298,10 @@ public class PlayerEntity extends GameEntity {
 
     public static float getSprintMultiplier(){
         return ITEM_FLAGS.get("boots-sprint-multiplier");
+    }
+
+    public static float getWalkMultiplier(){
+        return ITEM_FLAGS.get("boots-walk-multiplier");
     }
 
 }
