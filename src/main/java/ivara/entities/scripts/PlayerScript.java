@@ -169,11 +169,11 @@ public class PlayerScript implements Script{
         }
 
         //Handle left and right movement
-        if (input.isKeyPressed(Constants.A)){
+        if (input.isKeyPressed(Constants.A) && (!shooting || PlayerEntity.canShootWhileMoving())){
             handleMove(vComp, sensorHandler, Orientation.LEFT, input.isKeyPressed(Constants.SHIFT));
             this.crossbowState = PlayerEntity.hasCrossbow() && PlayerEntity.canShootWhileMoving() ? CrossbowState.VISIBLE : CrossbowState.HIDDEN;
         }
-        else if (input.isKeyPressed(Constants.D)) {
+        else if (input.isKeyPressed(Constants.D) && (!shooting || PlayerEntity.canShootWhileMoving())) {
             handleMove(vComp, sensorHandler, Orientation.RIGHT, input.isKeyPressed(Constants.SHIFT));
             this.crossbowState = PlayerEntity.hasCrossbow() && PlayerEntity.canShootWhileMoving() ? CrossbowState.VISIBLE : CrossbowState.HIDDEN;
         }
@@ -182,7 +182,7 @@ public class PlayerScript implements Script{
         };
 
         //Handle potential jump
-        if (input.isKeyPressed(Constants.W)){
+        if (input.isKeyPressed(Constants.W) && (!shooting || PlayerEntity.canShootWhileMoving())){
             performJump(vComp, !(input.isKeyPressed(Constants.A) || input.isKeyPressed(Constants.D)));
         } else jumpKeyPressedLast = false;
 
