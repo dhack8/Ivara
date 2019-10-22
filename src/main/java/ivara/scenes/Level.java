@@ -177,6 +177,7 @@ abstract public class Level extends Scene {
         preCheckpointEntities.removeAll(collectibles);
         updateRewards();
         submitHighscore(completedTime);
+        getGame().save();
     }
 
     private void submitHighscore(long completedTime){
