@@ -2,11 +2,8 @@ package ivara.scenes.boots;
 
 import core.struct.Camera;
 import core.struct.ResourceID;
-import core.struct.Text;
 import ivara.entities.*;
-import ivara.entities.enemies.SlimeEntity;
-import ivara.entities.enemies.SquigglyEntity;
-import ivara.entities.ui.BasicTextEntity;
+import ivara.entities.enemies.*;
 import ivara.scenes.Level;
 import maths.Vector;
 
@@ -32,6 +29,9 @@ public class InitialBootsLevel extends Level {
         // Player
         PlayerEntity player = new PlayerEntity(1,5.5f);
         addEntity(player);
+
+        // Checkpoints
+        addEntity(new CheckpointEntity(39, 6));
 
         // Flag
         addEntity(new LevelEndEntity(6, 2));
@@ -80,6 +80,9 @@ public class InitialBootsLevel extends Level {
         addEntity(new CoinEntity(player, new Vector(17, 8), true));
         addEntity(new CoinEntity(player, new Vector(20, 10), true));
         addEntity(new CoinEntity(player, new Vector(41, 10), true));
+
+        // Barnacles
+        addEntity(new BarnacleEntity(new Vector(36,6), BarnacleEntity.Direction.EAST, true));
 
         // Snakes
         addEntity(new SquigglyEntity(new Vector(23,2.5f)));
