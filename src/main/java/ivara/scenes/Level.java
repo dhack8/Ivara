@@ -79,6 +79,7 @@ abstract public class Level extends Scene {
      */
     public void startScene(){
         // Add HUD elements
+        addEntity(playerEntity);
         addEntity(new TimerEntity(timerLoc, 0));
         addEntity(new CoinTextEntity(coinLoc, playerEntity));
         if(PlayerEntity.hasCrossbow()){
