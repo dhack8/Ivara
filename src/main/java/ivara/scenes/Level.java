@@ -173,7 +173,7 @@ abstract public class Level extends Scene {
 
         checkpointEntities.removeAll(collectibles);
         preCheckpointEntities.removeAll(collectibles);
-        updateRewards();
+        getGame().save();
     }
 
     public abstract void updateRewards();

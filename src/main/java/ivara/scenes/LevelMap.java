@@ -53,7 +53,10 @@ public class LevelMap extends Scene {
                         .addListener(() -> getGame().getLevelManager().setToBookmarkedScene(MAIN_MENU)));
         addEntity(
                 new ButtonEntity(new Vector(1.4f, 15.9f), MINI_BUTTON_DIMEN, "quit")
-                        .addListener(() -> getGame().getWindow().exit()));
+                        .addListener(() -> {
+                            getGame().save();
+                            getGame().getWindow().exit();
+                        }));
 
         addEntity(new BackgroundEntity(new ResourceID("background-sea")));
         addEntity(new BackgroundEntity(new ResourceID("map")));
