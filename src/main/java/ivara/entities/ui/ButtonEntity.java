@@ -8,7 +8,6 @@ import core.input.Constants;
 import core.input.InputHandler;
 import core.scene.SceneUtils;
 import core.struct.AnimatedSprite;
-import core.struct.Sprite;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.Collider;
@@ -73,26 +72,31 @@ public class ButtonEntity extends GameEntity {
                 if (buttonSprite.getState().equals(DEACTIVATED)) return;
 
                 if (isInSprite(input.getMousePosition()) && !buttonSprite.getState().equals(CLICK)) {
-                    buttonSprite.setState(HOVER);
+                    setState(HOVER);
                 } else {
-                    buttonSprite.setState(IDLE);
+                    setState(IDLE);
                 }
 
                 if (input.isMouseReleased(Constants.LEFT_MOUSE)) {
                     if (isInSprite(input.getMousePosition())) {
                         broadcastClick();
-                        buttonSprite.setState(HOVER);
+                        setState(HOVER);
                     }
                 }
 
                 if (input.isMousePressed(Constants.LEFT_MOUSE)) {
                     if (isInSprite(input.getMousePosition())) {
-                        buttonSprite.setState(CLICK);
+                        setState(CLICK);
                     }
                 }
             }
         });
         addComponent(scriptComponent);
+    }
+
+    private void setState(String state) {
+        if (buttonSprite.getState().equals(DEACTIVATED)) return;
+        buttonSprite.setState(state);
     }
 
     /**

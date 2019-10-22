@@ -43,7 +43,7 @@ public class HighscoreDatabaseAdapter {
     public static void getHighScores(String level, HighscoreCallback cb) {
         CollectionReference collection = HIGHSCORE_COLLECTION.document(level).collection("highscores");
 
-        ApiFutures.addCallback(collection.get(), new ApiFutureCallback<>() {
+        ApiFutures.addCallback(collection.get(), new ApiFutureCallback<QuerySnapshot>() {
             @Override
             public void onFailure(Throwable t) {
                 System.out.println("Failed to collect the highscore");
