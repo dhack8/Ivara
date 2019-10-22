@@ -14,7 +14,7 @@ public class InitialBootsLevel extends Level {
                 "Boosted Boots Odyssey",
                 "Pablo starts his quest on the alien island here. Pablo gains access to advanced alien rocket boots.",
                 "Pablo now has rocket boots providing a boost in jump height.",
-                120, 60, 40
+                40, 35, 30
         );
     }
 
@@ -64,10 +64,6 @@ public class InitialBootsLevel extends Level {
         // Moving Platforms
         addEntity(new PlatformEntity("alien", new Vector(21,3),new Vector(9,3),2.4f));
         addEntity(new PlatformEntity("alien", new Vector(41,13),new Vector(41,7),1));
-
-        // Markers
-        //new Vector(9,3)
-        //new Vector(41,7)
 
         // Coins
         addEntity(new CoinEntity(player, new Vector(11, 0), true));
