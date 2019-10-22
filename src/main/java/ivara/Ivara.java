@@ -26,6 +26,7 @@ public class Ivara extends Game {
 
     public static final String MAP = "map";
     public static final String MAIN_MENU = "main_menu";
+    public static final String STORE = "store";
 
     /**
      * Constructs the game.
@@ -52,6 +53,7 @@ public class Ivara extends Game {
         LevelManager l = new LevelManager(startMenu, new PauseMenu());
         l.bookmarkScene(MAP, new LevelMap());
         l.bookmarkScene(MAIN_MENU, startMenu);
+        l.bookmarkScene(STORE, new Store());
 
         Game g = new Ivara(l, processingBackend, processingBackend);
         backgroundTrack.play(true);

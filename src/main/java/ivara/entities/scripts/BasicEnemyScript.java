@@ -8,6 +8,7 @@ import core.entity.GameEntity;
 import core.input.SensorHandler;
 import core.struct.Sensor;
 import core.struct.Timer;
+import ivara.entities.ArrowEntity;
 
 import java.io.Serializable;
 
@@ -55,15 +56,19 @@ public class BasicEnemyScript implements Script {
         VelocityComponent vc = entity.get(VelocityComponent.class).get();
         SensorHandler sensorHandler = entity.get(SensorHandlerComponent.class).get().getSensorHandler();
 
-        if (sensorHandler.isActive(right) && !goingLeft){ // if collision on either side
+        if (activated(sensorHandler, right) && !goingLeft){ // if collision on either side
             collide(vc, entity);
-        }else if (sensorHandler.isActive(left) && goingLeft){ // if collision on either side
+        }else if (activated(sensorHandler, left) && goingLeft){ // if collision on either side
             collide(vc, entity);
-        }else if(!sensorHandler.isActive(bLeft) && goingLeft){ // if no collision bottom left
+        }else if(!activated(sensorHandler, bLeft) && goingLeft){ // if no collision bottom left
             collide(vc, entity);
-        }else if(!sensorHandler.isActive(bRight) && !goingLeft){ // if no collision bottom right
+        }else if(!activated(sensorHandler, bRight) && !goingLeft){ // if no collision bottom right
             collide(vc, entity);
         }
+    }
+
+    private boolean activated(SensorHandler sensorHandler, Sensor sensor) {
+        return sensorHandler.getActivatingEntities(sensor).stream().anyMatch((e) -> !(e instanceof ArrowEntity));
     }
 
     /**

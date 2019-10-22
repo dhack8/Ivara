@@ -93,7 +93,7 @@ abstract public class Level extends Scene {
      */
     public void updateCheckpoint(Vector v){
         spawn = new Vector(v);
-        ((PlayerEntity)getEntity(PlayerEntity.class)).setArrowCheckpoint();
+        getPlayer().setArrowCheckpoint();
         preCheckpointEntities.addAll(checkpointEntities);
         checkpointEntities = new ArrayList<>();
     }
@@ -137,7 +137,9 @@ abstract public class Level extends Scene {
         addEntity(new TimerEntity(timerLoc, 0));
 
         // Reset the player
-        PlayerEntity player = (PlayerEntity) getEntity(PlayerEntity.class);
+        PlayerEntity player = getPlayer();
+        player.resetPlayerSprites();
+        player.resetPlayerScript();
         player.getTransform().setAs(initialSpawn);
         spawn = initialSpawn;
 
@@ -145,8 +147,10 @@ abstract public class Level extends Scene {
         getEntities(CheckpointEntity.class).stream().map((c) -> ((CheckpointEntity)c)).forEach((c) -> c.setEntered(false));
 
         // Reset the crossbow indicator
-        if(PlayerEntity.hasCrossbow() && getEntity(ArrowTextEntity.class) != null){
-            removeEntity(getEntity(ArrowTextEntity.class));
+        if(PlayerEntity.hasCrossbow()){
+            if(getEntity(ArrowTextEntity.class) != null) {
+                removeEntity(getEntity(ArrowTextEntity.class));
+            }
             addEntity(new ArrowTextEntity(arrowLoc, player));
         }
 
@@ -157,20 +161,28 @@ abstract public class Level extends Scene {
      * Collects all collectable items and resets the scene
      */
     public void complete(){
+        if(!completed) updateRewards();
         completed = true;
         long completedTime = ((TimerEntity) getEntity(TimerEntity.class)).getTimeInMillis();
         if(completedTime < bestTimeInMillis || bestTimeInMillis == 0) bestTimeInMillis = completedTime;
 
         List<GameEntity> collectibles = Stream.concat(preCheckpointEntities.stream(), checkpointEntities.stream()).filter(entity -> entity instanceof Collectible).collect(Collectors.toList());
-        PlayerEntity.COLLECTIBLE_ENTITIES.addAll(collectibles);
         removedEntities.addAll(collectibles);
+
+        PlayerEntity.bankCoins((int)collectibles.stream().filter(e -> e instanceof CoinEntity).count());
 
         checkpointEntities.removeAll(collectibles);
         preCheckpointEntities.removeAll(collectibles);
-        resetScene();
+        updateRewards();
     }
 
+    public abstract void updateRewards();
+
     // Getter helper methods
+
+    public PlayerEntity getPlayer() {
+        return (PlayerEntity) getEntity(PlayerEntity.class);
+    }
 
     public int getCollectedCoinCount() {
         return (int) (Stream.concat(checkpointEntities.stream(), preCheckpointEntities.stream()).filter(entity -> entity instanceof CoinEntity).count() + removedEntities.stream().filter(entity -> entity instanceof CoinEntity).count());

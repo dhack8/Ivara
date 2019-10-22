@@ -169,11 +169,11 @@ public class PlayerScript implements Script{
         }
 
         //Handle left and right movement
-        if (input.isKeyPressed(Constants.A)){
+        if (input.isKeyPressed(Constants.A) && (!shooting || PlayerEntity.canShootWhileMoving())){
             handleMove(vComp, sensorHandler, Orientation.LEFT, input.isKeyPressed(Constants.SHIFT));
             this.crossbowState = PlayerEntity.hasCrossbow() && PlayerEntity.canShootWhileMoving() ? CrossbowState.VISIBLE : CrossbowState.HIDDEN;
         }
-        else if (input.isKeyPressed(Constants.D)) {
+        else if (input.isKeyPressed(Constants.D) && (!shooting || PlayerEntity.canShootWhileMoving())) {
             handleMove(vComp, sensorHandler, Orientation.RIGHT, input.isKeyPressed(Constants.SHIFT));
             this.crossbowState = PlayerEntity.hasCrossbow() && PlayerEntity.canShootWhileMoving() ? CrossbowState.VISIBLE : CrossbowState.HIDDEN;
         }
@@ -182,8 +182,8 @@ public class PlayerScript implements Script{
         };
 
         //Handle potential jump
-        if (input.isKeyPressed(Constants.W)){
-            performJump(vComp);
+        if (input.isKeyPressed(Constants.W) && (!shooting || PlayerEntity.canShootWhileMoving())){
+            performJump(vComp, !(input.isKeyPressed(Constants.A) || input.isKeyPressed(Constants.D)));
         } else jumpKeyPressedLast = false;
 
         // Handle potential shot
@@ -227,10 +227,10 @@ public class PlayerScript implements Script{
             arrowSound.play();
             playerEntity.fireArrow();
 
-            fireArrow(entity.getScene(), location, new Vector(xVelocity, 0), new ResourceID("arrow-straight-"+orientation), Arrays.asList(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
+            fireArrow(entity.getScene(), location, new Vector(xVelocity, 0), new ResourceID("arrow-straight-"+orientation), PlayerEntity.getExemptList(PlayerEntity.getCrossbowMonsterLevel()), PlayerEntity.getCrossbowShotDuration());
             if(PlayerEntity.hasMultishotCrossbow()){
-                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, -1f), new ResourceID("arrow-up-"+orientation), Arrays.asList(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
-                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, 1f), new ResourceID("arrow-down-"+orientation), Arrays.asList(entity.getClass(), ArrowEntity.class), PlayerEntity.getCrossbowShotDuration());
+                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, -1f), new ResourceID("arrow-up-"+orientation), PlayerEntity.getExemptList(PlayerEntity.getCrossbowMonsterLevel()), PlayerEntity.getCrossbowShotDuration());
+                fireArrow(entity.getScene(), new Vector(location), new Vector(xVelocity, 1f), new ResourceID("arrow-down-"+orientation), PlayerEntity.getExemptList(PlayerEntity.getCrossbowMonsterLevel()), PlayerEntity.getCrossbowShotDuration());
             }
 
             Timer postShotTimer = new Timer(PlayerEntity.getCrossbowPostShotDelay(), (Runnable & Serializable) () -> {canShoot = true;});
@@ -315,12 +315,19 @@ public class PlayerScript implements Script{
      * Handles a jump.
      * @param vComp The velocity component of the player.
      */
-    private void performJump(VelocityComponent vComp){
+    private void performJump(VelocityComponent vComp, boolean isStationary){
         if(jumpsMade <= PlayerEntity.getBootsAdditionalJumps() && !(jumpKeyPressedLast)){ // can jump
             jumpSound.play();
 
-            float alteredBaseJump = jump + PlayerEntity.getBootsAdditionalHeight();
-            float jumpHeight = jumpsMade < 1? alteredBaseJump : alteredBaseJump * PlayerEntity.getBootsSuccessiveJumpPower();
+            float alteredBaseJump = jump - PlayerEntity.getBootsAdditionalHeight();
+
+            // Set super jump
+            if(isStationary && !inAir){
+                alteredBaseJump -= PlayerEntity.getBootsSuperJumpPower();
+            }
+
+            // Jumps wear out
+            float jumpHeight = jumpsMade < 1? alteredBaseJump : alteredBaseJump * (float) Math.pow(PlayerEntity.getBootsSuccessiveJumpPower(), jumpsMade);
 
             vComp.setY(jumpHeight);
 
@@ -338,7 +345,8 @@ public class PlayerScript implements Script{
      * @param o The orientation of the player.
      */
     private void handleMove(VelocityComponent vComp, SensorHandler sensorHandler, Orientation o, boolean isRun){
-        float speed = isRun && PlayerEntity.canSprint()? metresPerSecond * PlayerEntity.getSprintMultiplier() : metresPerSecond;
+        float walkingSpeed = metresPerSecond * PlayerEntity.getWalkMultiplier();
+        float speed = isRun && PlayerEntity.canSprint()? walkingSpeed * PlayerEntity.getSprintMultiplier() : walkingSpeed;
 
         vComp.setX(((o.equals(Orientation.LEFT)?-1:1)*speed) + relative.x);
 
