@@ -158,12 +158,6 @@ public class PlatformEntity extends GameEntity {
         setupScripts(end, time);
     }
 
-    public void makeJumpPad(){
-        SpriteComponent sc = get(SpriteComponent.class).get();
-        sc.clearSprites();
-        sc.add(new Sprite(new ResourceID("jumppad"), new Vector(0,0), dimensions));
-    }
-
     /**
      * Sets up the sprites and collider of a multiple block platform
      * @param numBlocks The number of blocks
