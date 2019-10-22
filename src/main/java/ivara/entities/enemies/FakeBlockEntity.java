@@ -32,6 +32,10 @@ public class FakeBlockEntity extends GameEntity implements Removable {
     private final AnimatedSprite fbs;
 
     public FakeBlockEntity(Vector transform){
+        this("plains", transform);
+    }
+
+    public FakeBlockEntity(String theme, Vector transform){
         super(transform);
         intialLoc = new Vector(transform);
         Vector dimension = new Vector(WIDTH, HEIGHT);
@@ -50,7 +54,7 @@ public class FakeBlockEntity extends GameEntity implements Removable {
 
         // Sprite
         SpriteComponent sc = new SpriteComponent(this);
-        fbs = new FakeBlockSprite(dimension);
+        fbs = new FakeBlockSprite(theme, dimension);
         sc.add(fbs);
         addComponent(sc);
 
@@ -78,17 +82,17 @@ public class FakeBlockEntity extends GameEntity implements Removable {
          * Constructs a new FakeBlockSprite that changes sprites dependant on the current state of the entity.
          * @param dimensions The size.
          */
-        private FakeBlockSprite(Vector dimensions){
+        private FakeBlockSprite(String theme, Vector dimensions){
             super(new Vector(0,0), dimensions, 10000);
 
             String state = "normal";
             String[] resources = new String[]{
-                    "fake-block"
+                    theme + "-fake-block"
             };
             addResources(state, Arrays.asList(resources));
             state = "dead";
             resources = new String[]{
-                    "fake-block-dead"
+                    theme + "-fake-block-dead"
             };
             addResources(state, Arrays.asList(resources));
 

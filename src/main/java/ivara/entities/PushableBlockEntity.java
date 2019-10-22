@@ -30,7 +30,11 @@ public class PushableBlockEntity extends GameEntity implements Removable{
     private Vector intialLoc;
     private Sensor bot;
 
-    public PushableBlockEntity(float x, float y){
+    public PushableBlockEntity(float x, float y) {
+        this("plains", x, y);
+    }
+
+    public PushableBlockEntity(String theme, float x, float y){
         super(new Vector(x,y));
         intialLoc = new Vector(transform);
         Vector dimension = new Vector(WIDTH, HEIGHT);
@@ -48,7 +52,7 @@ public class PushableBlockEntity extends GameEntity implements Removable{
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension)));
 
         // Sprite
-        addComponent(new SpriteComponent(this, new Sprite(new ResourceID("dirt"), new Vector(0,0), dimension)));
+        addComponent(new SpriteComponent(this, new Sprite(new ResourceID(theme + "-middle"), new Vector(0,0), dimension)));
 
         // Sensor
         Vector sensorDimension = new Vector(dimension.x-SENSOR_PADDING*2, SENSOR_HEIGHT + EXTRA_SENSOR_HEIGHT);

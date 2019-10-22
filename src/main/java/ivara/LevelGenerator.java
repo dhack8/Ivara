@@ -66,7 +66,7 @@ public class LevelGenerator {
         String level = colorToLevel(rgbTable, levelName, img.getHeight(), theme);
 
         // Save as .java
-        // saveToFile(level, levelName);
+        saveToFile(level, levelName);
 
         return level;
     }
@@ -251,7 +251,7 @@ public class LevelGenerator {
                 } else if (tile.equals(MOVINGPLATFORM)) {
                     addToMap(entityStrings, 4,platform(theme, x, y, platformFill(x, y, grid, checked, MOVINGPLATFORM), true));
                 } else if (tile.equals(FAKEPLATFORM))
-                    addToMap(entityStrings, 6,fakePlatform(x,y));
+                    addToMap(entityStrings, 6,fakePlatform(theme, x,y));
                 else if (tile.equals(COIN))
                     addToMap(entityStrings, 8,coin(x,y));
                 else if (tile.equals(PLAYER))
@@ -273,7 +273,7 @@ public class LevelGenerator {
                 else if (tile.equals(MARKER))
                     addToMap(entityStrings,5,marker(x,y,platformFill(x,y,grid,checked,MARKER)));
                 else if (tile.equals(PUSHBLOCK))
-                    addToMap(entityStrings,7,pushBlock(x,y));
+                    addToMap(entityStrings,7,pushBlock(theme,x,y));
                 else
                     System.err.println("Unknown tile colour: " + tile.toString());
             }
@@ -426,8 +426,8 @@ public class LevelGenerator {
         return codeLine("addEntity(new CoinEntity(player, new Vector("+x+", "+y+"), true));");
     }
 
-    private static String fakePlatform(int x, int y) {
-        return codeLine("addEntity(new FakeBlockEntity(new Vector("+x+", "+y+")));");
+    private static String fakePlatform(String theme, int x, int y) {
+        return codeLine("addEntity(new FakeBlockEntity(\""+theme+"\", new Vector("+x+", "+y+")));");
     }
 
     private static String platform(String theme, int x, int y, Vector end, boolean moving) {
@@ -467,8 +467,8 @@ public class LevelGenerator {
         return new Vector(x,y);
     }
 
-    private static String pushBlock(int x, int y) {
-        return codeLine("addEntity(new PushableBlockEntity("+x+","+y+"));");
+    private static String pushBlock(String theme, int x, int y) {
+        return codeLine("addEntity(new PushableBlockEntity(\""+theme+"\","+x+","+y+"));");
     }
 
     private static String marker(int x, int y, Vector end) {
