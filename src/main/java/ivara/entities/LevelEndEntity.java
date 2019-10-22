@@ -116,14 +116,14 @@ public class LevelEndEntity extends GameEntity {
                     playerWin.play();
                     Game game = entity.getScene().getGame();
 
+                    // Mark this level as completed
+                    ((Level)entity.getScene()).complete();
+                    entered = false;
+
                     // Update level info and switch to map
                     LevelInfoEntity levelInfoEntity = (LevelInfoEntity) game.getLevelManager().getBookmarkedScene(MAP).getEntity(LevelInfoEntity.class);
                     levelInfoEntity.refresh(true);
                     game.getLevelManager().setToBookmarkedScene(MAP);
-
-                    // Mark this level as completed
-                    ((Level)entity.getScene()).complete();
-                    entered = false;
                 }
             }
         }
