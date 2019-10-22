@@ -76,30 +76,6 @@ public class InitialBootsLevel extends Level {
 
         // Coins
         addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
         addEntity(new CoinEntity(player, new Vector(14, 3), true));
         addEntity(new CoinEntity(player, new Vector(43, 7), true));
         addEntity(new CoinEntity(player, new Vector(48, 7), true));

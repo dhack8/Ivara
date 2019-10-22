@@ -12,30 +12,16 @@ import maths.Vector;
 
 import java.awt.event.TextEvent;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Kristen Tait on 1/10/2019.
  */
 public class Store extends Scene{
-
-    private final float BUTTON_WIDTH = 10f;
-    private final float BUTTON_HEIGHT = 4f;
-
-    private final float YESNO_WIDTH = 6;
-    private final float YESNO_HEIGHT = 2;
-
-    private final float XMARGIN_LEFT = 1f;
-    private final float XMARGIN_RIGHT = 0f;
-
-    private final int NUM_BUTTONS = 5; // Spacing is defined by the number of buttons within the scene
-
-    private final float YPOS = 6; // The Y position to start drawing the line of buttons from
-
     private static final Vector FULL_LENGTH_BUTTON_DIMEN = new Vector(7.225f, 1.625f);
+    private static final float INITIAL_Y = 4.3f;
+    private static final float AVAILABLE_Y_SPACE = 8.3f;
+    private static final float Y_PADDING = 0.1f;
 
     private boolean confirmation = false;
     private PlayerEntity.SKIN playSelectedCharacter;
@@ -44,8 +30,19 @@ public class Store extends Scene{
     private ButtonEntity noButton;
 
     private List<PlayerEntity.SKIN> purchasedCharacters;
-    private Map<PlayerEntity.SKIN, BasicTextEntity> skinToCostText;
+    private static Map<PlayerEntity.SKIN, BasicTextEntity> skinToCostText;
+    private static Map<PlayerEntity.SKIN, Integer> skinToCost;
     private Map<PlayerEntity.SKIN, ButtonEntity> skinToButton;
+
+    static {
+        skinToCost = new LinkedHashMap<>();
+        skinToCost.put(PlayerEntity.SKIN.PABLO, 0);
+        skinToCost.put(PlayerEntity.SKIN.STACY, 50);
+        skinToCost.put(PlayerEntity.SKIN.NIGEL, 50);
+        skinToCost.put(PlayerEntity.SKIN.SIMON, 100);
+        skinToCost.put(PlayerEntity.SKIN.ZOMBIE, 150);
+        skinToCost.put(PlayerEntity.SKIN.SNOWMAN, 200);
+    }
 
     @Override
     public void initialize() {
@@ -69,26 +66,22 @@ public class Store extends Scene{
 
         addEntity(new StoreCoinEntity(new Vector(1040f,290f)));
 
-        float leftoverX = cDimensions.x - (NUM_BUTTONS*BUTTON_WIDTH) - XMARGIN_LEFT - XMARGIN_RIGHT;
-        float btnSpaceX = leftoverX/(NUM_BUTTONS+1);
-
-        int btnCount = 0;
         addBackButton();
 
-        addItemButton(
-                (UIListener) () -> clickSkinButton(PlayerEntity.SKIN.PABLO, 0), new Vector(12.375f, 4.3f), PlayerEntity.SKIN.PABLO, 0);
-
-        addItemButton(
-                (UIListener) () -> clickSkinButton(PlayerEntity.SKIN.STACY, 20), new Vector(12.375f, 6f), PlayerEntity.SKIN.STACY, 20);
-
-        addItemButton(
-                (UIListener) () -> clickSkinButton(PlayerEntity.SKIN.NIGEL, 20), new Vector(12.375f, 7.7f), PlayerEntity.SKIN.NIGEL, 20);
-
-        addItemButton(
-                (UIListener) () -> clickSkinButton(PlayerEntity.SKIN.SIMON, 50), new Vector(12.375f, 9.4f), PlayerEntity.SKIN.SIMON, 50);
-
-        addItemButton(
-                (UIListener) () -> clickSkinButton(PlayerEntity.SKIN.ZOMBIE, 100), new Vector(12.375f, 11.1f), PlayerEntity.SKIN.ZOMBIE, 100);
+        int index = 0;
+        float buttonSize = AVAILABLE_Y_SPACE/skinToCost.size() - Y_PADDING;
+        for(Map.Entry<PlayerEntity.SKIN, Integer> entry : skinToCost.entrySet()){
+            PlayerEntity.SKIN skin = entry.getKey();
+            int cost = entry.getValue();
+            addItemButton(
+                    skin,
+                    (UIListener) () -> clickSkinButton(skin, cost),
+                    new Vector(12.375f, INITIAL_Y + index*(buttonSize+Y_PADDING)),
+                    new Vector(buttonSize, buttonSize),
+                    cost
+            );
+            index++;
+        }
 
         addEntity(new BackgroundEntity(new ResourceID("background-sea")));
         addEntity(new BackgroundEntity(new ResourceID("store")));
@@ -101,25 +94,27 @@ public class Store extends Scene{
         addEntity(button);
     }
 
-    private void addItemButton(UIListener buttonEvent, Vector location, PlayerEntity.SKIN itemName, int cost){
+    private void addItemButton(PlayerEntity.SKIN itemName, UIListener buttonEvent, Vector location, Vector dimen, int cost){
+        float textX = dimen.x + 0.1f;
+        String name = itemName.toString().substring(0, 1).toUpperCase() + itemName.toString().substring(1);
         BasicTextEntity itemText = new BasicTextEntity(
-                location.add(new Vector(1.55f, 0.5f)),
-                new Text(40, itemName.toString())
+                location.add(new Vector(textX, 0.5f)),
+                new Text(40, name)
         );
         addEntity(itemText);
 
-        BasicTextEntity costText = new BasicTextEntity(location.add(new Vector(1.55f, 1f)), new Text(30, cost + " Coins"));
+        BasicTextEntity costText = new BasicTextEntity(location.add(new Vector(textX, 1f)), new Text(30, cost + " Coins"));
         skinToCostText.put(itemName, costText);
         if(!purchasedCharacters.contains(itemName)) addEntity(costText);
 
-        ButtonEntity button = new ButtonEntity(location, new Vector(1.5f, 1.5f), "store-player-button");
+        ButtonEntity button = new ButtonEntity(location, dimen, "store-player-button");
         if(playSelectedCharacter.equals(itemName)) button.setActive(false);
         skinToButton.put(itemName, button);
 
         button.addListener(buttonEvent);
         addEntity(button);
 
-        addEntity(new SkinPreviewEntity(location.add(new Vector(0.25f, -0.12f)), itemName, new Vector(1f, 1.5f)));
+        addEntity(new SkinPreviewEntity(location.add(new Vector(0.25f, -0.12f)), itemName, new Vector(dimen.y*0.6666f, dimen.y)));
     }
 
     private void clickSkinButton(PlayerEntity.SKIN itemName, int cost) {
