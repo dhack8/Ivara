@@ -30,7 +30,7 @@ public class NameInputScene extends Scene {
         addEntity(new BackgroundEntity(new ResourceID("name-input-popup-50")));
 
         addEntity(new BasicTextEntity(new Vector(10.75f, 6f), new Text(50 , "Welcome to the adventures of Pablo!")));
-        addEntity(new BasicTextEntity(new Vector(9.85f, 7.5f), new Text(35 , "Before you set off on your journey, please type in a name for your\ncharacter. When you're done typing, click the continue button.")));
+        addEntity(new BasicTextEntity(new Vector(9.85f, 7.5f), new Text(35 , "Before you set off on your journey, please type in a name for your\ncharacter. When you're done typing, click the confirm button.")));
 
         ButtonEntity confirm = new ButtonEntity(new Vector(13.2f, 11f), new Vector(5.5f, 1.5f), "confirm");
         confirm.addListener(() -> {
