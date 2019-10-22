@@ -7,11 +7,9 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Color;
 import java.io.*;
-import java.util.List;
+import java.util.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 /**
  * Level Generator takes a pixel image and converts it in to a level file. Run the main method
@@ -55,6 +53,9 @@ public class LevelGenerator {
         String filename = selectImage();
         String levelName = fileToLevelName(filename);
 
+        // Select theme
+        String theme = selectTheme();
+
         // Read image
         BufferedImage img = readImage(filename);
 
@@ -62,10 +63,10 @@ public class LevelGenerator {
         Color[][] rgbTable = convertToArray(img);
 
         // Convert to level string
-        String level = colorToLevel(rgbTable, levelName, img.getHeight());
+        String level = colorToLevel(rgbTable, levelName, img.getHeight(), theme);
 
         // Save as .java
-        saveToFile(level, levelName);
+        // saveToFile(level, levelName);
 
         return level;
     }
@@ -84,6 +85,26 @@ public class LevelGenerator {
             System.exit(0);
         File file = fileChooser.getSelectedFile();
         return fileChooser.getName(file);
+    }
+
+    /**
+     * Selects the theme for the level.
+     * @return The theme.
+     */
+    private static String selectTheme() {
+        File folder = new File("./assets/blocks/");
+        List<String> themes =
+                Arrays.stream(
+                        Objects.requireNonNull(
+                                folder.listFiles(File::isDirectory)
+                        ))
+                .map(File::getName)
+                .collect(Collectors.toList());
+
+        int x = JOptionPane.showOptionDialog(null, "Go on, pick one.",
+                "Pick a theme",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, themes.toArray(), themes.get(0));
+        return themes.get(x);
     }
 
     /**
@@ -126,10 +147,10 @@ public class LevelGenerator {
      * @param height The level's maximum height.
      * @return The string representation of the level.
      */
-    private static String colorToLevel(Color[][] rgbTable, String levelName, int height){
+    private static String colorToLevel(Color[][] rgbTable, String levelName, int height, String theme){
         StringBuilder level = new StringBuilder();
         level.append(levelHeader(levelName));
-        level.append(levelEntities(rgbTable));
+        level.append(levelEntities(rgbTable, theme));
         level.append('\n');
         level.append(levelDefaults(height));
         level.append(levelFooter());
@@ -197,9 +218,9 @@ public class LevelGenerator {
                 + "\t\t\t\"Default_Desc\",\n"
                 + "\t\t\t\"Default_Reward_Desc\",\n"
                 + "\t\t\t\"120, 60, 40\"\n"
-                + "\t\t);\n}\n\n"
+                + "\t\t);\t\n}\n\n"
                 + "\t@Override\n"
-                + "\tpublic void updateRewards(){\n\t\t#TODO Fill rewards\n\t}\n\n"
+                + "\tpublic void updateRewards(){\n\t\t// TODO: Fill rewards\n\t}\n\n"
                 + "\t@Override\n"
                 + "\tpublic void initialize(){\n";
     }
@@ -210,7 +231,7 @@ public class LevelGenerator {
      * @param grid The color grid.
      * @return A string representing all the entities in the level.
      */
-    private static String levelEntities(Color[][] grid) {
+    private static String levelEntities(Color[][] grid, String theme) {
         boolean[][] checked = new boolean[grid.length][grid[0].length]; // Records if the tile has been checked
         Map<Integer, StringBuilder> entityStrings = new TreeMap<>(); // Used to group the strings by category so that all platforms are together etc.
         for (int y = 0; y < grid.length; y++) {
@@ -226,9 +247,9 @@ public class LevelGenerator {
 
                 // Determine entity type and add to map
                 if (tile.equals(PLATFORM)) {
-                    addToMap(entityStrings,3, platform(x, y, platformFill(x, y, grid, checked, PLATFORM), false));
+                    addToMap(entityStrings,3, platform(theme, x, y, platformFill(x, y, grid, checked, PLATFORM), false));
                 } else if (tile.equals(MOVINGPLATFORM)) {
-                    addToMap(entityStrings, 4,platform(x, y, platformFill(x, y, grid, checked, MOVINGPLATFORM), true));
+                    addToMap(entityStrings, 4,platform(theme, x, y, platformFill(x, y, grid, checked, MOVINGPLATFORM), true));
                 } else if (tile.equals(FAKEPLATFORM))
                     addToMap(entityStrings, 6,fakePlatform(x,y));
                 else if (tile.equals(COIN))
@@ -409,8 +430,8 @@ public class LevelGenerator {
         return codeLine("addEntity(new FakeBlockEntity(new Vector("+x+", "+y+")));");
     }
 
-    private static String platform(int x, int y, Vector end, boolean moving) {
-        String res = "addEntity(new PlatformEntity(new Vector("+x+","+y+")";
+    private static String platform(String theme, int x, int y, Vector end, boolean moving) {
+        String res = "addEntity(new PlatformEntity(\""+theme+"\", new Vector("+x+","+y+")";
 
         if (end.x != x) { // horizontal
             int n = (int)end.x - x;

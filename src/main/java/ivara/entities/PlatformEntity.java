@@ -57,6 +57,21 @@ public class PlatformEntity extends GameEntity {
     /**
      * Constructs a Platform at the specified coordinates (x,y), with n amount of tiles. Is created vertically or
      * horizontally, whichever is specified in the constructor of the level the Platform is used in.
+     * @param theme The theme
+     * @param start The start position
+     * @param numBlocks amount of tiles that makes up the platform, assuming n >= 2
+     * @param isVertical boolean symbolising if the platform is vertical or horizontal
+     * @throws IllegalArgumentException if the user tries to call the creation of an Platform of size less than 2
+     */
+    public PlatformEntity(String theme, Vector start, int numBlocks, boolean isVertical) throws IllegalArgumentException{
+        super(start);
+        if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
+        setupMulti(theme, numBlocks, isVertical);
+    }
+
+    /**
+     * Constructs a Platform at the specified coordinates (x,y), with n amount of tiles. Is created vertically or
+     * horizontally, whichever is specified in the constructor of the level the Platform is used in.
      * @param start The start position
      * @param numBlocks amount of tiles that makes up the platform, assuming n >= 2
      * @param isVertical boolean symbolising if the platform is vertical or horizontal
@@ -65,7 +80,27 @@ public class PlatformEntity extends GameEntity {
     public PlatformEntity(Vector start, int numBlocks, boolean isVertical) throws IllegalArgumentException{
         super(start);
         if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
-        setupMulti(numBlocks, isVertical);
+        setupMulti("plains", numBlocks, isVertical);
+    }
+
+    /**
+     * Constructs a Platform at the specified coordinates (x,y), with n amount of tiles. Is created vertically or
+     * horizontally, whichever is specified in the constructor of the level the Platform is used in.
+     * This constructor also takes information to make the platform move
+     * @param theme The theme
+     * @param start The start position
+     * @param numBlocks amount of tiles that makes up the platform, assuming n >= 2
+     * @param isVertical boolean symbolising if the platform is vertical or horizontal
+     * @param end The position that the platform moves to from the starting position
+     * @param time The time taken for it to move from start to end
+     * @throws IllegalArgumentException if the user tries to call the creation of an Platform of size less than 2
+     */
+    public PlatformEntity(String theme, Vector start, int numBlocks, boolean isVertical, Vector end, float time) throws IllegalArgumentException{
+        super(start);
+        if(time <= 0) throw new IllegalArgumentException("Time must be a strictly positive value.");
+        if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
+        setupMulti(theme, numBlocks, isVertical);
+        setupScripts(end, time);
     }
 
     /**
@@ -83,8 +118,25 @@ public class PlatformEntity extends GameEntity {
         super(start);
         if(time <= 0) throw new IllegalArgumentException("Time must be a strictly positive value.");
         if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
-        setupMulti(numBlocks, isVertical);
+        setupMulti("plains", numBlocks, isVertical);
         setupScripts(end, time);
+    }
+
+    /**
+     * Constructs a Platform at the specified coordinates (x,y), with n amount of tiles. Is created vertically or
+     * horizontally, whichever is specified in the constructor of the level the Platform is used in.
+     * @param theme The theme
+     * @param start The start position
+     * @param numBlocks amount of tiles that makes up the platform, assuming n >= 2
+     * @param isVertical boolean symbolising if the platform is vertical or horizontal
+     * @param veges to draw vegetation or not
+     * @throws IllegalArgumentException if the user tries to call the creation of an Platform of size less than 2
+     */
+    public PlatformEntity(String theme, Vector start, int numBlocks, boolean isVertical, boolean veges) throws IllegalArgumentException{
+        super(start);
+        if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
+        vegesOn = veges;
+        setupMulti(theme, numBlocks, isVertical);
     }
 
     /**
@@ -100,7 +152,29 @@ public class PlatformEntity extends GameEntity {
         super(start);
         if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
         vegesOn = veges;
-        setupMulti(numBlocks, isVertical);
+        setupMulti("plains", numBlocks, isVertical);
+    }
+
+    /**
+     * Constructs a Platform at the specified coordinates (x,y), with n amount of tiles. Is created vertically or
+     * horizontally, whichever is specified in the constructor of the level the Platform is used in.
+     * This constructor also takes information to make the platform move
+     * @param theme The theme
+     * @param start The start position
+     * @param numBlocks amount of tiles that makes up the platform, assuming n >= 2
+     * @param isVertical boolean symbolising if the platform is vertical or horizontal
+     * @param end The position that the platform moves to from the starting position
+     * @param time The time taken for it to move from start to end
+     * @param veges to draw vegetation or not
+     * @throws IllegalArgumentException if the user tries to call the creation of an Platform of size less than 2
+     */
+    public PlatformEntity(String theme, Vector start, int numBlocks, boolean isVertical, Vector end, float time, boolean veges) throws IllegalArgumentException{
+        super(start);
+        if(time <= 0) throw new IllegalArgumentException("Time must be a strictly positive value.");
+        if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
+        vegesOn = veges;
+        setupMulti(theme, numBlocks, isVertical);
+        setupScripts(end, time);
     }
 
     /**
@@ -120,8 +194,18 @@ public class PlatformEntity extends GameEntity {
         if(time <= 0) throw new IllegalArgumentException("Time must be a strictly positive value.");
         if(numBlocks < 1) throw new IllegalArgumentException("Cannot create a platform with less than 1 block.");
         vegesOn = veges;
-        setupMulti(numBlocks, isVertical);
+        setupMulti("plains", numBlocks, isVertical);
         setupScripts(end, time);
+    }
+
+    /**
+     * Creates a Platform at the specified coordinates with a single tile.
+     * @param theme The theme
+     * @param start The position to construct the Platform
+     */
+    public PlatformEntity(String theme, Vector start){
+        super(start);
+        setupSingle(theme);
     }
 
     /**
@@ -130,7 +214,19 @@ public class PlatformEntity extends GameEntity {
      */
     public PlatformEntity(Vector start){
         super(start);
-        setupSingle();
+        setupSingle("plains");
+    }
+
+    /**
+     * Creates a Platform at the specified coordinates with a single tile.
+     * @param theme The theme
+     * @param start The position to construct the Platform
+     * @param veges to draw vegetation or not
+     */
+    public PlatformEntity(String theme, Vector start, boolean veges){
+        super(start);
+        vegesOn = veges;
+        setupSingle(theme);
     }
 
     /**
@@ -141,7 +237,22 @@ public class PlatformEntity extends GameEntity {
     public PlatformEntity(Vector start, boolean veges){
         super(start);
         vegesOn = veges;
-        setupSingle();
+        setupSingle("plains");
+    }
+
+    /**
+     * Creates a Platform at the specified coordinates with a single tile.
+     * This platform moves to the specified end position in the specified time.
+     * @param theme The theme
+     * @param start The position to construct the Platform
+     * @param end The end position for the Platform
+     * @param time The time taken to get from the start to end, in seconds
+     */
+    public PlatformEntity(String theme, Vector start, Vector end, float time){
+        super(start);
+        if(time <= 0) throw new IllegalArgumentException("Time must be a strictly positive value.");
+        setupSingle(theme);
+        setupScripts(end, time);
     }
 
     /**
@@ -154,7 +265,7 @@ public class PlatformEntity extends GameEntity {
     public PlatformEntity(Vector start, Vector end, float time){
         super(start);
         if(time <= 0) throw new IllegalArgumentException("Time must be a strictly positive value.");
-        setupSingle();
+        setupSingle("plains");
         setupScripts(end, time);
     }
 
@@ -163,7 +274,7 @@ public class PlatformEntity extends GameEntity {
      * @param numBlocks The number of blocks
      * @param isVertical Whether the platform is vertical
      */
-    private void setupMulti(int numBlocks, boolean isVertical){
+    private void setupMulti(String theme, int numBlocks, boolean isVertical){
 
         SpriteComponent sc = new SpriteComponent(this);
 
@@ -176,15 +287,15 @@ public class PlatformEntity extends GameEntity {
 
         // Setup sprites
         if (isVertical) {
-            startSectionID = "grass-top";
-            middleSectionID = "dirt";
-            endSectionID = "dirt-bottom";
+            startSectionID = theme + "-top";
+            middleSectionID = theme + "-middle";
+            endSectionID = theme + "-bottom";
         } else {
-            if(numBlocks == 1){ startSectionID = "grass-top";}
-            else{ startSectionID = "grass-top-left";}
+            if(numBlocks == 1){ startSectionID = theme + "-top";}
+            else{ startSectionID = theme + "-left";}
 
-            middleSectionID = "grass-top";
-            endSectionID = "grass-top-right";
+            middleSectionID = theme + "-top";
+            endSectionID = theme + "-right";
         }
 
         // Add start of platform sprite
@@ -220,9 +331,9 @@ public class PlatformEntity extends GameEntity {
     /**
      * Sets up the sprite and collider for a single block
      */
-    private void setupSingle(){
+    private void setupSingle(String theme){
         SpriteComponent sc = new SpriteComponent(this);
-        sc.add(new ResourceID("grass-top"), dimensions);
+        sc.add(new ResourceID(theme + "-top"), dimensions);
         addComponent(sc);
 
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM,
