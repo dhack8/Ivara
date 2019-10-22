@@ -217,7 +217,7 @@ public class LevelGenerator {
                 + "\t\t\t\"Default_Title\",\n"
                 + "\t\t\t\"Default_Desc\",\n"
                 + "\t\t\t\"Default_Reward_Desc\",\n"
-                + "\t\t\t\"120, 60, 40\"\n"
+                + "\t\t\t120, 60, 40\n"
                 + "\t\t);\t\n}\n\n"
                 + "\t@Override\n"
                 + "\tpublic void updateRewards(){\n\t\t// TODO: Fill rewards\n\t}\n\n"
@@ -294,7 +294,7 @@ public class LevelGenerator {
         int deathHeight = levelHeight + 10; // place death line slightly lower than the level's depth
         sb.append(codeLine("addEntity(new DeathLineEntity("+deathHeight+"));"));
         sb.append(codeLine("setCamera(new Camera());"));
-        sb.append(codeLine("super.initialize(player);"));
+        sb.append(codeLine("super.startScene(player);"));
         return sb.toString();
     }
 
