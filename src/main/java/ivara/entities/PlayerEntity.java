@@ -249,7 +249,7 @@ public class PlayerEntity extends GameEntity {
     }
 
     public static void spendCoins(int amount){
-
+        COINS -= amount;
     }
 
     private static Map<String, Float> getInitialItemFlags(){
