@@ -15,6 +15,7 @@ import physics.AABBCollider;
 import java.io.Serializable;
 
 import static ivara.Ivara.MAIN_MENU;
+import static ivara.Ivara.STORE;
 
 public class LevelMap extends Scene {
 
@@ -127,7 +128,7 @@ public class LevelMap extends Scene {
     private void addStore(){
         addEntity(
                 new ButtonEntity(new Vector(11.5375f, 9.125f), new Vector(0.8f, 0.8f), "store-button")
-                        .addListener(() -> getGame().getLevelManager().setToBookmarkedScene(Ivara.STORE)));
+                        .addListener(() -> getGame().getLevelManager().setToBookmarkedScene(STORE)));
     }
 }
 
