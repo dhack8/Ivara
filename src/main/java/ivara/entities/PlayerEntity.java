@@ -35,6 +35,8 @@ public class PlayerEntity extends GameEntity {
     private static final float JUMP_SENSOR_EXTRA = 0.01f;
     private static final float ANTI_WALL_RUN = 0.1f; // 0 for wall running
 
+    public static String PLAYER_NAME = null;
+
     private static int COINS = 0;
     private static int COINS_USED = 0;
 

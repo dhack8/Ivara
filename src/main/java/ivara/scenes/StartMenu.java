@@ -5,6 +5,7 @@ import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import ivara.entities.BackgroundEntity;
+import ivara.entities.PlayerEntity;
 import ivara.entities.ui.ButtonEntity;
 import ivara.entities.ui.UIEntity;
 import ivara.entities.ui.UIListener;
@@ -12,6 +13,7 @@ import maths.Vector;
 import physics.AABBCollider;
 
 import static ivara.Ivara.MAP;
+import static ivara.Ivara.NAME_SELECTOR;
 
 /**
  * Created by Alex Mitchell on 12/10/2017.
@@ -32,7 +34,10 @@ public class StartMenu extends Scene{
         setCamera(c);
 
         addEntity(new ButtonEntity(getButtonPosition(1), BUTTON_DIMEN, "play")
-                .addListener(() -> getGame().getLevelManager().setToBookmarkedScene(MAP)));
+                .addListener(() -> {
+                    String scene = PlayerEntity.PLAYER_NAME == null ? NAME_SELECTOR : MAP;
+                    getGame().getLevelManager().setToBookmarkedScene(scene);
+                }));
 
         addEntity(new ButtonEntity(getButtonPosition(2), BUTTON_DIMEN, "load")
                 .addListener(() -> getGame().load()));

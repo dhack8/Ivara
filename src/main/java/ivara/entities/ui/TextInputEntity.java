@@ -14,6 +14,7 @@ import java.util.Set;
 
 public class TextInputEntity extends GameEntity {
     private String textInput = "";
+    private String defaultInput;
     private TextComponent textComponent;
     private int textSize;
 
@@ -22,12 +23,13 @@ public class TextInputEntity extends GameEntity {
      *
      * @param transform transform/location of entity
      */
-    public TextInputEntity(Vector transform, int maxChars, int textSize) {
+    public TextInputEntity(Vector transform, int maxChars, int textSize, String defaultText) {
         super(transform);
         this.textSize = textSize;
-        textComponent = new TextComponent(this, new Text(textSize, textInput));
+        textComponent = new TextComponent(this, new Text(textSize, defaultText));
         addComponent(textComponent);
         addComponent(new ScriptComponent(this, new TextScript(maxChars)));
+        defaultInput = defaultText;
     }
 
     public String getText(){
@@ -58,11 +60,15 @@ public class TextInputEntity extends GameEntity {
             if(!(Character.isLetter(newChar) || Character.isSpaceChar(newChar) || ((int) newChar) == Constants.BACKSPACE)) return;
             if(priorPressed.contains(newChar)) return;
 
-            if(((int) newChar) == Constants.BACKSPACE && textInput.length() > 0) textInput = textInput.substring(0, textInput.length()-1);
+            if(((int) newChar) == Constants.BACKSPACE){
+                if(textInput.length() > 0) textInput = textInput.substring(0, textInput.length()-1);
+            }
             else if(textInput.length() != maxChars) textInput += newChar;
 
             textComponent.clear();
-            textComponent.add(textInput, textSize);
+            if(textInput.length() == 0) textComponent.add(defaultInput, textSize);
+            else textComponent.add(textInput, textSize);
+
 
             priorPressed.add(newChar);
         }
