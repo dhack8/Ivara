@@ -7,6 +7,7 @@ import com.jogamp.opengl.GLException;
 import core.Game;
 import core.scene.LevelManager;
 import core.scene.Scene;
+import ivara.highscore.HighscoreDatabaseAdapter;
 import ivara.scenes.*;
 import kuusisto.tinysound.Music;
 import kuusisto.tinysound.TinySound;
@@ -56,6 +57,8 @@ public class Ivara extends Game {
         l.bookmarkScene(MAIN_MENU, startMenu);
         l.bookmarkScene(STORE, new Store());
         l.bookmarkScene(NAME_SELECTOR, new NameInputScene());
+
+        HighscoreDatabaseAdapter.setupDatabase();
 
         Game g = new Ivara(l, processingBackend, processingBackend);
         backgroundTrack.play(true);

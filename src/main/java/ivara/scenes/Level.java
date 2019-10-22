@@ -6,6 +6,8 @@ import ivara.entities.*;
 import ivara.entities.ui.ArrowTextEntity;
 import ivara.entities.ui.CoinTextEntity;
 import ivara.entities.ui.TimerEntity;
+import ivara.highscore.Highscore;
+import ivara.highscore.HighscoreDatabaseAdapter;
 import maths.Vector;
 
 import java.util.*;
@@ -174,6 +176,11 @@ abstract public class Level extends Scene {
         checkpointEntities.removeAll(collectibles);
         preCheckpointEntities.removeAll(collectibles);
         updateRewards();
+        submitHighscore(completedTime);
+    }
+
+    private void submitHighscore(long completedTime){
+        HighscoreDatabaseAdapter.setHighScore(this.title, new Highscore(PlayerEntity.PLAYER_NAME, completedTime));
     }
 
     public abstract void updateRewards();
