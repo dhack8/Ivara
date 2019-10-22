@@ -4,6 +4,8 @@ import backends.InputBroadcaster;
 import maths.Vector;
 
 import java.util.BitSet;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Stores the input passed in by Game for use by the other libraries.
@@ -172,6 +174,22 @@ public class InputHandler {
          */
         public Vector getMousePosition() {
             return mousePosition;
+        }
+
+        public Set<Character> getPressedKeys() {
+            Set<Character> pressedChars = new HashSet<>();
+            for (int i = 0; i < pressedKeys.length(); i++) {
+                if(pressedKeys.get(i)) pressedChars.add((char)i);
+            }
+            return pressedChars;
+        }
+
+        public Set<Character> getReleasedKeys() {
+            Set<Character> releasedChars = new HashSet<>();
+            for (int i = 0; i < releasedKeys.length(); i++) {
+                if(releasedKeys.get(i)) releasedChars.add((char)i);
+            }
+            return releasedChars;
         }
     }
 }
