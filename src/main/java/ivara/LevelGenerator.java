@@ -66,7 +66,7 @@ public class LevelGenerator {
         String level = colorToLevel(rgbTable, levelName, img.getHeight(), theme);
 
         // Save as .java
-        saveToFile(level, levelName);
+        //saveToFile(level, levelName);
 
         return level;
     }
