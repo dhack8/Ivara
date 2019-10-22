@@ -27,9 +27,7 @@ public class StartMenu extends Scene{
     private static final float BUTTON_HEIGHT = 1.1f;
     private static final Vector BUTTON_DIMEN = new Vector(BUTTON_WIDTH, BUTTON_HEIGHT);
 
-    @Override
-    public void initialize() {
-
+    public StartMenu() {
         Camera c = new Camera();
         setCamera(c);
 

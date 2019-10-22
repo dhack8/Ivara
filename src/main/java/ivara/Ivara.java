@@ -7,6 +7,7 @@ import com.jogamp.opengl.GLException;
 import core.Game;
 import core.scene.LevelManager;
 import core.scene.Scene;
+import ivara.entities.PlayerEntity;
 import ivara.highscore.HighscoreDatabaseAdapter;
 import ivara.scenes.*;
 import kuusisto.tinysound.Music;
@@ -29,6 +30,8 @@ public class Ivara extends Game {
     public static final String MAIN_MENU = "main_menu";
     public static final String STORE = "store";
     public static final String NAME_SELECTOR = "name-input";
+
+    public static PlayerEntity playerEntity;
 
     /**
      * Constructs the game.
@@ -53,7 +56,7 @@ public class Ivara extends Game {
 
         StartMenu startMenu = new StartMenu();
         LevelManager l = new LevelManager(startMenu, new PauseMenu());
-        l.bookmarkScene(MAP, new LevelMap());
+        l.bookmarkScene(MAP, new LevelMap(new PlayerEntity(0f, 0f)));
         l.bookmarkScene(MAIN_MENU, startMenu);
         l.bookmarkScene(STORE, new Store());
         l.bookmarkScene(NAME_SELECTOR, new NameInputScene());

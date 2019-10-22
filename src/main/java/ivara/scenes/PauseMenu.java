@@ -31,8 +31,7 @@ public class PauseMenu extends Scene {
 
     private static final Sound saveSound = TinySound.loadSound("savesound.wav");
 
-    @Override
-    public void initialize() {
+    public PauseMenu() {
         Camera c = new Camera();
         setCamera(c);
 

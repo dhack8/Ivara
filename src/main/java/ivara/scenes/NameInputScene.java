@@ -18,12 +18,9 @@ public class NameInputScene extends Scene {
     private static int TEXT_SIZE = 35;
     private TextInputEntity textInputEntity;
 
-    @Override
-    public void initialize() {
-
+    public NameInputScene() {
         Camera c = new Camera();
         setCamera(c);
-
 
         addEntity(new BackgroundEntity(new ResourceID("background-sea")));
         addEntity(new BackgroundEntity(new ResourceID("map")));

@@ -12,25 +12,17 @@ import maths.Vector;
 
 public class QuiverSize1 extends Level {
 
-    public QuiverSize1() {
+    public QuiverSize1(PlayerEntity playerEntity) {
         super(
+                playerEntity,
                 "Monsters, Quiver!",
                 "Pablo explored down the populated southern end of the island taking out monsters as he went. People started to greet him as 'Slayer'. After each area was free of monsters the locals would return to start farming once again. As a sign of their appreciation the local farmers gave Pablo a small quiver. Pablo now has a quiver for his bolts but he is still short of bolts!",
                 "Pablo can now carry 3 bolts per level.",
                 120, 60, 40
         );
-    }
 
-    @Override
-    public void updateRewards() {
-        PlayerEntity.setItemFlag("crossbow-quiver-size", 3f);
-    }
-
-    @Override
-    public void initialize() {
-        // Player
-        PlayerEntity player = new PlayerEntity(2,0.5f);
-        addEntity(player);
+        // Player spawn
+        addEntity(new SpawnPointEntity(2,0.5f));
 
         // Text
         addEntity(new BasicTextEntity(new Vector(3,-0.9f), new Text(20, "These slimes look aggressive!\nMaybe a airborne assault will work...")));
@@ -74,19 +66,19 @@ public class QuiverSize1 extends Level {
         addEntity(new PlatformEntity(new Vector(19,25),3,false,new Vector(23,22),3)); // TODO: Fill in end position and duration
 
         // Coins
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(14, 3), true));
-        addEntity(new CoinEntity(player, new Vector(43, 7), true));
-        addEntity(new CoinEntity(player, new Vector(48, 7), true));
-        addEntity(new CoinEntity(player, new Vector(14, 9), true));
-        addEntity(new CoinEntity(player, new Vector(51, 10), true));
-        addEntity(new CoinEntity(player, new Vector(14, 15), true));
-        addEntity(new CoinEntity(player, new Vector(33, 15), true));
-        addEntity(new CoinEntity(player, new Vector(54, 15), true));
-        addEntity(new CoinEntity(player, new Vector(55, 18), true));
-        addEntity(new CoinEntity(player, new Vector(57, 18), true));
-        addEntity(new CoinEntity(player, new Vector(13, 20), true));
-        addEntity(new CoinEntity(player, new Vector(15, 20), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(6, 1), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(14, 3), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(43, 7), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(48, 7), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(14, 9), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(51, 10), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(14, 15), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(33, 15), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(54, 15), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(55, 18), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(57, 18), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(13, 20), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(15, 20), true));
 
         // Snakes
         addEntity(new SquigglyEntity(new Vector(46,6.5f)));
@@ -103,6 +95,11 @@ public class QuiverSize1 extends Level {
         addEntity(new BackgroundEntity(new ResourceID("background")));
         addEntity(new DeathLineEntity(42));
         setCamera(new Camera());
-        super.startScene(player);
+        super.startScene();
+    }
+
+    @Override
+    public void updateRewards() {
+        PlayerEntity.setItemFlag("crossbow-quiver-size", 3f);
     }
 }

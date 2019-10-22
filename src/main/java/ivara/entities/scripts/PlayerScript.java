@@ -293,7 +293,7 @@ public class PlayerScript implements Script{
             if(current instanceof Level){
                 Level currentDefault = (Level) current;
                 playerDeath.play();
-                currentDefault.respawnPlayer(p);
+                currentDefault.respawnPlayer();
             }
         }else{
             throw new IllegalArgumentException("Player script should be on a player entity");

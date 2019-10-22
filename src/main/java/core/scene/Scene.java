@@ -34,14 +34,7 @@ public abstract class Scene implements Serializable {
      */
     public Scene() {
         addSystems();
-        initialize();
     }
-
-    /**
-     * This method adds all the entities into the scene.
-     */
-    abstract public void initialize();
-
 
     /**
      * Adds all the necessary systems to the scene in order for the game to operate the scene.

@@ -44,10 +44,8 @@ public class Store extends Scene{
         skinToCost.put(PlayerEntity.SKIN.SNOWMAN, 200);
     }
 
-    @Override
-    public void initialize() {
-
-        this.skinToCostText = new HashMap<>();
+    public Store() {
+        skinToCostText = new HashMap<>();
         this.skinToButton = new HashMap<>();
         this.purchasedCharacters = new ArrayList<>();
 

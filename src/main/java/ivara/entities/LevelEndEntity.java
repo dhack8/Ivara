@@ -28,7 +28,6 @@ public class LevelEndEntity extends GameEntity {
     private static final float WIDTH = 1f;
     private static final float HEIGHT = 1f;
     private static final float POLE_WIDTH = 0.1f;
-    private static final float YOFFSET = 0.01f;
     private final static int ANIMATION_RATE = 1000;
 
     private static final Sound playerWin = TinySound.loadSound("win.wav");

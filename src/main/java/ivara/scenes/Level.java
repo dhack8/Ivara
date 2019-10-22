@@ -29,10 +29,9 @@ abstract public class Level extends Scene {
     private static final Vector coinLoc = new Vector(105f, 115f);
     private static final Vector arrowLoc = new Vector(85f, 160f);
 
-    private Vector initialSpawn;
-
-    //Stores where to respawn the player
-    private Vector spawn;
+    private PlayerEntity playerEntity;
+    private SpawnPointEntity spawnPoint;
+    private Vector checkpoint;
 
     // Entities that need to be restored if the player dies (Entities removed since last checkpoint)
     private Collection<GameEntity> checkpointEntities = new ArrayList<>();
@@ -54,7 +53,8 @@ abstract public class Level extends Scene {
     private int silverTime = 180;
     private int goldTime = 120;
 
-    public Level(String title, String description, String rewardDescription, int bronzeTime, int silverTime, int goldTime) {
+    public Level(PlayerEntity playerEntity, String title, String description, String rewardDescription, int bronzeTime, int silverTime, int goldTime) {
+        this.playerEntity = playerEntity;
         this.title = title;
         this.description = description;
         this.rewardDescription = rewardDescription;
@@ -63,38 +63,45 @@ abstract public class Level extends Scene {
         this.goldTime = goldTime;
     }
 
-    public Level(String title, String description, String rewardDescription) {
+    public Level(PlayerEntity playerEntity, String title, String description, String rewardDescription) {
+        this.playerEntity = playerEntity;
         this.title = title;
         this.description = description;
         this.rewardDescription = rewardDescription;
     }
 
-    public Level() {}
+    public Level(PlayerEntity playerEntity) {
+        this.playerEntity = playerEntity;
+    }
 
     /**
      * Starts the scene with some default entities
-     * @param player player to get location
      */
-    public void startScene(PlayerEntity player){
+    public void startScene(){
+        // Add HUD elements
         addEntity(new TimerEntity(timerLoc, 0));
-        addEntity(new CoinTextEntity(coinLoc, player));
+        addEntity(new CoinTextEntity(coinLoc, playerEntity));
         if(PlayerEntity.hasCrossbow()){
-            addEntity(new ArrowTextEntity(arrowLoc, player));
+            addEntity(new ArrowTextEntity(arrowLoc, playerEntity));
         }
-        initialSpawn = new Vector(player.getTransform());
-        spawn = new Vector(player.getTransform());
+
+        spawnPoint = (SpawnPointEntity) getEntity(SpawnPointEntity.class);
+        assert spawnPoint != null;
+        checkpoint = spawnPoint.getTransform();
+        playerEntity.getTransform().setAs(checkpoint);
+
         checkpointEntities = new ArrayList<>();
         preCheckpointEntities = new ArrayList<>();
         removedEntities = new HashSet<>();
     }
 
     /**
-     * Sets the spawn that the player will spawn at
+     * Sets the checkpoint that the player will checkpoint at
      * Also updates the currently collected items
-     * @param v position to set spawn to
+     * @param v position to set checkpoint to
      */
     public void updateCheckpoint(Vector v){
-        spawn = new Vector(v);
+        checkpoint = new Vector(v);
         getPlayer().setArrowCheckpoint();
         preCheckpointEntities.addAll(checkpointEntities);
         checkpointEntities = new ArrayList<>();
@@ -103,11 +110,10 @@ abstract public class Level extends Scene {
     /**
      * Moves the player to the appropriate position.
      * Re adds the items removed since the last checkpoint
-     * @param player player to respawn
      */
-    public void respawnPlayer(PlayerEntity player){
-        player.getTransform().setAs(spawn);
-        player.resetArrowsToCheckpoint();
+    public void respawnPlayer(){
+        playerEntity.getTransform().setAs(checkpoint);
+        playerEntity.resetArrowsToCheckpoint();
         addEntities(checkpointEntities);
         checkpointEntities = new ArrayList<>();
     }
@@ -142,8 +148,7 @@ abstract public class Level extends Scene {
         PlayerEntity player = getPlayer();
         player.resetPlayerSprites();
         player.resetPlayerScript();
-        player.getTransform().setAs(initialSpawn);
-        spawn = initialSpawn;
+        checkpoint = spawnPoint.getTransform();
 
         // Reset the checkpoints
         getEntities(CheckpointEntity.class).stream().map((c) -> ((CheckpointEntity)c)).forEach((c) -> c.setEntered(false));
@@ -189,7 +194,7 @@ abstract public class Level extends Scene {
     // Getter helper methods
 
     public PlayerEntity getPlayer() {
-        return (PlayerEntity) getEntity(PlayerEntity.class);
+        return playerEntity;
     }
 
     public int getCollectedCoinCount() {

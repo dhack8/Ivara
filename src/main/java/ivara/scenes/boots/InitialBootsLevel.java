@@ -9,26 +9,17 @@ import maths.Vector;
 
 public class InitialBootsLevel extends Level {
 
-    public InitialBootsLevel() {
+    public InitialBootsLevel(PlayerEntity playerEntity) {
         super(
+                playerEntity,
                 "Boosted Boots Odyssey",
                 "Pablo starts his quest on the alien island here. Pablo gains access to advanced alien rocket boots.",
                 "Pablo now has rocket boots providing a boost in jump height.",
                 40, 35, 30
         );
-    }
 
-    @Override
-    public void updateRewards() {
-        PlayerEntity.setItemFlag("boots-collected", 1f);
-        PlayerEntity.setItemFlag("boots-jump-boost", 0.5f);
-    }
 
-    @Override
-    public void initialize() {
-        // Player
-        PlayerEntity player = new PlayerEntity(1,5.5f);
-        addEntity(player);
+        addEntity(new SpawnPointEntity(1,5.5f));
 
         // Checkpoints
         addEntity(new CheckpointEntity(39, 6));
@@ -66,16 +57,16 @@ public class InitialBootsLevel extends Level {
         addEntity(new PlatformEntity("alien", new Vector(41,13),new Vector(41,7),1));
 
         // Coins
-        addEntity(new CoinEntity(player, new Vector(11, 0), true));
-        addEntity(new CoinEntity(player, new Vector(15, 0), true));
-        addEntity(new CoinEntity(player, new Vector(19, 0), true));
-        addEntity(new CoinEntity(player, new Vector(3, 5), true));
-        addEntity(new CoinEntity(player, new Vector(7, 5), true));
-        addEntity(new CoinEntity(player, new Vector(8, 5), true));
-        addEntity(new CoinEntity(player, new Vector(14, 6), true));
-        addEntity(new CoinEntity(player, new Vector(17, 8), true));
-        addEntity(new CoinEntity(player, new Vector(20, 10), true));
-        addEntity(new CoinEntity(player, new Vector(41, 10), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(11, 0), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(15, 0), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(19, 0), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(3, 5), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(7, 5), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(8, 5), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(14, 6), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(17, 8), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(20, 10), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(41, 10), true));
 
         // Barnacles
         addEntity(new BarnacleEntity(new Vector(36,6), BarnacleEntity.Direction.EAST, true));
@@ -91,6 +82,12 @@ public class InitialBootsLevel extends Level {
         addEntity(new BackgroundEntity(new ResourceID("background")));
         addEntity(new DeathLineEntity(24));
         setCamera(new Camera());
-        super.startScene(player);
+            super.startScene();
+}
+
+    @Override
+    public void updateRewards() {
+        PlayerEntity.setItemFlag("boots-collected", 1f);
+        PlayerEntity.setItemFlag("boots-jump-boost", 0.5f);
     }
 }

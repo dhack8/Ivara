@@ -12,27 +12,17 @@ import maths.Vector;
 
 public class RangeAndSpeed extends Level {
 
-    public RangeAndSpeed() {
+    public RangeAndSpeed(PlayerEntity playerEntity) {
         super(
+                playerEntity,
                 "Crossbow Conditioning",
                 "Pablo continued to meet soldiers. One of these soldiers was a master crafter of weapons. Impressed with Pablo's ability to master the crossbow so quickly he promised to make Pablo a even better crossbow.",
                 "Pablo's crossbow is upgraded, it now has more range, bolt speed, and faster reload speed.",
                 120, 60, 40
         );
-    }
 
-    @Override
-    public void updateRewards() {
-        PlayerEntity.setItemFlag("crossbow-arrow-speed", 14f);
-        PlayerEntity.setItemFlag("crossbow-duration", 700f);
-        PlayerEntity.setItemFlag("crossbow-post-delay", 500f);
-    }
-
-    @Override
-    public void initialize() {
-        // Player
-        PlayerEntity player = new PlayerEntity(2,0.5f);
-        addEntity(player);
+        // Player spawn
+        addEntity(new SpawnPointEntity(2,0.5f));
 
         // Text
         addEntity(new BasicTextEntity(new Vector(3,-0.9f), new Text(20, "These slimes look aggressive!\nMaybe a airborne assault will work...")));
@@ -76,19 +66,19 @@ public class RangeAndSpeed extends Level {
         addEntity(new PlatformEntity(new Vector(19,25),3,false,new Vector(23,22),3)); // TODO: Fill in end position and duration
 
         // Coins
-        addEntity(new CoinEntity(player, new Vector(6, 1), true));
-        addEntity(new CoinEntity(player, new Vector(14, 3), true));
-        addEntity(new CoinEntity(player, new Vector(43, 7), true));
-        addEntity(new CoinEntity(player, new Vector(48, 7), true));
-        addEntity(new CoinEntity(player, new Vector(14, 9), true));
-        addEntity(new CoinEntity(player, new Vector(51, 10), true));
-        addEntity(new CoinEntity(player, new Vector(14, 15), true));
-        addEntity(new CoinEntity(player, new Vector(33, 15), true));
-        addEntity(new CoinEntity(player, new Vector(54, 15), true));
-        addEntity(new CoinEntity(player, new Vector(55, 18), true));
-        addEntity(new CoinEntity(player, new Vector(57, 18), true));
-        addEntity(new CoinEntity(player, new Vector(13, 20), true));
-        addEntity(new CoinEntity(player, new Vector(15, 20), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(6, 1), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(14, 3), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(43, 7), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(48, 7), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(14, 9), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(51, 10), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(14, 15), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(33, 15), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(54, 15), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(55, 18), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(57, 18), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(13, 20), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(15, 20), true));
 
         // Snakes
         addEntity(new SquigglyEntity(new Vector(46,6.5f)));
@@ -105,6 +95,13 @@ public class RangeAndSpeed extends Level {
         addEntity(new BackgroundEntity(new ResourceID("background")));
         addEntity(new DeathLineEntity(42));
         setCamera(new Camera());
-        super.startScene(player);
+        super.startScene();
+    }
+
+    @Override
+    public void updateRewards() {
+        PlayerEntity.setItemFlag("crossbow-arrow-speed", 14f);
+        PlayerEntity.setItemFlag("crossbow-duration", 700f);
+        PlayerEntity.setItemFlag("crossbow-post-delay", 500f);
     }
 }
