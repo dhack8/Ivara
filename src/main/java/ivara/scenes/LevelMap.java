@@ -126,7 +126,7 @@ public class LevelMap extends Scene {
 
     private void addStore(){
         addEntity(
-                new ButtonEntity(new Vector(11.0375f, 9.325f), MINI_BUTTON_DIMEN, "save")
+                new ButtonEntity(new Vector(11.5375f, 9.125f), new Vector(0.8f, 0.8f), "store-button")
                         .addListener(() -> getGame().getLevelManager().setToBookmarkedScene(Ivara.STORE)));
     }
 }
