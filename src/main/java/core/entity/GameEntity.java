@@ -14,6 +14,7 @@ import scew.Entity;
 public abstract class GameEntity extends Entity {
 
     public final Vector transform;
+    public final Vector initialTransform;
     private Scene scene;
 
     /**
@@ -22,6 +23,7 @@ public abstract class GameEntity extends Entity {
      */
     public GameEntity(Vector transform) {
         this.transform = transform;
+        this.initialTransform = new Vector(transform);
     }
 
     /**
@@ -54,5 +56,9 @@ public abstract class GameEntity extends Entity {
      */
     public InputHandler.InputFrame getInput() {
         return scene.getGame().getInputFrame();
+    }
+
+    public void resetToInitialPosition(){
+        this.transform.setAs(initialTransform);
     }
 }

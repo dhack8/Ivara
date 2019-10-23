@@ -150,7 +150,10 @@ abstract public class Level extends Scene {
         PlayerEntity player = getPlayer();
         player.resetPlayerSprites();
         player.resetPlayerScript();
-        checkpoint = spawnPoint.getTransform();
+
+        getEntities().forEach(GameEntity::resetToInitialPosition);
+
+//        checkpoint = spawnPoint.getTransform();
         respawnPlayer();
 
         // Reset the checkpoints
