@@ -19,16 +19,17 @@ public class InitialBootsLevel extends Level {
         );
 
 
+        // Player
         addEntity(new SpawnPointEntity(1,5.5f));
 
         // Checkpoints
         addEntity(new CheckpointEntity(39, 6));
 
         // Flag
-//        addEntity(new LevelEndEntity(8, 2));
-        addEntity(new LevelEndEntity(1, 6));
+        addEntity(new LevelEndEntity(8, 2));
 
         // Platforms
+        addEntity(new PlatformEntity("alien", new Vector(6,0),4,true));
         addEntity(new PlatformEntity("alien", new Vector(7,3),2,false));
         addEntity(new PlatformEntity("alien", new Vector(22,3)));
         addEntity(new PlatformEntity("alien", new Vector(26,3)));
@@ -54,8 +55,8 @@ public class InitialBootsLevel extends Level {
         addEntity(new PlatformEntity("alien", new Vector(35,13),4,false));
 
         // Moving Platforms
-        addEntity(new PlatformEntity("alien", new Vector(20,3),new Vector(10,3),2f));
-        addEntity(new PlatformEntity("alien", new Vector(41,13),new Vector(41,7),1.2f));
+        addEntity(new PlatformEntity("alien", new Vector(20,3),new Vector(10,3),2.5f));
+        addEntity(new PlatformEntity("alien", new Vector(41,13),new Vector(41,7),1.5f));
 
         // Coins
         addEntity(new CoinEntity(getPlayer(), new Vector(13, 0), true));
@@ -85,7 +86,7 @@ public class InitialBootsLevel extends Level {
         addEntity(new BackgroundEntity(new ResourceID("background")));
         addEntity(new DeathLineEntity(24));
         setCamera(new Camera());
-            super.startScene();
+        super.startScene();
 }
 
     @Override

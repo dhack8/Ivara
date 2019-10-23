@@ -294,7 +294,7 @@ public class LevelGenerator {
         int deathHeight = levelHeight + 10; // place death line slightly lower than the level's depth
         sb.append(codeLine("addEntity(new DeathLineEntity("+deathHeight+"));"));
         sb.append(codeLine("setCamera(new Camera());"));
-        sb.append(codeLine("super.startScene(player);"));
+        sb.append(codeLine("super.startScene();"));
         return sb.toString();
     }
 
@@ -418,12 +418,11 @@ public class LevelGenerator {
     }
 
     private static String player(int x, int y) {
-        return codeLine("PlayerEntity player = new PlayerEntity("+x+","+((float)y-0.5f)+"f);")
-                + codeLine("addEntity(player);");
+        return codeLine("addEntity(new SpawnPointEntity("+x+","+((float)y-0.5f)+"f));");
     }
 
     private static String coin(int x, int y) {
-        return codeLine("addEntity(new CoinEntity(player, new Vector("+x+", "+y+"), true));");
+        return codeLine("addEntity(new CoinEntity(getPlayer(), new Vector("+x+", "+y+"), true));");
     }
 
     private static String fakePlatform(String theme, int x, int y) {
