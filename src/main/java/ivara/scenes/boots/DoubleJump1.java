@@ -4,6 +4,7 @@ import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Text;
 import ivara.entities.*;
+import ivara.entities.enemies.FakeBlockEntity;
 import ivara.entities.enemies.SlimeEntity;
 import ivara.entities.enemies.SquigglyEntity;
 import ivara.entities.ui.BasicTextEntity;
@@ -24,74 +25,53 @@ public class DoubleJump1 extends Level {
         // Player spawn
         addEntity(new SpawnPointEntity(2,0.5f));
 
-        // Text
-        addEntity(new BasicTextEntity(new Vector(3,-0.9f), new Text(20, "These slimes look aggressive!\nMaybe a airborne assault will work...")));
-
-        // Checkpoints
-        addEntity(new CheckpointEntity(27, 21));
-
-        // Flag
-        addEntity(new LevelEndEntity(10, 1));
-
         // Platforms
-        addEntity(new PlatformEntity(new Vector(1,2),5,false));
-        addEntity(new PlatformEntity(new Vector(7,2),6,false));
-        addEntity(new PlatformEntity(new Vector(44,8),4,false));
-        addEntity(new PlatformEntity(new Vector(43,9)));
-        addEntity(new PlatformEntity(new Vector(48,9)));
-        addEntity(new PlatformEntity(new Vector(42,10)));
-        addEntity(new PlatformEntity(new Vector(49,10),2,true));
-        addEntity(new PlatformEntity(new Vector(41,11)));
-        addEntity(new PlatformEntity(new Vector(40,12)));
-        addEntity(new PlatformEntity(new Vector(50,12)));
-        addEntity(new PlatformEntity(new Vector(39,13)));
-        addEntity(new PlatformEntity(new Vector(51,13),2,true));
-        addEntity(new PlatformEntity(new Vector(38,14)));
-        addEntity(new PlatformEntity(new Vector(37,15)));
-        addEntity(new PlatformEntity(new Vector(52,15),2,true));
-        addEntity(new PlatformEntity(new Vector(34,16),3,false));
-        addEntity(new PlatformEntity(new Vector(33,17)));
-        addEntity(new PlatformEntity(new Vector(53,17)));
-        addEntity(new PlatformEntity(new Vector(32,18)));
-        addEntity(new PlatformEntity(new Vector(54,18)));
-        addEntity(new PlatformEntity(new Vector(31,19)));
-        addEntity(new PlatformEntity(new Vector(55,19),8,false));
-        addEntity(new PlatformEntity(new Vector(30,20)));
-        addEntity(new PlatformEntity(new Vector(13,21),3,false));
-        addEntity(new PlatformEntity(new Vector(29,21)));
-        addEntity(new PlatformEntity(new Vector(26,22),3,false));
-        addEntity(new PlatformEntity(new Vector(10,25),9,false));
+        addEntity(new PlatformEntity("alien", new Vector(12,18),2,false));
+        addEntity(new PlatformEntity("alien", new Vector(17,18)));
+        addEntity(new PlatformEntity("alien", new Vector(21,18)));
+        addEntity(new PlatformEntity("alien", new Vector(25,18),3,false));
+        addEntity(new PlatformEntity("alien", new Vector(29,18)));
+        addEntity(new PlatformEntity("alien", new Vector(33,18)));
+        addEntity(new PlatformEntity("alien", new Vector(36,18),16,false));
+        addEntity(new PlatformEntity("alien", new Vector(10,19),2,false));
+        addEntity(new PlatformEntity("alien", new Vector(14,19)));
+        addEntity(new PlatformEntity("alien", new Vector(0,20),3,false));
+        addEntity(new PlatformEntity("alien", new Vector(8,20),2,false));
+        addEntity(new PlatformEntity("alien", new Vector(15,20)));
+        addEntity(new PlatformEntity("alien", new Vector(16,21)));
+        addEntity(new PlatformEntity("alien", new Vector(17,22),9,false));
 
-        // Moving Platforms
-        addEntity(new PlatformEntity(new Vector(19,25),3,false,new Vector(23,22),3)); // TODO: Fill in end position and duration
+        // Fake Platforms
+        addEntity(new FakeBlockEntity("alien", new Vector(40, 14)));
+        addEntity(new FakeBlockEntity("alien", new Vector(44, 14)));
+        addEntity(new FakeBlockEntity("alien", new Vector(37, 15)));
+        addEntity(new FakeBlockEntity("alien", new Vector(35, 16)));
+        addEntity(new FakeBlockEntity("alien", new Vector(28, 17)));
+        addEntity(new FakeBlockEntity("alien", new Vector(34, 17)));
+        addEntity(new FakeBlockEntity("alien", new Vector(3, 20)));
+        addEntity(new FakeBlockEntity("alien", new Vector(4, 20)));
+        addEntity(new FakeBlockEntity("alien", new Vector(5, 20)));
+        addEntity(new FakeBlockEntity("alien", new Vector(6, 20)));
+        addEntity(new FakeBlockEntity("alien", new Vector(7, 20)));
 
         // Coins
-        addEntity(new CoinEntity(getPlayer(), new Vector(6, 1), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(14, 3), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(43, 7), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(48, 7), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(14, 9), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(51, 10), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(14, 15), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(33, 15), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(54, 15), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(55, 18), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(57, 18), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(13, 20), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(15, 20), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(46, 11), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(48, 12), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(40, 13), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(44, 13), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(28, 14), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(37, 14), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(35, 15), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(50, 15), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(15, 16), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(19, 16), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(23, 16), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(34, 16), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(4, 17), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(5, 17), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(6, 17), true));
 
-        // Snakes
-        addEntity(new SquigglyEntity(new Vector(46,6.5f)));
-        addEntity(new SquigglyEntity(new Vector(10,23.5f)));
-        addEntity(new SquigglyEntity(new Vector(18,23.5f)));
-
-        // Slimes
-        addEntity(new SlimeEntity(new Vector(12,1)));
-        addEntity(new SlimeEntity(new Vector(35,15)));
-        addEntity(new SlimeEntity(new Vector(56,18)));
-        addEntity(new SlimeEntity(new Vector(59,18)));
-
-        //DEFAULT---
+        // Default Scripts
         addEntity(new BackgroundEntity(new ResourceID("background")));
         addEntity(new DeathLineEntity(42));
         setCamera(new Camera());
