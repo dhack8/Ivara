@@ -218,11 +218,7 @@ public class LevelGenerator {
                 + "\t\t\t\"Default_Desc\",\n"
                 + "\t\t\t\"Default_Reward_Desc\",\n"
                 + "\t\t\t120, 60, 40\n"
-                + "\t\t);\t\n}\n\n"
-                + "\t@Override\n"
-                + "\tpublic void updateRewards(){\n\t\t// TODO: Fill rewards\n\t}\n\n"
-                + "\t@Override\n"
-                + "\tpublic void initialize(){\n";
+                + "\t\t);\n";
     }
 
     /**
@@ -303,7 +299,9 @@ public class LevelGenerator {
      * @return The level footer.
      */
     private static String levelFooter() {
-        return "\t}\n}\n";
+        return "\t}\n\n" +
+            "\t@Override\n" +
+            "\tpublic void updateRewards(){\n\t\t// TODO: Fill rewards\n\t}\n}\n";
     }
 
     // levelEntites() helpers ---------------------------------------------------------------

@@ -26,8 +26,8 @@ public class InitialBootsLevel extends Level {
         addEntity(new CheckpointEntity(39, 6));
 
         // Flag
-        addEntity(new LevelEndEntity(8, 2));
-
+//        addEntity(new LevelEndEntity(8, 2));
+        addEntity(new LevelEndEntity(1, 6));
         // Platforms
         addEntity(new PlatformEntity("alien", new Vector(6,0),4,true));
         addEntity(new PlatformEntity("alien", new Vector(7,3),2,false));
