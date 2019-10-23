@@ -39,7 +39,7 @@ public class LevelMap extends Scene {
         addEntity(new PlayerMiniFigureEntity(new Vector(10.225f, 9.65f)));
 
         ButtonEntity playButton = new ButtonEntity(new Vector(24f, 13.2f), MINI_BUTTON_DIMEN, "play");
-        ButtonEntity highscoreButton = new ButtonEntity(new Vector(24f, 14.35f), MINI_BUTTON_DIMEN, "play");
+        ButtonEntity highscoreButton = new ButtonEntity(new Vector(24f, 14.35f), MINI_BUTTON_DIMEN, "highscores");
         LevelInfoEntity levelInfo = new LevelInfoEntity(new Vector(21.5f, 1.4f), playButton, highscoreButton);
         addEntity(levelInfo);
         addEntity(playButton);

@@ -21,7 +21,7 @@ public class HighscoresEntity extends GameEntity {
     private TextComponent textComponent;
     private boolean loaded;
 
-    public HighscoresEntity(Vector transform) {
+    public HighscoresEntity(Vector transform, String levelName) {
         super(transform);
         this.levelName = levelName;
         this.highscores = new ArrayList<>();
