@@ -22,7 +22,7 @@ public class HighscoreDatabaseAdapter {
         try {
             credentials = GoogleCredentials.getApplicationDefault();
             FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setDatabaseUrl("https://the-adventures-of-pablo.firebaseio.com/")
+                    .setDatabaseUrl("https://the-adventures-of-pablo-2.firebaseio.com/")
                     .setCredentials(credentials)
                     .build();
             FirebaseApp.initializeApp(options);
@@ -40,18 +40,18 @@ public class HighscoreDatabaseAdapter {
         collection.add(highScore);
     }
 
-    public static void getHighScores(String level, HighscoreCallback cb) {
+    public static void getHighScores(String level, HighscoreCallback hcb, ThrowableCallback tcb) {
         CollectionReference collection = HIGHSCORE_COLLECTION.document(level).collection("highscores");
 
         ApiFutures.addCallback(collection.get(), new ApiFutureCallback<QuerySnapshot>() {
             @Override
             public void onFailure(Throwable t) {
-                System.out.println("Failed to collect the highscore");
+                tcb.callback(t);
             }
 
             @Override
             public void onSuccess(QuerySnapshot result) {
-                cb.callback(result.getDocuments().stream().map(d -> d.toObject(Highscore.class)).collect(Collectors.toList()));
+                hcb.callback(result.getDocuments().stream().map(d -> d.toObject(Highscore.class)).collect(Collectors.toList()));
             }
         }, Executors.newSingleThreadExecutor());
     }

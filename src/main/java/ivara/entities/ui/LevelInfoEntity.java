@@ -7,6 +7,7 @@ import core.struct.AnimatedSprite;
 import core.struct.ResourceID;
 import core.struct.Sprite;
 import core.struct.Text;
+import ivara.scenes.HighscoreScene;
 import ivara.scenes.Level;
 import maths.Vector;
 
@@ -53,14 +54,17 @@ public class LevelInfoEntity extends GameEntity {
     Level currentLevel = null;
     AnimatedSprite infoSprite;
     ButtonEntity playButton;
+    ButtonEntity highscore;
 
     TextComponent text;
 
-    public LevelInfoEntity(Vector transform, ButtonEntity playButton) {
+    public LevelInfoEntity(Vector transform, ButtonEntity playButton, ButtonEntity highscore) {
         super(transform);
 
         this.playButton = playButton;
         this.playButton.setActive(false);
+        this.highscore = highscore;
+        this.highscore.setActive(false);
 
         // Text
         text = new TextComponent(this);
@@ -101,6 +105,7 @@ public class LevelInfoEntity extends GameEntity {
 
         infoSprite.setState(level.getMedalLevel());
         playButton.setActive(canPlay);
+        highscore.setActive(canPlay);
     }
 
     public void refresh(boolean canPlay) {
@@ -110,6 +115,10 @@ public class LevelInfoEntity extends GameEntity {
     public void playLevel() {
         currentLevel.resetScene();
         getScene().getGame().getLevelManager().setScene(currentLevel);
+    }
+
+    public void displayHighscore(){
+        getScene().getGame().getLevelManager().setScene(new HighscoreScene(currentLevel.getTitle()));
     }
 
     private String formatCoins(Level level) {
