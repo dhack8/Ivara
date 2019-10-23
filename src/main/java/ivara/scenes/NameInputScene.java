@@ -18,7 +18,7 @@ public class NameInputScene extends Scene {
     private static int TEXT_SIZE = 35;
     private TextInputEntity textInputEntity;
 
-    public NameInputScene() {
+    public NameInputScene(PlayerEntity playerEntity) {
         Camera c = new Camera();
         setCamera(c);
 
@@ -31,7 +31,7 @@ public class NameInputScene extends Scene {
 
         ButtonEntity confirm = new ButtonEntity(new Vector(13.2f, 11f), new Vector(5.5f, 1.5f), "confirm");
         confirm.addListener(() -> {
-            PlayerEntity.PLAYER_NAME = textInputEntity.getText();
+            playerEntity.PLAYER_NAME = textInputEntity.getText();
             getGame().getLevelManager().setToBookmarkedScene(Ivara.MAP);
         });
         addEntity(confirm);

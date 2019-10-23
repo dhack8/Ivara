@@ -30,14 +30,14 @@ public class StoreCoinEntity extends GameEntity {
      * This entity shows the total coin count of the player.
      * @param transform The position of the entity.
      */
-    public StoreCoinEntity(Vector transform) {
+    public StoreCoinEntity(Vector transform, PlayerEntity playerEntity) {
         super(transform);
 
         // Sprite
         addComponent(new SpriteComponent(this, new Sprite(new ResourceID("coin"), offset, null)));
 
         // Text
-        tc = new TextComponent(this, new Text(20, "" + PlayerEntity.getCoinCount()));
+        tc = new TextComponent(this, new Text(20, "" + playerEntity.getCoinCount()));
         addComponent(tc);
 
         // Script
@@ -56,7 +56,7 @@ public class StoreCoinEntity extends GameEntity {
                         }
 
                         tc.clear();
-                        tc.add("" + PlayerEntity.getCoinCount(), TEXTSIZE);
+                        tc.add("" + playerEntity.getCoinCount(), TEXTSIZE);
                     }
                 })
         );

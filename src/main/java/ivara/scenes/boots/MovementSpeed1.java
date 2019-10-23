@@ -100,7 +100,7 @@ public class MovementSpeed1 extends Level {
 
     @Override
     public void updateRewards() {
-        PlayerEntity.setItemFlag("boots-sprint", 1f);
-        PlayerEntity.setItemFlag("boots-sprint-multiplier", 1.3f);
+        getPlayer().setItemFlag("boots-sprint", 1f);
+        getPlayer().setItemFlag("boots-sprint-multiplier", 1.3f);
     }
 }

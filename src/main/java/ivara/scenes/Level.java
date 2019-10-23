@@ -82,7 +82,7 @@ abstract public class Level extends Scene {
         addEntity(playerEntity);
         addEntity(new TimerEntity(timerLoc, 0));
         addEntity(new CoinTextEntity(coinLoc, playerEntity));
-        if(PlayerEntity.hasCrossbow()){
+        if(playerEntity.hasCrossbow()){
             addEntity(new ArrowTextEntity(arrowLoc, playerEntity));
         }
 
@@ -157,7 +157,7 @@ abstract public class Level extends Scene {
         getEntities(CheckpointEntity.class).stream().map((c) -> ((CheckpointEntity)c)).forEach((c) -> c.setEntered(false));
 
         // Reset the crossbow indicator
-        if(PlayerEntity.hasCrossbow()){
+        if(playerEntity.hasCrossbow()){
             if(getEntity(ArrowTextEntity.class) != null) {
                 removeEntity(getEntity(ArrowTextEntity.class));
             }
@@ -179,7 +179,7 @@ abstract public class Level extends Scene {
         List<GameEntity> collectibles = Stream.concat(preCheckpointEntities.stream(), checkpointEntities.stream()).filter(entity -> entity instanceof Collectible).collect(Collectors.toList());
         removedEntities.addAll(collectibles);
 
-        PlayerEntity.bankCoins((int)collectibles.stream().filter(e -> e instanceof CoinEntity).count());
+        playerEntity.bankCoins((int)collectibles.stream().filter(e -> e instanceof CoinEntity).count());
 
         checkpointEntities.removeAll(collectibles);
         preCheckpointEntities.removeAll(collectibles);
@@ -189,7 +189,7 @@ abstract public class Level extends Scene {
     }
 
     private void submitHighscore(long completedTime){
-        HighscoreDatabaseAdapter.setHighScore(this.title, new Highscore(PlayerEntity.PLAYER_NAME, completedTime));
+        HighscoreDatabaseAdapter.setHighScore(this.title, new Highscore(playerEntity.PLAYER_NAME, completedTime));
     }
 
     public abstract void updateRewards();

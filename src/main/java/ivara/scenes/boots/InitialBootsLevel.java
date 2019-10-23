@@ -87,7 +87,7 @@ public class InitialBootsLevel extends Level {
 
     @Override
     public void updateRewards() {
-        PlayerEntity.setItemFlag("boots-collected", 1f);
-        PlayerEntity.setItemFlag("boots-jump-boost", 0.5f);
+        getPlayer().setItemFlag("boots-collected", 1f);
+        getPlayer().setItemFlag("boots-jump-boost", 0.5f);
     }
 }

@@ -35,13 +35,13 @@ public class PlayerEntity extends GameEntity {
     private static final float JUMP_SENSOR_EXTRA = 0.01f;
     private static final float ANTI_WALL_RUN = 0.1f; // 0 for wall running
 
-    public static String PLAYER_NAME = null;
+    public String PLAYER_NAME = null;
 
-    private static int COINS = 0;
-    private static int COINS_USED = 0;
+    private int COINS = 0;
+    private int COINS_USED = 0;
 
-    private static Map<String, Float> ITEM_FLAGS = getInitialItemFlags();
-    private static SKIN ACTIVE_SKIN = SKIN.PABLO;
+    private Map<String, Float> ITEM_FLAGS = getInitialItemFlags();
+    private SKIN ACTIVE_SKIN = SKIN.PABLO;
 
     private int arrowsFired = 0;
     private int arrowsFiredSinceCheckpoint = 0;
@@ -128,7 +128,7 @@ public class PlayerEntity extends GameEntity {
         addComponent(new SensorHandlerComponent(this));
 
         // Scripts
-        PlayerScript pc = new PlayerScript(playerSprite, crossbowSprite, bootsSprite, bottomSensor, enemySensor);
+        PlayerScript pc = new PlayerScript(this, playerSprite, crossbowSprite, bootsSprite, bottomSensor, enemySensor);
         CameraScript cs = new CameraScript(this, new Vector(WIDTH /2, HEIGHT /2));
         ScriptComponent scriptComponent = new ScriptComponent(this);
         scriptComponent.add(pc);
@@ -151,7 +151,7 @@ public class PlayerEntity extends GameEntity {
     public void resetPlayerScript() {
         removeComponent(ScriptComponent.class);
 
-        PlayerScript pc = new PlayerScript(playerSprite, crossbowSprite, bootsSprite, bottomSensor, enemySensor);
+        PlayerScript pc = new PlayerScript(this, playerSprite, crossbowSprite, bootsSprite, bottomSensor, enemySensor);
         CameraScript cs = new CameraScript(this, new Vector(WIDTH /2, HEIGHT /2));
         ScriptComponent scriptComponent = new ScriptComponent(this);
         scriptComponent.add(pc);
@@ -181,11 +181,11 @@ public class PlayerEntity extends GameEntity {
         this.arrowsFired = this.arrowsFiredSinceCheckpoint = 0;
     }
 
-    public static SKIN getActiveSkin(){
+    public SKIN getActiveSkin(){
         return ACTIVE_SKIN;
     }
 
-    public static void setActiveSkin(SKIN skin){
+    public void setActiveSkin(SKIN skin){
         ACTIVE_SKIN = skin;
     }
 
@@ -242,19 +242,19 @@ public class PlayerEntity extends GameEntity {
         }
     }
 
-    public static int getCoinCount(){
+    public int getCoinCount(){
         return COINS;
     }
 
-    public static void bankCoins(int amount){
+    public void bankCoins(int amount){
         COINS += amount;
     }
 
-    public static void spendCoins(int amount){
+    public void spendCoins(int amount){
         COINS -= amount;
     }
 
-    private static Map<String, Float> getInitialItemFlags(){
+    private Map<String, Float> getInitialItemFlags(){
         Map<String, Float> itemFlags = new HashMap<>();
 
         // Crossbow initial flags
@@ -281,7 +281,7 @@ public class PlayerEntity extends GameEntity {
         return itemFlags;
     }
 
-    public static void setItemFlag(String flag, float value) {
+    public void setItemFlag(String flag, float value) {
         if(ITEM_FLAGS.containsKey(flag)) {
             ITEM_FLAGS.put(flag, value);
         } else {
@@ -293,39 +293,39 @@ public class PlayerEntity extends GameEntity {
 
     // Crossbow
 
-    public static boolean hasCrossbow(){
+    public boolean hasCrossbow(){
         return ITEM_FLAGS.get("crossbow-collected").intValue() >= 1;
     }
 
-    public static int getCrossbowPreShotDelay(){
+    public int getCrossbowPreShotDelay(){
         return ITEM_FLAGS.get("crossbow-pre-delay").intValue();
     }
 
-    public static int getCrossbowPostShotDelay(){
+    public int getCrossbowPostShotDelay(){
         return ITEM_FLAGS.get("crossbow-post-delay").intValue();
     }
 
-    public static float getCrossbowShotSpeed(){
+    public float getCrossbowShotSpeed(){
         return ITEM_FLAGS.get("crossbow-arrow-speed");
     }
 
-    public static int getCrossbowShotDuration(){
+    public int getCrossbowShotDuration(){
         return ITEM_FLAGS.get("crossbow-duration").intValue();
     }
 
-    public static boolean hasMultishotCrossbow(){
+    public boolean hasMultishotCrossbow(){
         return ITEM_FLAGS.get("crossbow-multishot").intValue() >= 1;
     }
 
-    public static boolean canShootWhileMoving(){
+    public boolean canShootWhileMoving(){
         return ITEM_FLAGS.get("crossbow-moving").intValue() >= 1;
     }
 
-    public static int getCrossbowQuiverSize(){
+    public int getCrossbowQuiverSize(){
         return ITEM_FLAGS.get("crossbow-quiver-size").intValue();
     }
 
-    public static int getCrossbowMonsterLevel(){
+    public int getCrossbowMonsterLevel(){
         return ITEM_FLAGS.get("crossbow-monster-level").intValue();
     }
 
@@ -335,35 +335,35 @@ public class PlayerEntity extends GameEntity {
 
     // Boots
 
-    public static boolean hasBoots(){
+    public boolean hasBoots(){
         return ITEM_FLAGS.get("boots-collected").intValue() >= 1;
     }
 
-    public static int getBootsAdditionalJumps(){
+    public int getBootsAdditionalJumps(){
         return ITEM_FLAGS.get("boots-num-additional-jumps").intValue();
     }
 
-    public static float getBootsAdditionalHeight(){
+    public float getBootsAdditionalHeight(){
         return ITEM_FLAGS.get("boots-jump-boost");
     }
 
-    public static float getBootsSuccessiveJumpPower(){
+    public float getBootsSuccessiveJumpPower(){
         return ITEM_FLAGS.get("boots-successive-jump-power");
     }
 
-    public static float getBootsSuperJumpPower(){
+    public float getBootsSuperJumpPower(){
         return ITEM_FLAGS.get("boots-super-jump-power");
     }
 
-    public static boolean canSprint(){
+    public boolean canSprint(){
         return ITEM_FLAGS.get("boots-sprint").intValue() >= 1;
     }
 
-    public static float getSprintMultiplier(){
+    public float getSprintMultiplier(){
         return ITEM_FLAGS.get("boots-sprint-multiplier");
     }
 
-    public static float getWalkMultiplier(){
+    public float getWalkMultiplier(){
         return ITEM_FLAGS.get("boots-walk-multiplier");
     }
 

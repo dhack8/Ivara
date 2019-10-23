@@ -100,7 +100,7 @@ public class DoubleJump3 extends Level {
 
     @Override
     public void updateRewards() {
-        PlayerEntity.setItemFlag("boots-collected", 1f);
-        PlayerEntity.setItemFlag("boots-num-additional-jumps", 2f);
+        getPlayer().setItemFlag("boots-collected", 1f);
+        getPlayer().setItemFlag("boots-num-additional-jumps", 2f);
     }
 }

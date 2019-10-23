@@ -100,7 +100,7 @@ public class VerticalJump extends Level {
 
     @Override
     public void updateRewards() {
-        PlayerEntity.setItemFlag("boots-collected", 1f);
-        PlayerEntity.setItemFlag("boots-super-jump-power", 1.5f);
+        getPlayer().setItemFlag("boots-collected", 1f);
+        getPlayer().setItemFlag("boots-super-jump-power", 1.5f);
     }
 }

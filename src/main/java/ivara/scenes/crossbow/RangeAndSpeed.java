@@ -100,8 +100,8 @@ public class RangeAndSpeed extends Level {
 
     @Override
     public void updateRewards() {
-        PlayerEntity.setItemFlag("crossbow-arrow-speed", 14f);
-        PlayerEntity.setItemFlag("crossbow-duration", 700f);
-        PlayerEntity.setItemFlag("crossbow-post-delay", 500f);
+        getPlayer().setItemFlag("crossbow-arrow-speed", 14f);
+        getPlayer().setItemFlag("crossbow-duration", 700f);
+        getPlayer().setItemFlag("crossbow-post-delay", 500f);
     }
 }

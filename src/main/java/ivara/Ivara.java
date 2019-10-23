@@ -54,12 +54,13 @@ public class Ivara extends Game {
             PApplet.runSketch(new String[]{"PWindow"}, processingBackend);
         }
 
-        StartMenu startMenu = new StartMenu();
+        PlayerEntity player = new PlayerEntity(0,0);
+        StartMenu startMenu = new StartMenu(player);
         LevelManager l = new LevelManager(startMenu, new PauseMenu());
-        l.bookmarkScene(MAP, new LevelMap(new PlayerEntity(0f, 0f)));
+        l.bookmarkScene(MAP, new LevelMap(player));
         l.bookmarkScene(MAIN_MENU, startMenu);
-        l.bookmarkScene(STORE, new Store());
-        l.bookmarkScene(NAME_SELECTOR, new NameInputScene());
+        l.bookmarkScene(STORE, new Store(player));
+        l.bookmarkScene(NAME_SELECTOR, new NameInputScene(player));
 
         HighscoreDatabaseAdapter.setupDatabase();
 

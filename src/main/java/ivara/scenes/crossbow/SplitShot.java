@@ -100,6 +100,6 @@ public class SplitShot extends Level {
 
     @Override
     public void updateRewards() {
-        PlayerEntity.setItemFlag("crossbow-multishot", 1f);
+        getPlayer().setItemFlag("crossbow-multishot", 1f);
     }
 }

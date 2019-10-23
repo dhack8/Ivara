@@ -100,6 +100,6 @@ public class QuickDraw extends Level {
 
     @Override
     public void updateRewards() {
-        PlayerEntity.setItemFlag("crossbow-pre-delay", 250f);
+        getPlayer().setItemFlag("crossbow-pre-delay", 250f);
     }
 }

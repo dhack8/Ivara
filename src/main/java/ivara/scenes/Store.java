@@ -34,6 +34,8 @@ public class Store extends Scene{
     private static Map<PlayerEntity.SKIN, Integer> skinToCost;
     private Map<PlayerEntity.SKIN, ButtonEntity> skinToButton;
 
+    private PlayerEntity playerEntity;
+
     static {
         skinToCost = new LinkedHashMap<>();
         skinToCost.put(PlayerEntity.SKIN.PABLO, 0);
@@ -44,7 +46,8 @@ public class Store extends Scene{
         skinToCost.put(PlayerEntity.SKIN.SNOWMAN, 200);
     }
 
-    public Store() {
+    public Store(PlayerEntity playerEntity) {
+        this.playerEntity = playerEntity;
         skinToCostText = new HashMap<>();
         this.skinToButton = new HashMap<>();
         this.purchasedCharacters = new ArrayList<>();
@@ -62,7 +65,7 @@ public class Store extends Scene{
         addEntity(new BasicTextEntity(new Vector(12.375f, 3f), new Text(50, "Store")));
         addEntity(new BasicTextEntity(new Vector(12.375f, 4.125f), new Text(20, "Buy one of Pablo's friends to play with!")));
 
-        addEntity(new StoreCoinEntity(new Vector(1040f,290f)));
+        addEntity(new StoreCoinEntity(new Vector(1040f,290f), playerEntity));
 
         addBackButton();
 
@@ -166,14 +169,14 @@ public class Store extends Scene{
         //TODO: take off coins from player.
         purchasedCharacters.add(itemName);
         removeEntity(skinToCostText.get(itemName));
-        PlayerEntity.spendCoins(cost);
+        playerEntity.spendCoins(cost);
     }
 
     private void select(PlayerEntity.SKIN itemName){
         playSelectedCharacter = itemName;
         skinToButton.values().forEach((b) -> b.setActive(true));
         skinToButton.get(itemName).setActive(false);
-        PlayerEntity.setActiveSkin(itemName);
+        playerEntity.setActiveSkin(itemName);
     }
 
     private boolean canBuy(PlayerEntity.SKIN itemName) {
@@ -181,7 +184,7 @@ public class Store extends Scene{
     }
 
     private boolean hasCoins(int cost) {
-        return PlayerEntity.getCoinCount() >= cost;
+        return playerEntity.getCoinCount() >= cost;
     }
 
     private boolean alreadySelected(PlayerEntity.SKIN itemName) {

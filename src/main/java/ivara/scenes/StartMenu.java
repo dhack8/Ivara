@@ -27,13 +27,13 @@ public class StartMenu extends Scene{
     private static final float BUTTON_HEIGHT = 1.1f;
     private static final Vector BUTTON_DIMEN = new Vector(BUTTON_WIDTH, BUTTON_HEIGHT);
 
-    public StartMenu() {
+    public StartMenu(PlayerEntity playerEntity) {
         Camera c = new Camera();
         setCamera(c);
 
         addEntity(new ButtonEntity(getButtonPosition(1), BUTTON_DIMEN, "play")
                 .addListener(() -> {
-                    String scene = PlayerEntity.PLAYER_NAME == null ? NAME_SELECTOR : MAP;
+                    String scene = playerEntity.PLAYER_NAME == null ? NAME_SELECTOR : MAP;
                     getGame().getLevelManager().setToBookmarkedScene(scene);
                 }));
 

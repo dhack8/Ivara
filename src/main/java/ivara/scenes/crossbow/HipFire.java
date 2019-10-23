@@ -100,6 +100,6 @@ public class HipFire extends Level {
 
     @Override
     public void updateRewards() {
-        PlayerEntity.setItemFlag("crossbow-moving", 1f);
+        getPlayer().setItemFlag("crossbow-moving", 1f);
     }
 }

@@ -42,7 +42,7 @@ public class ArrowTextEntity extends GameEntity {
                     @Override
                     public void update(int dt, GameEntity entity) {
                         int fired = player.getArrowsFired();
-                        int total = PlayerEntity.getCrossbowQuiverSize();
+                        int total = player.getCrossbowQuiverSize();
 
                         arrows.clear();
                         arrows.add(total-fired + "/" + total, TEXT_SIZE);
