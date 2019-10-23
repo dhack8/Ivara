@@ -150,10 +150,10 @@ abstract public class Level extends Scene {
         PlayerEntity player = getPlayer();
         player.resetPlayerSprites();
         player.resetPlayerScript();
+        checkpoint = spawnPoint.getTransform();
 
-        getEntities().forEach(GameEntity::resetToInitialPosition);
+        getEntities().stream().filter(e -> e instanceof PushableBlockEntity).forEach(GameEntity::resetToInitialPosition);
 
-//        checkpoint = spawnPoint.getTransform();
         respawnPlayer();
 
         // Reset the checkpoints
