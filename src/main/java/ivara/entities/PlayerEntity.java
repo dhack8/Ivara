@@ -49,6 +49,7 @@ public class PlayerEntity extends GameEntity {
     private PlayerSprite playerSprite;
     private CrossbowSprite crossbowSprite;
     private BootsSprite bootsSprite;
+    private Sensor topSensor;
     private Sensor bottomSensor;
     private Sensor enemySensor;
 
@@ -117,18 +118,22 @@ public class PlayerEntity extends GameEntity {
         addComponent(new PhysicsComponent(this, new PhysicProperties(1, PhysicProperties.Type.DYNAMIC)));
 
         // Sensors
-        Vector sTopLeft = new Vector(WIDTH_OFF/2 + ANTI_WALL_RUN, HEIGHT -JUMP_SENSOR_HEIGHT);
-        Vector sDimensions = new Vector(WIDTH -WIDTH_OFF - ANTI_WALL_RUN*2, JUMP_SENSOR_HEIGHT + JUMP_SENSOR_EXTRA);
-        AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sTopLeft, sDimensions);
+        Vector sbTopLeft = new Vector(WIDTH_OFF/2 + ANTI_WALL_RUN, HEIGHT -JUMP_SENSOR_HEIGHT);
+        Vector sbDimensions = new Vector(WIDTH -WIDTH_OFF - ANTI_WALL_RUN*2, JUMP_SENSOR_HEIGHT + JUMP_SENSOR_EXTRA);
+        AABBCollider ab = new AABBCollider(AABBCollider.MIN_DIM, sbTopLeft, sbDimensions);
         bottomSensor = new Sensor(ab);
+        Vector stTopLeft = new Vector(sbTopLeft.x, cTopLeft.y);
+        Vector stDimensions = new Vector(sbDimensions.x, sbDimensions.y);
+        ab = new AABBCollider(AABBCollider.MIN_DIM, stTopLeft, stDimensions);
+        topSensor = new Sensor(ab);
         cDimensions.y = cDimensions.y - JUMP_SENSOR_HEIGHT;
         ab = new AABBCollider(AABBCollider.MIN_DIM, cTopLeft, cDimensions);
         enemySensor = new Sensor(ab);
-        addComponent(new SensorComponent(this, new Sensor[]{bottomSensor, enemySensor}));
+        addComponent(new SensorComponent(this, new Sensor[]{topSensor, bottomSensor, enemySensor}));
         addComponent(new SensorHandlerComponent(this));
 
         // Scripts
-        PlayerScript pc = new PlayerScript(this, playerSprite, crossbowSprite, bootsSprite, bottomSensor, enemySensor);
+        PlayerScript pc = new PlayerScript(this, playerSprite, crossbowSprite, bootsSprite, topSensor, bottomSensor, enemySensor);
         CameraScript cs = new CameraScript(this, new Vector(WIDTH /2, HEIGHT /2));
         ScriptComponent scriptComponent = new ScriptComponent(this);
         scriptComponent.add(pc);
@@ -151,7 +156,7 @@ public class PlayerEntity extends GameEntity {
     public void resetPlayerScript() {
         removeComponent(ScriptComponent.class);
 
-        PlayerScript pc = new PlayerScript(this, playerSprite, crossbowSprite, bootsSprite, bottomSensor, enemySensor);
+        PlayerScript pc = new PlayerScript(this, playerSprite, crossbowSprite, bootsSprite, topSensor, bottomSensor, enemySensor);
         CameraScript cs = new CameraScript(this, new Vector(WIDTH /2, HEIGHT /2));
         ScriptComponent scriptComponent = new ScriptComponent(this);
         scriptComponent.add(pc);
