@@ -146,10 +146,12 @@ abstract public class Level extends Scene {
         addEntity(new TimerEntity(timerLoc, 0));
 
         // Reset the player
+        playerEntity.setScene(this);
         PlayerEntity player = getPlayer();
         player.resetPlayerSprites();
         player.resetPlayerScript();
         checkpoint = spawnPoint.getTransform();
+        respawnPlayer();
 
         // Reset the checkpoints
         getEntities(CheckpointEntity.class).stream().map((c) -> ((CheckpointEntity)c)).forEach((c) -> c.setEntered(false));

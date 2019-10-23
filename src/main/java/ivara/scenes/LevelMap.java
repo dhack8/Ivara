@@ -25,7 +25,7 @@ public class LevelMap extends Scene {
     private PlayerEntity playerEntity;
 
     public LevelMap(PlayerEntity playerEntity){
-        this.playerEntity = playerEntity;
+        this.playerEntity = new PlayerEntity(0,0);
 
         Camera c = new Camera();
         setCamera(c);

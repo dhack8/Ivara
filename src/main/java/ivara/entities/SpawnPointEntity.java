@@ -13,6 +13,7 @@ public class SpawnPointEntity extends GameEntity {
     private static final float WIDTH = 1f;
     private static final float HEIGHT = 1f;
     private final static int ANIMATION_RATE = 1000;
+    private final float Y_OFFSET = 0.5f;
 
     public SpawnPointEntity(float x, float y) {
         super(new Vector(x,y));
@@ -37,7 +38,7 @@ public class SpawnPointEntity extends GameEntity {
          * @param frameTick The update tick delay.
          */
         private FlagSprite(Vector dimensions, int frameTick){
-            super(new Vector(0,0), dimensions, frameTick);
+            super(new Vector(0,Y_OFFSET), dimensions, frameTick);
 
             String state = "normal";
             String[] resources = new String[]{
