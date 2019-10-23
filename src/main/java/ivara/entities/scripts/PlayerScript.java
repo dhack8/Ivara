@@ -105,6 +105,7 @@ public class PlayerScript implements Script{
     private static final float metresPerSecond = 3.5f; // Movement speed
     private static final float jump = -9f; // Y-velocity on jump
 
+    private final Sensor topSensor; // Sensor for detecting what is above the player
     private final Sensor bottomSensor; // Sensor for detecting what is under the player
     private final Sensor enemySensor; // Sensor for detecting any enemy above the position of the feet
 
@@ -141,11 +142,12 @@ public class PlayerScript implements Script{
      * @param sprite The player sprite to alter with the script.
      * @param enemySensor The sensor that detects an enemy collision.
      */
-    public PlayerScript(PlayerEntity playerEntity, PlayerEntity.PlayerSprite sprite, PlayerEntity.CrossbowSprite crossbowSprite, PlayerEntity.BootsSprite bootsSprite, Sensor bottomSensor, Sensor enemySensor) {
+    public PlayerScript(PlayerEntity playerEntity, PlayerEntity.PlayerSprite sprite, PlayerEntity.CrossbowSprite crossbowSprite, PlayerEntity.BootsSprite bootsSprite, Sensor topSensor, Sensor bottomSensor, Sensor enemySensor) {
         this.playerEntity = playerEntity;
         this.sprite = sprite;
         this.crossbowSprite = crossbowSprite;
         this.bootsSprite = bootsSprite;
+        this.topSensor = topSensor;
         this.bottomSensor = bottomSensor;
         this.enemySensor = enemySensor;
         relative = new Vector(0f,0f);
@@ -164,10 +166,14 @@ public class PlayerScript implements Script{
             handleEnemy(sensorHandler, entity);
         };
 
-        //Bottom sensor detection
+        //Top and bottom sensor detection
         if (sensorHandler.isActive(bottomSensor)) {
             handleOnGround(vComp, sensorHandler, entity);
-        }else {
+        }
+        else if (sensorHandler.isActive(topSensor)) {
+            handleOnCeiling(vComp);
+        }
+        else {
             handleAirborne();
         }
 
@@ -281,6 +287,14 @@ public class PlayerScript implements Script{
         }else if(collided instanceof ImmortalEnemy){ // If the enemy can't die, kill the player
             respawnPlayer(player);
         }
+    }
+
+    /**
+     * Handles what happens when the player is in contact with a block above him.
+     * @param vComp The velocity component of the player.
+     */
+    private void handleOnCeiling(VelocityComponent vComp) {
+        vComp.setY(0f); // Set Y velocity to relative velocity regardless
     }
 
     /**

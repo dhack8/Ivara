@@ -413,7 +413,7 @@ public class PlatformEntity extends GameEntity {
 
         private final float time; // Time taken to move from one place to another
         private static final float THRESHOLD = 0.01f; // The threshold used to check if the entity is at a target position
-        private static final int PAUSE_TIME = 500;
+        private static final int PAUSE_TIME = 800;
 
         /**
          * Constructs a MoveScript to give to an entity.

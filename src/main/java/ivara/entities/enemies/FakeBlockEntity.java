@@ -59,7 +59,7 @@ public class FakeBlockEntity extends GameEntity implements Removable {
         addComponent(sc);
 
         // Sensors
-        Vector SensorTopLeft = new Vector(SENSOR_PADDING, 0);
+        Vector SensorTopLeft = new Vector(SENSOR_PADDING, -SENSOR_PADDING);
         Vector sensorDimension = new Vector(dimension.x-SENSOR_PADDING*2, SENSOR_HEIGHT);
         Sensor top = new Sensor(new AABBCollider(AABBCollider.MIN_DIM, SensorTopLeft, sensorDimension));
         SensorTopLeft = new Vector(SENSOR_PADDING, dimension.y-SENSOR_HEIGHT);
