@@ -18,7 +18,7 @@ public class HighscoreScene extends Scene {
 
 
         addEntity(new BackgroundEntity(new ResourceID("background-sea")));
-        addEntity(new BackgroundEntity(new ResourceID("store")));
+        addEntity(new BackgroundEntity(new ResourceID("highscore-board")));
 
         setCamera(c);
         HighscoresEntity hse = new HighscoresEntity(new Vector(0,0), level);

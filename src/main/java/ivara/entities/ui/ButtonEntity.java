@@ -8,6 +8,8 @@ import core.input.Constants;
 import core.input.InputHandler;
 import core.scene.SceneUtils;
 import core.struct.AnimatedSprite;
+import kuusisto.tinysound.Sound;
+import kuusisto.tinysound.TinySound;
 import maths.Vector;
 import physics.AABBCollider;
 import physics.Collider;
@@ -18,6 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ButtonEntity extends GameEntity {
+
+    private static final Sound playerWin = TinySound.loadSound("button.wav");
 
     private static final String IDLE = "idle";
     private static final String HOVER = "hover";
@@ -113,6 +117,7 @@ public class ButtonEntity extends GameEntity {
      * Notifies listeners of an event occuring.
      */
     private void broadcastClick() {
+        playerWin.play();
         listeners.forEach((l) -> l.onClick());
     }
 

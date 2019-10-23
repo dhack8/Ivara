@@ -46,7 +46,7 @@ public class LevelInfoEntity extends GameEntity {
     public static final Vector REWARD_DESC_DIMEN = new Vector(6.625f, 1.725f);
     private static final int REWARD_DESC_FONT_SIZE = 20;
 
-    public static final Vector WARNING_LOCATION = new Vector(2.95f, 12f);
+    public static final Vector WARNING_LOCATION = new Vector(2.95f, 11.8f);
     private static final int WARNING_FONT_SIZE = 20;
 
     private static final int LABEL_FONT_SIZE = 20;
@@ -101,7 +101,7 @@ public class LevelInfoEntity extends GameEntity {
         text.add(REWARD_TITLE_LOCATION, "Rewards", REWARD_TITLE_FONT_SIZE);
         text.add(new Text(REWARD_DESC_LOCATION, REWARD_DESC_DIMEN, REWARD_DESC_FONT_SIZE, level.getRewardDescription()));
 
-        if(!canPlay) text.add(WARNING_LOCATION, "Play levels up to this level to play", WARNING_FONT_SIZE);
+        if(!canPlay) text.add(WARNING_LOCATION, "Complete levels up to this level to play", WARNING_FONT_SIZE);
 
         infoSprite.setState(level.getMedalLevel());
         playButton.setActive(canPlay);
