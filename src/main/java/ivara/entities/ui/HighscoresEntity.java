@@ -55,12 +55,10 @@ public class HighscoresEntity extends GameEntity {
             if(highscores.isEmpty()){
                 if (HIGHSCORE_CACHE.containsKey(levelName)) {
                     highscores = HIGHSCORE_CACHE.get(levelName);
-                }else {
-
                 }
             }
 
-            if(loaded || (attempts >= MAX_RETRY_ATTEMPTS && canRetry)) return;
+            if(loaded || !canRetry || attempts >= MAX_RETRY_ATTEMPTS) return;
 
             canRetry = false;
 
@@ -79,6 +77,7 @@ public class HighscoresEntity extends GameEntity {
             }, (t) -> {
                 t.printStackTrace();
                 canRetry = true;
+
             });
 
             attempts++;
