@@ -38,17 +38,7 @@ public class PauseMenu extends Scene {
         addEntity(new ButtonEntity(getButtonPosition(1), BUTTON_DIMEN, "resume")
                 .addListener(() -> getGame().pause()));
 
-        addEntity(new ButtonEntity(getButtonPosition(2), BUTTON_DIMEN, "save")
-                .addListener(() -> {
-                    saveSound.play();
-                    getGame().save();
-                    getGame().pause();
-                }));
-
-        addEntity(new ButtonEntity(getButtonPosition(3), BUTTON_DIMEN, "load")
-                .addListener(() -> getGame().load()));
-
-        addEntity(new ButtonEntity(getButtonPosition(4), BUTTON_DIMEN, "restart")
+        addEntity(new ButtonEntity(getButtonPosition(3), BUTTON_DIMEN, "restart")
                 .addListener(() -> {
                     ((Level)getGame().getLevelManager().getCurrentActiveScene()).resetScene();
                     getGame().pause();
