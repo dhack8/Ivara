@@ -42,7 +42,6 @@ public class StartMenu extends Scene{
 
         addEntity(new ButtonEntity(getButtonPosition(3), BUTTON_DIMEN, "quit")
                 .addListener(() -> {
-                    getGame().save();
                     getGame().getWindow().exit();
                 }));
 
