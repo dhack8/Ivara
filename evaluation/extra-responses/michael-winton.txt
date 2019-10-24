@@ -1,0 +1,11 @@
+Coins respawning should be a thing.
+
+Identified that jumping on slimes is a method to kill.
+
+Focus is drawn to the items.
+
+Vegetation and enemies are hard to distinguish.
+
+Threatening look to the enemies needed.
+
+World map more animated: moving water, pathfinding Pablo.

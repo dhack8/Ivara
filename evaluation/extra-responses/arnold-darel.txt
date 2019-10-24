@@ -1,0 +1,33 @@
+Tried using escape to close inputs.
+
+Likes that you can see what the level is about.
+
+Tries to use arrow keys to switch through levels.
+
+Explores the level info and times.
+
+Wants coins that are inaccessible.
+
+No pop up for dying. Little jarring
+
+Where are all the coins.
+
+Didn't know that he always had arrows. Wasn't clear they unlocked after the level.
+
+Timer keeps going if you died which is why you don't have a "you died" screen.
+
+Checks high scores.
+
+Discoverde mid air jumps if you fall on his own.
+
+When coins are cleared, not sure why there are "pointless" areas.
+
+Just discovered pause screen.
+
+Tried to shoot snakes to no avail.
+
+End flag not obvious.
+
+Bought stacy after clicking snowman.
+
+Discovered level replayability with double jumps.
