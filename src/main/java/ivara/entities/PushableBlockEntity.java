@@ -52,7 +52,7 @@ public class PushableBlockEntity extends GameEntity implements Removable{
         addComponent(new ColliderComponent(this, new AABBCollider(AABBCollider.MIN_DIM, topLeft, dimension)));
 
         // Sprite
-        addComponent(new SpriteComponent(this, new Sprite(new ResourceID(theme + "-middle"), new Vector(0,0), dimension)));
+        addComponent(new SpriteComponent(this, new Sprite(new ResourceID(theme + "-pushable-block"), new Vector(0,0), dimension)));
 
         // Sensor
         Vector sensorDimension = new Vector(dimension.x-SENSOR_PADDING*2, SENSOR_HEIGHT + EXTRA_SENSOR_HEIGHT);
