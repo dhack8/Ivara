@@ -31,8 +31,8 @@ public class DoubleJump2 extends Level {
         addEntity(new CheckpointEntity(21, 23));
 
         // Flag
-//        addEntity(new LevelEndEntity(1, 26));
-        addEntity(new LevelEndEntity(5, 17));
+        addEntity(new LevelEndEntity(1, 26));
+
         // Platforms
         addEntity(new PlatformEntity("alien", new Vector(24,1)));
         addEntity(new PlatformEntity("alien", new Vector(30,1),2,false));
