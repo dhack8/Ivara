@@ -20,7 +20,7 @@ public class DoubleJump3 extends Level {
                 "Double & Beyond",
                 "At the end of the northern path, Pablo discovered an enormous alien facility. Outside the facility, there were large obstacle courses. These were set up to test another advanced feature of the boots. Pablo travelled towards the back of the facility. As he moved around he discovered a trash heap of discarded boot augmentations. Pablo's boots now have bigger batteries.",
                 "Pablo's rocket boots can now provide a third small jump.",
-                120, 60, 40
+                140, 120, 100
         );
 
         // Player
@@ -36,7 +36,7 @@ public class DoubleJump3 extends Level {
         addEntity(new PlatformEntity("alien", new Vector(40,1),9,true));
         addEntity(new PlatformEntity("alien", new Vector(29,5),9,false));
         addEntity(new PlatformEntity("alien", new Vector(4,8),8,false));
-        addEntity(new PlatformEntity("alien", new Vector(15,8),12,false));
+        addEntity(new PlatformEntity("alien", new Vector(16,8),11,false));
         addEntity(new PlatformEntity("alien", new Vector(29,8)));
         addEntity(new PlatformEntity("alien", new Vector(4,9),12,true));
         addEntity(new PlatformEntity("alien", new Vector(26,9),3,true));
