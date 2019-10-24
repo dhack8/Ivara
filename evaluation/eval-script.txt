@@ -1,20 +1,20 @@
 0. Remind that this is user testing and we will ask for their thoughts afterwards.
 1. They put their name in.
-2. Breifly outline the world map and the skill system.
+2. Briefly outline the world map and the skill system.
 	- They can play the levels in any valid order.
 	- Each level has a different upgrade achieved after finishing it.
 	- Some levels may have sections that the player cannot reach on the first time they play the level.
 	- Levels can be replayed with upgrades ... hint hint.
 3. Encourage them to explore the level map and upgrades.
 	- Level info has story blurbs.
-3. Breifly get them to look at the store.
+3. Briefly get them to look at the store.
 	- You get coins in the levels.
 4. Point out the 4 levels they can play, initial level then top 3 double jump levels.
 5. Encourage them to look around further if they want.
 6. Start initial level, WASD to move.
 7. After playing first level let them explore the leaderboard.
-8. They can replay levels if they wnat to get medals or leaderboard rankings.
-9. Guide them to last test level, if they want to buy charaters along they way or replay levels let them.
+8. They can replay levels if they want to get medals or leaderboard rankings.
+9. Guide them to last test level, if they want to buy characters along they way or replay levels let them.
 10. Stress that they only played a small section, one path of the game.
 10. Provide Google form after completion of the last double jump level.
 11. After they fill out the form ask them about their answers and take notes.
