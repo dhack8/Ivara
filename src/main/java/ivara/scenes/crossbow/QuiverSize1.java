@@ -4,6 +4,8 @@ import core.struct.Camera;
 import core.struct.ResourceID;
 import core.struct.Text;
 import ivara.entities.*;
+import ivara.entities.enemies.BarnacleEntity;
+import ivara.entities.enemies.GhostEntity;
 import ivara.entities.enemies.SlimeEntity;
 import ivara.entities.enemies.SquigglyEntity;
 import ivara.entities.ui.BasicTextEntity;
@@ -21,79 +23,50 @@ public class QuiverSize1 extends Level {
                 120, 60, 40
         );
 
-        // Player spawn
-        addEntity(new SpawnPointEntity(2,0.5f));
-
-        // Text
-        addEntity(new BasicTextEntity(new Vector(3,-0.9f), new Text(20, "These slimes look aggressive!\nMaybe a airborne assault will work...")));
-
-        // Checkpoints
-        addEntity(new CheckpointEntity(27, 21));
+        // Player
+        addEntity(new SpawnPointEntity(5,0.5f));
 
         // Flag
-        addEntity(new LevelEndEntity(10, 1));
+        addEntity(new LevelEndEntity(26, 4));
 
         // Platforms
-        addEntity(new PlatformEntity(new Vector(1,2),5,false));
-        addEntity(new PlatformEntity(new Vector(7,2),6,false));
-        addEntity(new PlatformEntity(new Vector(44,8),4,false));
-        addEntity(new PlatformEntity(new Vector(43,9)));
-        addEntity(new PlatformEntity(new Vector(48,9)));
-        addEntity(new PlatformEntity(new Vector(42,10)));
-        addEntity(new PlatformEntity(new Vector(49,10),2,true));
-        addEntity(new PlatformEntity(new Vector(41,11)));
-        addEntity(new PlatformEntity(new Vector(40,12)));
-        addEntity(new PlatformEntity(new Vector(50,12)));
-        addEntity(new PlatformEntity(new Vector(39,13)));
-        addEntity(new PlatformEntity(new Vector(51,13),2,true));
-        addEntity(new PlatformEntity(new Vector(38,14)));
-        addEntity(new PlatformEntity(new Vector(37,15)));
-        addEntity(new PlatformEntity(new Vector(52,15),2,true));
-        addEntity(new PlatformEntity(new Vector(34,16),3,false));
-        addEntity(new PlatformEntity(new Vector(33,17)));
-        addEntity(new PlatformEntity(new Vector(53,17)));
-        addEntity(new PlatformEntity(new Vector(32,18)));
-        addEntity(new PlatformEntity(new Vector(54,18)));
-        addEntity(new PlatformEntity(new Vector(31,19)));
-        addEntity(new PlatformEntity(new Vector(55,19),8,false));
-        addEntity(new PlatformEntity(new Vector(30,20)));
-        addEntity(new PlatformEntity(new Vector(13,21),3,false));
-        addEntity(new PlatformEntity(new Vector(29,21)));
-        addEntity(new PlatformEntity(new Vector(26,22),3,false));
-        addEntity(new PlatformEntity(new Vector(10,25),9,false));
+        addEntity(new PlatformEntity("plains", new Vector(4,2),3,false));
+        addEntity(new PlatformEntity("plains", new Vector(9,2)));
+        addEntity(new PlatformEntity("plains", new Vector(12,2),3,false));
+        addEntity(new PlatformEntity("plains", new Vector(16,2),2,false));
+        addEntity(new PlatformEntity("plains", new Vector(19,2),2,false));
+        addEntity(new PlatformEntity("plains", new Vector(22,2),5,false));
+        addEntity(new PlatformEntity("plains", new Vector(0,4),2,false));
+        addEntity(new PlatformEntity("plains", new Vector(11,5),16,false));
+        addEntity(new PlatformEntity("plains", new Vector(4,6),7,false));
 
         // Moving Platforms
-        addEntity(new PlatformEntity(new Vector(19,25),3,false,new Vector(23,22),3)); // TODO: Fill in end position and duration
+        addEntity(new PlatformEntity("plains", new Vector(18,0),2,true,new Vector(18,3),3)); // TODO: Fill in end position and duration
+        addEntity(new PlatformEntity("plains", new Vector(15,3),2,true,new Vector(15,0),3)); // TODO: Fill in end position and duration
+        addEntity(new PlatformEntity("plains", new Vector(21,3),2,true,new Vector(21,0),3)); // TODO: Fill in end position and duration
 
         // Coins
-        addEntity(new CoinEntity(getPlayer(), new Vector(6, 1), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(14, 3), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(43, 7), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(48, 7), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(14, 9), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(51, 10), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(14, 15), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(33, 15), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(54, 15), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(55, 18), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(57, 18), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(13, 20), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(15, 20), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(0, 3), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(1, 3), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(14, 4), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(17, 4), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(20, 4), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(5, 5), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(7, 5), true));
 
-        // Snakes
-        addEntity(new SquigglyEntity(new Vector(46,6.5f)));
-        addEntity(new SquigglyEntity(new Vector(10,23.5f)));
-        addEntity(new SquigglyEntity(new Vector(18,23.5f)));
+        // Ghosts
+        addEntity(new GhostEntity(new Vector(19,0), getPlayer()));
+        addEntity(new GhostEntity(new Vector(14,1), getPlayer()));
 
-        // Slimes
-        addEntity(new SlimeEntity(new Vector(12,1)));
-        addEntity(new SlimeEntity(new Vector(35,15)));
-        addEntity(new SlimeEntity(new Vector(56,18)));
-        addEntity(new SlimeEntity(new Vector(59,18)));
+        // Barnacles
+        addEntity(new BarnacleEntity(new Vector(9,1), BarnacleEntity.Direction.NORTH, true));
+        addEntity(new BarnacleEntity(new Vector(8,2), BarnacleEntity.Direction.WEST, true));
+        addEntity(new BarnacleEntity(new Vector(10,2), BarnacleEntity.Direction.EAST, true));
+        addEntity(new BarnacleEntity(new Vector(9,3), BarnacleEntity.Direction.SOUTH, true));
 
-        //DEFAULT---
-        addEntity(new BackgroundEntity(new ResourceID("background")));
-        addEntity(new DeathLineEntity(42));
+        // Default Scripts
+        addEntity(new BackgroundEntity(new ResourceID("background-sunrise")));
+        addEntity(new DeathLineEntity(17));
         setCamera(new Camera());
         super.startScene();
     }

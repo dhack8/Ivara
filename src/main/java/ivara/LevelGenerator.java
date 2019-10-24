@@ -404,7 +404,7 @@ public class LevelGenerator {
     }
 
     private static String ghost(int x, int y) {
-        return codeLine("addEntity(new GhostEntity(new Vector("+x+","+y+"), player));");
+        return codeLine("addEntity(new GhostEntity(new Vector("+x+","+y+"), getPlayer()));");
     }
 
     private static String checkPoint(int x, int y) {
