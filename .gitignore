@@ -31,7 +31,6 @@ gradle/wrapper/gradle-wrapper.properties
 # Package Files #
 *.war
 *.ear
-*.zip
 *.tar.gz
 *.rar
 
