@@ -20,7 +20,7 @@ import java.io.Serializable;
  */
 public class PushableBlockEntity extends GameEntity implements Removable{
 
-    private final static float WIDTH = 1f;
+    private final static float WIDTH = 0.9f;
     private final static float HEIGHT = 1f;
     
     private final static float SENSOR_PADDING = 0.05f;

@@ -24,24 +24,25 @@ public class DoubleJump3 extends Level {
         );
 
         // Player
-        addEntity(new SpawnPointEntity(28,14.5f));
+        addEntity(new SpawnPointEntity(27,14.5f));
 
         // Flag
-        addEntity(new LevelEndEntity(39, 15));
+        addEntity(new LevelEndEntity(42, 15));
 
         // Platforms
         addEntity(new PlatformEntity("alien", new Vector(0,0),41,false));
         addEntity(new PlatformEntity("alien", new Vector(0,1),30,true));
         addEntity(new PlatformEntity("alien", new Vector(19,1),8,true));
-        addEntity(new PlatformEntity("alien", new Vector(40,1),16,true));
+        addEntity(new PlatformEntity("alien", new Vector(40,1),9,true));
         addEntity(new PlatformEntity("alien", new Vector(29,5),9,false));
         addEntity(new PlatformEntity("alien", new Vector(4,8),8,false));
         addEntity(new PlatformEntity("alien", new Vector(15,8),12,false));
         addEntity(new PlatformEntity("alien", new Vector(29,8)));
         addEntity(new PlatformEntity("alien", new Vector(4,9),12,true));
         addEntity(new PlatformEntity("alien", new Vector(26,9),3,true));
-        addEntity(new PlatformEntity("alien", new Vector(32,9),9,false));
+        addEntity(new PlatformEntity("alien", new Vector(32,9),12,false));
         addEntity(new PlatformEntity("alien", new Vector(32,10),2,true));
+        addEntity(new PlatformEntity("alien", new Vector(43,10),7,true));
         addEntity(new PlatformEntity("alien", new Vector(25,11),2,false));
         addEntity(new PlatformEntity("alien", new Vector(31,11),2,false));
         addEntity(new PlatformEntity("alien", new Vector(5,12),15,false));
@@ -49,17 +50,21 @@ public class DoubleJump3 extends Level {
         addEntity(new PlatformEntity("alien", new Vector(12,13),12,true));
         addEntity(new PlatformEntity("alien", new Vector(30,13),2,false));
         addEntity(new PlatformEntity("alien", new Vector(7,16),3,false));
-        addEntity(new PlatformEntity("alien", new Vector(14,16),16,false));
-        addEntity(new PlatformEntity("alien", new Vector(38,16),3,false));
+        addEntity(new PlatformEntity("alien", new Vector(16,16),15,false));
+        addEntity(new PlatformEntity("alien", new Vector(32,16),3,true));
+        addEntity(new PlatformEntity("alien", new Vector(34,16),3,true));
+        addEntity(new PlatformEntity("alien", new Vector(41,16),3,false));
+        addEntity(new PlatformEntity("alien", new Vector(13,17)));
+        addEntity(new PlatformEntity("alien", new Vector(16,17)));
         addEntity(new PlatformEntity("alien", new Vector(26,17),4,true));
-        addEntity(new PlatformEntity("alien", new Vector(29,17),2,true));
-        addEntity(new PlatformEntity("alien", new Vector(38,17),4,true));
+        addEntity(new PlatformEntity("alien", new Vector(30,17),2,true));
+        addEntity(new PlatformEntity("alien", new Vector(41,17),4,true));
         addEntity(new PlatformEntity("alien", new Vector(11,18),2,false));
-        addEntity(new PlatformEntity("alien", new Vector(30,18),3,false));
-        addEntity(new PlatformEntity("alien", new Vector(32,19),2,true));
+        addEntity(new PlatformEntity("alien", new Vector(31,18),5,false));
+        addEntity(new PlatformEntity("alien", new Vector(35,19),2,true));
         addEntity(new PlatformEntity("alien", new Vector(9,20)));
         addEntity(new PlatformEntity("alien", new Vector(13,20),12,false));
-        addEntity(new PlatformEntity("alien", new Vector(33,20),6,false));
+        addEntity(new PlatformEntity("alien", new Vector(36,20),6,false));
         addEntity(new PlatformEntity("alien", new Vector(11,22),2,false));
         addEntity(new PlatformEntity("alien", new Vector(11,23),2,false));
         addEntity(new PlatformEntity("alien", new Vector(4,24),13,false));
@@ -76,7 +81,8 @@ public class DoubleJump3 extends Level {
         addEntity(new FakeBlockEntity("alien", new Vector(13, 11)));
         addEntity(new FakeBlockEntity("alien", new Vector(21, 14)));
         addEntity(new FakeBlockEntity("alien", new Vector(21, 15)));
-        addEntity(new FakeBlockEntity("alien", new Vector(13, 16)));
+        addEntity(new FakeBlockEntity("alien", new Vector(14, 17)));
+        addEntity(new FakeBlockEntity("alien", new Vector(15, 17)));
 
         // Pushable Blocks
         addEntity(new PushableBlockEntity("alien",36,4));
@@ -101,9 +107,9 @@ public class DoubleJump3 extends Level {
         addEntity(new CoinEntity(getPlayer(), new Vector(6, 11), true));
         addEntity(new CoinEntity(getPlayer(), new Vector(8, 11), true));
         addEntity(new CoinEntity(getPlayer(), new Vector(10, 11), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(35, 15), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(37, 15), true));
-        addEntity(new CoinEntity(getPlayer(), new Vector(33, 16), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(38, 15), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(40, 15), true));
+        addEntity(new CoinEntity(getPlayer(), new Vector(36, 16), true));
         addEntity(new CoinEntity(getPlayer(), new Vector(2, 17), true));
         addEntity(new CoinEntity(getPlayer(), new Vector(23, 17), true));
         addEntity(new CoinEntity(getPlayer(), new Vector(24, 17), true));
@@ -122,11 +128,11 @@ public class DoubleJump3 extends Level {
 
         // Barnacles
         addEntity(new BarnacleEntity(new Vector(38,5), BarnacleEntity.Direction.EAST, true));
-        addEntity(new BarnacleEntity(new Vector(33,19), BarnacleEntity.Direction.NORTH, true));
-        addEntity(new BarnacleEntity(new Vector(34,19), BarnacleEntity.Direction.NORTH, true));
-        addEntity(new BarnacleEntity(new Vector(35,19), BarnacleEntity.Direction.NORTH, true));
         addEntity(new BarnacleEntity(new Vector(36,19), BarnacleEntity.Direction.NORTH, true));
         addEntity(new BarnacleEntity(new Vector(37,19), BarnacleEntity.Direction.NORTH, true));
+        addEntity(new BarnacleEntity(new Vector(38,19), BarnacleEntity.Direction.NORTH, true));
+        addEntity(new BarnacleEntity(new Vector(39,19), BarnacleEntity.Direction.NORTH, true));
+        addEntity(new BarnacleEntity(new Vector(40,19), BarnacleEntity.Direction.NORTH, true));
         addEntity(new BarnacleEntity(new Vector(10,23), BarnacleEntity.Direction.NORTH, true));
         addEntity(new BarnacleEntity(new Vector(1,29), BarnacleEntity.Direction.NORTH, true));
         addEntity(new BarnacleEntity(new Vector(2,29), BarnacleEntity.Direction.NORTH, true));
