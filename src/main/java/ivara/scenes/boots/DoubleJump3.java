@@ -90,10 +90,7 @@ public class DoubleJump3 extends Level {
         addEntity(new PushableBlockEntity("alien",22,7));
         addEntity(new PushableBlockEntity("alien",8,15));
         addEntity(new PushableBlockEntity("alien",23,15));
-        addEntity(new PushableBlockEntity("alien",21,17));
-        addEntity(new PushableBlockEntity("alien",21,18));
         addEntity(new PushableBlockEntity("alien",17,19));
-        addEntity(new PushableBlockEntity("alien",21,19));
 
         // Coins
         addEntity(new CoinEntity(getPlayer(), new Vector(30, 4), true));
