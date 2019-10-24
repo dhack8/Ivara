@@ -40,5 +40,11 @@ gradle build
 gradle run
 ```
 
+### Evaluation
+
+The evaluation of this project has been conducted. The evaluation data can be found in the "evaluation" directory of the repository.
+
+Discussion of the evaluation will be conducted within the individual project reports.
+
 ### Other
 Game assets can be found here https://kenney.nl/assets
